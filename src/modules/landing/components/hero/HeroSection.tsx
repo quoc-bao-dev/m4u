@@ -81,7 +81,7 @@ const HeroSection = () => {
                 <div>
                   {/* Main Heading */}
                   <div className="space-y-4 ">
-                    <h1 className="text-4xl sm:text-6xl lg:text-8xl xl:text-[108px] font-bold">
+                    <h1 className="text-4xl sm:text-6xl lg:text-8xl xl:text-[88px] font-bold">
                       <span className="text-gray-900">Giảm </span>
                       <span className="text-[#FF8092]">50%</span>
                       <span className="text-gray-900"> và</span>
