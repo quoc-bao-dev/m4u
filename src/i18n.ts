@@ -11,6 +11,6 @@ export default getRequestConfig(async ({ locale }): Promise<any> => {
 
   return {
     locale,
-    messages: (await import(`./locale/messages/${locale}.json`)).default,
+    messages: (await import(`../public/locale/${locale}.json`)).default,
   };
 });
