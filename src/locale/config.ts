@@ -7,13 +7,6 @@ export const defaultLocale: Locale = 'vi';
 
 export const localePrefix: LocalePrefix<typeof locales> = 'always';
 
-// Define pathnames for each locale (commented out for shared navigation)
-// export const pathnames = {
-//   '/': '/',
-//   '/about': '/about',
-//   '/contact': '/contact'
-// };
-
 export const localeNames = {
   vi: 'Tiếng Việt',
   en: 'English',
