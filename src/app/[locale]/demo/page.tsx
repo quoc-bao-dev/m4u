@@ -1,34 +1,12 @@
 'use client';
 
-import { useTranslations, useLocale } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import { useRouter } from '@/locale/navigation';
-import { localeNames, locales } from '@/locale/config';
+import { useLanguageSwitch, useNavigate, useTranslation } from '@/locale/hooks';
 
 export default function DemoPage() {
-  const t = useTranslations();
-  const locale = useLocale();
-  const pathname = usePathname();
-  const router = useRouter();
-
-  // Hàm l: trả về đường dẫn với ngôn ngữ hiện tại
-  const l = (path: string) => {
-    if (path.startsWith('/')) {
-      return path;
-    }
-    return `/${path}`;
-  };
-
-  // Hàm chuyển đổi ngôn ngữ
-  const switchLanguage = (targetLocale: string) => {
-    const currentPath = pathname.replace(`/${locale}`, '') || '/';
-    router.push(currentPath, { locale: targetLocale });
-  };
-
-  // Hàm navigate
-  const navigate = (path: string) => {
-    router.push(path);
-  };
+  const { t, l } = useTranslation();
+  const { switchLanguage, currentLocale, availableLocales, localeNames } =
+    useLanguageSwitch();
+  const navigate = useNavigate();
 
   return (
     <div className="container mx-auto p-8">
@@ -55,15 +33,15 @@ export default function DemoPage() {
             useLanguageSwitch Hook Demo
           </h2>
           <p>
-            <strong>Current locale:</strong> {locale}
+            <strong>Current locale:</strong> {currentLocale}
           </p>
           <div className="flex gap-2 mt-2">
-            {locales.map((loc) => (
+            {availableLocales.map((loc) => (
               <button
                 key={loc}
                 onClick={() => switchLanguage(loc)}
                 className={`px-3 py-1 rounded ${
-                  locale === loc
+                  currentLocale === loc
                     ? 'bg-blue-500 text-white'
                     : 'bg-white border border-blue-500 text-blue-500'
                 }`}
