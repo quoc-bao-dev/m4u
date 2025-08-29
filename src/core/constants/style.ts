@@ -9,3 +9,12 @@ export const _text = {
   '4xl': ['text-[28px]', 'md:text-[32px]', 'lg:text-[36px]'],
   '5xl': ['text-[32px]', 'md:text-[36px]', 'lg:text-[48px]'],
 } as const;
+
+/**
+ * Font family constants
+ */
+export const _font = {
+  primary: 'font-primary',
+  sans: 'font-sans',
+  mono: 'font-mono',
+} as const;
