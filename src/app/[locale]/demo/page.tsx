@@ -1,0 +1,98 @@
+'use client';
+
+import { useTranslations, useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { useRouter } from '@/locale/navigation';
+import { localeNames, locales } from '@/locale/config';
+
+export default function DemoPage() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Hàm l: trả về đường dẫn với ngôn ngữ hiện tại
+  const l = (path: string) => {
+    if (path.startsWith('/')) {
+      return path;
+    }
+    return `/${path}`;
+  };
+
+  // Hàm chuyển đổi ngôn ngữ
+  const switchLanguage = (targetLocale: string) => {
+    const currentPath = pathname.replace(`/${locale}`, '') || '/';
+    router.push(currentPath, { locale: targetLocale });
+  };
+
+  // Hàm navigate
+  const navigate = (path: string) => {
+    router.push(path);
+  };
+
+  return (
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-6">{t('common.welcome')}</h1>
+
+      <div className="space-y-6">
+        {/* Demo useTranslation */}
+        <div className="bg-gray-100 p-4 rounded">
+          <h2 className="text-xl font-semibold mb-2">
+            useTranslation Hook Demo
+          </h2>
+          <p>{t('common.home')}</p>
+          <p>
+            <strong>Current text:</strong> {t('common.home')}
+          </p>
+          <p>
+            <strong>Link with l():</strong> {l('/about')}
+          </p>
+        </div>
+
+        {/* Demo useLanguageSwitch */}
+        <div className="bg-blue-100 p-4 rounded">
+          <h2 className="text-xl font-semibold mb-2">
+            useLanguageSwitch Hook Demo
+          </h2>
+          <p>
+            <strong>Current locale:</strong> {locale}
+          </p>
+          <div className="flex gap-2 mt-2">
+            {locales.map((loc) => (
+              <button
+                key={loc}
+                onClick={() => switchLanguage(loc)}
+                className={`px-3 py-1 rounded ${
+                  locale === loc
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-white border border-blue-500 text-blue-500'
+                }`}
+              >
+                {localeNames[loc as keyof typeof localeNames]}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Demo useNavigate */}
+        <div className="bg-green-100 p-4 rounded">
+          <h2 className="text-xl font-semibold mb-2">useNavigate Hook Demo</h2>
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate('/')}
+              className="px-3 py-1 bg-green-500 text-white rounded"
+            >
+              {t('navigation.home')}
+            </button>
+            <button
+              onClick={() => navigate('/about')}
+              className="px-3 py-1 bg-green-500 text-white rounded"
+            >
+              {t('common.about')}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

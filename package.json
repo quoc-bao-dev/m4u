@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "next start -p 4000",
     "lint": "eslint"
   },
   "dependencies": {
     "next": "15.5.2",
+    "next-intl": "^4.3.5",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
