@@ -19,7 +19,7 @@ module.exports = {
   trailingComma: 'es5',
 
   // Tự động thêm dấu chấm phẩy
-  semi: true,
+  semi: false,
 
   // ================== CẤU HÌNH JSX ==================
 
