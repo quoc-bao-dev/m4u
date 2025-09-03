@@ -1,11 +1,13 @@
-import { HeroSection } from '@/modules/landing/components/hero';
+import { HeroSection, IntroduceSection, RewardSection } from '@/modules/landing'
 
 const Page = () => {
   return (
     <main>
       <HeroSection />
+      <IntroduceSection />
+      <RewardSection />
     </main>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
