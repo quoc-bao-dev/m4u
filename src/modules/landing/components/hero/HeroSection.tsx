@@ -75,7 +75,7 @@ const HeroSection = () => {
                 </h1>
 
                 <div className="text-base sm:text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
-                  <p> khi review sản phẩm và</p>
+                  <p>khi review sản phẩm và</p>
                   <p>đăng ký nhóm trải nghiệm</p>
                 </div>
               </div>

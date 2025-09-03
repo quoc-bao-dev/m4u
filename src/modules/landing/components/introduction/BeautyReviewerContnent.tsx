@@ -12,7 +12,7 @@ const BeautyReviewerSection = () => {
           </p>
         </div>
         <div className="">
-          <div className="space-y-2 text-[32px] text-gray-700">
+          <div className="space-y-2 text-[24px] text-gray-700">
             <p className="">
               Biến những trải nghiệm làm đẹp hằng ngày thành thu nhập. Dù bạn là
               sinh viên, nhân viên văn phòng hay nội trợ, hãy để chúng tôi giúp
