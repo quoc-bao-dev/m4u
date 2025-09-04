@@ -21,8 +21,8 @@ const ReviewerAvatar = ({
 }: ReviewerAvatarProps) => {
   const labelContent = (
     <div className="text-center">
-      <h3 className="font-bold text-dark">{name}</h3>
-      <p className="text-dark">{jobTitle}</p>
+      <h3 className="font-bold text-dark text-[10px] lg:text-base">{name}</h3>
+      <p className="text-dark text-[8px] lg:text-sm">{jobTitle}</p>
     </div>
   )
 

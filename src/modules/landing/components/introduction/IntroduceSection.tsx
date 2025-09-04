@@ -1,4 +1,6 @@
-import { BlurCircle, Section } from '@/core/components'
+import { Section } from '@/core/components'
+import { BlurCircle2 } from '@/core/components/animated/blur'
+import BlurCircle1 from '@/core/components/animated/blur/BlurCircle1'
 import BeautyReviewerSection from './BeautyReviewerContnent'
 import ReviewerCarousel from './ReviewerCarousel'
 
@@ -8,7 +10,7 @@ const IntroduceSection = () => {
       <Section
         background={
           <div className="relative z-0">
-            <BlurCircle
+            {/* <BlurCircle
               className="absolute top-[-300px] right-[-30%]"
               variant="v1"
               animation={{
@@ -23,10 +25,15 @@ const IntroduceSection = () => {
               animation={{
                 duration: 1,
               }}
+            /> */}
+            <BlurCircle1
+              className="absolute top-[-200px] right-[-30%]"
+              animation={{
+                duration: 1,
+              }}
             />
-            <BlurCircle
-              className="absolute top-[0%] right-[20%]"
-              variant="v2"
+            <BlurCircle2
+              className="absolute top-[0px] right-[30%]"
               animation={{
                 duration: 1,
               }}
