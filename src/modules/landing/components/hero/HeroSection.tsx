@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useCallback } from 'react'
 import { LiveStreamBadge } from '../badge'
 import { RegisterCTA } from '../cta'
+import AvatarStack from './AvatarStack'
 import HeroBackground from './HeroBackground'
 
 const HeroSection = () => {
@@ -36,24 +37,7 @@ const HeroSection = () => {
               </div>
 
               {/* Avatar Stack */}
-              <div className="flex -space-x-2">
-                {/* Avatar placeholders - replace with actual user avatars */}
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-16 h-16 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center text-gray-600 text-xs font-medium overflow-hidden"
-                  >
-                    <img
-                      src={`/image/reviewer-carousel/image-0${i}.jpg`}
-                      className="w-full h-full object-cover"
-                      alt=""
-                    />
-                  </div>
-                ))}
-                <div className="w-16 h-16 bg-gray-900 rounded-full border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium">
-                  <p className="text-xl font-medium">69</p>
-                </div>
-              </div>
+              <AvatarStack />
             </div>
           </div>
         </Container>
@@ -92,7 +76,7 @@ const HeroSection = () => {
 
         {/* Right Content - Image */}
         <div className="relative h-full">
-          <div className="relative -mt-20 md:mt-0 h-[400px] md:h-[500px] lg:h-full w-full lg:-right-20">
+          <div className="relative -mt-20 md:mt-0 h-[400px] md:h-[600px] lg:h-full  w-full lg:-right-20">
             <Image
               src="/image/hero-baner/image-01.png"
               alt="Hero Banner"
@@ -108,7 +92,7 @@ const HeroSection = () => {
   )
 
   return (
-    <div className="relative lg:h-screen flex flex-col">
+    <div className="relative md:h-screen flex flex-col">
       <div className="flex-1 ">
         <Section background={<HeroBackground />} className="h-full">
           <div className="block lg:hidden pt-24"></div>
@@ -118,7 +102,7 @@ const HeroSection = () => {
           {/* Live Stream Section */}
         </Section>
       </div>
-      <div>
+      <div className="relative z-0">
         <LiveStreamComponent />
       </div>
     </div>
