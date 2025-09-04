@@ -7,16 +7,21 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
 }) => {
   return (
     <div className="w-16 flex flex-col items-center">
-      <div className="relative size-16">
+      <div
+        className="relative size-16 transform-gpu"
+        style={{ willChange: 'transform' }}
+      >
         {/* Rotating gradient ring */}
         <motion.div
           aria-hidden
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full transform-gpu"
           style={{
             background: 'conic-gradient(#ff2d55, #ff375f, #ff2d55)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
           }}
           animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, ease: 'linear', duration: 2 }}
+          transition={{ repeat: Infinity, ease: 'easeOut', duration: 2 }}
         />
         {/* Create ring thickness via mask so center is hollow */}
         <div
@@ -38,20 +43,30 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
             willChange: 'transform, opacity',
             backfaceVisibility: 'hidden',
           }}
-          animate={{ opacity: [0.6, 0], scale: [0.8, 1.05] }}
+          animate={{
+            opacity: [0.6, 0, 0, 0.6],
+            scale: [0.8, 1.05, 0.8, 0.8],
+          }}
           transition={{
             repeat: Infinity,
-            duration: 1.2,
-            ease: 'easeOut',
-            delay: 1.2,
+            duration: 1.6,
+            ease: 'easeInOut',
+            times: [0, 0.5, 0.51, 1],
           }}
         />
         {/* Avatar content with white stroke above ring */}
-        <div className="absolute inset-0 rounded-full border-4 border-red-500 overflow-hidden ">
+        <div
+          className="absolute inset-0 rounded-full border-4 border-red-500 overflow-hidden transform-gpu"
+          style={{ willChange: 'transform' }}
+        >
           <motion.img
             src={src}
             className="size-full object-cover"
             alt={alt}
+            style={{
+              willChange: 'transform, opacity',
+              backfaceVisibility: 'hidden',
+            }}
             initial={{ scale: 1 }}
             animate={{ scale: [1, 1.06, 1] }}
             transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
