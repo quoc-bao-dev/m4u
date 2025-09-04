@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
@@ -11,42 +11,22 @@ const SCROLL_CONFIG = {
   backgroundClass: 'bg-white', // background when scrolled
   defaultClass: 'bg-transparent', // default background
   transitionClass: 'transition-all duration-200 ease-in-out', // smooth transition
-
-  // Rounded corners config
-  roundedCorners: {
-    enabled: true, // enable/disable rounded corners effect
-    maxRadius: 32, // maximum border radius in px
-    minRadius: 0, // minimum border radius in px
-    scrollRange: 100, // scroll range to reach max radius (px)
-    corners: 'bottom-left bottom-right', // which corners to round
-  },
 }
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      setScrollY(currentScrollY)
       setIsScrolled(currentScrollY > SCROLL_CONFIG.threshold)
     }
+
+    handleScroll()
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // Calculate corner radius based on scroll position
-  const getCornerRadius = () => {
-    if (!SCROLL_CONFIG.roundedCorners.enabled) return 0
-
-    const { maxRadius, minRadius, scrollRange } = SCROLL_CONFIG.roundedCorners
-    const progress = Math.min(scrollY / scrollRange, 1)
-    return minRadius + (maxRadius - minRadius) * progress
-  }
-
-  const cornerRadius = getCornerRadius()
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -58,11 +38,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
             ? SCROLL_CONFIG.backgroundClass
             : SCROLL_CONFIG.defaultClass
         }`}
-        style={
-          {
-            '--corner-radius': `${cornerRadius}px`,
-          } as React.CSSProperties
-        }
       >
         <div className="relative z-50">
           <Header />
@@ -77,7 +52,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           <Concave />
         </div>
       </div>
-      <div className="relative z-10 bg-white pb-[30px] -mb-[200px] rounded-b-4xl">
+      <div className="relative z-10 bg-gray-100 pb-[30px] -mb-[200px] rounded-b-4xl">
         {children}
       </div>
       <Footer className="pt-[200px]" />
