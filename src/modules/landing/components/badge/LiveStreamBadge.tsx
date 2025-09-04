@@ -7,7 +7,7 @@ const LiveStreamBadge = () => {
     <div className="relative inline-block">
       {/* Hiệu ứng bum bum - lớp màu đỏ mờ lan rộng và biến mất */}
       <motion.div
-        className="absolute inset-0 rounded-2xl bg-red-500/60"
+        className="absolute inset-0 rounded-2xl bg-red-500/80"
         animate={{
           scaleX: [1, 1.2],
           scaleY: [1, 1.6],
@@ -26,14 +26,15 @@ const LiveStreamBadge = () => {
       />
 
       {/* Nội dung badge - kích thước cố định */}
-      <div className="relative z-10 flex items-center rounded-2xl overflow-hidden">
-        <div className="py-3 px-5 bg-red-500 text-white text-[18px]">LIVE</div>
-        <div className="py-3 px-5 bg-gray-900 text-white text-[18px] flex items-center gap-2">
+      <div className="relative z-10 flex items-center rounded-xl overflow-hidden">
+        <div className="py-2 px-5 bg-red-500 text-white text-[18px] font-medium">
+          LIVE
+        </div>
+        <div className="py-2 px-5 bg-gray-900 text-white text-[18px] flex items-center gap-2">
           <p className="">69</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="26"
+            className="size-6"
             viewBox="0 0 34 26"
             fill="none"
           >

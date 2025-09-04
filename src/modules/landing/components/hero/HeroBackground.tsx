@@ -1,14 +1,41 @@
 'use client'
 
-import React from 'react'
 import { motion } from 'framer-motion'
+
+// Local animation configuration for this component only
+// NOTE: Tốc độ chậm hơn - chỉnh ở đây
+// - Tăng `multiplier` để làm mọi animation chậm hơn
+// - Có thể tinh chỉnh từng duration/delay bên trong `hero`
+const ANIMATION = {
+  // Tăng giá trị này (ví dụ 1.6) để toàn bộ chuyển động chậm lại
+  multiplier: 4,
+  ease: {
+    inOut: 'easeInOut' as const,
+    out: 'easeOut' as const,
+  },
+  hero: {
+    // Có thể tăng nhẹ các duration cơ bản để mượt và chậm hơn
+    containerEnter: 0.7,
+    svgEnter: { duration: 0.95, delay: 0.16 },
+    blobEnter: { duration: 1.2, delay: 0.28 },
+    pathDraw: { duration: 2.6, delay: 0.36 },
+    gradientLoop: 2.6,
+    colorLoop: { duration: 3, delayOffsets: [0, 0.4, 0.8, 1] },
+    gradientSweep: { distance: 960, duration: 7.5 },
+  },
+} as const
 
 const HeroBackground = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: [0.9, 1.05, 1] }}
-      transition={{ duration: 1.4, ease: 'easeOut' }}
+      // Hiển thị màu ngay từ đầu: đặt opacity/scale về trạng thái cuối ngay lập tức
+      initial={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        // duration scaled by global multiplier
+        duration: ANIMATION.hero.containerEnter * ANIMATION.multiplier,
+        ease: ANIMATION.ease.out,
+      }}
       className="absolute inset-0 w-full h-full overflow-hidden"
     >
       <motion.svg
@@ -17,22 +44,36 @@ const HeroBackground = () => {
         fill="none"
         className="w-full h-full"
         preserveAspectRatio="xMidYMid slice"
-        initial={{ y: 100, opacity: 0 }}
+        // Tránh fade-in: hiển thị ngay
+        initial={{ y: 0, opacity: 1 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.8, delay: 0.3, ease: 'easeOut' }}
+        transition={{
+          duration: ANIMATION.hero.svgEnter.duration * ANIMATION.multiplier,
+          delay: ANIMATION.hero.svgEnter.delay,
+          ease: ANIMATION.ease.out,
+        }}
       >
         <motion.g
           filter="url(#filter0_f_17446_539)"
-          initial={{ scale: 0.75, rotate: -2, opacity: 0 }}
+          initial={{ scale: 0.72, rotate: -3, opacity: 0 }}
           animate={{ scale: 1, rotate: 0, opacity: 1 }}
-          transition={{ duration: 2.1, delay: 0.5, ease: 'easeOut' }}
+          transition={{
+            duration: ANIMATION.hero.blobEnter.duration * ANIMATION.multiplier,
+            delay: ANIMATION.hero.blobEnter.delay,
+            ease: ANIMATION.ease.out,
+          }}
         >
           <motion.path
             d="M-53.5004 787.484C-52.0784 1303.63 48.9973 1421.79 885.867 1046.22C1359.21 674.609 1763.76 899.352 2277.03 596.179C1498.98 -37.7671 1258.33 835.712 844.499 805.984C333.605 769.283 127.112 144.116 -53.5004 787.484Z"
             fill="url(#paint0_linear_17446_539)"
-            initial={{ pathLength: 0 }}
+            // Vẽ đầy đủ ngay từ đầu để có màu tức thì
+            initial={{ pathLength: 1 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 3, delay: 0.8, ease: 'easeInOut' }}
+            transition={{
+              duration: ANIMATION.hero.pathDraw.duration * ANIMATION.multiplier,
+              delay: ANIMATION.hero.pathDraw.delay,
+              ease: ANIMATION.ease.inOut,
+            }}
           />
         </motion.g>
         <defs>
@@ -43,9 +84,9 @@ const HeroBackground = () => {
             width="3058.53"
             height="1629.18"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -64,106 +105,89 @@ const HeroBackground = () => {
             x2="1498.44"
             y2="1530.03"
             gradientUnits="userSpaceOnUse"
+            initial={{
+              gradientTransform: `translate(${ANIMATION.hero.gradientSweep.distance} 0)`,
+            }}
             animate={{
-              x1: ['5.08409', '25.08409', '5.08409'],
-              y1: ['419.226', '439.226', '419.226'],
-              x2: ['1498.44', '1518.44', '1498.44'],
-              y2: ['1530.03', '1550.03', '1530.03'],
+              gradientTransform: [
+                `translate(${ANIMATION.hero.gradientSweep.distance} 0)`,
+                `translate(-${ANIMATION.hero.gradientSweep.distance} 0)`,
+              ],
             }}
             transition={{
-              duration: 10,
+              duration:
+                ANIMATION.hero.gradientSweep.duration * ANIMATION.multiplier,
               repeat: Infinity,
-              ease: 'easeInOut',
+              repeatType: 'mirror',
+              ease: ANIMATION.ease.inOut,
             }}
           >
             <motion.stop
               offset="0.0238694"
-              stop-color="#97E6FF"
+              stopColor="#2EA7FF"
               animate={{
-                stopColor: ['#97E6FF', '#8FE0FF', '#97E6FF'],
+                stopColor: ['#2EA7FF', '#97E6FF', '#2EA7FF'],
               }}
               transition={{
-                duration: 5,
+                duration:
+                  ANIMATION.hero.colorLoop.duration * ANIMATION.multiplier,
                 repeat: Infinity,
-                ease: 'easeInOut',
+                repeatType: 'mirror',
+                ease: ANIMATION.ease.inOut,
               }}
             />
             <motion.stop
               offset="0.452463"
-              stop-color="#A690FC"
+              stopColor="#5B50FF"
               animate={{
-                stopColor: ['#A690FC', '#9780FC', '#A690FC'],
+                stopColor: ['#5B50FF', '#A690FC', '#5B50FF'],
               }}
               transition={{
-                duration: 5,
+                duration:
+                  ANIMATION.hero.colorLoop.duration * ANIMATION.multiplier,
                 repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 0.5,
+                ease: ANIMATION.ease.inOut,
+                delay: ANIMATION.hero.colorLoop.delayOffsets[1],
+                repeatType: 'mirror',
               }}
             />
             <motion.stop
               offset="0.762123"
-              stop-color="#FC96BB"
-              stop-opacity="0.46"
+              stopColor="#FF2E90"
+              stopOpacity="0.95"
               animate={{
-                stopColor: ['#FC96BB', '#FF86BB', '#FC96BB'],
-                stopOpacity: [0.46, 0.7, 0.46],
+                stopColor: ['#FF2E90', '#FC96BB', '#FF2E90'],
+                stopOpacity: [0.95, 0.3, 0.95],
               }}
               transition={{
-                duration: 5,
+                duration:
+                  ANIMATION.hero.colorLoop.duration * ANIMATION.multiplier,
                 repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 1,
+                ease: ANIMATION.ease.inOut,
+                delay: ANIMATION.hero.colorLoop.delayOffsets[2],
+                repeatType: 'mirror',
               }}
             />
             <motion.stop
               offset="1"
-              stop-color="#FFC397"
-              stop-opacity="0.28"
+              stopColor="#FF7A2B"
+              stopOpacity="0.7"
               animate={{
-                stopColor: ['#FFC397', '#FFB377', '#FFC397'],
-                stopOpacity: [0.28, 0.5, 0.28],
+                stopColor: ['#FF7A2B', '#FFC397', '#FF7A2B'],
+                stopOpacity: [0.7, 0.18, 0.7],
               }}
               transition={{
-                duration: 5,
+                duration:
+                  ANIMATION.hero.colorLoop.duration * ANIMATION.multiplier,
                 repeat: Infinity,
-                ease: 'easeInOut',
-                delay: 1.5,
+                ease: ANIMATION.ease.inOut,
+                delay: ANIMATION.hero.colorLoop.delayOffsets[3],
+                repeatType: 'mirror',
               }}
             />
           </motion.linearGradient>
         </defs>
       </motion.svg>
-
-      {/* Thêm hiệu ứng floating particles */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 1.5 }}
-      >
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2.5 h-2.5 bg-white/30 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + i * 10}%`,
-            }}
-            animate={{
-              x: [-15, 15, -15],
-              y: [-40, 40, -40],
-              opacity: [0.15, 0.9, 0.15],
-            }}
-            transition={{
-              duration: 4 + i * 0.4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.3,
-            }}
-          />
-        ))}
-      </motion.div>
     </motion.div>
   )
 }
