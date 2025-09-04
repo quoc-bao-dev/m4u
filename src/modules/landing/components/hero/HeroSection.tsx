@@ -1,6 +1,5 @@
 'use client'
 
-import { Header } from '@/core/components'
 import { Container, Section } from '@/core/components/common/group'
 import Image from 'next/image'
 import { useCallback } from 'react'
@@ -15,20 +14,22 @@ const HeroSection = () => {
         <Container>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             {/* Live Stream Badge */}
-            <LiveStreamBadge />
+            <div className="flex justify-center md:block w-full">
+              <LiveStreamBadge />
+            </div>
 
             {/* Members Section */}
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4">
               {/* Member Info */}
-              <div className="text-right">
-                <p className="text-gray-900 text-2xl font-medium">
+              <div className="text-center md:text-right">
+                <p className="text-gray-900 text-2xl font-bold truncate">
                   Thành viên online
                 </p>
-                <p className="text-xl">
-                  <span className="text-[#F5222D] font-semibold">
+                <p className="text-sm md:text-xl ">
+                  <span className="text-[#F5222D] font-bold">
                     69+ mẹ đơn thân
                   </span>{' '}
-                  <span className="text-[#4B5563]">
+                  <span className="text-[#4B5563] truncate">
                     đang tham gia nhóm trải nghiệm
                   </span>
                 </p>
@@ -40,13 +41,17 @@ const HeroSection = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-16 h-16 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center text-gray-600 text-xs font-medium"
+                    className="w-16 h-16 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center text-gray-600 text-xs font-medium overflow-hidden"
                   >
-                    {i}
+                    <img
+                      src={`/image/reviewer-carousel/image-0${i}.jpg`}
+                      className="w-full h-full object-cover"
+                      alt=""
+                    />
                   </div>
                 ))}
-                <div className="w-16 h-16 bg-gray-400 rounded-full border-4 border-white flex items-center justify-center text-white text-sm font-medium">
-                  69
+                <div className="w-16 h-16 bg-gray-900 rounded-full border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium">
+                  <p className="text-xl font-medium">69</p>
                 </div>
               </div>
             </div>
@@ -59,10 +64,10 @@ const HeroSection = () => {
 
   const HeroContent = useCallback(
     () => (
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-12 h-full">
         {/* Left Content */}
         <div className="lg:space-y-8 lg:h-full py-10 lg:py-0">
-          <div className="flex items-center h-full">
+          <div className="flex items-center h-full  -mt-8 md:mt-0">
             <div>
               {/* Main Heading */}
               <div className="space-y-4 ">
@@ -87,7 +92,7 @@ const HeroSection = () => {
 
         {/* Right Content - Image */}
         <div className="relative h-full">
-          <div className="relative h-[500px] lg:h-full w-full lg:-right-20">
+          <div className="relative -mt-20 md:mt-0 h-[400px] md:h-[500px] lg:h-full w-full lg:-right-20">
             <Image
               src="/image/hero-baner/image-01.png"
               alt="Hero Banner"
@@ -104,9 +109,6 @@ const HeroSection = () => {
 
   return (
     <div className="relative lg:h-screen flex flex-col">
-      <div className="absolute top-0 left-0 right-0 z-30">
-        <Header />
-      </div>
       <div className="flex-1 ">
         <Section background={<HeroBackground />} className="h-full">
           <div className="block lg:hidden pt-24"></div>
