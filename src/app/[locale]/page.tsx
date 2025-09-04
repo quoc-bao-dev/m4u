@@ -1,4 +1,7 @@
 import { HeroSection, IntroduceSection, RewardSection } from '@/modules/landing'
+import CommisionSection from '@/modules/landing/components/commision'
+import JoinNow from '@/modules/landing/components/joinNow'
+import Reviewer from '@/modules/landing/components/reviewer'
 
 const Page = () => {
   return (
@@ -6,6 +9,9 @@ const Page = () => {
       <HeroSection />
       <IntroduceSection />
       <RewardSection />
+      <CommisionSection />
+      <JoinNow />
+      <Reviewer />
     </main>
   )
 }
