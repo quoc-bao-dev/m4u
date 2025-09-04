@@ -51,3 +51,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-primary);
 }
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}

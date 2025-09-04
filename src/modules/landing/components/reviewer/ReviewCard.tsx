@@ -2,13 +2,16 @@
 import { Lightning } from '@/icons'
 import { ArrowRightIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import React from 'react'
+import { motion } from 'framer-motion'
+import React, { useEffect, useRef } from 'react'
 
 // Interface định nghĩa props cho ReviewCard
 interface ReviewCardProps {
   // Hình ảnh reviewer
   reviewerImage: string
   reviewerAlt?: string
+  // Video reviewer (ưu tiên hiển thị nếu có)
+  reviewerVideo?: string
   
   // Thông tin sản phẩm
   productImage: string
@@ -29,11 +32,16 @@ interface ReviewCardProps {
   
   // Styling
   className?: string
+  // trạng thái active khi card ở giữa vùng nhìn
+  isActive?: boolean
+  // click vào toàn bộ card
+  onClick?: () => void
 }
 
 const ReviewCard: React.FC<ReviewCardProps> = ({
   reviewerImage,
   reviewerAlt = "reviewer",
+  reviewerVideo,
   productImage,
   productAlt = "product",
   brandName,
@@ -43,18 +51,54 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   participationText,
   buttonText,
   onButtonClick,
-  className = ""
+  className = "",
+  isActive = false,
+  onClick
 }) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
+  // Chỉ phát video khi card active; còn lại tạm dừng và reset
+  useEffect(() => {
+    const vid = videoRef.current
+    if (!vid) return
+    if (isActive) {
+      vid.play().catch(() => {})
+    } else {
+      try {
+        vid.pause()
+      } catch {}
+    }
+  }, [isActive])
+  
   return (
-    <div className={`shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
+    <div onClick={onClick} className={`shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
       {/* Hình ảnh reviewer */}
-      <Image
-        src={reviewerImage}
-        alt={reviewerAlt}
-        width={500}
-        height={500}
-        className="w-[410px] aspect-[410/342] object-cover rounded-t-3xl"
-      />
+      <motion.div
+        className="w-[410px] overflow-hidden rounded-t-3xl"
+        animate={{ height: isActive ? 450 : 342}}
+        transition={{ type: 'spring', stiffness: 140, damping: 18 }}
+      >
+        {reviewerVideo ? (
+          <video
+            ref={videoRef}
+            src={reviewerVideo}
+            className="w-full h-full object-cover"
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            // poster={reviewerImage}
+          />
+        ) : (
+          <Image
+            src={reviewerImage}
+            alt={reviewerAlt}
+            width={500}
+            height={500}
+            className="w-full h-full object-cover"
+          />
+        )}
+      </motion.div>
       
       {/* Nội dung card */}
       <div className="p-5 rounded-b-3xl bg-orange-100 flex gap-3">

@@ -60,7 +60,7 @@ const joinSteps: JoinStep[] = [
 
 const JoinNow = () => {
   return (
-    <div className="bg-gray-100 p-24 flex flex-col gap-10 justify-center items-center">
+    <div className="p-24 flex flex-col gap-10 justify-center items-center">
       <div className="flex flex-col items-center gap-4">
         <h2 className="2xl:text-6xl text-5xl font-bold text-greyscale-700">
           Tham gia ngay,{' '}
