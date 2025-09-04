@@ -127,11 +127,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[14.87%]  2xl:left-[11.86%]  xl:top-[13.87%]  xl:left-[10.86%]`}
+        className={`absolute top-[10%] left-[11%] 2xl:top-[14.87%]  2xl:left-[11.86%]  xl:top-[13.87%]  xl:left-[10.86%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="size-[120px] border-2"
+          imageClassName="size-[40px] xl:size-[120px] border-2"
           src={reviewers[(0 + offset) % reviewers.length].src}
           name={reviewers[(0 + offset) % reviewers.length].name}
           jobTitle={reviewers[(0 + offset) % reviewers.length].jobTitle}
@@ -152,11 +152,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[34.76%] 2xl:left-[23.43%]  xl:top-[20.76%]  xl:left-[22.43%]`}
+        className={`absolute top-[20%] left-[23%] 2xl:top-[34.76%] 2xl:left-[23.43%]  xl:top-[20.76%]  xl:left-[22.43%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="size-[165px] border-4"
+          imageClassName="size-[45px] xl:size-[165px] border-4"
           src={reviewers[(1 + offset) % reviewers.length].src}
           name={reviewers[(1 + offset) % reviewers.length].name}
           jobTitle={reviewers[(1 + offset) % reviewers.length].jobTitle}
@@ -177,11 +177,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[10.05%] 2xl:left-[35.4%]  xl:top-[8.0%]  xl:left-[34.7%]`}
+        className={`absolute top-[10%] left-[35%] 2xl:top-[10.05%] 2xl:left-[35.4%]  xl:top-[8.0%]  xl:left-[34.7%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="2xl:size-[147px] xl:size-[130px] border-2"
+          imageClassName="size-[40px] 2xl:size-[147px] xl:size-[130px] border-2"
           src={reviewers[(2 + offset) % reviewers.length].src}
           name={reviewers[(2 + offset) % reviewers.length].name}
           jobTitle={reviewers[(2 + offset) % reviewers.length].jobTitle}
@@ -202,11 +202,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[16.94%] 2xl:left-[46.19%]  xl:top-[7.94%]  xl:left-[45.49%]`}
+        className={`absolute top-[10%] left-[46%] 2xl:top-[16.94%] 2xl:left-[46.19%]  xl:top-[7.94%]  xl:left-[45.49%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="size-[165px] xl:size-[145px] border-2"
+          imageClassName="size-[40px] 2xl:size-[165px] xl:size-[145px] border-2"
           src={reviewers[(3 + offset) % reviewers.length].src}
           name={reviewers[(3 + offset) % reviewers.length].name}
           jobTitle={reviewers[(3 + offset) % reviewers.length].jobTitle}
@@ -227,11 +227,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[14.10%] 2xl:left-[59.11%]  xl:top-[12.10%]  xl:left-[58.31%]`}
+        className={`absolute top-[10%] left-[59%] 2xl:top-[14.10%] 2xl:left-[59.11%]  xl:top-[12.10%]  xl:left-[58.31%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="2xl:size-[165px] xl:size-[149px] border-2"
+          imageClassName="size-[40px] 2xl:size-[165px] xl:size-[149px] border-2"
           src={reviewers[(4 + offset) % reviewers.length].src}
           name={reviewers[(4 + offset) % reviewers.length].name}
           jobTitle={reviewers[(4 + offset) % reviewers.length].jobTitle}
@@ -252,11 +252,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[44.08%] 2xl:left-[70.67%]  xl:top-[34.98%]  xl:left-[70.17%]`}
+        className={`absolute top-[20%] left-[70%] 2xl:top-[44.08%] 2xl:left-[70.67%]  xl:top-[34.98%]  xl:left-[70.17%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="2xl:size-[140px] xl:size-[120px] border-4"
+          imageClassName="size-[40px] 2xl:size-[140px] xl:size-[120px] border-4"
           src={reviewers[(5 + offset) % reviewers.length].src}
           name={reviewers[(5 + offset) % reviewers.length].name}
           jobTitle={reviewers[(5 + offset) % reviewers.length].jobTitle}
@@ -277,11 +277,11 @@ const ReviewerCarousel = ({
             ? { duration: fadeDuration, ease }
             : { opacity: { duration: 0 }, x: { duration: 0 } }
         }
-        className={`absolute 2xl:top-[15.61%] 2xl:left-[80.83%]  xl:top-[14.61%]  xl:left-[79.83%]`}
+        className={`absolute top-[20%] left-[80%] 2xl:top-[15.61%] 2xl:left-[80.83%]  xl:top-[14.61%]  xl:left-[79.83%]`}
       >
         <ReviewerAvatar
           className=""
-          imageClassName="2xl:size-[143px] xl:size-[133px] border-2"
+          imageClassName="size-[40px] 2xl:size-[143px] xl:size-[133px] border-2"
           src={reviewers[(6 + offset) % reviewers.length].src}
           name={reviewers[(6 + offset) % reviewers.length].name}
           jobTitle={reviewers[(6 + offset) % reviewers.length].jobTitle}
