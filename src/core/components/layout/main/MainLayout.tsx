@@ -1,7 +1,9 @@
 'use client'
 
 import { PropsWithChildren, useEffect, useState } from 'react'
+import { Footer } from '../footer'
 import { Header } from '../header'
+import Concave from './Concave'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -47,9 +49,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const cornerRadius = getCornerRadius()
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
       <div
-        className={`fixed top-0 left-0 right-0 z-30 ${
+        className={`fixed top-0 left-0 right-0 z-50 ${
           SCROLL_CONFIG.transitionClass
         } ${
           isScrolled
@@ -75,28 +77,13 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           <Concave />
         </div>
       </div>
-      {children}
-    </div>
-  )
-}
-
-const Concave = () => {
-  return (
-    <div className="w-full relative">
-      <div className="absolute top-0 left-0">
-        <img
-          src="/image/layout/Subtract.svg"
-          alt=""
-          className="md:w-full w-[34px]"
-        />
+      <div className="relative z-10 bg-white pb-[30px] -mb-[200px] rounded-b-4xl">
+        {children}
       </div>
-      <div className="absolute top-0 right-0">
-        <img
-          src="/image/layout/Subtract.svg"
-          alt=""
-          className="md:w-full w-[34px]"
-          style={{ transform: 'scaleX(-1)' }}
-        />
+      <Footer className="pt-[200px]" />
+
+      <div className="fixed bottom-0 left-0 right-0">
+        <Footer className="pt-[200px]" />
       </div>
     </div>
   )
