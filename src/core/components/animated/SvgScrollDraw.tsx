@@ -128,11 +128,22 @@ const SvgScrollDraw: React.FC<SvgScrollDrawProps> = ({
         })
 
         if (!markerEl || !mainPath) return
-        const len = p * mainLength
-        const pt = mainPath.getPointAtLength(len)
-        const delta = 1
-        const ptNext = mainPath.getPointAtLength(Math.min(len + delta, mainLength))
-        const rad = Math.atan2(ptNext.y - pt.y, ptNext.x - pt.x)
+        // Stabilize orientation using neighbors, but keep position at true end when p=1
+        const epsilon = Math.max(mainLength * 0.001, markerSize * 0.02)
+        const lenTarget = p * mainLength
+        const posLen = Math.min(Math.max(lenTarget, 0), mainLength)
+        const pt = mainPath.getPointAtLength(posLen)
+        const prevPt = mainPath.getPointAtLength(Math.max(posLen - epsilon, 0))
+        const nextPt = mainPath.getPointAtLength(Math.min(posLen + epsilon, mainLength))
+        let dx = nextPt.x - prevPt.x
+        let dy = nextPt.y - prevPt.y
+        if (Math.abs(dx) < 1e-6 && Math.abs(dy) < 1e-6) {
+          // fallback using last small segment
+          const altPrev = mainPath.getPointAtLength(Math.max(posLen - 1, 0))
+          dx = pt.x - altPrev.x
+          dy = pt.y - altPrev.y
+        }
+        const rad = Math.atan2(dy, dx)
         const angle = rad * (180 / Math.PI)
         if (markerType === 'dot') {
           const circle = markerEl as SVGCircleElement

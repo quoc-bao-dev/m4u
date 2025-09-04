@@ -5,7 +5,7 @@ import Reviewer from '@/modules/landing/components/reviewer'
 
 const Page = () => {
   return (
-    <main>
+    <main className='overflow-x-hidden'>
       <HeroSection />
       <IntroduceSection />
       <RewardSection />
