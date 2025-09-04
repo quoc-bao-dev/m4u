@@ -9,7 +9,7 @@ type SectionProps = {
 const Section = ({ children, background, className }: SectionProps) => {
   return (
     <div className={cn('relative', className)}>
-      {background && <div className="absolute inset-0">{background}</div>}
+      {background && <div className="absolute inset-0 ">{background}</div>}
       <div className="relative z-10 h-full">{children}</div>
     </div>
   )

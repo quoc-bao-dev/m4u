@@ -1,11 +1,11 @@
+import ReviewerCarousel from '@/modules/landing/components/introduction/ReviewerCarousel'
+
 const page = () => {
   return (
     <div>
-      <div className="h-screen relative">
-        <div className=""></div>
-      </div>
+      <ReviewerCarousel />
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page
