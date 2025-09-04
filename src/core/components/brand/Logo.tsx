@@ -7,8 +7,6 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ className }) => {
   return (
     <svg
-      width="82"
-      height="80"
       viewBox="0 0 82 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

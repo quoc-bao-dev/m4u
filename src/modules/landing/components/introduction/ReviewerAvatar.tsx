@@ -7,6 +7,7 @@ interface ReviewerAvatarProps {
   name: string
   jobTitle: string
   labelPosition: 'top' | 'bottom'
+  rotateDeg?: number
 }
 
 const ReviewerAvatar = ({
@@ -16,6 +17,7 @@ const ReviewerAvatar = ({
   name,
   jobTitle,
   labelPosition,
+  rotateDeg = 0,
 }: ReviewerAvatarProps) => {
   const labelContent = (
     <div className="text-center">
