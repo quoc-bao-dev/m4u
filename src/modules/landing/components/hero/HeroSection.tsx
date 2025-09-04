@@ -7,6 +7,7 @@ import { LiveStreamBadge } from '../badge'
 import { RegisterCTA } from '../cta'
 import AvatarStack from './AvatarStack'
 import HeroBackground from './HeroBackground'
+import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react'
 
 const HeroSection = () => {
   const LiveStreamComponent = useCallback(
@@ -70,6 +71,22 @@ const HeroSection = () => {
               </div>
               {/* CTA Button */}
               <RegisterCTA className="mt-4" label="Đăng ký trải nghiệm ngay" />
+
+              {/* Arrow Button */}
+              <div className="flex gap-4 items-center relative z-10 top-10">
+                <button className="p-5 rounded-full border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
+                  <ArrowLeftIcon
+                    weight="bold"
+                    className="text-gray-400! size-7 group-hover:scale-110 transition-all duration-300"
+                  />
+                </button>
+                <button className="p-5 rounded-full border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
+                  <ArrowRightIcon
+                    weight="bold"
+                    className="text-gray-400! size-7 group-hover:scale-110 transition-all duration-300"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
       viewBox="0 0 82 80"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={`text-gray-900 ${className}`}
     >
       <path
         d="M59.3744 80C47.681 80 38.1685 70.5497 38.1685 58.9327H43.3264C43.3264 67.7245 50.526 74.8769 59.3756 74.8769C68.2252 74.8769 75.4248 67.7245 75.4248 58.9327V42.6533H80.5827V58.9327C80.5803 70.5497 71.0678 80 59.3744 80Z"
