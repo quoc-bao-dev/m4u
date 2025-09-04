@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 // - Có thể tinh chỉnh từng duration/delay bên trong `hero`
 const ANIMATION = {
   // Tăng giá trị này (ví dụ 1.6) để toàn bộ chuyển động chậm lại
-  multiplier: 4,
+  multiplier: 3,
   ease: {
     inOut: 'easeInOut' as const,
     out: 'easeOut' as const,
