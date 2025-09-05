@@ -1,4 +1,9 @@
-import { HeroSection, IntroduceSection, RewardSection } from '@/modules/landing'
+import {
+  HeroSection,
+  InfluencerSection,
+  IntroduceSection,
+  RewardSection,
+} from '@/modules/landing'
 import CommisionSection from '@/modules/landing/components/commision'
 import Deal from '@/modules/landing/components/deal'
 import Donation from '@/modules/landing/components/donation'
@@ -7,7 +12,7 @@ import Reviewer from '@/modules/landing/components/reviewer'
 
 const Page = () => {
   return (
-    <main className='overflow-x-hidden'>
+    <main className="overflow-x-hidden">
       <HeroSection />
       <IntroduceSection />
       <RewardSection />
@@ -15,7 +20,8 @@ const Page = () => {
       <JoinNow />
       <Reviewer />
       <Deal />
-      <Donation/>
+      <Donation />
+      <InfluencerSection />
     </main>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren, useEffect, useState } from 'react'
+import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
@@ -8,67 +8,77 @@ import Concave from './Concave'
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
   threshold: 10, // px
-  backgroundClass: 'bg-white', // background when scrolled
-  defaultClass: 'bg-transparent', // default background
+  headerHideThreshold: 100, // px - threshold để enable hiệu ứng ẩn/hiện header
+  backgroundOverlayClass: 'bg-white', // background overlay color
   transitionClass: 'transition-all duration-200 ease-in-out', // smooth transition
-
-  // Rounded corners config
-  roundedCorners: {
-    enabled: true, // enable/disable rounded corners effect
-    maxRadius: 32, // maximum border radius in px
-    minRadius: 0, // minimum border radius in px
-    scrollRange: 100, // scroll range to reach max radius (px)
-    corners: 'bottom-left bottom-right', // which corners to round
-  },
+  headerTransitionClass: 'transition-transform duration-300 ease-in-out', // smooth transition for header slide
 }
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      setScrollY(currentScrollY)
+      const scrollDifference = currentScrollY - lastScrollY
+
+      // Cập nhật background khi scroll
       setIsScrolled(currentScrollY > SCROLL_CONFIG.threshold)
+
+      // Nếu là lần load đầu tiên, luôn hiện header và set lastScrollY
+      if (isInitialLoad) {
+        setIsHeaderVisible(true)
+        setLastScrollY(currentScrollY)
+        setIsInitialLoad(false)
+        return
+      }
+
+      // Khi ở đầu trang, luôn hiện header
+      if (currentScrollY <= SCROLL_CONFIG.headerHideThreshold) {
+        setIsHeaderVisible(true)
+      } else {
+        // Chỉ enable hiệu ứng ẩn/hiện header khi scroll qua threshold
+        // Nếu scroll xuống (scrollDifference > 0) và header đang hiện
+        if (scrollDifference > 0 && isHeaderVisible) {
+          setIsHeaderVisible(false)
+        }
+        // Nếu scroll lên (scrollDifference < 0) và header đang ẩn
+        else if (scrollDifference < 0 && !isHeaderVisible) {
+          setIsHeaderVisible(true)
+        }
+      }
+
+      setLastScrollY(currentScrollY)
     }
+
+    handleScroll()
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Calculate corner radius based on scroll position
-  const getCornerRadius = () => {
-    if (!SCROLL_CONFIG.roundedCorners.enabled) return 0
-
-    const { maxRadius, minRadius, scrollRange } = SCROLL_CONFIG.roundedCorners
-    const progress = Math.min(scrollY / scrollRange, 1)
-    return minRadius + (maxRadius - minRadius) * progress
-  }
-
-  const cornerRadius = getCornerRadius()
+  }, [lastScrollY, isHeaderVisible, isInitialLoad])
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <div
-        className={`fixed top-0 left-0 right-0 z-50 ${
-          SCROLL_CONFIG.transitionClass
-        } ${
-          isScrolled
-            ? SCROLL_CONFIG.backgroundClass
-            : SCROLL_CONFIG.defaultClass
-        }`}
-        style={
-          {
-            '--corner-radius': `${cornerRadius}px`,
-          } as React.CSSProperties
-        }
+        className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
+          SCROLL_CONFIG.headerTransitionClass
+        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
       >
+        <div
+          className={`absolute inset-0 ${
+            SCROLL_CONFIG.backgroundOverlayClass
+          } transition-opacity duration-200 ease-in-out ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+
         <div className="relative z-50">
           <Header />
         </div>
 
-        {/* điều chỉnh theo config ở đây */}
         <div
           className={`w-full transition-opacity duration-200 ease-in-out ${
             isScrolled ? 'opacity-100' : 'opacity-0'
@@ -77,7 +87,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           <Concave />
         </div>
       </div>
-      <div className="relative z-10 bg-white pb-[30px] -mb-[200px] rounded-b-4xl">
+      <div className="relative z-10 bg-gray-100 pb-[30px] -mb-[200px] rounded-b-4xl">
         {children}
       </div>
       <Footer className="pt-[200px]" />

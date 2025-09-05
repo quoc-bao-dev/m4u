@@ -7,7 +7,6 @@ interface ReviewerAvatarProps {
   name: string
   jobTitle: string
   labelPosition: 'top' | 'bottom'
-  rotateDeg?: number
 }
 
 const ReviewerAvatar = ({
@@ -17,24 +16,25 @@ const ReviewerAvatar = ({
   name,
   jobTitle,
   labelPosition,
-  rotateDeg = 0,
 }: ReviewerAvatarProps) => {
   const labelContent = (
     <div className="text-center">
-      <h3 className="font-bold text-dark">{name}</h3>
-      <p className="text-dark">{jobTitle}</p>
+      <h3 className="font-bold text-dark text-[7px] lg:text-base">{name}</h3>
+      <p className="text-dark text-[7px] lg:text-sm">{jobTitle}</p>
     </div>
   )
 
   return (
-    <div className={`flex flex-col items-center gap-2 ${className}`}>
+    <div
+      className={`flex flex-col items-center gap-2 aspect-square! ${className}`}
+    >
       {labelPosition === 'top' && labelContent}
-      <div className="relative">
+      <div className="relative ">
         <img
           src={src}
           alt={name}
           className={cn(
-            `size-20 rounded-full object-cover border-4 border-[#BBBEFA] ${imageClassName}`
+            `size-20 aspect-square! rounded-full object-cover border-4 border-[#BBBEFA] ${imageClassName}`
           )}
         />
       </div>

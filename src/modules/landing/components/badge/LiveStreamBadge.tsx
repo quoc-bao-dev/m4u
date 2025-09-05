@@ -26,15 +26,15 @@ const LiveStreamBadge = () => {
       />
 
       {/* Nội dung badge - kích thước cố định */}
-      <div className="relative z-10 flex items-center rounded-xl overflow-hidden">
-        <div className="py-2 px-5 bg-red-500 text-white text-[18px] font-medium">
+      <div className="relative z-10 flex items-center rounded-md md:rounded-xl overflow-hidden">
+        <div className="py-1 md:py-2 px-3 md:px-5 bg-red-500 text-white text-xs md:text-[18px] font-medium">
           LIVE
         </div>
-        <div className="py-2 px-5 bg-gray-900 text-white text-[18px] flex items-center gap-2">
+        <div className="py-1 md:py-2 px-3 md:px-5 bg-gray-900 text-white text-xs md:text-[18px] flex items-center gap-2">
           <p className="">69</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="size-6"
+            className="size-4 md:size-6"
             viewBox="0 0 34 26"
             fill="none"
           >

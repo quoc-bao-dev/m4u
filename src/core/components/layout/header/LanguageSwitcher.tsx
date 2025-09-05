@@ -1,13 +1,14 @@
 'use client'
 
-import { useLanguageSwitch, Language } from '@/locale/hooks/useLanguageSwitch'
-import { useMemo, useState } from 'react'
+import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import Image from 'next/image'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const LanguageSwitcher = () => {
   const { currentLocale, availableLocales, localeNames, switchLanguage } =
     useLanguageSwitch()
   const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
   const currentLabel = useMemo(
     () => localeNames[currentLocale],
@@ -21,6 +22,37 @@ const LanguageSwitcher = () => {
     setIsOpen(false)
   }
 
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null
+      if (
+        containerRef.current &&
+        target &&
+        !containerRef.current.contains(target)
+      ) {
+        setIsOpen(false)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('touchstart', handlePointerDown)
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('touchstart', handlePointerDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isOpen])
+
   // Mapping flags to locales
   const flagMap = {
     vi: '/image/flag/image-01.png',
@@ -29,11 +61,11 @@ const LanguageSwitcher = () => {
   } as const
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="inline-flex items-center gap-3 rounded-full px-4 py-2 text-gray-800 hover:bg-gray-50"
+        className="inline-flex items-center gap-1 md:gap-3 rounded-full md:px-4 py-2 text-gray-800 hover:bg-gray-50"
       >
         <span className="hidden md:block text-base md:text-lg font-medium">
           {currentLabel}
