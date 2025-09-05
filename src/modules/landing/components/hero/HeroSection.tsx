@@ -1,7 +1,6 @@
 'use client'
 
 import { Container, Section } from '@/core/components/common/group'
-import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { useCallback } from 'react'
 import { signify } from 'react-signify'
@@ -22,7 +21,7 @@ const HeroSection = () => {
             <div className="w-full">
               {/* Main Heading */}
               <div className="space-y-4 w-full">
-                <h1 className="text-5xl md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px] font-bold">
+                <h1 className="text-[42px] md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px] font-bold leading-[120%] md:leading-none">
                   <span className="text-gray-900">Giảm </span>
                   <span className="text-[#FF8092]">50%</span>
                   <span className="text-gray-900"> và</span> <br />
@@ -35,30 +34,23 @@ const HeroSection = () => {
                 </div>
               </div>
               {/* CTA Button */}
-              <RegisterCTA className="mt-4" label="Đăng ký trải nghiệm ngay" />
+              <div className="hidden md:block">
+                <RegisterCTA
+                  className="mt-4"
+                  label="Đăng ký trải nghiệm ngay"
+                />
+              </div>
 
-              {/* Arrow Button */}
-              {/* <div className="hidden  md:flex gap-4 items-center relative z-10 top-10">
-                <button className="p-5 rounded-full border bg-gray-300/50 border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
-                  <ArrowLeftIcon
-                    weight="bold"
-                    className="text-gray-100! size-7 group-hover:scale-110 transition-all duration-300"
-                  />
-                </button>
-                <button className="p-5 rounded-full bg-gray-300/50 border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
-                  <ArrowRightIcon
-                    weight="bold"
-                    className="text-gray-100! size-7 group-hover:scale-110 transition-all duration-300"
-                  />
-                </button>
-              </div> */}
+              <div className="block md:hidden">
+                <RegisterCTA className="mt-4" label="Đăng ký ngay" />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Right Content - Image */}
         <div className="relative -mr-10 md:mt-0 h-[367px] md:h-full min-h-0 ">
-          <div className="relative h-full w-full flex justify-end items-end  left-10 -top-30">
+          <div className="relative h-full w-full flex justify-end items-end  left-22 -top-70 md:top-0">
             <Image
               src="/image/hero-baner/image-02.png"
               alt="Hero Banner"
@@ -74,27 +66,30 @@ const HeroSection = () => {
   )
 
   return (
-    <div className="pb-20">
-      <div className="relative h-screen flex flex-col">
-        <div className="flex-1 ">
-          <Section background={<HeroBackground />} className="h-full">
-            {/* <div className="block md:hidden pt-24"></div> */}
-            <Container className="h-full">
-              <HeroContent />
-            </Container>
-            {/* Live Stream Section */}
-          </Section>
+    <>
+      <div className="pb-20">
+        <div className="relative h-screen flex flex-col overflow-hidden">
+          <div className="flex-1 ">
+            <Section background={<HeroBackground />} className="h-full">
+              {/* <div className="block md:hidden pt-24"></div> */}
+              <Container className="h-full">
+                <HeroContent />
+              </Container>
+              {/* Live Stream Section */}
+            </Section>
+          </div>
+          <div className="relative z-0 -mt-70 md:mt-0 ">
+            <LiveStreamComponent />
+          </div>
+
+          <sLiveStreamStatus.HardWrap>
+            {(value) => {
+              return <MobileLiveStreamBar isVisible={value} />
+            }}
+          </sLiveStreamStatus.HardWrap>
         </div>
-        <div className="relative z-0 -mt-30">
-          <LiveStreamComponent />
-        </div>
-        <sLiveStreamStatus.HardWrap>
-          {(value) => {
-            return <MobileLiveStreamBar isVisible={value} />
-          }}
-        </sLiveStreamStatus.HardWrap>
       </div>
-    </div>
+    </>
   )
 }
 

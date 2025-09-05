@@ -20,7 +20,7 @@ const LiveStreamComponent = () => {
 
   return (
     <>
-      <div className="bg-[#FFF0F8] py-2 lg:py-8">
+      <div className="bg-[#FFF0F8] py-2 md:py-8">
         <Container>
           <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-6">
             {/* Live Stream Badge */}
