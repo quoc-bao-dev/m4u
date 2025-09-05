@@ -112,7 +112,7 @@ const ReviewerCarousel = ({
 
   return (
     <div className="py-3 relative">
-      <img src="/image/reviewer-carousel/reviewer-carousel-01.svg" alt="" />
+      <img src="/image/reviewer-carousel/Line.gif" className="-mt-5" alt="" />
       <motion.div
         initial={{ opacity: 1, x: 0 }}
         animate={
