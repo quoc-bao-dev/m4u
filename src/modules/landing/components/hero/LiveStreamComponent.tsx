@@ -20,22 +20,25 @@ const LiveStreamComponent = () => {
 
   return (
     <>
-      <div className="bg-[#FFF0F8] py-6 lg:py-8">
+      <div className="bg-[#FFF0F8] py-2 lg:py-8">
         <Container>
-          <div className="flex flex-col lg:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-6">
             {/* Live Stream Badge */}
-            <div ref={badgeRef} className="flex justify-center md:block w-full">
+            <div
+              ref={badgeRef}
+              className="flex items-center md:justify-start justify-center w-full bg"
+            >
               <LiveStreamBadge />
             </div>
 
             {/* Members Section */}
-            <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
               {/* Member Info */}
               <div className="text-center md:text-right">
-                <p className="text-gray-900 text-2xl font-bold truncate">
+                <p className="text-gray-900 text-lg md:text-xl font-bold truncate">
                   Thành viên online
                 </p>
-                <p className="text-sm md:text-xl ">
+                <p className="text-sm lg:text-lg ">
                   <span className="text-[#F5222D] font-bold">
                     69+ mẹ đơn thân
                   </span>{' '}

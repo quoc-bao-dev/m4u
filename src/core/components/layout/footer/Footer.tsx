@@ -11,10 +11,19 @@ type FooterProps = {
 
 const Footer = ({ className }: FooterProps) => {
   return (
-    <div className={cn(`bg-[#3B82F6] text-white ${className}`)}>
-      <div className="hidden md:block absolute bottom-0 translate-x-1/2">
+    <div className={cn(`bg-[#3B82F6] text-white ${className} overflow-hidden`)}>
+      {/* TOOO: check scroll */}
+      {/* <div className="hidden md:block absolute bottom-[-145px] -translate-x-1/2 left-[50%]">
         <WaterMark />
+      </div> */}
+
+      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center">
+        <div className="-mb-[145px] ">
+          <WaterMark />
+        </div>
       </div>
+
+      <div className=""></div>
       <Container className="py-10 md:py-28">
         <div className="flex flex-col gap-10 md:gap-24">
           {/* Top content */}
@@ -24,12 +33,12 @@ const Footer = ({ className }: FooterProps) => {
               <div className="flex flex-col md:flex-row gap-6">
                 <Logo className="w-14 h-14 text-white" />
                 <div className="flex flex-col gap-2 text-sm md:text-[13px] lg:text-sm opacity-90">
-                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-6">
-                    <span className="">
+                  <div className="flex flex-col md:flex-row md:items-center gap-1 lg:gap-6">
+                    <span className="max-w-[200px]">
                       1901 Thornridge Cir. Shiloh, Hawaii 81063
                     </span>
                     {/* <span className="hidden md:inline-block">•</span> */}
-                    <span>+1 891 989-11-91</span>
+                    <span className="truncate">+1 891 989-11-91</span>
                     {/* <span className="hidden md:inline-block">•</span> */}
                     <a
                       href="mailto:hello@logoipsum.com"

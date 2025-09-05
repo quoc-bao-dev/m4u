@@ -2,7 +2,8 @@ import { Section } from '@/core/components'
 import { BlurCircle2 } from '@/core/components/animated/blur'
 import BlurCircle1 from '@/core/components/animated/blur/BlurCircle1'
 import BeautyReviewerSection from './BeautyReviewerContnent'
-import ReviewerCarousel from './ReviewerCarousel'
+import ReviewerCarousel from './ReviewerCarouselGif'
+// import ReviewerCarousel from './ReviewerCarousel'
 
 const IntroduceSection = () => {
   return (
