@@ -40,16 +40,16 @@ const HeroSection = () => {
 
               {/* Arrow Button */}
               <div className="hidden  md:flex gap-4 items-center relative z-10 top-10">
-                <button className="p-5 rounded-full border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
+                <button className="p-5 rounded-full border bg-gray-300/50 border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
                   <ArrowLeftIcon
                     weight="bold"
-                    className="text-gray-400! size-7 group-hover:scale-110 transition-all duration-300"
+                    className="text-gray-100! size-7 group-hover:scale-110 transition-all duration-300"
                   />
                 </button>
-                <button className="p-5 rounded-full border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
+                <button className="p-5 rounded-full bg-gray-300/50 border border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
                   <ArrowRightIcon
                     weight="bold"
-                    className="text-gray-400! size-7 group-hover:scale-110 transition-all duration-300"
+                    className="text-gray-100! size-7 group-hover:scale-110 transition-all duration-300"
                   />
                 </button>
               </div>
@@ -58,7 +58,7 @@ const HeroSection = () => {
         </div>
 
         {/* Right Content - Image */}
-        <div className="relative  md:mt-0 h-[400px] md:h-full">
+        <div className="relative  md:mt-0 h-[200px] md:h-full">
           <div className="relative h-full w-full">
             <Image
               src="/image/hero-baner/image-02.png"
@@ -75,7 +75,7 @@ const HeroSection = () => {
   )
 
   return (
-    <div className="relative md:h-screen flex flex-col">
+    <div className="relative h-screen flex flex-col">
       <div className="flex-1 ">
         <Section background={<HeroBackground />} className="h-full">
           <div className="block md:hidden pt-24"></div>

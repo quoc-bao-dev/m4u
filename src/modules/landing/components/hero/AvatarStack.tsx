@@ -6,9 +6,9 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
   alt = '',
 }) => {
   return (
-    <div className="w-16 flex flex-col items-center">
+    <div className="w-12 md:w-16 flex flex-col items-center">
       <div
-        className="relative size-16 transform-gpu"
+        className="relative size-12 md:size-16 transform-gpu"
         style={{ willChange: 'transform' }}
       >
         {/* Rotating gradient ring */}
@@ -56,7 +56,7 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
         />
         {/* Avatar content with white stroke above ring */}
         <div
-          className="absolute inset-0 rounded-full border-4 border-red-500 overflow-hidden transform-gpu"
+          className="absolute inset-0 rounded-full border-2 md:border-4 border-red-500 overflow-hidden transform-gpu"
           style={{ willChange: 'transform' }}
         >
           <motion.img
@@ -84,13 +84,13 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
 
 const AvatarStack = () => {
   return (
-    <div className="flex -space-x-2">
+    <div className="flex -space-x-1 md:-space-x-2">
       {/* Avatar placeholders - replace with actual user avatars */}
       {[1, 2, 3, 4].map((i) => (
         <LiveAvatar key={i} src={`/image/reviewer-carousel/image-0${i}.jpg`} />
       ))}
-      <div className="size-16 bg-gray-900 rounded-full border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium">
-        <p className="text-xl font-medium">69</p>
+      <div className="size-12 md:size-16 bg-gray-900 rounded-full border-2 md:border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium">
+        <p className="text-base md:text-xl font-medium">69</p>
       </div>
     </div>
   )
