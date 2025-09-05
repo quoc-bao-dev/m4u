@@ -65,9 +65,8 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       <div
         className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
           SCROLL_CONFIG.headerTransitionClass
-        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}
+        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
       >
-        {/* Background overlay với opacity đồng bộ với Concave */}
         <div
           className={`absolute inset-0 ${
             SCROLL_CONFIG.backgroundOverlayClass
@@ -80,7 +79,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
           <Header />
         </div>
 
-        {/* Concave với opacity đồng bộ với background overlay */}
         <div
           className={`w-full transition-opacity duration-200 ease-in-out ${
             isScrolled ? 'opacity-100' : 'opacity-0'

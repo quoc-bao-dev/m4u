@@ -37,7 +37,7 @@ const RewardSection = () => {
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null)
 
   return (
-    <div className="py-[96px]">
+    <div className="py-[48px] md:py-[96px]">
       <Section
         background={
           <>
@@ -57,7 +57,7 @@ const RewardSection = () => {
           Trải nghiệm các sản phẩm hot nhất mà không tốn một xu.
         </p>
 
-        <div className="pt-20"></div>
+        <div className="md:pt-20"></div>
         <Container className="max-w-full md:max-w-[1150px] px-4">
           <div className="mt-10 relative flex  md:flex-row items-stretch justify-between gap-4 md:gap-10 w-full">
             {/* Elastic connector between the first two cards */}

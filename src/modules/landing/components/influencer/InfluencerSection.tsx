@@ -8,7 +8,7 @@ const InfluencerSection = () => {
   return (
     <Section className=" py-8 md:py-14">
       <Container className="">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 rounded-3xl bg-[#FFFAED]">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 rounded-3xl bg-[#FFFAED] pb-10 md:pb-0">
           {/* Left: Image */}
           <div className="relative w-full md:flex-1">
             <div
@@ -28,7 +28,7 @@ const InfluencerSection = () => {
           {/* Right: Content */}
           <div className="w-full md:flex-1 md:max-w-[620px] text-center md:text-left">
             <h2 className="text-[28px] sm:text-[36px] lg:text-[48px] font-bold leading-tight text-[#0F172A]">
-              Biến đam mê làm đẹp
+              <span className="text-gray-400">Biến đam mê làm đẹp</span>
               <br />
               <span className="text-[#0B0D21]">thành </span>
               <span className="text-[#0B0D21]">thu nhập!</span>

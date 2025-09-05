@@ -65,7 +65,7 @@ const LanguageSwitcher = () => {
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="inline-flex items-center gap-3 rounded-full px-4 py-2 text-gray-800 hover:bg-gray-50"
+        className="inline-flex items-center gap-1 md:gap-3 rounded-full md:px-4 py-2 text-gray-800 hover:bg-gray-50"
       >
         <span className="hidden md:block text-base md:text-lg font-medium">
           {currentLabel}
