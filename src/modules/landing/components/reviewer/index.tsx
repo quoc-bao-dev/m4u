@@ -199,18 +199,18 @@ const Reviewer = () => {
   }, [middleStart])
 
   return (
-    <div className="py-24 flex flex-col items-center justify-center gap-10">
-      <div className="flex justify-between items-center w-full px-24">
+    <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
+      <div className="flex justify-between items-center w-full px-3 xl:px-24">
         <div className="flex flex-col gap-4">
-          <h2 className="2xl:text-6xl text-5xl font-bold capitalize text-greyscale-700">
+          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center xl:text-left font-bold capitalize text-greyscale-700">
             Reviewer <span className="text-greyscale-400">nói gì?</span>
           </h2>
-          <p className="2xl:text-2xl text-xl text-greyscale-700">
+          <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
             Những video và hình ảnh đánh giá chân thật nhất từ cộng đồng người
             dùng đã trải nghiệm.
           </p>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="hidden xl:flex gap-4 items-center">
           <button onClick={() => scrollByCard(-1)} className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
             <ArrowLeftIcon
               weight="bold"
@@ -253,6 +253,20 @@ const Reviewer = () => {
           />
         ))}
       </div>
+      <div className="xl:hidden flex gap-4 items-center">
+          <button onClick={() => scrollByCard(-1)} className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
+            <ArrowLeftIcon
+              weight="bold"
+              className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+            />
+          </button>
+          <button onClick={() => scrollByCard(1)} className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
+            <ArrowRightIcon
+              weight="bold"
+              className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+            />
+          </button>
+        </div>
       <Button>Xem tất cả</Button>
     </div>
   )

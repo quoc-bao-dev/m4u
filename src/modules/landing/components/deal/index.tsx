@@ -168,26 +168,35 @@ const Deal: React.FC = () => {
     return () => window.removeEventListener('resize', onResize)
   }, [index, applyLayout])
 
+  const canJumpToNeighbor = (i: number) => {
+    // chỉ cho click khi không phải card center và không đang animate
+    if (i === index) return false
+    if (tweenRef.current?.isActive()) return false
+    // chỉ cho phép bấm sang slide kế bên (trái/phải)
+    return i === index - 1 || i === index + 1
+  }
+
+  
   return (
-    <div className="relative py-24 flex flex-col items-center justify-center gap-10">
+    <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
       {/* Vòng tròn mờ đổi màu */}
       <div
         ref={bgRef}
-        className="z-[-1] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px]"
+        className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
       />
 
-      <div className="flex justify-between items-center w-full px-24">
+      <div className="flex justify-between items-center w-full px-3 xl:px-24">
         <div className="flex flex-col gap-4">
-          <h2 className="2xl:text-6xl text-5xl font-bold text-greyscale-700">
-            Cơ hội độc quyền{' '}
+          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center xl:text-left font-bold text-greyscale-700">
+            Cơ hội độc quyền{' '}<br className='xl:hidden'/>
             <span className="text-greyscale-400">dành cho bạn</span>
           </h2>
-          <p className="2xl:text-2xl text-xl text-greyscale-700">
+          <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
             Ưu đãi độc quyền trong ngày. Số lượng giới hạn, đăng ký ngay trước
             khi hết!
           </p>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="hidden xl:flex gap-4 items-center">
           {/* Infinite → không cần disabled */}
           <button
             onClick={handlePrev}
@@ -211,20 +220,34 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div ref={viewportRef} className="w-full px-24">
+      <div ref={viewportRef} className="w-full xl:px-24">
         <div
           ref={trackRef}
-          className="flex items-center gap-10 will-change-transform"
+          className="flex items-center gap-3 xl:gap-10 will-change-transform"
         >
           {loopDeals.map((deal, i) => (
             <div
-              key={`deal-${i}-${deal.id}`}
-              className="relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit"
-              style={{
-                transform: i === index ? 'scale(1.02)' : 'scale(0.98)',
-                transition: 'transform 300ms ease',
-              }}
-            >
+            key={`deal-${i}-${deal.id}`}
+            className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit
+              ${i !== index ? 'cursor-pointer' : 'cursor-default'} select-none`}
+            style={{
+              transform: i === index ? 'scale(1.02)' : 'scale(0.98)',
+              transition: 'transform 300ms ease',
+            }}
+            role="button"
+            tabIndex={i !== index ? 0 : -1}
+            aria-current={i === index ? 'true' : 'false'}
+            onClick={() => {
+              if (canJumpToNeighbor(i)) goTo(i)
+            }}
+            onKeyDown={(e) => {
+              if ((e.key === 'Enter' || e.key === ' ') && canJumpToNeighbor(i)) {
+                e.preventDefault()
+                goTo(i)
+              }
+            }}
+          >
+          
               <div className="rounded-t-3xl relative overflow-hidden">
                 <div
                   className="absolute inset-0 -z-10"
