@@ -14,8 +14,9 @@ const deals = [
     description: 'Panthetoin Deep Moisture Mask',
     participation: '70/100 participation',
     image: IMAGES.deal1,
-    bgColor: 'bg-pink-200',
+    bgColor: '#FFE1F1',
     hex: '#FE6BBA',
+
   },
   {
     id: 2,
@@ -23,8 +24,8 @@ const deals = [
     description: 'Panthetoin Deep Moisture Mask',
     participation: '70/100 participation',
     image: IMAGES.deal2,
-    bgColor: 'bg-yellow-300',
-    hex: '#FDE047',
+    bgColor: '#FDEAB7',
+    hex: '#FACA4A',
   },
   {
     id: 3,
@@ -32,8 +33,8 @@ const deals = [
     description: 'Panthetoin Deep Moisture Mask',
     participation: '70/100 participation',
     image: IMAGES.deal3,
-    bgColor: 'bg-green-200',
-    hex: '#BBF7D0',
+    bgColor: '#D1F7EA',
+    hex: '#10805B',
   },
   {
     id: 4,
@@ -41,8 +42,8 @@ const deals = [
     description: 'Panthetoin Deep Moisture Mask',
     participation: '70/100 participation',
     image: IMAGES.deal1,
-    bgColor: 'bg-pink-200',
-    hex: '#FBCFE8',
+    bgColor: '#FFE1F1',
+    hex: '#FE6BBA',
   },
   {
     id: 5,
@@ -50,8 +51,8 @@ const deals = [
     description: 'Panthetoin Deep Moisture Mask',
     participation: '70/100 participation',
     image: IMAGES.deal2,
-    bgColor: 'bg-yellow-300',
-    hex: '#FDE047',
+    bgColor: '#FDEAB7',
+    hex: '#FACA4A',
   },
 ]
 
@@ -228,7 +229,7 @@ const Deal: React.FC = () => {
                 <div
                   className="absolute inset-0 -z-10"
                   style={{
-                    background: `radial-gradient(circle, white 0%, ${deal.hex}4D 50%)`,
+                    background: `radial-gradient(circle, white 0%, ${deal.hex}26 )`,
                   }}
                 />
                 <div className="absolute top-4 left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-base font-medium text-greyscale-900">
@@ -244,7 +245,8 @@ const Deal: React.FC = () => {
                 />
               </div>
               <div
-                className={`p-5 flex flex-col gap-1 ${deal.bgColor} rounded-b-3xl`}
+                className="p-5 flex flex-col gap-1 rounded-b-3xl"
+                style={{ backgroundColor: `${deal.bgColor}` }}
               >
                 <h3 className="text-sm font-bold text-greyscale-900">
                   {deal.title}
@@ -265,8 +267,21 @@ const Deal: React.FC = () => {
                   {deal.participation}
                 </p>
                 <button
-                  className="cursor-pointer w-fit mt-4 py-4 px-5 border hover:text-white rounded-full"
-                  style={{ borderColor: deal.hex, color: deal.hex }}
+                  className="w-fit mt-4 py-4 px-5 rounded-full cursor-pointer"
+                  style={{
+                    border: `1px solid ${deal.hex}`,
+                    color: deal.hex,
+                    backgroundColor: 'transparent',
+                    transition: 'all 300ms ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = deal.hex
+                    e.currentTarget.style.color = '#000'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent'
+                    e.currentTarget.style.color = deal.hex
+                  }}
                 >
                   Đăng ký dùng thử
                 </button>

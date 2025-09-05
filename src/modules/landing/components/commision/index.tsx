@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const CommisionSection = () => {
   return (
-    <div className="relative p-24 flex flex-col items-end gap-10">
+    <div className="relative py-12 px-3 xl:p-24 flex flex-col items-end gap-10">
       {/* Blur blobs background layer */}
       <div
         aria-hidden
