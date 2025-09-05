@@ -33,12 +33,12 @@ const Footer = ({ className }: FooterProps) => {
               <div className="flex flex-col md:flex-row gap-6">
                 <Logo className="w-14 h-14 text-white" />
                 <div className="flex flex-col gap-2 text-sm md:text-[13px] lg:text-sm opacity-90">
-                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-6">
-                    <span className="">
+                  <div className="flex flex-col md:flex-row md:items-center gap-1 lg:gap-6">
+                    <span className="max-w-[200px]">
                       1901 Thornridge Cir. Shiloh, Hawaii 81063
                     </span>
                     {/* <span className="hidden md:inline-block">•</span> */}
-                    <span>+1 891 989-11-91</span>
+                    <span className="truncate">+1 891 989-11-91</span>
                     {/* <span className="hidden md:inline-block">•</span> */}
                     <a
                       href="mailto:hello@logoipsum.com"

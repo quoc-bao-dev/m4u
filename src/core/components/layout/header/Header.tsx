@@ -22,7 +22,9 @@ const Header = () => {
             />
           </svg>
         </div>
-        <Logo className="size-[40px] md:size-[60px]" />
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Logo className="size-[40px] md:size-[60px]" />
+        </div>
         <LanguageSwitcher />
       </div>
     </Container>
