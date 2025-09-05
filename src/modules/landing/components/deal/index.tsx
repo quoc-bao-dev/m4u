@@ -220,7 +220,7 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div ref={viewportRef} className="w-full xl:px-24">
+      <div ref={viewportRef} className="w-full xl:px-52">
         <div
           ref={trackRef}
           className="flex items-center gap-3 xl:gap-10 will-change-transform"
