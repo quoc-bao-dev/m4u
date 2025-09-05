@@ -193,7 +193,7 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
     return (
       <div
         ref={containerRef}
-        className={`relative rounded-2xl md:rounded-[40px] ${bgColor} p-2 md:p-8 w-[100px] md:w-[290px] h-[140px] md:h-[250px] ${
+        className={`relative rounded-2xl md:rounded-[40px] ${bgColor} p-2 md:p-8 w-[110px] md:w-[240px] h-[120px] md:h-[250px] ${
           className ?? ''
         }`}
         onMouseEnter={handleMouseEnter}
@@ -202,12 +202,12 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
         <div className="flex flex-col justify-between h-full">
           <div
             ref={iconRef}
-            className={`size-10 md:size-16 rounded-full flex items-center justify-center bg-white/80 ${iconColor} text-2xl shadow`}
+            className={`size-8 md:size-16 rounded-full flex items-center justify-center bg-white/80 ${iconColor} text-2xl shadow`}
           >
             {icon}
           </div>
           <div className="mt-1 md:mt-6">
-            <p className="text-gray-700 text-sm md:text-2xl font-medium">
+            <p className="text-gray-700 text-xs md:text-2xl font-medium">
               {label}
             </p>
             <h3 className="text-gray-900 text-base md:text-5xl font-extrabold mt-2">

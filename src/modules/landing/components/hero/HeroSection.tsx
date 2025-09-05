@@ -22,7 +22,7 @@ const HeroSection = () => {
             <div className="w-full">
               {/* Main Heading */}
               <div className="space-y-4 w-full">
-                <h1 className="text-4xl md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px] font-bold">
+                <h1 className="text-5xl md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px] font-bold">
                   <span className="text-gray-900">Giảm </span>
                   <span className="text-[#FF8092]">50%</span>
                   <span className="text-gray-900"> và</span> <br />
