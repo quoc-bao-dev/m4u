@@ -60,38 +60,40 @@ const joinSteps: JoinStep[] = [
 
 const JoinNow = () => {
   return (
-    <div className="p-24 flex flex-col gap-10 justify-center items-center">
+    <div className="py-12 px-3 xl:py-24 xl:px-24 flex flex-col gap-10 justify-center items-center">
       <div className="flex flex-col items-center gap-4">
-        <h2 className="2xl:text-6xl text-5xl font-bold text-greyscale-700">
-          Tham gia ngay,{' '}
+        <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center font-bold text-greyscale-700">
+          Tham gia ngay,{' '}<br className='xl:hidden'/>
           <span className="text-greyscale-400">lợi ích liền tay!</span>
         </h2>
-        <p className="2xl:text-2xl text-xl text-greyscale-700">
+        <p className="2xl:text-2xl xl:text-xl text-base text-center text-greyscale-700">
           Quy trình hợp tác đơn giản, giúp bạn biến đam mê làm đẹp thành thu
           nhập.
         </p>
       </div>
       <div className="relative w-full">
         {/* Đường kẻ nối chỉ từ điểm đầu đến điểm cuối */}
-        <div className="absolute bottom-[106px] left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-green-500 z-0"></div>
+        <div className="absolute top-0 bottom-0 xl:top-[calc(100%-102px)] xl:bottom-[106px] left-3.5 xl:left-[10%] xl:right-[10%] h-full xl:h-0.5 border-r-2 xl:border-t-2 border-dashed border-green-500 z-0"></div>
         
-        <div className="grid grid-cols-5 2xl:gap-8 gap-4 w-full">
+        <div className="grid grid-cols-1 xl:grid-cols-5 2xl:gap-8 xl:gap-4 gap-6 w-full">
           {joinSteps.map((step) => {
             const IconComponent = step.icon
             return (
-              <div key={step.id} className="flex flex-col gap-8 items-center justify-between">
-                <div className="flex flex-col gap-8 items-center">
+              <div key={step.id} className="relative flex flex-col gap-3 xl:gap-8 items-center justify-between">
+                  <span className="absolute top-0 left-0 xl:hidden size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
+              
+                <div className="flex flex-col gap-3 xl:gap-8 items-center">
                   {/* Icon container với background và hiệu ứng xoay */}
-                  <div className="relative size-[100px] bg-[#2DD4BF] rounded-[20px] flex justify-center items-center">
-                    <div className="size-[100px] bg-[#2DD4BF]/30 rounded-[20px] absolute top-0 left-0 -rotate-15"></div>
+                  <div className="relative size-[70px] xl:size-[100px] bg-[#2DD4BF] rounded-[20px] flex justify-center items-center">
+                    <div className="size-[70px] xl:size-[100px] bg-[#2DD4BF]/30 rounded-[20px] absolute top-0 left-0 -rotate-15"></div>
                     <IconComponent
                       weight="fill"
                       className="z-1 relative size-11 text-white"
                     />
                   </div>
                   {/* Nội dung mô tả bước */}
-                  <div className="flex flex-col gap-4 items-center">
-                    <h3 className="text-center 2xl:text-2xl text-xl font-bold text-greyscale-700">
+                  <div className="flex flex-col gap-2 xl:gap-4 items-center px-7">
+                    <h3 className="text-center 2xl:text-2xl xl:text-xl text-base font-bold text-greyscale-700">
                       {step.title}
                     </h3>
                     <p className="2xl:text-base text-sm text-greyscale-700 text-center">
@@ -101,8 +103,8 @@ const JoinNow = () => {
                 </div>
                 {/* Số thứ tự bước */}
                 <div className="flex flex-col gap-8 items-center relative z-10">
-                  <span className="size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
-                  <span className="text-silver-sand-900 font-medium text-[40px]">
+                  <span className="hidden xl:block size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
+                  <span className="text-silver-sand-900 font-medium text-2xl xl:text-[40px]">
                     {step.stepNumber}
                   </span>
                 </div>
