@@ -25,7 +25,7 @@ const RegisterCTA = ({ label, className, onClick }: RegisterCTAProps) => {
   return (
     <motion.div
       className={cn(
-        'flex gap-2 items-center bg-[#FFF0F8] p-1 pr-4 lg:pr-6 rounded-full w-fit cursor-pointer',
+        'flex gap-2 items-center bg-[#FFF0F8] p-1 pr-2 md:pr-4 lg:pr-6 rounded-full w-fit cursor-pointer',
         className
       )}
       onClick={onClick}
@@ -36,7 +36,7 @@ const RegisterCTA = ({ label, className, onClick }: RegisterCTAProps) => {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <button className="bg-[#FE6BBA] text-white px-8 py-6 rounded-full text-sm lg:text-xl  font-medium h-[45px] lg:h-[77px]  hover:bg-[#e55ba5] transition-colors duration-200 flex items-center gap-3">
+      <button className="bg-[#FE6BBA] text-white px-4 py-3 md:px-8 md:py-6 rounded-full text-xs md:text-xl  font-medium h-[38px] md:h-[77px]  hover:bg-[#e55ba5] transition-colors duration-200 flex items-center gap-2 md:gap-3">
         {label}
       </button>
       {/* mũi tên chổ này di chuyển và giữ nguyên khoảng cách với cạnh phải */}
