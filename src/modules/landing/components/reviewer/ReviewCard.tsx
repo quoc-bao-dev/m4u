@@ -74,7 +74,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     <div onClick={onClick} className={`shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
       {/* Hình ảnh reviewer */}
       <motion.div
-        className="w-[410px] overflow-hidden rounded-t-3xl"
+        className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl"
         animate={{ height: isActive ? 450 : 342}}
         transition={{ type: 'spring', stiffness: 140, damping: 18 }}
       >
@@ -101,9 +101,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       </motion.div>
       
       {/* Nội dung card */}
-      <div className="p-5 rounded-b-3xl bg-orange-100 flex gap-3 w-[410px]">
+      <div className="p-3 xl:p-5 rounded-b-3xl bg-orange-100 flex gap-3 w-[280px] xl:w-[410px]">
         {/* Hình ảnh sản phẩm */}
-        <div className="w-20 aspect-[80/100] flex-shrink-0">
+        <div className="w-[60px] xl:w-20 aspect-[80/100] flex-shrink-0">
           <Image
             src={productImage}
             alt={productAlt}
@@ -117,12 +117,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         <div className="flex flex-col gap-1 w-full flex-1 min-w-0">
           {/* Header với brand và thời gian */}
           <div className="flex items-center gap-2 justify-between">
-            <h3 className="text-sm font-bold text-greyscale-900">{brandName}</h3>
-            <p className="text-sm text-greyscale-600">{timeInfo}</p>
+            <h3 className="text-[10px] xl:text-sm font-bold text-greyscale-900">{brandName}</h3>
+            <p className="text-[10px] xl:text-sm text-greyscale-600">{timeInfo}</p>
           </div>
           
           {/* Tên sản phẩm */}
-          <h3 className="text-greyscale-900 text-lg font-normal truncate">
+          <h3 className="text-greyscale-900 text-sm xl:text-lg font-normal truncate">
             {productName}
           </h3>
           
@@ -139,7 +139,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           </div>
 
           {/* Text participation */}
-          <p className="text-sm text-greyscale-700">{participationText}</p>
+          <p className="text-xs xl:text-sm text-greyscale-700">{participationText}</p>
           
           {/* Button đăng ký */}
           <button 

@@ -1,10 +1,42 @@
+'use client'
 import { OrbitingCircles } from '@/components/magicui/orbiting-circles'
 import { IMAGES } from '@/core/constants/IMAGES'
 import Image from 'next/image'
+import CountUp from 'react-countup'
+import { useEffect, useRef, useState } from 'react'
 
 const Donation = () => {
+  // quan sát khi component vào viewport
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [hasViewed, setHasViewed] = useState(false)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el || hasViewed) return
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting) {
+          setHasViewed(true)
+          obs.unobserve(el) // chỉ chạy 1 lần
+        }
+      },
+      { root: null, threshold: 0.4 } // thấy ~40% chiều cao là kích hoạt
+    )
+
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [hasViewed])
+
   return (
-    <div className="py-20 relative flex h-[80vh] w-full flex-col items-center justify-center overflow-hidden">
+    <div
+      ref={containerRef}
+      className="py-20 relative flex h-[80vh] w-full flex-col items-center justify-center overflow-hidden"
+    >
+      <div className="absolute top-0 z-[1] w-full h-24 bg-gradient-to-b from-[#F3F4F6] via-[#F3F4F6] to-transparent"></div>
+      <div className="absolute bottom-0 z-10 w-full h-20 bg-gradient-to-t from-[#F3F4F6] via-[#F3F4F6] to-transparent"></div>
+
       <div className="relative flex flex-col justify-center items-center gap-6 w-[464px]">
         <Image
           src={IMAGES.heart1}
@@ -20,20 +52,35 @@ const Donation = () => {
           height={24}
           className="absolute bottom-1/2 left-0"
         />
-        <h2 className="text-[40px]/[100%] font-semibold text-greyscale-700 text-center">
+        <h2 className="text-[40px]/[110%] font-semibold text-greyscale-700 text-center">
           <span className="text-greyscale-400">
             Chung tay lan tỏa yêu thương,
-          </span>
+          </span>{' '}
           đồng hành cùng mẹ đơn thân
         </h2>
+
         <div className="flex flex-col items-center gap-3">
-          <h3 className="text-4xl font-bold text-pink-600">1,234,567,890đ</h3>
+          {hasViewed ? (
+            <CountUp
+              className="text-4xl font-bold text-pink-600"
+              start={0}
+              end={1234567890}
+              suffix=" ₫"
+              duration={2.2}
+              separator=","
+            />
+          ) : (
+            // Trạng thái trước khi vào viewport (hiển thị tĩnh)
+            <span className="text-4xl font-bold text-pink-600">0 ₫</span>
+          )}
           <p className="text-base text-greyscale-700">Đã được quyên góp!</p>
         </div>
+
         <button className="border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
           Tìm hiểu thêm
         </button>
       </div>
+
       <OrbitingCircles radius={600} speed={0.8}>
         <div className="flex-shrink-0 size-32 rounded-full overflow-hidden">
           <Image
@@ -75,8 +122,8 @@ const Donation = () => {
           />
         </div>
         <div className="size-6 rounded-full bg-[#FF8092]/72"></div>
-
       </OrbitingCircles>
+
       <OrbitingCircles iconSize={30} radius={330} reverse speed={0.8}>
         <div className="flex-shrink-0 size-[100px] rounded-full overflow-hidden">
           <Image
