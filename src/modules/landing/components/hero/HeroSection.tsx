@@ -58,13 +58,13 @@ const HeroSection = () => {
         </div>
 
         {/* Right Content - Image */}
-        <div className="relative -mt-28 md:mt-0 h-[400px] md:h-full">
+        <div className="relative  md:mt-0 h-[400px] md:h-full">
           <div className="relative h-full w-full">
             <Image
-              src="/image/hero-baner/image-01.png"
+              src="/image/hero-baner/image-02.png"
               alt="Hero Banner"
               fill
-              className="object-contain object-bottom h-full"
+              className="xl:pt-20 object-contain object-bottom h-full"
               priority
             />
           </div>

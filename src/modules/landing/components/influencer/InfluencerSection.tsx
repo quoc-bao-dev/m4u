@@ -12,7 +12,7 @@ const InfluencerSection = () => {
           {/* Left: Image */}
           <div className="relative w-full md:flex-1">
             <div
-              className="relative w-full overflow-hidden rounded-3xl"
+              className="relative w-full overflow-hidden rounded-3xl max-w-[800px] "
               style={{ aspectRatio: '845/600' }}
             >
               <Image

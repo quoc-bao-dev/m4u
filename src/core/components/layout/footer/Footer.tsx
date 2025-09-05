@@ -11,10 +11,19 @@ type FooterProps = {
 
 const Footer = ({ className }: FooterProps) => {
   return (
-    <div className={cn(`bg-[#3B82F6] text-white ${className}`)}>
-      <div className="hidden md:block absolute bottom-0 translate-x-1/2">
+    <div className={cn(`bg-[#3B82F6] text-white ${className} overflow-hidden`)}>
+      {/* TOOO: check scroll */}
+      {/* <div className="hidden md:block absolute bottom-[-145px] -translate-x-1/2 left-[50%]">
         <WaterMark />
+      </div> */}
+
+      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center">
+        <div className="-mb-[145px] ">
+          <WaterMark />
+        </div>
       </div>
+
+      <div className=""></div>
       <Container className="py-10 md:py-28">
         <div className="flex flex-col gap-10 md:gap-24">
           {/* Top content */}
