@@ -228,6 +228,8 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
   }
 )
 
+RewardCard.displayName = 'RewardCard'
+
 const Elastic = ({ color = '#E8FBF5' }: { color: string }) => {
   return (
     <svg
