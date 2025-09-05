@@ -38,7 +38,7 @@ const HeroSection = () => {
               <RegisterCTA className="mt-4" label="Đăng ký trải nghiệm ngay" />
 
               {/* Arrow Button */}
-              <div className="hidden  md:flex gap-4 items-center relative z-10 top-10">
+              {/* <div className="hidden  md:flex gap-4 items-center relative z-10 top-10">
                 <button className="p-5 rounded-full border bg-gray-300/50 border-greyscale-200/30 hover:bg-greyscale-200/70 transition-all duration-300 cursor-pointer group">
                   <ArrowLeftIcon
                     weight="bold"
@@ -51,7 +51,7 @@ const HeroSection = () => {
                     className="text-gray-100! size-7 group-hover:scale-110 transition-all duration-300"
                   />
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
