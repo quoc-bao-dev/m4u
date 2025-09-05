@@ -86,12 +86,12 @@ const JoinNow = () => {
                     <div className="size-[100px] bg-[#2DD4BF]/30 rounded-[20px] absolute top-0 left-0 -rotate-15"></div>
                     <IconComponent
                       weight="fill"
-                      className="z-1 relative size-11"
+                      className="z-1 relative size-11 text-white"
                     />
                   </div>
                   {/* Nội dung mô tả bước */}
                   <div className="flex flex-col gap-4 items-center">
-                    <h3 className="2xl:text-2xl text-xl font-bold text-greyscale-700">
+                    <h3 className="text-center 2xl:text-2xl text-xl font-bold text-greyscale-700">
                       {step.title}
                     </h3>
                     <p className="2xl:text-base text-sm text-greyscale-700 text-center">

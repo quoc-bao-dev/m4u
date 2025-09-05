@@ -69,7 +69,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       } catch {}
     }
   }, [isActive])
-  
+
   return (
     <div onClick={onClick} className={`shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
       {/* Hình ảnh reviewer */}
@@ -101,7 +101,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       </motion.div>
       
       {/* Nội dung card */}
-      <div className="p-5 rounded-b-3xl bg-orange-100 flex gap-3">
+      <div className="p-5 rounded-b-3xl bg-orange-100 flex gap-3 w-[410px]">
         {/* Hình ảnh sản phẩm */}
         <div className="w-20 aspect-[80/100] flex-shrink-0">
           <Image
@@ -114,7 +114,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         </div>
 
         {/* Thông tin chi tiết */}
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-1 w-full flex-1 min-w-0">
           {/* Header với brand và thời gian */}
           <div className="flex items-center gap-2 justify-between">
             <h3 className="text-sm font-bold text-greyscale-900">{brandName}</h3>
