@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
-          backgroundColor: '#fff',
+          backgroundColor: 'rgb(255, 255, 255)',
         }}
       >
         {children}
