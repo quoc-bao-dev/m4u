@@ -4,6 +4,7 @@ import { Logo } from '@/core/components/brand'
 import { Container, Grid } from '@/core/components/common'
 import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
+import { memo } from 'react'
 
 type FooterProps = {
   className?: string
@@ -209,4 +210,4 @@ const Footer = ({ className }: FooterProps) => {
   )
 }
 
-export default Footer
+export default memo(Footer)

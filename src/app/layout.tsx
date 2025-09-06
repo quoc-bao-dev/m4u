@@ -37,7 +37,6 @@ export default function RootLayout({ children }: Props) {
       >
         <AppProvider>
           <SafeView>{children}</SafeView>
-          {/* {children} */}
         </AppProvider>
       </body>
     </html>

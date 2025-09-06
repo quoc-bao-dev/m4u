@@ -1,6 +1,7 @@
 'use client'
 
 import { Container, Section } from '@/core/components'
+import { BlurCircle1, BlurCircle2 } from '@/core/components/animated/blur'
 import { motion } from 'framer-motion'
 import React from 'react'
 import RewardCard from './RewardCard'
@@ -42,10 +43,10 @@ const RewardSection = () => {
         background={
           <>
             <div className="absolute top-[-100px]">
-              <Blur />
+              <BlurCircle1 />
             </div>
             <div className="absolute top-[-200px] left-[300px]">
-              <Blur2 />
+              <BlurCircle2 />
             </div>
           </>
         }

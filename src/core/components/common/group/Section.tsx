@@ -1,5 +1,5 @@
 import { cn } from '@/core/utils'
-import { PropsWithChildren, ReactNode } from 'react'
+import { memo, PropsWithChildren, ReactNode } from 'react'
 
 type SectionProps = {
   background?: ReactNode
@@ -15,4 +15,4 @@ const Section = ({ children, background, className }: SectionProps) => {
   )
 }
 
-export default Section
+export default memo(Section)
