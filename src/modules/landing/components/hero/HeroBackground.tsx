@@ -192,11 +192,13 @@ const HeroBackground = () => {
           </defs>
         </motion.svg>
       </motion.div>
-      <img
-        src="/image/hero-baner/Homepage_5.gif"
-        className=" h-full object-cover"
-        alt=""
-      />
+      <div className="absolute inset-0 w-full h-full -z-10 ">
+        <img
+          src="/image/hero-baner/Homepage_5.gif"
+          className="w-full h-full ml-20 object-cover "
+          alt=""
+        />
+      </div>
     </div>
   )
 }
