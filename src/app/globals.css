@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -13,12 +13,12 @@
 
   --color-greyscale-100: #f3f4f6;
   --color-greyscale-200: #E5E7EB;
-  --color-greyscale-300: ;
+  --color-greyscale-300: #d1d5db;
   --color-greyscale-400: #9ca3af;
-  --color-greyscale-500: ;
+  --color-greyscale-500: #6b7280;
   --color-greyscale-600: #4B5563;
   --color-greyscale-700: #374151;
-  --color-greyscale-800: ;
+  --color-greyscale-800: #1f2937;
   --color-greyscale-900: #111827;
 
   --color-silver-sand-900: #505458;
