@@ -232,13 +232,13 @@ const HeroBackground = () => {
         />
       </div>
 
-      {/* <div className="block lg:hidden absolute inset-0 w-full h-full -z-10 ">
+      <div className="block lg:hidden absolute inset-0 w-full h-full -z-10 ">
         <img
           src="/image/hero-baner/Homepage_1.gif"
           className="w-full h-full object-cover "
           alt=""
         />
-      </div> */}
+      </div>
     </div>
   )
 }
