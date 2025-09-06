@@ -204,7 +204,9 @@ const HeroBackground = () => {
   return (
     <div className="h-full">
       {!isMobile ? (
-        <>{/* <BlurBackground /> */}</>
+        <>
+          <BlurBackground />
+        </>
       ) : (
         // Mobile version - static blur background without animations
         <div className="absolute inset-0 w-full h-full overflow-hidden">
