@@ -30,8 +30,6 @@ const ANIMATION = {
 const HeroBackground = () => {
   const { isMobile } = useDevice()
 
-  console.log('[isMobile] ', isMobile)
-
   const BlurBackground = useCallback(() => {
     return (
       <motion.div
@@ -236,7 +234,7 @@ const HeroBackground = () => {
 
       <div className="block lg:hidden absolute inset-0 w-full h-full -z-10 ">
         <img
-          src="/image/hero-baner/Homepage_1.gif"
+          src="/image/hero-baner/Homepage_1.webp"
           className="w-full h-full object-cover "
           alt=""
         />
