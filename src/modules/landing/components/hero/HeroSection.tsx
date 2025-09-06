@@ -21,16 +21,48 @@ const HeroSection = () => {
             <div className="w-full">
               {/* Main Heading */}
               <div className="space-y-4 w-full">
-                <h1 className="text-[42px] md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px] font-bold leading-[120%] md:leading-none">
-                  <span className="text-gray-900">Giảm </span>
-                  <span className="text-[#FF8092]">50%</span>
-                  <span className="text-gray-900"> và</span> <br />
-                  <span className="text-gray-900">tặng voucher</span>
-                </h1>
+                <style jsx>{`
+                  .hero-title {
+                    font-size: 24px;
+                  }
 
-                <div className="text-base sm:text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
-                  <p>khi review sản phẩm và</p>
-                  <p>đăng ký nhóm trải nghiệm</p>
+                  .hero-subtitle {
+                    font-size: 12px;
+                  }
+
+                  .hero-image {
+                    width: 50%;
+                    height: 50%;
+                  }
+
+                  @media (min-height: 600px) {
+                    .hero-title {
+                      font-size: inherit;
+                    }
+
+                    .hero-subtitle {
+                      font-size: inherit;
+                    }
+
+                    .hero-image {
+                      width: inherit;
+                      height: inherit;
+                    }
+                  }
+                `}</style>
+
+                <div className="text-[42px] md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px]">
+                  <h1 className="hero-title font-bold leading-[120%] md:leading-none">
+                    <span className="text-gray-900">Giảm </span>
+                    <span className="text-[#FF8092]">50%</span>
+                    <span className="text-gray-900"> và</span> <br />
+                    <span className="text-gray-900">tặng voucher</span>
+                  </h1>
+                </div>
+
+                <div className="text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
+                  <p className="hero-subtitle ">khi review sản phẩm và</p>
+                  <p className="hero-subtitle ">đăng ký nhóm trải nghiệm</p>
                 </div>
               </div>
               {/* CTA Button */}
@@ -50,14 +82,18 @@ const HeroSection = () => {
 
         {/* Right Content - Image */}
         <div className="relative -mr-10 md:mt-0 h-[367px] md:h-full min-h-0 ">
-          <div className="relative h-full w-full flex justify-end items-end  left-22 -top-70 md:top-0">
-            <Image
-              src="/image/hero-baner/image-02.png"
-              alt="Hero Banner"
-              fill
-              className=" md:max-h-full xl:pt-40 object-contain object-bottom h-full"
-              priority
-            />
+          <div className="relative h-full w-full flex justify-end items-end left-22 -top-70 md:top-0">
+            <div className="relative w-[90%] h-[90%] md:w-full md:h-full flex items-end justify-end">
+              <div className="hero-image ">
+                <Image
+                  src="/image/hero-baner/image-02.png"
+                  alt="Hero Banner"
+                  fill
+                  className="md:max-h-full xl:pt-40 object-contain object-bottom h-full"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

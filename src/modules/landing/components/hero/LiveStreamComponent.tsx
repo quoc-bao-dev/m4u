@@ -35,10 +35,10 @@ const LiveStreamComponent = () => {
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
               {/* Member Info */}
               <div className="text-center md:text-right">
-                <p className="text-gray-900 text-lg md:text-xl font-bold truncate">
+                <p className="text-gray-900 text-sm sm:text-lg md:text-xl font-bold truncate">
                   Thành viên online
                 </p>
-                <p className="text-sm lg:text-lg ">
+                <p className="text-xs sm:text-sm lg:text-lg ">
                   <span className="text-[#F5222D] font-bold">
                     69+ mẹ đơn thân
                   </span>{' '}
