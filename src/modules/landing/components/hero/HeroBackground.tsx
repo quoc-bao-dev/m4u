@@ -1,6 +1,8 @@
 'use client'
 
+import { useDevice } from '@/core/hooks'
 import { motion } from 'framer-motion'
+import { useCallback } from 'react'
 
 // Local animation configuration for this component only
 // NOTE: Tốc độ chậm hơn - chỉnh ở đây
@@ -26,8 +28,12 @@ const ANIMATION = {
 } as const
 
 const HeroBackground = () => {
-  return (
-    <div className="h-full">
+  const { isMobile } = useDevice()
+
+  console.log('[isMobile] ', isMobile)
+
+  const BlurBackground = useCallback(() => {
+    return (
       <motion.div
         // Hiển thị màu ngay từ đầu: đặt opacity/scale về trạng thái cuối ngay lập tức
         initial={{ opacity: 1, scale: 1 }}
@@ -192,10 +198,44 @@ const HeroBackground = () => {
           </defs>
         </motion.svg>
       </motion.div>
-      <div className="absolute inset-0 w-full h-full -z-10 ">
+    )
+  }, [])
+
+  return (
+    <div className="h-full">
+      {!isMobile ? (
+        <>{/* <BlurBackground /> */}</>
+      ) : (
+        // Mobile version - static blur background without animations
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '120%',
+              height: '120%',
+              background:
+                'linear-gradient(135deg, #2EA7FF 0%, #5B50FF 25%, #FF2E90 75%, #FF7A2B 100%)',
+              filter: 'blur(182px)',
+              opacity: 0.2,
+            }}
+          />
+        </div>
+      )}
+      <div className="hidden lg:block absolute inset-0 w-full h-full -z-10 ">
         <img
           src="/image/hero-baner/Homepage_5.gif"
-          className="w-full h-full ml-20 object-cover "
+          className="w-full h-full ml-10 object-cover "
+          alt=""
+        />
+      </div>
+
+      <div className="block lg:hidden absolute inset-0 w-full h-full -z-10 ">
+        <img
+          src="/image/hero-baner/Homepage_1.gif"
+          className="w-full h-full object-cover "
           alt=""
         />
       </div>

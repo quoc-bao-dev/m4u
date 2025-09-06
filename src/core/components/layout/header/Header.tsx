@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import { Logo } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -31,4 +32,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default memo(Header)
