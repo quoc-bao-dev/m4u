@@ -196,7 +196,7 @@ const Reviewer = () => {
     const targetCenter = target.offsetLeft + target.clientWidth / 2
     el.scrollLeft = targetCenter - containerCenter
     setActiveLoopIndex(middleStart)
-  }, [middleStart])
+  }, [middleStart]) 
 
   return (
     <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
