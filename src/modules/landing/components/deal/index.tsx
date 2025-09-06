@@ -185,7 +185,7 @@ const Deal: React.FC = () => {
         className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
       />
 
-      <div className="flex justify-between items-center w-full px-3 xl:px-24">
+      <div className="z-[3] flex justify-between items-center w-full px-3 xl:px-24">
         <div className="flex flex-col gap-4">
           <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center xl:text-left font-bold text-greyscale-700">
             Cơ hội độc quyền{' '}<br className='xl:hidden'/>
@@ -220,7 +220,7 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div ref={viewportRef} className="w-full xl:px-24">
+      <div ref={viewportRef} className="z-[3] w-full xl:px-52">
         <div
           ref={trackRef}
           className="flex items-center gap-3 xl:gap-10 will-change-transform"
