@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 const Concave = () => {
   return (
     <div className="w-full relative">
@@ -19,4 +21,4 @@ const Concave = () => {
     </div>
   )
 }
-export default Concave
+export default memo(Concave)
