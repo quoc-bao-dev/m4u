@@ -1,10 +1,24 @@
 'use client'
 
+import { useInView } from '@/core/hooks'
 import { motion } from 'framer-motion'
+import { sLiveStreamStatus } from '../hero/sLiveStreamSignal'
 
 const LiveStreamBadge = () => {
+  const { ref: badgeRef } = useInView<HTMLDivElement>({
+    threshold: 0.1, // Element phải có ít nhất 10% nằm trong viewport
+    rootMargin: '0px 0px -50px 0px', // Thêm margin bottom để trigger sớm hơn
+
+    onInView: () => {
+      sLiveStreamStatus.set(false)
+    },
+    onNotInView: () => {
+      sLiveStreamStatus.set(true)
+    },
+  })
+
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={badgeRef}>
       {/* Hiệu ứng bum bum - lớp màu đỏ mờ lan rộng và biến mất */}
       <motion.div
         className="absolute inset-0 rounded-2xl bg-red-500/80"

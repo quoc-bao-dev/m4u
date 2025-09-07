@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 
 const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
@@ -96,4 +98,4 @@ const AvatarStack = () => {
   )
 }
 
-export default AvatarStack
+export default memo(AvatarStack)

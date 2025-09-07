@@ -1,14 +1,7 @@
-'use client'
-
 import { Container, Section } from '@/core/components/common/group'
-import { signify } from 'react-signify'
 import HeroBackground from './HeroBackground'
 import HeroContent from './HeroContent'
-import MobileLiveStreamBar from './MobileLiveStreamBar'
-import { memo } from 'react'
 import LiveStreamComponent from './LiveStreamComponent'
-
-export const sLiveStreamStatus = signify<boolean>(false)
 
 const HeroSection = () => {
   return (
@@ -35,15 +28,15 @@ const HeroSection = () => {
             <LiveStreamComponent />
           </div>
 
-          <sLiveStreamStatus.HardWrap>
+          {/* <sLiveStreamStatus.HardWrap>
             {(value) => {
               return <MobileLiveStreamBar isVisible={value} />
             }}
-          </sLiveStreamStatus.HardWrap>
+          </sLiveStreamStatus.HardWrap> */}
         </div>
       </div>
     </>
   )
 }
 
-export default memo(HeroSection)
+export default HeroSection
