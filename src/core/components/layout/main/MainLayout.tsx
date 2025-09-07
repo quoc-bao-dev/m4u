@@ -28,7 +28,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       // Cập nhật background khi scroll
       setIsScrolled(currentScrollY > SCROLL_CONFIG.threshold)
 
-      // Nếu là lần load đầu tiên, luôn hiện header và set lastScrollY
+      // Nếu là lần load đầu tiên
       if (isInitialLoad) {
         setIsHeaderVisible(true)
         setLastScrollY(currentScrollY)
@@ -40,13 +40,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       if (currentScrollY <= SCROLL_CONFIG.headerHideThreshold) {
         setIsHeaderVisible(true)
       } else {
-        // Chỉ enable hiệu ứng ẩn/hiện header khi scroll qua threshold
-        // Nếu scroll xuống (scrollDifference > 0) và header đang hiện
         if (scrollDifference > 0 && isHeaderVisible) {
           setIsHeaderVisible(false)
-        }
-        // Nếu scroll lên (scrollDifference < 0) và header đang ẩn
-        else if (scrollDifference < 0 && !isHeaderVisible) {
+        } else if (scrollDifference < 0 && !isHeaderVisible) {
           setIsHeaderVisible(true)
         }
       }
@@ -61,39 +57,42 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   }, [lastScrollY, isHeaderVisible, isInitialLoad])
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <div
-        className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
-          SCROLL_CONFIG.headerTransitionClass
-        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
-      >
+    <div className="">
+      <div className="relative min-h-screen">
+        {/* Header */}
         <div
-          className={`absolute inset-0 ${
-            SCROLL_CONFIG.backgroundOverlayClass
-          } transition-opacity duration-200 ease-in-out ${
-            isScrolled ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-
-        <div className="relative z-50">
-          <Header />
-        </div>
-
-        <div
-          className={`w-full transition-opacity duration-200 ease-in-out ${
-            isScrolled ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
+            SCROLL_CONFIG.headerTransitionClass
+          } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
         >
-          <Concave />
+          <div
+            className={`absolute inset-0 ${
+              SCROLL_CONFIG.backgroundOverlayClass
+            } transition-opacity duration-200 ease-in-out ${
+              isScrolled ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <div className="relative z-50">
+            <Header />
+          </div>
+          <div
+            className={`w-full transition-opacity duration-200 ease-in-out ${
+              isScrolled ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Concave />
+          </div>
         </div>
-      </div>
-      <div className="relative z-10 bg-gray-100 pb-[30px] -mb-[200px] rounded-b-4xl">
-        {children}
-      </div>
-      <Footer className="pt-[200px]" />
 
-      <div className="fixed bottom-0 left-0 right-0">
-        <Footer className="pt-[200px]" />
+        {/* Content with overlap capability */}
+        <main className="relative z-20 bg-gray-100 min-h-screen rounded-b-4xl">
+          {children}
+        </main>
+
+        {/* Sticky footer with content overlap */}
+        <div className="sticky bottom-0 left-0 right-0 z-10 -mt-[100px]">
+          <Footer />
+        </div>
       </div>
     </div>
   )
