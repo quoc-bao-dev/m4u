@@ -3,9 +3,15 @@
 import { IMAGES } from '@/core/constants/IMAGES'
 import { Lightning } from '@/icons'
 import { ArrowLeftIcon, ArrowRightIcon, StarIcon } from '@phosphor-icons/react'
-import { gsap } from 'gsap'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  UIEventHandler,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import { gsap } from 'gsap'
 
 const deals = [
   {
@@ -16,7 +22,6 @@ const deals = [
     image: IMAGES.deal1,
     bgColor: '#FFE1F1',
     hex: '#FE6BBA',
-
   },
   {
     id: 2,
@@ -56,127 +61,157 @@ const deals = [
   },
 ]
 
-const GAP_PX = 40
-const DURATION = 0.6
-
 const Deal: React.FC = () => {
-  // Mảng hiển thị có clone hai đầu: [last, ...deals, first]
-  const loopDeals = useMemo(() => {
-    const first = deals[0]
-    const last = deals[deals.length - 1]
-    return [last, ...deals, first]
-  }, [])
-
-  // center index bắt đầu ở 1 (item thật đầu tiên)
-  const [index, setIndex] = useState(1)
-  const viewportRef = useRef<HTMLDivElement | null>(null)
-  const trackRef = useRef<HTMLDivElement | null>(null)
+  const [activeLoopIndex, setActiveLoopIndex] = useState<number>(0)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
   const bgRef = useRef<HTMLDivElement | null>(null)
+  const baseItems = useMemo(() => deals, [])
+  const LOOP_TIMES = 3
+  const loopedItems = useMemo(
+    () => Array.from({ length: LOOP_TIMES }).flatMap(() => baseItems),
+    [baseItems]
+  )
+  const baseLength = baseItems.length
+  const middleStart = baseLength * Math.floor(LOOP_TIMES / 2)
 
-  const tweenRef = useRef<gsap.core.Tween | null>(null)
-  const maxCenter = loopDeals.length - 2 // index thật cuối = maxCenter
-
-  // map index trong loop → index trong deals (để set màu active đúng item thật)
-  const getRealDealByIndex = (centerIdx: number) => {
-    if (centerIdx === 0) return deals[deals.length - 1] // clone last
-    if (centerIdx === maxCenter + 1) return deals[0] // clone first
-    return deals[centerIdx - 1] // item thật
+  const getScrollLeftForIndex = (index: number) => {
+    const el = scrollRef.current
+    if (!el) return 0
+    const children = Array.from(el.children) as HTMLElement[]
+    const target = children[index]
+    if (!target) return el.scrollLeft
+    const containerCenter = el.clientWidth / 2
+    const targetCenter = target.offsetLeft + target.clientWidth / 2
+    return targetCenter - containerCenter
   }
 
-  const applyLayout = useCallback(
-    (centerIdx: number, animate = false, onDone?: () => void) => {
-      const vp = viewportRef.current
-      const track = trackRef.current
-      if (!vp || !track) return
+  const normalizeToMiddle = (indexInLoop: number) => {
+    const el = scrollRef.current
+    if (!el) return indexInLoop
+    const relative = ((indexInLoop % baseLength) + baseLength) % baseLength
+    const normalizedIndex = middleStart + relative
+    if (normalizedIndex === indexInLoop) return indexInLoop
+    el.scrollLeft = getScrollLeftForIndex(normalizedIndex)
+    return normalizedIndex
+  }
 
-      // bề rộng content (loại padding px-24)
-      const cs = getComputedStyle(vp)
-      const pl = parseFloat(cs.paddingLeft) || 0
-      const pr = parseFloat(cs.paddingRight) || 0
-      const contentWidth = vp.clientWidth - pl - pr
+  const scrollTween = useRef<gsap.core.Tween | null>(null)
 
-      // side + center + side + 2*GAP = contentWidth ; side=0.4k, center=0.6k → 1.4k+2GAP=contentWidth
-      const k = (contentWidth - 2 * GAP_PX) / 1.4
-      const sideWidth = 0.4 * k
-      const centerWidth = 0.6 * k
+  const getRelativeIndex = (indexInLoop: number) => {
+    return ((indexInLoop % baseLength) + baseLength) % baseLength
+  }
 
-      // set width card theo center
-      const cards = Array.from(track.children) as HTMLElement[]
-      cards.forEach((card, i) => {
-        const w = i === centerIdx ? centerWidth : sideWidth
-        card.style.width = `${w}px`
-        card.style.flex = '0 0 auto'
-      })
-
-      // tính x để card center nằm ở giữa bố cục [side] [GAP] [center] [GAP] [side]
-      const sumLeft = centerIdx * (sideWidth + GAP_PX)
-      const targetLeft = sideWidth + GAP_PX
-      const x = targetLeft - sumLeft
-
-      // animate hoặc set tức thời
-      tweenRef.current?.kill()
-      if (animate) {
-        tweenRef.current = gsap.to(track, {
-          x,
-          duration: DURATION,
-          ease: 'power3.inOut',
-          onComplete: () => {
-            onDone?.()
-          },
-        })
-      } else {
-        gsap.set(track, { x })
-        onDone?.()
-      }
-
-      // đổi màu nền theo item thật
-      const real = getRealDealByIndex(centerIdx)
-      if (bgRef.current) {
-        gsap.to(bgRef.current, {
-          backgroundColor: real.hex,
-          duration: animate ? 0.8 : 0,
-          ease: 'power2.inOut',
-        })
-      }
-    },
-    [maxCenter]
-  )
-
-  // đi tới index (cho phép đi vào clone 0 hoặc maxCenter+1)
-  const goTo = (to: number) => {
-    setIndex(to)
-    // sau khi animate xong, nếu đang ở clone → nhảy về index thật tương ứng (không animate)
-    applyLayout(to, true, () => {
-      if (to === 0) {
-        setIndex(maxCenter)
-        applyLayout(maxCenter, false)
-      } else if (to === maxCenter + 1) {
-        setIndex(1)
-        applyLayout(1, false)
-      }
+  const tweenBgToHex = (hex: string) => {
+    if (!bgRef.current) return
+    gsap.to(bgRef.current, {
+      backgroundColor: hex,
+      duration: 0.6,
+      ease: 'power2.out',
     })
   }
 
-  const handlePrev = () => goTo(index - 1)
-  const handleNext = () => goTo(index + 1)
-
-  // init + resize
-  useEffect(() => {
-    applyLayout(index, false)
-    const onResize = () => applyLayout(index, false)
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [index, applyLayout])
-
-  const canJumpToNeighbor = (i: number) => {
-    // chỉ cho click khi không phải card center và không đang animate
-    if (i === index) return false
-    if (tweenRef.current?.isActive()) return false
-    // chỉ cho phép bấm sang slide kế bên (trái/phải)
-    return i === index - 1 || i === index + 1
+  const updateCardVisuals = () => {
+    const el = scrollRef.current
+    if (!el) return
+    const containerCenter = el.clientWidth / 2
+    const maxEffectDistance = el.clientWidth * 0.35
+    const wrappers = Array.from(el.children) as HTMLElement[]
+    wrappers.forEach((wrapper) => {
+      const inner =
+        (wrapper.querySelector('.deal-card') as HTMLElement) || wrapper
+      const rectLeft = wrapper.offsetLeft - el.scrollLeft
+      const childCenter = rectLeft + wrapper.clientWidth / 2
+      const distance = Math.abs(childCenter - containerCenter)
+      const t = Math.min(1, distance / maxEffectDistance)
+      const scale = 0.96 + (1 - t) * 0.24
+      const shadowStrength = 0.06 + (1 - t) * 0.1
+      inner.style.transform = `scale(${scale}) translateZ(0)`
+      inner.style.boxShadow = `0px 12px 28px rgba(0,0,0,${shadowStrength})`
+      wrapper.style.zIndex = String(1 + Math.round((1 - t) * 2))
+      wrapper.style.visibility = 'visible'
+      wrapper.style.pointerEvents = 'auto'
+    })
   }
 
-  
+  const scrollToIndex = (indexInLoop: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    // Cố định active về cụm giữa để tránh nhảy phần tử khi normalize
+    const relative = ((indexInLoop % baseLength) + baseLength) % baseLength
+    const normalizedTarget = middleStart + relative
+    setActiveLoopIndex(normalizedTarget)
+    const scrollLeft = getScrollLeftForIndex(indexInLoop)
+    // Tween nền tới màu của mục tiêu
+    const targetHex = baseItems[getRelativeIndex(indexInLoop)].hex
+    tweenBgToHex(targetHex)
+    scrollTween.current?.kill()
+    scrollTween.current = gsap.to(el, {
+      scrollLeft,
+      duration: 0.7,
+      ease: 'power4.out',
+      onUpdate: updateCardVisuals,
+      onComplete: () => {
+        normalizeToMiddle(indexInLoop)
+        updateCardVisuals()
+      },
+    })
+  }
+
+  const scrollByCard = (direction: -1 | 1) => {
+    const next = activeLoopIndex + direction
+    scrollToIndex(next)
+  }
+
+  const centerToIndex = (index: number) => {
+    scrollToIndex(index)
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const children = Array.from(el.children) as HTMLElement[]
+    const target = children[middleStart]
+    if (!target) return
+    const containerCenter = el.clientWidth / 2
+    const targetCenter = target.offsetLeft + target.clientWidth / 2
+    el.scrollLeft = targetCenter - containerCenter
+    setActiveLoopIndex(middleStart)
+    // Khởi tạo màu nền theo item ở giữa cụm giữa
+    const initHex = baseItems[getRelativeIndex(middleStart)].hex
+    if (bgRef.current) {
+      bgRef.current.style.backgroundColor = initHex
+    }
+    // Cập nhật scale/đổ bóng ban đầu
+    requestAnimationFrame(updateCardVisuals)
+  }, [middleStart])
+
+  const handleScroll: UIEventHandler<HTMLDivElement> = () => {
+    updateCardVisuals()
+  }
+
+  const getCardVisualState = (idx: number) => {
+    const distance = Math.abs(idx - activeLoopIndex)
+    if (distance === 0) {
+      return {
+        scale: 1.2,
+        shadow: '0px 2px 6px rgba(0,0,0,0.05)',
+        zIndex: 3,
+      }
+    }
+    if (distance === 1) {
+      return {
+        scale: 0.8,
+        shadow: '0px 12px 12px rgba(0,0,0,0.12)',
+        zIndex: 2,
+      }
+    }
+    return {
+      scale: 0.8,
+      shadow: '0px 4px 16px rgba(0,0,0,0.08)',
+      zIndex: 1,
+    }
+  }
+
   return (
     <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
       {/* Vòng tròn mờ đổi màu */}
@@ -185,10 +220,10 @@ const Deal: React.FC = () => {
         className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
       />
 
-      <div className="z-[3] flex justify-between items-center w-full px-3 xl:px-24">
-        <div className="flex flex-col gap-4">
-          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center xl:text-left font-bold text-greyscale-700">
-            Cơ hội độc quyền{' '}<br className='xl:hidden'/>
+      <div className="z-[3] flex justify-between items-center w-full px-3 lg:px-10 xl:px-24">
+        <div className="flex flex-col gap-2 xl:gap-4">
+          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold text-greyscale-700">
+            Cơ hội độc quyền <br className="lg:hidden" />
             <span className="text-greyscale-400">dành cho bạn</span>
           </h2>
           <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
@@ -197,9 +232,8 @@ const Deal: React.FC = () => {
           </p>
         </div>
         <div className="hidden xl:flex gap-4 items-center">
-          {/* Infinite → không cần disabled */}
           <button
-            onClick={handlePrev}
+            onClick={() => scrollByCard(-1)}
             className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200"
           >
             <ArrowLeftIcon
@@ -208,7 +242,7 @@ const Deal: React.FC = () => {
             />
           </button>
           <button
-            onClick={handleNext}
+            onClick={() => scrollByCard(1)}
             className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200"
           >
             <ArrowRightIcon
@@ -220,98 +254,130 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div ref={viewportRef} className="z-[3] w-full xl:px-52">
+      <div className="z-[3] w-full h-[560px] xl:h-[680px] px-0 lg:px-10 xl:px-32 cursor-default select-none">
         <div
-          ref={trackRef}
-          className="flex items-center gap-3 xl:gap-10 will-change-transform"
+          ref={scrollRef}
+          className="flex items-center gap-4 lg:gap-3 h-full overflow-x-hidden snap-x snap-mandatory"
+          onScroll={handleScroll}
         >
-          {loopDeals.map((deal, i) => (
-            <div
-            key={`deal-${i}-${deal.id}`}
-            className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit
-              ${i !== index ? 'cursor-pointer' : 'cursor-default'} select-none`}
-            style={{
-              transform: i === index ? 'scale(1.02)' : 'scale(0.98)',
-              transition: 'transform 300ms ease',
-            }}
-            role="button"
-            tabIndex={i !== index ? 0 : -1}
-            aria-current={i === index ? 'true' : 'false'}
-            onClick={() => {
-              if (canJumpToNeighbor(i)) goTo(i)
-            }}
-            onKeyDown={(e) => {
-              if ((e.key === 'Enter' || e.key === ' ') && canJumpToNeighbor(i)) {
-                e.preventDefault()
-                goTo(i)
-              }
-            }}
-          >
-          
-              <div className="rounded-t-3xl relative overflow-hidden">
-                <div
-                  className="absolute inset-0 -z-10"
-                  style={{
-                    background: `radial-gradient(circle, white 0%, ${deal.hex}26 )`,
-                  }}
-                />
-                <div className="absolute top-4 left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-base font-medium text-greyscale-900">
-                  <StarIcon weight="fill" className="size-5 text-yellow-600" />
-                  4.9
-                </div>
-                <Image
-                  src={deal.image}
-                  alt="deal"
-                  width={500}
-                  height={500}
-                  className="w-full h-full object-cover rounded-t-3xl"
-                />
-              </div>
+          {loopedItems.map((deal, index) => {
+            const { scale, shadow, zIndex } = getCardVisualState(index)
+            return (
               <div
-                className="p-5 flex flex-col gap-1 rounded-b-3xl"
-                style={{ backgroundColor: `${deal.bgColor}` }}
+                key={`wrapper-${index}-${deal.id}`}
+                className="shrink-0 px-2 lg:px-3 xl:px-3 lg:basis-1/3 snap-center"
               >
-                <h3 className="text-sm font-bold text-greyscale-900">
-                  {deal.title}
-                </h3>
-                <h3 className="text-greyscale-900 text-lg truncate">
-                  {deal.description}
-                </h3>
-                <div className="py-1">
-                  <div className="relative w-full h-1.5">
-                    <div className="relative" style={{ width: `70%` }}>
-                      <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-                      <Lightning className="size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
+                <div
+                  key={`deal-${index}-${deal.id}`}
+                  className={`deal-card relative rounded-3xl h-fit w-full
+                ${
+                  activeLoopIndex === index
+                    ? 'cursor-default'
+                    : 'cursor-pointer'
+                } select-none`}
+                  style={{
+                    transform: `scale(${scale})`,
+                    boxShadow: shadow,
+                    zIndex,
+                    transformOrigin: 'center center',
+                    transition: 'transform 500ms ease, box-shadow 500ms ease',
+                  }}
+                  role="button"
+                  tabIndex={activeLoopIndex === index ? -1 : 0}
+                  aria-current={activeLoopIndex === index ? 'true' : 'false'}
+                  onClick={() => centerToIndex(index)}
+                >
+                  <div className="rounded-t-3xl relative overflow-hidden">
+                    <div
+                      className="absolute inset-0 -z-10"
+                      style={{
+                        background: `radial-gradient(circle, white 0%, ${deal.hex}26 )`,
+                      }}
+                    />
+                    <div className="absolute top-3 xl:top-4 left-3 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs xl:text-base font-medium text-greyscale-900">
+                      <StarIcon
+                        weight="fill"
+                        className="size-3 xl:size-5 text-yellow-600"
+                      />
+                      4.9
                     </div>
-                    <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                    <Image
+                      src={deal.image}
+                      alt="deal"
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-cover rounded-t-3xl"
+                    />
+                  </div>
+                  <div
+                    className="p-3 xl:p-5 flex flex-col gap-1 rounded-b-3xl"
+                    style={{ backgroundColor: `${deal.bgColor}` }}
+                  >
+                    <h3 className="text-xs xl:text-sm font-bold text-greyscale-900">
+                      {deal.title}
+                    </h3>
+                    <h3 className="text-greyscale-900 text-sm xl:text-lg truncate">
+                      {deal.description}
+                    </h3>
+                    <div className="py-1">
+                      <div className="relative w-full h-1.5">
+                        <div className="relative" style={{ width: `70%` }}>
+                          <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                          <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
+                        </div>
+                        <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                      </div>
+                    </div>
+                    <p className="text-xs xl:text-sm text-greyscale-700">
+                      {deal.participation}
+                    </p>
+                    <button
+                      className="w-fit mt-3 xl:mt-4 py-2 xl:py-4 px-3 xl:px-5 rounded-full cursor-pointer text-sm xl:text-base"
+                      style={{
+                        border: `1px solid ${deal.hex}`,
+                        color: deal.hex,
+                        backgroundColor: 'transparent',
+                        transition: 'all 300ms ease',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = deal.hex
+                        e.currentTarget.style.color = '#000'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent'
+                        e.currentTarget.style.color = deal.hex
+                      }}
+                    >
+                      Đăng ký dùng thử
+                    </button>
                   </div>
                 </div>
-                <p className="text-sm text-greyscale-700">
-                  {deal.participation}
-                </p>
-                <button
-                  className="w-fit mt-4 py-4 px-5 rounded-full cursor-pointer"
-                  style={{
-                    border: `1px solid ${deal.hex}`,
-                    color: deal.hex,
-                    backgroundColor: 'transparent',
-                    transition: 'all 300ms ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = deal.hex
-                    e.currentTarget.style.color = '#000'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent'
-                    e.currentTarget.style.color = deal.hex
-                  }}
-                >
-                  Đăng ký dùng thử
-                </button>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
+      </div>
+
+      {/* Mobile navigation buttons */}
+      <div className="xl:hidden flex gap-4 items-center">
+        <button
+          onClick={() => scrollByCard(-1)}
+          className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+        >
+          <ArrowLeftIcon
+            weight="bold"
+            className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+          />
+        </button>
+        <button
+          onClick={() => scrollByCard(1)}
+          className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+        >
+          <ArrowRightIcon
+            weight="bold"
+            className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+          />
+        </button>
       </div>
     </div>
   )

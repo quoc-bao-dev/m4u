@@ -16,9 +16,9 @@ const CommisionSection = () => {
         <div className="absolute bottom-0 right-1/3 w-[26rem] h-[26rem] rounded-full bg-[#B9FF66] opacity-25 blur-[160px]" />
       </div>
 
-      <div className="w-fit flex flex-col gap-1 items-center xl:items-end">
+      <div className="w-fit flex flex-col gap-1 items-center lg:items-end">
         <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center font-bold text-greyscale-700">
-          Lộ trình doanh thu{' '}<br className='xl:hidden'/>
+          Lộ trình doanh thu{' '}<br className='lg:hidden'/>
           <span className="text-greyscale-400">theo cấp bậc</span>
         </h2>
         <p className="2xl:text-2xl xl:text-xl text-base text-center text-greyscale-700">
@@ -27,7 +27,7 @@ const CommisionSection = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 2xl:gap-8 gap-4 w-full px-3 xl:px-0">
+      <div className="grid grid-cols-1  lg:grid-cols-3 xl:grid-cols-4 2xl:gap-8 gap-4 w-full px-3 xl:px-0">
         <div className="relative hidden xl:block">
           <div className="absolute 2xl:left-24 -left-10 2xl:-top-52 -top-60  max-w-none select-none pointer-events-none squiggle-les">
             <SvgScrollDraw

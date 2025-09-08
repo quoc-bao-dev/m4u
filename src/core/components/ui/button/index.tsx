@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
   const sizeClasses = {
     xs: 'text-responsive-sm',
     sm: 'text-responsive-sm',
-    md: 'text-base',
+    md: 'text-sm xl:text-base',
   }
 
   // Variant Classes
@@ -70,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
       initial="initial" // Trạng thái ban đầu
     >
       {/* {startIcon && <span className="flex items-center">{startIcon}</span>} */}
-      <span className="rounded-full py-5.5 px-5 bg-pink-600 text-white">
+      <span className="rounded-full py-3 xl:py-5.5 px-5 bg-pink-600 text-white">
         {children}
       </span>
       {/* {endIcon && <span className="flex items-center">{endIcon}</span>} */}
