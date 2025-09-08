@@ -54,7 +54,7 @@ const HeroBackground = () => {
         /> */}
 
         <video
-          className="w-full object-cover"
+          className="w-full object-cover h-full"
           src="/image/hero-baner/Homepage_5.mp4"
           autoPlay
           loop
@@ -78,7 +78,10 @@ const HeroBackground = () => {
           style={{ maxWidth: '100%', maxHeight: '100%' }}
           fetchPriority="high"
         /> */}
-
+        <div className="absolute bottom-1/5 right-0 size-[16rem] rounded-full bg-[#FC96BB] opacity-50 blur-[100px]" />
+        <div className="absolute bottom-1/4 -left-10 size-[16rem] rounded-full bg-[#4AD29594] opacity-50 blur-[10px]" />
+        <div className="absolute bottom-1/2 -right-1/3 size-[15rem] rounded-full bg-gradient-to-r from-[#8080F1] to-[#D7D7FF] opacity-25 blur-[10px]" />
+     
         <video
           className="w-full h-full object-cover"
           src="/image/hero-baner/Homepage_1.mp4"

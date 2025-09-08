@@ -14,8 +14,8 @@ const Page = () => {
   return (
     <main className="overflow-x-hidden">
       <HeroSection />
-      <IntroduceSection />
-      <RewardSection />
+      {/* <IntroduceSection /> */}
+      {/* <RewardSection /> */}
       <CommisionSection />
       <JoinNow />
       <Reviewer />
