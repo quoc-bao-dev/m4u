@@ -4,14 +4,8 @@ import { IMAGES } from '@/core/constants/IMAGES'
 import { Lightning } from '@/icons'
 import { ArrowLeftIcon, ArrowRightIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import React, {
-  UIEventHandler,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
-import { gsap } from 'gsap'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
 
 const deals = [
   {
@@ -62,147 +56,54 @@ const deals = [
 ]
 
 const Deal: React.FC = () => {
-  const [activeLoopIndex, setActiveLoopIndex] = useState<number>(0)
-  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    dragFree: true,
+    align: 'center',
+    containScroll: 'trimSnaps',
+  })
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const bgRef = useRef<HTMLDivElement | null>(null)
-  const baseItems = useMemo(() => deals, [])
-  const LOOP_TIMES = 3
-  const loopedItems = useMemo(
-    () => Array.from({ length: LOOP_TIMES }).flatMap(() => baseItems),
-    [baseItems]
-  )
-  const baseLength = baseItems.length
-  const middleStart = baseLength * Math.floor(LOOP_TIMES / 2)
-
-  const getScrollLeftForIndex = (index: number) => {
-    const el = scrollRef.current
-    if (!el) return 0
-    const children = Array.from(el.children) as HTMLElement[]
-    const target = children[index]
-    if (!target) return el.scrollLeft
-    const containerCenter = el.clientWidth / 2
-    const targetCenter = target.offsetLeft + target.clientWidth / 2
-    return targetCenter - containerCenter
-  }
-
-  const normalizeToMiddle = (indexInLoop: number) => {
-    const el = scrollRef.current
-    if (!el) return indexInLoop
-    const relative = ((indexInLoop % baseLength) + baseLength) % baseLength
-    const normalizedIndex = middleStart + relative
-    if (normalizedIndex === indexInLoop) return indexInLoop
-    el.scrollLeft = getScrollLeftForIndex(normalizedIndex)
-    return normalizedIndex
-  }
-
-  const scrollTween = useRef<gsap.core.Tween | null>(null)
-
-  const getRelativeIndex = (indexInLoop: number) => {
-    return ((indexInLoop % baseLength) + baseLength) % baseLength
-  }
-
-  const tweenBgToHex = (hex: string) => {
-    if (!bgRef.current) return
-    gsap.to(bgRef.current, {
-      backgroundColor: hex,
-      duration: 0.6,
-      ease: 'power2.out',
-    })
-  }
-
-  const updateCardVisuals = () => {
-    const el = scrollRef.current
-    if (!el) return
-    const containerCenter = el.clientWidth / 2
-    const maxEffectDistance = el.clientWidth * 0.35
-    const wrappers = Array.from(el.children) as HTMLElement[]
-    wrappers.forEach((wrapper) => {
-      const inner =
-        (wrapper.querySelector('.deal-card') as HTMLElement) || wrapper
-      const rectLeft = wrapper.offsetLeft - el.scrollLeft
-      const childCenter = rectLeft + wrapper.clientWidth / 2
-      const distance = Math.abs(childCenter - containerCenter)
-      const t = Math.min(1, distance / maxEffectDistance)
-      const scale = 0.96 + (1 - t) * 0.24
-      const shadowStrength = 0.06 + (1 - t) * 0.1
-      inner.style.transform = `scale(${scale}) translateZ(0)`
-      inner.style.boxShadow = `0px 12px 28px rgba(0,0,0,${shadowStrength})`
-      wrapper.style.zIndex = String(1 + Math.round((1 - t) * 2))
-      wrapper.style.visibility = 'visible'
-      wrapper.style.pointerEvents = 'auto'
-    })
-  }
-
-  const scrollToIndex = (indexInLoop: number) => {
-    const el = scrollRef.current
-    if (!el) return
-    // Cố định active về cụm giữa để tránh nhảy phần tử khi normalize
-    const relative = ((indexInLoop % baseLength) + baseLength) % baseLength
-    const normalizedTarget = middleStart + relative
-    setActiveLoopIndex(normalizedTarget)
-    const scrollLeft = getScrollLeftForIndex(indexInLoop)
-    // Tween nền tới màu của mục tiêu
-    const targetHex = baseItems[getRelativeIndex(indexInLoop)].hex
-    tweenBgToHex(targetHex)
-    scrollTween.current?.kill()
-    scrollTween.current = gsap.to(el, {
-      scrollLeft,
-      duration: 0.85,
-      ease: 'power4.out',
-      onUpdate: updateCardVisuals,
-      onComplete: () => {
-        normalizeToMiddle(indexInLoop)
-        updateCardVisuals()
-      },
-    })
-  }
-
-  const scrollByCard = (direction: -1 | 1) => {
-    const next = activeLoopIndex + direction
-    scrollToIndex(next)
-  }
-
-  const centerToIndex = (index: number) => {
-    scrollToIndex(index)
-  }
 
   useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    const children = Array.from(el.children) as HTMLElement[]
-    const target = children[middleStart]
-    if (!target) return
-    const containerCenter = el.clientWidth / 2
-    const targetCenter = target.offsetLeft + target.clientWidth / 2
-    el.scrollLeft = targetCenter - containerCenter
-    setActiveLoopIndex(middleStart)
-    // Khởi tạo màu nền theo item ở giữa cụm giữa
-    const initHex = baseItems[getRelativeIndex(middleStart)].hex
-    if (bgRef.current) {
-      bgRef.current.style.backgroundColor = initHex
+    if (!emblaApi) return
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap())
     }
-    // Cập nhật scale/đổ bóng ban đầu
-    requestAnimationFrame(updateCardVisuals)
-  }, [middleStart])
+    emblaApi.on('select', onSelect)
+    emblaApi.on('reInit', onSelect)
+    onSelect()
+    return () => {
+      emblaApi.off('select', onSelect)
+      emblaApi.off('reInit', onSelect)
+    }
+  }, [emblaApi])
 
-  // Làm mượt khi scroll bằng rAF để tránh gọi update quá dày
-  const rafIdRef = useRef<number | null>(null)
-  const handleScroll: UIEventHandler<HTMLDivElement> = () => {
-    if (rafIdRef.current != null) return
-    rafIdRef.current = requestAnimationFrame(() => {
-      updateCardVisuals()
-      rafIdRef.current = null
-    })
-  }
+  useEffect(() => {
+    const hex = deals[selectedIndex]?.hex ?? '#000000'
+    if (bgRef.current) {
+      bgRef.current.style.background = `radial-gradient(ellipse, ${hex}66 0%, transparent 65%)`
+    }
+  }, [selectedIndex])
 
-  // Bỏ tính toán style rời rạc theo index để tránh giật
+  const handlePrev = useCallback(() => {
+    emblaApi?.scrollPrev()
+  }, [emblaApi])
+
+  const handleNext = useCallback(() => {
+    emblaApi?.scrollNext()
+  }, [emblaApi])
+
+  const handleSelect = useCallback((index: number) => {
+    emblaApi?.scrollTo(index)
+  }, [emblaApi])
 
   return (
     <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
       {/* Vòng tròn mờ đổi màu */}
       <div
         ref={bgRef}
-        className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
+        className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[120%] h-[100%] rounded-full blur-lg pointer-events-none"
       />
 
       <div className="z-[3] flex justify-between items-center w-full px-3 lg:px-10 xl:px-24">
@@ -218,7 +119,7 @@ const Deal: React.FC = () => {
         </div>
         <div className="hidden xl:flex gap-4 items-center">
           <button
-            onClick={() => scrollByCard(-1)}
+            onClick={handlePrev}
             className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200"
           >
             <ArrowLeftIcon
@@ -227,7 +128,7 @@ const Deal: React.FC = () => {
             />
           </button>
           <button
-            onClick={() => scrollByCard(1)}
+            onClick={handleNext}
             className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200"
           >
             <ArrowRightIcon
@@ -239,35 +140,21 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div className="z-[3] w-full h-[560px] lg:h-[680px] px-0 lg:px-10 xl:px-32 cursor-default select-none">
-        <div
-          ref={scrollRef}
-          className="flex items-center gap-4 lg:gap-3 h-full overflow-x-hidden snap-x snap-mandatory scroll-hidden"
-          onScroll={handleScroll}
-        >
-          {loopedItems.map((deal, index) => {
+      <div className="z-[3] w-full px-0 lg:px-10 xl:px-32 cursor-default select-none">
+        <div ref={emblaRef} className="overflow-hidden">
+          <div className="flex items-center gap-4 lg:gap-3 h-full">
+          {deals.map((deal, index) => {
             return (
               <div
                 key={`wrapper-${index}-${deal.id}`}
-                className="shrink-0 px-2 lg:px-3 xl:px-3 lg:basis-1/3 snap-center"
+                className="shrink-0 basis-1/3 cursor-pointer"
+                onClick={() => handleSelect(index)}
+                role="button"
+                aria-label={`Chuyển tới ưu đãi ${index + 1}`}
               >
                 <div
                   key={`deal-${index}-${deal.id}`}
-                  className={`deal-card relative rounded-3xl h-fit w-full
-                ${
-                  activeLoopIndex === index
-                    ? 'cursor-default'
-                    : 'cursor-pointer'
-                } select-none`}
-                  style={{
-                    transformOrigin: 'center center',
-                    transition: 'transform 500ms ease, box-shadow 500ms ease',
-                    willChange: 'transform, box-shadow',
-                  }}
-                  role="button"
-                  tabIndex={activeLoopIndex === index ? -1 : 0}
-                  aria-current={activeLoopIndex === index ? 'true' : 'false'}
-                  onClick={() => centerToIndex(index)}
+                  className={`deal-card relative rounded-3xl h-fit w-full select-none transition-transform duration-300 ${index === selectedIndex ? '' : 'scale-[0.9] lg:scale-[0.8] opacity-90'}`}
                 >
                   <div className="rounded-t-3xl relative overflow-hidden">
                     <div
@@ -337,13 +224,14 @@ const Deal: React.FC = () => {
               </div>
             )
           })}
+          </div>
         </div>
       </div>
 
       {/* Mobile navigation buttons */}
       <div className="xl:hidden flex gap-4 items-center">
         <button
-          onClick={() => scrollByCard(-1)}
+          onClick={handlePrev}
           className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
         >
           <ArrowLeftIcon
@@ -352,7 +240,7 @@ const Deal: React.FC = () => {
           />
         </button>
         <button
-          onClick={() => scrollByCard(1)}
+          onClick={handleNext}
           className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
         >
           <ArrowRightIcon

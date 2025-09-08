@@ -72,6 +72,41 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     }
   }, [isActive])
 
+  // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
+  useEffect(() => {
+    const vid = videoRef.current
+    if (!vid || !reviewerVideo) return
+
+    const renderFirstFrame = async () => {
+      try {
+        vid.muted = true
+        // đảm bảo inline trên iOS
+        ;(vid as any).playsInline = true
+        // buộc trình duyệt render frame đầu: play rồi pause ngay
+        // await vid.play()
+        vid.pause()
+        try {
+          vid.currentTime = 0.001
+        } catch {}
+      } catch {}
+    }
+
+    const onLoaded = () => {
+      renderFirstFrame()
+    }
+
+    vid.addEventListener('loadeddata', onLoaded)
+    vid.addEventListener('loadedmetadata', onLoaded)
+    if (vid.readyState >= 2) {
+      renderFirstFrame()
+    }
+
+    return () => {
+      vid.removeEventListener('loadeddata', onLoaded)
+      vid.removeEventListener('loadedmetadata', onLoaded)
+    }
+  }, [reviewerVideo])
+
   return (
     <div onClick={onClick} className={`h-fit shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
       {/* Hình ảnh reviewer */}
@@ -88,8 +123,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
             muted
             loop
             playsInline
-            preload="metadata"
-            // poster={reviewerImage}
+            autoPlay={isActive}
+            preload="auto"
           />
         ) : (
           <Image
