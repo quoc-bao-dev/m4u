@@ -2,7 +2,6 @@
 
 import { cn } from '@/core/utils'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
 type RegisterCTAProps = {
   label?: string
@@ -16,8 +15,6 @@ const RegisterCTA = ({
   hiddenArrow = false,
   onClick,
 }: RegisterCTAProps) => {
-  const [isHovered, setIsHovered] = useState(false)
-
   const containerVariants = {
     initial: { paddingRight: '8px' },
     hover: { paddingRight: !hiddenArrow ? '32px' : '8px' },
@@ -39,8 +36,6 @@ const RegisterCTA = ({
       whileHover="hover"
       initial="initial"
       transition={{ duration: 0.2, ease: 'easeInOut' }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
     >
       <button className="bg-[#FE6BBA] text-white px-4 py-3 md:px-8 md:py-6 rounded-full text-xs md:text-xl  font-medium h-[38px] md:h-[77px]  hover:bg-[#e55ba5] transition-colors duration-200 flex items-center gap-2 md:gap-3">
         {label}
@@ -55,7 +50,8 @@ const RegisterCTA = ({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           variants={arrowVariants}
-          animate={isHovered ? 'hover' : 'initial'}
+          whileHover="hover"
+          initial="initial"
           transition={{ duration: 0.2, ease: 'easeInOut' }}
         >
           <path

@@ -12,7 +12,11 @@ type FooterProps = {
 
 const Footer = ({ className }: FooterProps) => {
   return (
-    <div className={cn(`bg-[#3B82F6] text-white ${className} overflow-hidden`)}>
+    <div
+      className={cn(
+        `bg-[#3B82F6] text-white ${className} overflow-hidden pt-[100px]`
+      )}
+    >
       {/* TOOO: check scroll */}
       {/* <div className="hidden md:block absolute bottom-[-145px] -translate-x-1/2 left-[50%]">
         <WaterMark />

@@ -26,7 +26,7 @@ const ReviewerAvatar = ({
 
   return (
     <div
-      className={`flex flex-col items-center gap-2 aspect-square! ${className}`}
+      className={`flex flex-col items-center gap-2 aspect-square ${className}`}
     >
       {labelPosition === 'top' && labelContent}
       <div className="relative ">
@@ -34,7 +34,7 @@ const ReviewerAvatar = ({
           src={src}
           alt={name}
           className={cn(
-            `size-20 aspect-square! rounded-full object-cover border-4 border-[#BBBEFA] ${imageClassName}`
+            `size-20 aspect-square rounded-full object-cover border-4 border-[#BBBEFA] ${imageClassName}`
           )}
         />
       </div>

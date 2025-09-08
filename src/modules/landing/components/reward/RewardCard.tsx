@@ -1,7 +1,7 @@
 'use client'
 
 import gsap from 'gsap'
-import React from 'react'
+import React, { memo } from 'react'
 
 type RewardCardProps = {
   icon: React.ReactNode
@@ -251,4 +251,4 @@ const Elastic = ({ color = '#E8FBF5' }: { color: string }) => {
   )
 }
 
-export default RewardCard
+export default memo(RewardCard)
