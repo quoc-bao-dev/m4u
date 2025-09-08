@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import { RegisterCTA } from '../cta'
@@ -68,9 +70,9 @@ const HeroContent = () => {
       </div>
 
       {/* Right Content - Image */}
-      <div className="relative -mr-10 md:mt-0 h-[367px] md:h-full min-h-0 ">
+      <div className="relative md:mt-0 h-[367px] md:h-full min-h-0 ">
         <div className="relative h-full w-full flex justify-end items-end left-22 -top-70 md:top-0">
-          <div className="relative w-[90%] h-[90%] md:w-full md:h-full flex items-end justify-end">
+          <div className="relative w-[90%] h-[90%] lg:w-[90%] lg:h-[90%] flex items-end justify-end">
             <div className="hero-image ">
               <Image
                 src="/image/hero-baner/image-02.png"
