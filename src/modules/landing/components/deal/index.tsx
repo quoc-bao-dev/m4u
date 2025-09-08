@@ -217,7 +217,7 @@ const Deal: React.FC = () => {
       {/* Vòng tròn mờ đổi màu */}
       <div
         ref={bgRef}
-        className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
+        // className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
       />
 
       <div className="z-[3] flex justify-between items-center w-full px-3 lg:px-10 xl:px-24">

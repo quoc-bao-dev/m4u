@@ -9,6 +9,7 @@ type RewardCardProps = {
   title: string
   bgColor: string
   iconColor: string
+  elasticColor?: string
   isActive?: boolean
   isDimmed?: boolean
   onMouseEnter?: () => void
@@ -28,6 +29,7 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
       title,
       bgColor,
       iconColor,
+      elasticColor,
       isActive = false,
       isDimmed = false,
       onMouseEnter,
@@ -45,7 +47,7 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
     const elasticRef = React.useRef<HTMLDivElement | null>(null)
     const enterTlRef = React.useRef<gsap.core.Timeline | null>(null)
     const [resolvedBgColor, setResolvedBgColor] =
-      React.useState<string>('#FFFFFF')
+      React.useState<string>(elasticColor ?? '#FFFFFF')
 
     // Local animation configuration dedicated to RewardCard only
     const ANIM = React.useMemo(
@@ -91,13 +93,10 @@ const RewardCard = React.forwardRef<HTMLDivElement, RewardCardProps>(
       }
     }, [isActive, isDimmed, ANIM, activeScale, baseRotate])
 
-    // Resolve actual background color from Tailwind className (bgColor) applied on the container
+    // If elasticColor prop changes, update cached color without forcing layout
     React.useEffect(() => {
-      if (!containerRef.current) return
-      const computed = window.getComputedStyle(containerRef.current)
-      const bg = computed.backgroundColor
-      if (bg) setResolvedBgColor(bg)
-    }, [bgColor, className])
+      if (elasticColor) setResolvedBgColor(elasticColor)
+    }, [elasticColor])
 
     const handleMouseEnter = () => {
       if (enterTlRef.current) enterTlRef.current.kill()

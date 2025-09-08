@@ -11,9 +11,9 @@ const CommisionSection = () => {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 overflow-visible"
       >
-        <div className="absolute -top-40 -right-10 w-[22rem] h-[22rem] rounded-full bg-[#FC96BB] opacity-30 blur-[140px]" />
+        {/* <div className="absolute -top-40 -right-10 w-[22rem] h-[22rem] rounded-full bg-[#FC96BB] opacity-30 blur-[140px]" />
         <div className="absolute top-1/3 -left-10 w-[22rem] h-[22rem] rounded-full bg-[#5EB2FC] opacity-25 blur-[120px]" />
-        <div className="absolute bottom-0 right-1/3 w-[26rem] h-[26rem] rounded-full bg-[#B9FF66] opacity-25 blur-[160px]" />
+        <div className="absolute bottom-0 right-1/3 w-[26rem] h-[26rem] rounded-full bg-[#B9FF66] opacity-25 blur-[160px]" /> */}
       </div>
 
       <div className="w-fit flex flex-col gap-1 items-center lg:items-end">
@@ -61,8 +61,10 @@ const CommisionSection = () => {
                 Chia sẻ link sản phẩm đến với bạn bè
               </p>
             </div>
-            <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-blue-400 opacity-30 blur-[10px] pointer-events-none" />
-            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-blue-400 opacity-30 blur-[10px] pointer-events-none" />
+            {/* <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-blue-400 opacity-30 blur-[10px] pointer-events-none" />
+            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-blue-400 opacity-30 blur-[10px] pointer-events-none" /> */}
+            <div className="from-blue-400 bottom-0 -right-10 size-40 absolute pointer-events-none rounded-full opacity-50 bg-radial via-transparent to-transparent"></div>
+            <div className="from-blue-400 -bottom-20 right-10 size-40 absolute pointer-events-none rounded-full opacity-50 bg-radial via-transparent to-transparent"></div>
 
             <Image
               src={IMAGES.commissionsReferral}
@@ -87,8 +89,8 @@ const CommisionSection = () => {
                 Viết review chân thật để nhận voucher
               </p>
             </div>
-            <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-green-600 opacity-30 blur-[10px] pointer-events-none" />
-            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-green-600 opacity-30 blur-[10px] pointer-events-none" />
+            {/* <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-green-600 opacity-30 blur-[10px] pointer-events-none" />
+            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-green-600 opacity-30 blur-[10px] pointer-events-none" /> */}
 
             <Image
               src={IMAGES.commissionsReviewer}
@@ -113,8 +115,8 @@ const CommisionSection = () => {
                 Sau khi đạt đủ điểm review, bạn có thể bán hàng
               </p>
             </div>
-            <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-indigo-600 opacity-30 blur-[10px] pointer-events-none" />
-            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-indigo-600 opacity-30 blur-[10px] pointer-events-none" />
+            {/* <div className="absolute bottom-0 -right-10 size-32 rounded-full bg-indigo-600 opacity-30 blur-[10px] pointer-events-none" />
+            <div className="absolute -bottom-20 right-10 size-32 rounded-full bg-indigo-600 opacity-30 blur-[10px] pointer-events-none" /> */}
 
             <Image
               src={IMAGES.commissionsSeller}

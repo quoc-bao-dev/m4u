@@ -78,10 +78,9 @@ const HeroBackground = () => {
           style={{ maxWidth: '100%', maxHeight: '100%' }}
           fetchPriority="high"
         /> */}
-        <div className="absolute bottom-1/5 right-0 size-[16rem] rounded-full bg-[#FC96BB] opacity-50 blur-[100px]" />
-        <div className="absolute bottom-1/4 -left-10 size-[16rem] rounded-full bg-[#4AD29594] opacity-50 blur-[10px]" />
-        <div className="absolute bottom-1/2 -right-1/3 size-[15rem] rounded-full bg-gradient-to-r from-[#8080F1] to-[#D7D7FF] opacity-25 blur-[10px]" />
-     
+        <div className="pointer-events-none rounded-full absolute -bottom-1/5 -right-1/6 size-[40rem] opacity-70 bg-radial from-[#FC96BB] via-transparent to-transparent"></div>
+        <div className="pointer-events-none rounded-full absolute -bottom-1/3 -left-1/6 size-[40rem] opacity-70 bg-radial from-[#8080F1] via-transparent to-transparent"></div>
+
         <video
           className="w-full h-full object-cover"
           src="/image/hero-baner/Homepage_1.mp4"

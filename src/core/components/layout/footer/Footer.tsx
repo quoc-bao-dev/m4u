@@ -1,5 +1,4 @@
 import Link from 'next/link'
-
 import { Logo } from '@/core/components/brand'
 import { Container, Grid } from '@/core/components/common'
 import { cn } from '@/core/utils'
