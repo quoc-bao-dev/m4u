@@ -4,7 +4,7 @@ import { RegisterCTA } from '../cta'
 const BeautyReviewerSection = () => {
   return (
     <Container>
-      <Grid className="grid-cols-1 md:grid-cols-2 md:mt-0 gap-16">
+      <Grid className="grid-cols-1 md:grid-cols-2 md:mt-0 gap-4 lg:gap-16">
         <div className="">
           <p className="text-[24px] md:text-[42px] lg:text-[54px] xl:text-[64px] font-bold text-gray-900 leading-[120%]">
             <span className="text-gray-400">Chỉ cần yêu thích làm đẹp,</span> ai

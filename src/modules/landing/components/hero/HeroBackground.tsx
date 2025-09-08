@@ -2,6 +2,7 @@
 
 import { useDevice } from '@/core/hooks'
 import BlurBackground from './BlurBackground'
+import VideoWrapper from '@/components/VideoWrapper'
 
 const HeroBackground = () => {
   const { isMobile } = useDevice()
@@ -11,7 +12,7 @@ const HeroBackground = () => {
       {!isMobile ? (
         <>
           <div className="hidden xl:block">
-            <BlurBackground isMobile={isMobile} />
+            {/* <BlurBackground isMobile={isMobile} /> */}
           </div>
         </>
       ) : (
@@ -45,16 +46,24 @@ const HeroBackground = () => {
         </div>
       )}
       {/* Desktop background image */}
-      <div className="hidden xl:block absolute inset-0 w-full h-full -z-10">
-        {/* <img
-          src="/image/hero-baner/Homepage_5.gif"
-          className="w-full h-full ml-10 object-cover"
-          alt="Hero background"
-          loading="lazy" // Lazy load for better performance
+      <div className="hidden lg:block absolute inset-0 w-full h-full z-[1]">
+        <VideoWrapper
+          src="/image/background.mp4"
+          playbackRate={0.3}
+          className="w-full h-full object-cover"
+        />
+        {/* <video
+          src="/image/background.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
         /> */}
-
+      </div>
+      <div className="hidden lg:block absolute inset-0 w-full h-full z-[2] opacity-50">
         <video
-          className="w-full object-cover h-full"
+          className="w-full object-cover h-full "
           src="/image/hero-baner/Homepage_5.mp4"
           autoPlay
           loop
@@ -66,7 +75,7 @@ const HeroBackground = () => {
       </div>
 
       {/* Mobile background image - optimized */}
-      <div className="block xl:hidden absolute inset-0 w-full h-full -z-10">
+      <div className="block xl:hidden absolute inset-0 w-full h-full z-10">
         {/* <img
           src="/image/hero-baner/Homepage_1.webp"
           className="w-full h-full object-cover"
@@ -78,8 +87,8 @@ const HeroBackground = () => {
           style={{ maxWidth: '100%', maxHeight: '100%' }}
           fetchPriority="high"
         /> */}
-        <div className="pointer-events-none rounded-full absolute -bottom-1/5 -right-1/6 size-[40rem] opacity-70 bg-radial from-[#FC96BB] via-transparent to-transparent"></div>
-        <div className="pointer-events-none rounded-full absolute -bottom-1/3 -left-1/6 size-[40rem] opacity-70 bg-radial from-[#8080F1] via-transparent to-transparent"></div>
+        {/* <div className="pointer-events-none rounded-full absolute -bottom-1/5 -right-1/6 size-[40rem] opacity-70 bg-radial from-[#FC96BB] via-transparent to-transparent"></div> */}
+        {/* <div className="pointer-events-none rounded-full absolute -bottom-1/3 -left-1/6 size-[40rem] opacity-70 bg-radial from-[#8080F1] via-transparent to-transparent"></div> */}
 
         <video
           className="w-full h-full object-cover"

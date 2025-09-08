@@ -147,7 +147,7 @@ const Deal: React.FC = () => {
     scrollTween.current?.kill()
     scrollTween.current = gsap.to(el, {
       scrollLeft,
-      duration: 0.7,
+      duration: 0.85,
       ease: 'power4.out',
       onUpdate: updateCardVisuals,
       onComplete: () => {
@@ -185,39 +185,24 @@ const Deal: React.FC = () => {
     requestAnimationFrame(updateCardVisuals)
   }, [middleStart])
 
+  // Làm mượt khi scroll bằng rAF để tránh gọi update quá dày
+  const rafIdRef = useRef<number | null>(null)
   const handleScroll: UIEventHandler<HTMLDivElement> = () => {
-    updateCardVisuals()
+    if (rafIdRef.current != null) return
+    rafIdRef.current = requestAnimationFrame(() => {
+      updateCardVisuals()
+      rafIdRef.current = null
+    })
   }
 
-  const getCardVisualState = (idx: number) => {
-    const distance = Math.abs(idx - activeLoopIndex)
-    if (distance === 0) {
-      return {
-        scale: 1.2,
-        shadow: '0px 2px 6px rgba(0,0,0,0.05)',
-        zIndex: 3,
-      }
-    }
-    if (distance === 1) {
-      return {
-        scale: 0.8,
-        shadow: '0px 12px 12px rgba(0,0,0,0.12)',
-        zIndex: 2,
-      }
-    }
-    return {
-      scale: 0.8,
-      shadow: '0px 4px 16px rgba(0,0,0,0.08)',
-      zIndex: 1,
-    }
-  }
+  // Bỏ tính toán style rời rạc theo index để tránh giật
 
   return (
     <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
       {/* Vòng tròn mờ đổi màu */}
       <div
         ref={bgRef}
-        // className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
+        className="z-[2] absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] rounded-full opacity-20 blur-[140px] pointer-events-none"
       />
 
       <div className="z-[3] flex justify-between items-center w-full px-3 lg:px-10 xl:px-24">
@@ -254,14 +239,13 @@ const Deal: React.FC = () => {
       </div>
 
       {/* Viewport */}
-      <div className="z-[3] w-full h-[560px] xl:h-[680px] px-0 lg:px-10 xl:px-32 cursor-default select-none">
+      <div className="z-[3] w-full h-[560px] lg:h-[680px] px-0 lg:px-10 xl:px-32 cursor-default select-none">
         <div
           ref={scrollRef}
-          className="flex items-center gap-4 lg:gap-3 h-full overflow-x-hidden snap-x snap-mandatory"
+          className="flex items-center gap-4 lg:gap-3 h-full overflow-x-hidden snap-x snap-mandatory scroll-hidden"
           onScroll={handleScroll}
         >
           {loopedItems.map((deal, index) => {
-            const { scale, shadow, zIndex } = getCardVisualState(index)
             return (
               <div
                 key={`wrapper-${index}-${deal.id}`}
@@ -276,11 +260,9 @@ const Deal: React.FC = () => {
                     : 'cursor-pointer'
                 } select-none`}
                   style={{
-                    transform: `scale(${scale})`,
-                    boxShadow: shadow,
-                    zIndex,
                     transformOrigin: 'center center',
                     transition: 'transform 500ms ease, box-shadow 500ms ease',
+                    willChange: 'transform, box-shadow',
                   }}
                   role="button"
                   tabIndex={activeLoopIndex === index ? -1 : 0}

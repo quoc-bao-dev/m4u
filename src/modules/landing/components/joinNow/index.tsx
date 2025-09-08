@@ -94,7 +94,7 @@ const JoinNow = () => {
                 distance={30}
                 start="top 90%"
               >
-                <div className="relative flex flex-col gap-3 lg:gap-8 items-center justify-between">
+                <div className="h-full relative flex flex-col gap-3 lg:gap-8 items-center justify-between">
                   <span className="absolute top-0 left-0 lg:hidden size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
 
                   <div className="flex flex-col gap-3 xl:gap-8 items-center">
@@ -107,7 +107,7 @@ const JoinNow = () => {
                       />
                     </div>
                     {/* Nội dung mô tả bước */}
-                    <div className="flex flex-col gap-2 xl:gap-4 items-center px-7">
+                    <div className="flex flex-col gap-2 xl:gap-4 items-center px-7 lg:px-3">
                       <h3 className="text-center 2xl:text-2xl xl:text-xl text-base font-bold text-greyscale-700">
                         {step.title}
                       </h3>

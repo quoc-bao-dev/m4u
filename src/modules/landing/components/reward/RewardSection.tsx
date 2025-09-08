@@ -16,12 +16,12 @@ const RewardSection = () => {
       <Section
         background={
           <>
-            <div className="absolute top-[-100px] hidden xl:block">
+            {/* <div className="absolute top-[-100px] hidden xl:block">
               <BlurCircle1 />
             </div>
             <div className="absolute top-[-200px] left-[300px] hidden xl:block">
               <BlurCircle2 />
-            </div>
+            </div> */}
           </>
         }
       >
@@ -36,8 +36,8 @@ const RewardSection = () => {
         <Container className="max-w-full md:max-w-[1150px] px-4">
           <div className="mt-10 relative flex  md:flex-row items-stretch justify-between gap-4 md:gap-10 w-full">
             {/* Elastic connector between the first two cards */}
-            <div className="pointer-events-none rounded-full absolute bottom-1/2 left-1/2 -translate-x-1/3 translate-y-1/2 size-[40rem] opacity-50 bg-radial from-[#4AD29594] via-transparent to-transparent"></div>
-            <div className="pointer-events-none rounded-full absolute bottom-1/2 left-1/2 -translate-x-2/3 translate-y-1/3 size-[40rem] opacity-50 bg-radial from-[#8080F1] via-transparent to-transparent"></div>
+            {/* <div className="pointer-events-none rounded-full absolute bottom-1/2 left-1/2 -translate-x-1/3 translate-y-1/2 size-[40rem] opacity-50 bg-radial from-[#4AD29594] via-transparent to-transparent"></div> */}
+            {/* <div className="pointer-events-none rounded-full absolute bottom-1/2 left-1/2 -translate-x-2/3 translate-y-1/3 size-[40rem] opacity-50 bg-radial from-[#8080F1] via-transparent to-transparent"></div> */}
 
             <div
               className={`transition-transform duration-200 ease-out  ${
