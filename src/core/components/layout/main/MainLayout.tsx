@@ -7,7 +7,7 @@ import Concave from './Concave'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
-  threshold: 10, // px
+  threshold: 0, // px
   headerHideThreshold: 100, // px - threshold để enable hiệu ứng ẩn/hiện header
   backgroundOverlayClass: 'bg-white', // background overlay color
   transitionClass: 'transition-all duration-200 ease-in-out', // smooth transition

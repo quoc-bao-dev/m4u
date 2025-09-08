@@ -51,7 +51,7 @@ const RewardSection = () => {
           </>
         }
       >
-        <h1 className="text-[32px] md:text-[64px] text-gray-700 font-bold text-center">
+        <h1 className="text-[24px] sm:text-[32px] md:text-[64px] text-gray-700 font-bold text-center">
           ✨ Khám phá những ưu đãi đặc biệt
         </h1>
         <p className="text-[18px] md:text-[24px] text-gray-700 text-center">

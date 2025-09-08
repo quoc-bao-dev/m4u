@@ -1,6 +1,6 @@
 import { Container } from '@/core/components'
-import { LiveStreamBadge } from '../badge'
 import AvatarStack from './AvatarStack'
+import LiveStreamTracking from './LiveStreamTracking'
 
 const LiveStreamComponent = () => {
   return (
@@ -10,7 +10,7 @@ const LiveStreamComponent = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-6">
             {/* Live Stream Badge */}
             <div className="flex items-center md:justify-start justify-center w-full bg">
-              <LiveStreamBadge />
+              <LiveStreamTracking />
             </div>
 
             {/* Members Section */}

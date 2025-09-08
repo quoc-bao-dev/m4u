@@ -112,10 +112,18 @@ const ReviewerCarousel = ({
 
   return (
     <div className="py-3 relative">
-      <img
+      {/* <img
         src="/image/reviewer-carousel/carousel.gif"
         className="h-full w-auto object-cover absolute top-0 left-0"
         alt=""
+      /> */}
+      <video
+        src="/image/reviewer-carousel/carousel.webm"
+        className="h-full w-auto object-cover absolute top-0 left-0"
+        autoPlay
+        loop
+        muted
+        playsInline
       />
       <div className="relative mx-auto aspect-[16/4] bg-red-100/0 w-[300px] md:w-[700px] lg:w-[1000px] xl:w-[1200px] 2xl:w-[1500px] h-full flex items-center justify-center">
         <motion.div

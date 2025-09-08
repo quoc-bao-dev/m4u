@@ -10,11 +10,13 @@ const HeroBackground = () => {
     <div className="h-full">
       {!isMobile ? (
         <>
-          <BlurBackground isMobile={isMobile} />
+          <div className="hidden xl:block">
+            <BlurBackground isMobile={isMobile} />
+          </div>
         </>
       ) : (
         // Mobile version - optimized static blur background without animations
-        <div className="absolute inset-0 w-full h-full overflow-hidden ">
+        <div className="hidden xl:block absolute inset-0 w-full h-full overflow-hidden ">
           {/* Simplified static gradient for mobile performance */}
           {/* <div
             style={{
@@ -43,17 +45,28 @@ const HeroBackground = () => {
         </div>
       )}
       {/* Desktop background image */}
-      <div className="hidden lg:block absolute inset-0 w-full h-full -z-10">
-        <img
+      <div className="hidden xl:block absolute inset-0 w-full h-full -z-10">
+        {/* <img
           src="/image/hero-baner/Homepage_5.gif"
           className="w-full h-full ml-10 object-cover"
           alt="Hero background"
           loading="lazy" // Lazy load for better performance
+        /> */}
+
+        <video
+          className="w-full object-cover"
+          src="/image/hero-baner/Homepage_5.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          style={{ maxWidth: '100%' }}
         />
       </div>
 
       {/* Mobile background image - optimized */}
-      <div className="block lg:hidden absolute inset-0 w-full h-full -z-10">
+      <div className="block xl:hidden absolute inset-0 w-full h-full -z-10">
         {/* <img
           src="/image/hero-baner/Homepage_1.webp"
           className="w-full h-full object-cover"
@@ -65,6 +78,17 @@ const HeroBackground = () => {
           style={{ maxWidth: '100%', maxHeight: '100%' }}
           fetchPriority="high"
         /> */}
+
+        <video
+          className="w-full h-full object-cover"
+          src="/image/hero-baner/Homepage_1.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          style={{ maxWidth: '100%', maxHeight: '100%' }}
+        />
       </div>
     </div>
   )
