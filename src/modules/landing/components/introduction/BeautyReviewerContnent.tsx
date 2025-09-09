@@ -1,5 +1,6 @@
 import { Container, Grid } from '@/core/components'
 import { RegisterCTA } from '../cta'
+import Link from 'next/link'
 
 const BeautyReviewerSection = () => {
   return (

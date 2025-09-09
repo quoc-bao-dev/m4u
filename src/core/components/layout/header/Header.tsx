@@ -4,6 +4,7 @@ import { memo } from 'react'
 import { Logo } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
+import Link from 'next/link'
 
 const Header = () => {
   return (
@@ -23,9 +24,9 @@ const Header = () => {
             />
           </svg>
         </div>
-        <div className="absolute left-1/2 -translate-x-1/2">
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <Logo className="size-[40px] md:size-[60px]" />
-        </div>
+        </Link>
         <LanguageSwitcher />
       </div>
     </Container>

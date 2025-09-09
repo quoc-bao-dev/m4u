@@ -6,6 +6,8 @@ import { ArrowLeftIcon, ArrowRightIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import Link from 'next/link'
+import Button from '@/core/components/ui/button'
 
 const deals = [
   {
@@ -249,6 +251,10 @@ const Deal: React.FC = () => {
           />
         </button>
       </div>
+
+      <Link href="vi/review-hub">
+        <Button>Xem tất cả</Button>
+      </Link>
     </div>
   )
 }
