@@ -23,7 +23,7 @@ const BeautyReviewerSection = () => {
               Nhận ngay 10% hoa hồng khi giới thiệu bạn bè mua hàng thành công.
             </p>
           </div>
-          <Link href={'/trial-registration'}>
+          <Link href={'/vi/trial-registration'}>
             <RegisterCTA className="mt-8" label="Đăng ký trải nghiệm" />
           </Link>
         </div>

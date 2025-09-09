@@ -25,7 +25,7 @@ const Header = () => {
           </svg>
         </div>
         <div className="absolute left-1/2 -translate-x-1/2">
-          <Link href={'/'}>
+          <Link href={'/vi'}>
             <Logo className="size-[40px] md:size-[60px]" />
           </Link>
         </div>

@@ -60,7 +60,7 @@ const HeroContent = () => {
             </div>
             {/* CTA Button */}
             <div className="hidden md:block">
-              <Link href={'/trial-registration'}>
+              <Link href={'/vi/trial-registration'}>
                 <RegisterCTA
                   className="mt-4"
                   label="Đăng ký trải nghiệm ngay"
@@ -69,7 +69,7 @@ const HeroContent = () => {
             </div>
 
             <div className="block md:hidden">
-              <Link href={'/trial-registration'}>
+              <Link href={'/vi/trial-registration'}>
                 <RegisterCTA className="mt-4" label="Đăng ký ngay" />
               </Link>
             </div>
