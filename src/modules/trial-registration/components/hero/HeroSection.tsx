@@ -63,7 +63,7 @@ const HeroSection = () => {
                         delay={0}
                       />{' '}
                       <AnimatedTitle
-                        className="text-[#FF8092]"
+                        className="text-[#FF8092] truncate"
                         heroPerTitle={[
                           { id: 1, letter: 't' },
                           { id: 2, letter: 'r' },
