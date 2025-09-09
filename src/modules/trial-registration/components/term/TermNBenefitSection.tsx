@@ -15,7 +15,7 @@ const AccordionItem = ({
   const [open, setOpen] = useState<boolean>(defaultOpen)
 
   return (
-    <div className="rounded-xl border border-gray-200">
+    <div className="rounded-3xl border border-gray-300">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}

@@ -7,9 +7,11 @@ const ProductSection = () => (
   <section className="py-[96px]">
     <Container>
       <div className="flex gap-5">
-        <FilterSidebar />
+        <div className="md:block hidden">
+          <FilterSidebar />
+        </div>
         <div className="flex-1">
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-5">
             {PRODUCTS_MOCK.map((p) => (
               <div key={p.id}>
                 <ProductCard
