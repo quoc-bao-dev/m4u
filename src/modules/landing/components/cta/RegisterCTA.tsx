@@ -37,7 +37,7 @@ const RegisterCTA = ({
       initial="initial"
       transition={{ duration: 0.2, ease: 'easeInOut' }}
     >
-      <button className="bg-[#FE6BBA] text-white px-4 py-3 md:px-8 md:py-6 rounded-full text-xs md:text-xl  font-medium h-[38px] md:h-[77px]  hover:bg-[#e55ba5] transition-colors duration-200 flex items-center gap-2 md:gap-3">
+      <button className="bg-[#FE6BBA] text-white px-4 py-3 md:px-8 md:py-6 rounded-full text-xs md:text-xl  font-medium h-[38px] md:h-[77px]  hover:bg-[#e55ba5] transition-colors duration-200 flex items-center gap-2 md:gap-3 cursor-pointer">
         {label}
       </button>
       {/* mũi tên chổ này di chuyển và giữ nguyên khoảng cách với cạnh phải */}

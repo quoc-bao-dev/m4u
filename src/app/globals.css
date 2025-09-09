@@ -44,6 +44,7 @@
   --color-yellow-100: #FFFAED;
   --color-yellow-300: #FDEAB7;
   --color-yellow-600: #FACA4A;
+  
   --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -252,5 +253,14 @@ body {
   }
   .animate-scroll-chevron {
     animation: scroll-chevron 1.6s ease-in-out infinite;
+  }
+  
+  /* Text Gradient Utilities */
+  .text-gradient-blue-black {
+    background: linear-gradient(to right, #000087, #000000);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }

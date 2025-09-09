@@ -6,6 +6,8 @@ import { ArrowLeftIcon, ArrowRightIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import Link from 'next/link'
+import Button from '@/core/components/ui/button'
 
 const deals = [
   {
@@ -94,9 +96,12 @@ const Deal: React.FC = () => {
     emblaApi?.scrollNext()
   }, [emblaApi])
 
-  const handleSelect = useCallback((index: number) => {
-    emblaApi?.scrollTo(index)
-  }, [emblaApi])
+  const handleSelect = useCallback(
+    (index: number) => {
+      emblaApi?.scrollTo(index)
+    },
+    [emblaApi]
+  )
 
   return (
     <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
@@ -143,87 +148,108 @@ const Deal: React.FC = () => {
       <div className="z-[3] w-full px-0 lg:px-10 xl:px-32 cursor-default select-none">
         <div ref={emblaRef} className="overflow-hidden">
           <div className="flex items-center gap-4 lg:gap-3 h-full">
-          {deals.map((deal, index) => {
-            return (
-              <div
-                key={`wrapper-${index}-${deal.id}`}
-                className="shrink-0 basis-1/3 cursor-pointer"
-                onClick={() => handleSelect(index)}
-                role="button"
-                aria-label={`Chuyển tới ưu đãi ${index + 1}`}
-              >
+            {deals.map((deal, index) => {
+              return (
                 <div
-                  key={`deal-${index}-${deal.id}`}
-                  className={`deal-card relative rounded-3xl h-fit w-full select-none transition-transform duration-300 ${index === selectedIndex ? '' : 'scale-[0.9] lg:scale-[0.8] opacity-90'}`}
+                  key={`wrapper-${index}-${deal.id}`}
+                  className="shrink-0 basis-1/3 cursor-pointer"
+                  onClick={() => handleSelect(index)}
+                  role="button"
+                  aria-label={`Chuyển tới ưu đãi ${index + 1}`}
                 >
-                  <div className="rounded-t-3xl relative overflow-hidden">
-                    <div
-                      className="absolute inset-0 -z-10"
-                      style={{
-                        background: `radial-gradient(circle, white 0%, ${deal.hex}26 )`,
-                      }}
-                    />
-                    <div className="absolute top-3 xl:top-4 left-3 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs xl:text-base font-medium text-greyscale-900">
-                      <StarIcon
-                        weight="fill"
-                        className="size-3 xl:size-5 text-yellow-600"
-                      />
-                      4.9
-                    </div>
-                    <Image
-                      src={deal.image}
-                      alt="deal"
-                      width={500}
-                      height={500}
-                      className="w-full h-full object-cover rounded-t-3xl"
-                    />
-                  </div>
                   <div
-                    className="p-3 xl:p-5 flex flex-col gap-1 rounded-b-3xl"
-                    style={{ backgroundColor: `${deal.bgColor}` }}
+                    key={`deal-${index}-${deal.id}`}
+                    className={`deal-card relative rounded-3xl h-fit w-full select-none transition-transform duration-300 ${
+                      index === selectedIndex
+                        ? ''
+                        : 'scale-[0.9] lg:scale-[0.8] opacity-90'
+                    }`}
                   >
-                    <h3 className="text-xs xl:text-sm font-bold text-greyscale-900">
-                      {deal.title}
-                    </h3>
-                    <h3 className="text-greyscale-900 text-sm xl:text-lg truncate">
-                      {deal.description}
-                    </h3>
-                    <div className="py-1">
-                      <div className="relative w-full h-1.5">
-                        <div className="relative" style={{ width: `70%` }}>
-                          <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-                          <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
-                        </div>
-                        <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                    <div className="rounded-t-3xl relative overflow-hidden">
+                      <div
+                        className="absolute inset-0 -z-10"
+                        style={{
+                          background: `radial-gradient(circle, white 0%, ${deal.hex}26 )`,
+                        }}
+                      />
+                      <div className="absolute top-3 xl:top-4 left-3 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs xl:text-base font-medium text-greyscale-900">
+                        <StarIcon
+                          weight="fill"
+                          className="size-3 xl:size-5 text-yellow-600"
+                        />
+                        4.9
                       </div>
+                      <div className="absolute bottom-3 xl:bottom-4 right-3 xl:right-4 flex items-center gap-1.5">
+                        <span className="2xl:size-11 size-9 flex items-center justify-center bg-[#F5222D] p-2 2xl:rounded-2xl rounded-xl text-white 2xl:text-xl text-base font-semibold">
+                          19
+                        </span>
+                        <span className=" text-[#F5222D] text-xl font-semibold">
+                          :
+                        </span>
+                        <span className="2xl:size-11 size-9 flex items-center justify-center bg-[#F5222D] p-2 2xl:rounded-2xl rounded-xl text-white 2xl:text-xl text-base font-semibold">
+                          25
+                        </span>
+                        <span className=" text-[#F5222D] text-xl font-semibold">
+                          :
+                        </span>
+                        <span className="2xl:size-11 size-9 flex items-center justify-center bg-[#F5222D] p-2 2xl:rounded-2xl rounded-xl text-white 2xl:text-xl text-base font-semibold">
+                          00
+                        </span>
+                      </div>
+                      <Image
+                        src={deal.image}
+                        alt="deal"
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-cover rounded-t-3xl"
+                      />
                     </div>
-                    <p className="text-xs xl:text-sm text-greyscale-700">
-                      {deal.participation}
-                    </p>
-                    <button
-                      className="w-fit mt-3 xl:mt-4 py-2 xl:py-4 px-3 xl:px-5 rounded-full cursor-pointer text-sm xl:text-base"
-                      style={{
-                        border: `1px solid ${deal.hex}`,
-                        color: deal.hex,
-                        backgroundColor: 'transparent',
-                        transition: 'all 300ms ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = deal.hex
-                        e.currentTarget.style.color = '#000'
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent'
-                        e.currentTarget.style.color = deal.hex
-                      }}
+                    <div
+                      className="p-3 xl:p-5 flex flex-col gap-1 rounded-b-3xl"
+                      style={{ backgroundColor: `${deal.bgColor}` }}
                     >
-                      Đăng ký dùng thử
-                    </button>
+                      <h3 className="text-xs xl:text-sm font-bold text-greyscale-900">
+                        {deal.title}
+                      </h3>
+                      <h3 className="text-greyscale-900 text-sm xl:text-lg truncate">
+                        {deal.description}
+                      </h3>
+                      <div className="py-1">
+                        <div className="relative w-full h-1.5">
+                          <div className="relative" style={{ width: `70%` }}>
+                            <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                            <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
+                          </div>
+                          <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                        </div>
+                      </div>
+                      <p className="text-xs xl:text-sm text-greyscale-700">
+                        {deal.participation}
+                      </p>
+                      <button
+                        className="w-fit mt-3 xl:mt-4 py-2 xl:py-4 px-3 xl:px-5 rounded-full cursor-pointer text-sm xl:text-base"
+                        style={{
+                          border: `1px solid ${deal.hex}`,
+                          color: deal.hex,
+                          backgroundColor: 'transparent',
+                          transition: 'all 300ms ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = deal.hex
+                          e.currentTarget.style.color = '#000'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent'
+                          e.currentTarget.style.color = deal.hex
+                        }}
+                      >
+                        Đăng ký dùng thử
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
           </div>
         </div>
       </div>
@@ -249,6 +275,10 @@ const Deal: React.FC = () => {
           />
         </button>
       </div>
+
+      <Link href="vi/review-hub">
+        <Button>Xem tất cả</Button>
+      </Link>
     </div>
   )
 }
