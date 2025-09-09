@@ -18,7 +18,7 @@ const AccordionItem = ({
 
   return (
     <div
-      className="rounded-lg md:rounded-2xl border border-gray-1000 bg-white"
+      className="rounded-lg md:rounded-2xl border border-gray-1000 bg-white cursor-pointer"
       onClick={() => setOpen((prev) => !prev)}
     >
       <button
@@ -37,7 +37,7 @@ const AccordionItem = ({
         </span>
       </button>
       {open && (
-        <div className="px-6 pb-4 text-sm text-gray-600">{children}</div>
+        <div className="px-6 pb-4 text-sm text-gray-700">{children}</div>
       )}
     </div>
   )
@@ -45,7 +45,7 @@ const AccordionItem = ({
 
 const TermNBenefitSection = () => {
   return (
-    <section className="py-[96px]">
+    <section className=" pb-[60px] md:py-[96px]">
       <Container className="space-y-3 xl:px-[200px]">
         <h2 className="text-title-sect font-bold text-gray-400 pb-5">
           <span className="text-gray-900">Quyền lợi </span> & Điều khoản

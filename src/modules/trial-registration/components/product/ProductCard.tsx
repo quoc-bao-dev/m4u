@@ -132,7 +132,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             e.currentTarget.style.color = accentHex
           }}
         >
-          Đăng ký dùng thử
+          <span className="truncate">Đăng ký dùng thử</span>
         </button>
       </div>
     </div>

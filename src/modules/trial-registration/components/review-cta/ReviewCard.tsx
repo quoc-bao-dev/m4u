@@ -92,7 +92,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       <motion.div
         className="w-full overflow-hidden rounded-t-3xl"
         animate={{
-          height: isMobile ? (isActive ? 320 : 250) : isActive ? 450 : 342,
+          height: isMobile ? (isActive ? 280 : 250) : isActive ? 400 : 342,
         }}
         transition={{ type: 'spring', stiffness: 140, damping: 18 }}
       >

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import ReviewCard from './ReviewCard'
 
 type ReviewItem = {
@@ -21,9 +21,19 @@ interface ReviewCTACarouselProps {
 }
 
 const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
-  // Set middle card as active by default
-  const [activeIndex, setActiveIndex] = useState(Math.floor(items.length / 2))
+  // Infinite loop setup
+  const loopCount = 3
+  const baseBlockIndex = 1 // middle block
+  const extendedItems = useMemo(
+    () => Array.from({ length: loopCount }).flatMap(() => items),
+    [items]
+  )
+  const [activeIndex, setActiveIndex] = useState(0)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+
+  const blockSize = items.length
+  const getMiddleIndexForLogical = (logicalIndex: number) =>
+    blockSize * baseBlockIndex + (logicalIndex % blockSize)
 
   const getScrollLeftForIndex = (index: number) => {
     const el = scrollRef.current
@@ -39,25 +49,24 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
     return scrollLeft
   }
 
-  const scrollToIndex = (index: number) => {
+  const scrollToIndex = (
+    index: number,
+    behavior: ScrollBehavior = 'smooth'
+  ) => {
     const el = scrollRef.current
     if (!el) return
-    const clamped = Math.max(0, Math.min(items.length - 1, index))
-
-    // Smooth scroll with easing
-    el.scrollTo({
-      left: getScrollLeftForIndex(clamped),
-      behavior: 'smooth',
-    })
+    const clamped = Math.max(0, Math.min(extendedItems.length - 1, index))
+    el.scrollTo({ left: getScrollLeftForIndex(clamped), behavior })
     setActiveIndex(clamped)
   }
 
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    // Initialize with middle card active
-    const middleIndex = Math.floor(items.length / 2)
-    el.scrollLeft = getScrollLeftForIndex(middleIndex)
+    // Initialize to the middle block for seamless looping
+    const startIndex = items.length * baseBlockIndex
+    setActiveIndex(startIndex)
+    el.scrollLeft = getScrollLeftForIndex(startIndex)
   }, [items.length])
 
   // Update active index based on scroll position
@@ -86,6 +95,16 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
       if (closestIndex !== activeIndex) {
         setActiveIndex(closestIndex)
       }
+
+      // Seamless loop repositioning to keep the scroll within the middle block
+      const blockSize = items.length
+      if (closestIndex < blockSize) {
+        const target = closestIndex + blockSize
+        scrollToIndex(target, 'auto')
+      } else if (closestIndex >= blockSize * 2) {
+        const target = closestIndex - blockSize
+        scrollToIndex(target, 'auto')
+      }
     }
 
     el.addEventListener('scroll', handleScroll)
@@ -93,10 +112,10 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
   }, [activeIndex])
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full">
       <div
         ref={scrollRef}
-        className="flex items-center justify-center cursor-default select-none gap-4 md:gap-6 scroll-smooth"
+        className="flex items-center justify-start cursor-default select-none gap-4 md:gap-6 scroll-smooth md:h-[600px] h-[550px] overflow-x-auto px-4"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -104,7 +123,7 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
           WebkitOverflowScrolling: 'touch',
         }}
       >
-        {items.map((item, idx) => (
+        {extendedItems.map((item, idx) => (
           <div
             key={`cta-review-${idx}`}
             className={`flex-shrink-0 transition-all duration-500 ease-in-out ${
@@ -131,7 +150,9 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
                 console.log('Đăng ký dùng thử clicked')
               }}
               className="cursor-pointer select-none"
-              onClick={() => scrollToIndex(idx)}
+              onClick={() =>
+                scrollToIndex(getMiddleIndexForLogical(idx % blockSize))
+              }
             />
           </div>
         ))}

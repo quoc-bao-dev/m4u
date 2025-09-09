@@ -94,7 +94,7 @@ const Section = ({
         <span className="font-semibold text-gray-900">{group.title}</span>
         <span className="text-gray-400">
           <ArrowIcon
-            className={`transition-transform duration-200 ${
+            className={`transition-transform duration-200 size-[16px] ${
               open ? 'rotate-180' : 'rotate-0'
             }`}
           />
@@ -156,7 +156,7 @@ const FilterSidebar = () => {
   }
 
   return (
-    <aside className="w-[260px] shrink-0">
+    <aside className="w-[290px] shrink-0">
       <div className="rounded-2xl bg-white shadow-lg p-4">
         <div className="flex items-center gap-2 pb-2 mb-2 border-b">
           <FilterIcon />{' '}
