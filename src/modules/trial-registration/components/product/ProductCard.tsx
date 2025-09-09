@@ -73,9 +73,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={imageAlt}
           width={820}
           height={820}
-          className="w-full h-[220px] xl:h-[300px] object-cover rounded-t-3xl"
+          className="w-full md:h-[220px] xl:h-[300px] object-cover rounded-t-3xl"
         />
-        {/* TODO: render time ở đây */}
         {time && (
           <div className="flex justify-end pr-3 pb-3">
             <div className="relative flex items-center gap-2">

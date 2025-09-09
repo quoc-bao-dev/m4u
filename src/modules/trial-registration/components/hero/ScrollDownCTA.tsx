@@ -23,10 +23,10 @@ const ScrollDownCTA = ({ label = 'Xem ngay' }: ScrollDownCTAProps) => {
   }, [])
 
   return (
-    <div className="fixed bottom-4 left-16 md:bottom-6 md:left-6 z-50">
+    <div className="fixed bottom-4 left-1/2 translate-x-[-50%] md:translate-x-0 md:bottom-6 md:left-16 z-50">
       <button
         onClick={scrollDown}
-        className={`text-gray-500 text-xl px-5 py-3 rounded-full hover:bg-gray-700 active:scale-[0.98] transition duration-300 ${
+        className={`text-gray-500 md:text-xl rounded-full hover:bg-gray-700 active:scale-[0.98] transition duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label={label}
@@ -36,13 +36,13 @@ const ScrollDownCTA = ({ label = 'Xem ngay' }: ScrollDownCTAProps) => {
 
       <div
         onClick={scrollDown}
-        className={`relative z-40 flex flex-col items-center gap-0 cursor-pointer transition-opacity duration-300 ${
+        className={`relative z-40 flex flex-col items-center md:items-start -gap-4 cursor-pointer transition-opacity duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-hidden
       >
         <svg
-          className="animate-scroll-chevron"
+          className="animate-scroll-chevron size-4 md:size-[24px]"
           style={{ animationDelay: '0s' }}
           width="24"
           height="24"
@@ -59,7 +59,7 @@ const ScrollDownCTA = ({ label = 'Xem ngay' }: ScrollDownCTAProps) => {
           />
         </svg>
         <svg
-          className="animate-scroll-chevron"
+          className="animate-scroll-chevron size-4 md:size-[24px]"
           style={{ animationDelay: '0.2s' }}
           width="24"
           height="24"
@@ -76,7 +76,7 @@ const ScrollDownCTA = ({ label = 'Xem ngay' }: ScrollDownCTAProps) => {
           />
         </svg>
         <svg
-          className="animate-scroll-chevron"
+          className="animate-scroll-chevron size-4 md:size-[24px]"
           style={{ animationDelay: '0.4s' }}
           width="24"
           height="24"
