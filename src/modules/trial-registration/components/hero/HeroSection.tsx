@@ -4,10 +4,11 @@ import Image from 'next/image'
 import AvatarStack from './AvatarStack'
 import TestimonialCard from './TestimonialCard'
 import ScrollDownCTA from './ScrollDownCTA'
+import HeroImage from './HeroImage'
 
 const HeroSection = () => {
   return (
-    <section className="relative md:h-[100svh] pt-[90px] md:pt-0 overflow-hidden">
+    <section className="relative md:h-[100svh] pt-[90px]  md:pt-0 overflow-hidden">
       <div className="absolute left-0 right-0 -bottom-[50%] z-0">
         <img
           src="/blur/blur-hero-01.png"
@@ -16,7 +17,7 @@ const HeroSection = () => {
         />
       </div>
       <div className="h-full flex flex-col">
-        <div className="mt-auto pb-[200px]">
+        <div className="mt-auto pb-[100px] md:pb-[200px]">
           <Container>
             <div className="flex flex-col md:flex-row justify-between relative">
               {/* Right */}
@@ -24,14 +25,14 @@ const HeroSection = () => {
                 <div className="flex flex-col space-y-[16px]">
                   {/* Main Headline */}
                   <div className="space-y-[8px]">
-                    <h1 className="text-[32px] lg:text-[64px] xl:text-[80px] 2xl:text-[96px] font-bold leading-[110%]">
+                    <h1 className="text-title font-bold leading-[110%]">
                       <span className="text-gray-900">Tham gia</span>{' '}
                       <span className="text-[#FF8092]">trải nghiệm</span>
                     </h1>
                   </div>
 
                   {/* Sub-headline */}
-                  <p className="lg:text-[20px] xl:text-[24px] 2xl:text-[36px] font-medium text-gray-800">
+                  <p className="text-desc font-medium text-gray-800">
                     viết review nhận ngay ưu đãi
                   </p>
                   {/* Social Proof Section */}
@@ -39,15 +40,9 @@ const HeroSection = () => {
                 </div>
               </div>
               {/* Center */}
-              <div className="w-[80%] md:w-[30%] md:absolute left-1/2 top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 ">
-                <div className="">
-                  <Image
-                    src="/image/trial/image-01.png"
-                    alt="Hero Image"
-                    className="w-full"
-                    width={300}
-                    height={300}
-                  />
+              <div className="md:w-[30%] md:absolute left-1/2 top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 ">
+                <div className="md:block flex justify-center w-full">
+                  <HeroImage />
                 </div>
               </div>
               {/* Left */}

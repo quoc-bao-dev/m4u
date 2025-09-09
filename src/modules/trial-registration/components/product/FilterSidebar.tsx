@@ -157,7 +157,7 @@ const FilterSidebar = () => {
 
   return (
     <aside className="w-[260px] shrink-0">
-      <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-4">
+      <div className="rounded-2xl bg-white shadow-lg p-4">
         <div className="flex items-center gap-2 pb-2 mb-2 border-b">
           <FilterIcon />{' '}
           <span className="font-bold text-xl text-gray-900">Bộ lọc</span>

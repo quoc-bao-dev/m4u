@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const TestimonialCard = () => {
   return (
-    <div className="w-full h-[506px] flex flex-col">
+    <div className="w-full md:h-[506px] flex flex-col">
       <div className="flex items-end gap-3">
         {/* Quote Icon */}
         <div className="mb-4">
@@ -18,21 +18,21 @@ const TestimonialCard = () => {
       </div>
 
       {/* Testimonial Text */}
-      <p className="text-[20px] text-black mb-6 leading-relaxed">
+      <p className="text-desc text-black mb-6 leading-relaxed">
         Thật sự bất ngờ! Mình đã được dùng thử sản phẩm xịn sò miễn phí, còn
         được học hỏi thêm nhiều kiến thức làm đẹp hữu ích. Rất recommend nha!
       </p>
 
       {/* Reviewer Info */}
       <div className="mb-8">
-        <h3 className="text-[20px] font-semibold text-purple-600 mb-1">
+        <h3 className="text-desc font-semibold text-purple-600 mb-1">
           Linh Trần
         </h3>
         <p className="text-[16px] text-gray-600">Beauty Blogger tại TP.HCM</p>
       </div>
 
       {/* Product Images */}
-      <div className="flex space-x-3 mt-auto">
+      <div className="flex space-x-3 md:mt-auto mx-auto md:mx-0">
         {[2, 3, 4].map((val, index) => (
           <div className="p-2 rounded-2xl border border-white" key={index}>
             <div className="p-2 bg-white rounded-2xl">

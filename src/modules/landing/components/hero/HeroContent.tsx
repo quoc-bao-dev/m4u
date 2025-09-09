@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { RegisterCTA } from '../cta'
+import Link from 'next/link'
 
 const HeroContent = () => {
   return (
@@ -59,11 +60,18 @@ const HeroContent = () => {
             </div>
             {/* CTA Button */}
             <div className="hidden md:block">
-              <RegisterCTA className="mt-4" label="Đăng ký trải nghiệm ngay" />
+              <Link href={'/vi/trial-registration'}>
+                <RegisterCTA
+                  className="mt-4"
+                  label="Đăng ký trải nghiệm ngay"
+                />
+              </Link>
             </div>
 
             <div className="block md:hidden">
-              <RegisterCTA className="mt-4" label="Đăng ký ngay" />
+              <Link href={'/vi/trial-registration'}>
+                <RegisterCTA className="mt-4" label="Đăng ký ngay" />
+              </Link>
             </div>
           </div>
         </div>
