@@ -1,42 +1,42 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useCallback } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 // Animation configuration optimized for different devices
 const ANIMATION = {
   // Desktop: Full animations with multiplier
   desktop: {
-    multiplier: 3,
+    multiplier: 2, // Reduced from 3 to 2
     ease: {
       inOut: 'easeInOut' as const,
       out: 'easeOut' as const,
     },
     hero: {
-      containerEnter: 0.7,
-      svgEnter: { duration: 0.95, delay: 0.16 },
-      blobEnter: { duration: 1.2, delay: 0.28 },
-      pathDraw: { duration: 2.6, delay: 0.36 },
-      gradientLoop: 2.6,
-      colorLoop: { duration: 3, delayOffsets: [0, 0.4, 0.8, 1] },
-      gradientSweep: { distance: 960, duration: 7.5 },
+      containerEnter: 0.5, // Reduced from 0.7
+      svgEnter: { duration: 0.6, delay: 0.1 }, // Reduced durations
+      blobEnter: { duration: 0.8, delay: 0.2 },
+      pathDraw: { duration: 1.5, delay: 0.25 }, // Much shorter
+      gradientLoop: 1.8, // Reduced from 2.6
+      colorLoop: { duration: 2.5, delayOffsets: [0, 0.5, 1] }, // Fewer changes
+      gradientSweep: { distance: 600, duration: 5 }, // Reduced distance and duration
     },
   },
   // Mobile: Simplified animations for better performance
   mobile: {
-    multiplier: 1, // No multiplier for faster animations
+    multiplier: 1,
     ease: {
       inOut: 'easeInOut' as const,
       out: 'easeOut' as const,
     },
     hero: {
-      containerEnter: 0.3, // Much faster
-      svgEnter: { duration: 0.4, delay: 0.1 },
-      blobEnter: { duration: 0.5, delay: 0.15 },
-      pathDraw: { duration: 0.8, delay: 0.2 },
-      gradientLoop: 1.5, // Shorter loop
-      colorLoop: { duration: 2, delayOffsets: [0, 0.5, 1] }, // Fewer color changes
-      gradientSweep: { distance: 480, duration: 4 }, // Shorter sweep
+      containerEnter: 0.2, // Even faster
+      svgEnter: { duration: 0.3, delay: 0.05 },
+      blobEnter: { duration: 0.4, delay: 0.1 },
+      pathDraw: { duration: 0.6, delay: 0.15 },
+      gradientLoop: 1.2, // Shorter loop
+      colorLoop: { duration: 1.5, delayOffsets: [0, 0.7] }, // Only 2 color changes
+      gradientSweep: { distance: 300, duration: 3 }, // Much shorter
     },
   },
 } as const
@@ -46,15 +46,54 @@ interface BlurBackgroundProps {
 }
 
 const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
+  const shouldReduceMotion = useReducedMotion()
+  const [isVisible, setIsVisible] = useState(false)
+  
   // Get appropriate animation config based on device
   const animationConfig = isMobile ? ANIMATION.mobile : ANIMATION.desktop
 
-  if (isMobile) {
-    return <div></div>
+  // Performance optimization: only render when in viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    const element = document.getElementById('blur-background')
+    if (element) {
+      observer.observe(element)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Disable animations if user prefers reduced motion or on mobile
+  if (isMobile || shouldReduceMotion) {
+    return (
+      <div 
+        id="blur-background"
+        className="absolute inset-0 w-full h-full overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #2EA7FF 0%, #5B50FF 25%, #FF2E90 75%, #FF7A2B 100%)',
+          filter: 'blur(120px)',
+          opacity: 0.15,
+          willChange: 'auto',
+        }}
+      />
+    )
+  }
+
+  if (!isVisible) {
+    return <div id="blur-background" className="absolute inset-0 w-full h-full overflow-hidden" />
   }
 
   return (
     <motion.div
+      id="blur-background"
       // Hiển thị màu ngay từ đầu: đặt opacity/scale về trạng thái cuối ngay lập tức
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -65,6 +104,10 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
         ease: animationConfig.ease.out,
       }}
       className="absolute inset-0 w-full h-full overflow-hidden"
+      style={{
+        willChange: 'transform',
+        transform: 'translate3d(0,0,0)', // Force hardware acceleration
+      }}
     >
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +124,10 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
           delay: animationConfig.hero.svgEnter.delay,
           ease: animationConfig.ease.out,
         }}
+        style={{
+          willChange: 'transform',
+          transform: 'translate3d(0,0,0)',
+        }}
       >
         <motion.g
           filter="url(#filter0_f_17446_539)"
@@ -92,6 +139,10 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
               animationConfig.multiplier,
             delay: animationConfig.hero.blobEnter.delay,
             ease: animationConfig.ease.out,
+          }}
+          style={{
+            willChange: 'transform',
+            transform: 'translate3d(0,0,0)',
           }}
         >
           <motion.path
@@ -127,7 +178,7 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
               result="shape"
             />
             <feGaussianBlur
-              stdDeviation="182"
+              stdDeviation="120"
               result="effect1_foregroundBlur_17446_539"
             />
           </filter>
@@ -170,6 +221,7 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
                 repeatType: 'mirror',
                 ease: animationConfig.ease.inOut,
               }}
+              style={{ willChange: 'stop-color' }}
             />
             <motion.stop
               offset="0.452463"
@@ -186,6 +238,7 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
                 delay: animationConfig.hero.colorLoop.delayOffsets[1],
                 repeatType: 'mirror',
               }}
+              style={{ willChange: 'stop-color' }}
             />
             <motion.stop
               offset="0.762123"
@@ -204,6 +257,7 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
                 delay: animationConfig.hero.colorLoop.delayOffsets[2],
                 repeatType: 'mirror',
               }}
+              style={{ willChange: 'stop-color, stop-opacity' }}
             />
             <motion.stop
               offset="1"
@@ -219,9 +273,10 @@ const BlurBackground = ({ isMobile }: BlurBackgroundProps) => {
                   animationConfig.multiplier,
                 repeat: Infinity,
                 ease: animationConfig.ease.inOut,
-                delay: animationConfig.hero.colorLoop.delayOffsets[3],
+                delay: animationConfig.hero.colorLoop.delayOffsets[animationConfig.hero.colorLoop.delayOffsets.length - 1],
                 repeatType: 'mirror',
               }}
+              style={{ willChange: 'stop-color, stop-opacity' }}
             />
           </motion.linearGradient>
         </defs>

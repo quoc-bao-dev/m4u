@@ -31,6 +31,7 @@ export default function RootLayout({ children }: Props) {
     <html suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
         style={{
           backgroundColor: 'rgb(255, 255, 255)',
         }}
