@@ -1,5 +1,7 @@
 'use client'
 
+import { Container } from '@/core/components'
+import { cn } from '@/core/utils'
 import React, { useState, PropsWithChildren } from 'react'
 
 type AccordionItemProps = PropsWithChildren<{
@@ -15,10 +17,12 @@ const AccordionItem = ({
   const [open, setOpen] = useState<boolean>(defaultOpen)
 
   return (
-    <div className="rounded-3xl border border-gray-300">
+    <div
+      className="rounded-lg md:rounded-2xl border border-gray-1000 bg-white"
+      onClick={() => setOpen((prev) => !prev)}
+    >
       <button
         type="button"
-        onClick={() => setOpen((prev) => !prev)}
         className="flex w-fit items-center justify-between gap-3 px-4 py-3 text-left"
       >
         <span
@@ -28,7 +32,9 @@ const AccordionItem = ({
         >
           <ArrowIcon />
         </span>
-        <span className="font-semibold text-gray-800 text-[24px]">{title}</span>
+        <span className="font-semibold text-gray-800  md:text-[24px]">
+          {title}
+        </span>
       </button>
       {open && (
         <div className="px-6 pb-4 text-sm text-gray-600">{children}</div>
@@ -40,8 +46,8 @@ const AccordionItem = ({
 const TermNBenefitSection = () => {
   return (
     <section className="py-[96px]">
-      <div className="space-y-3 px-[200px]">
-        <h2 className="text-[64px] font-bold text-gray-400 pb-5">
+      <Container className="space-y-3 xl:px-[200px]">
+        <h2 className="text-title-sect font-bold text-gray-400 pb-5">
           <span className="text-gray-900">Quyền lợi </span> & Điều khoản
         </h2>
 
@@ -74,7 +80,7 @@ const TermNBenefitSection = () => {
             hoạt động.
           </p>
         </AccordionItem>
-      </div>
+      </Container>
     </section>
   )
 }
@@ -82,7 +88,7 @@ const TermNBenefitSection = () => {
 const ArrowIcon = ({ className }: { className?: string }) => {
   return (
     <svg
-      className={className}
+      className={cn('w-4 h-4 md:w-6 md:h-6', className)}
       width="24"
       height="24"
       viewBox="0 0 24 24"

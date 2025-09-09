@@ -36,8 +36,7 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
     const targetCenter = target.offsetLeft + target.clientWidth / 2
     const scrollLeft = targetCenter - containerCenter
 
-    // Ensure we don't scroll past the beginning
-    return Math.max(0, scrollLeft)
+    return scrollLeft
   }
 
   const scrollToIndex = (index: number) => {
@@ -52,9 +51,6 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
     })
     setActiveIndex(clamped)
   }
-
-  const handlePrev = () => scrollToIndex(activeIndex - 1)
-  const handleNext = () => scrollToIndex(activeIndex + 1)
 
   useEffect(() => {
     const el = scrollRef.current
@@ -97,10 +93,10 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
   }, [activeIndex])
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full overflow-hidden">
       <div
         ref={scrollRef}
-        className="flex items-center w-full cursor-default select-none gap-4 px-4 scroll-smooth"
+        className="flex items-center justify-center cursor-default select-none gap-4 md:gap-6 scroll-smooth"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -111,10 +107,10 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
         {items.map((item, idx) => (
           <div
             key={`cta-review-${idx}`}
-            className={`flex-shrink-0 flex-1 min-w-0 transition-all duration-500 ease-in-out ${
+            className={`flex-shrink-0 transition-all duration-500 ease-in-out ${
               activeIndex === idx
-                ? 'transform scale-105 z-10'
-                : 'transform scale-100'
+                ? 'transform scale-110 md:scale-105 z-10'
+                : 'transform scale-90 md:scale-100'
             }`}
           >
             <ReviewCard
@@ -139,8 +135,6 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
             />
           </div>
         ))}
-        {/* Add padding to prevent last card from being cut off */}
-        <div className="flex-shrink-0 w-4"></div>
       </div>
     </div>
   )

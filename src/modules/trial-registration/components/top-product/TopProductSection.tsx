@@ -33,25 +33,25 @@ const TopProductSection = () => {
             <div className="h-full">
               <div className="w-full flex items-center justify-center pt-5">
                 <div className="relative w-[700px] pt-50">
-                  <div className="absolute left-[7.14%] top-[135px]">
+                  <div className="absolute left-[17.14%] translate-x-[-50%] top-[135px]">
                     <TopProductCard
                       image="/image/trial/image-02.png"
                       count={6900}
                     />
                   </div>
-                  <div className="absolute left-[40.86%] top-[40px]">
+                  <div className="absolute left-[50.86%] translate-x-[-50%] top-[40px]">
                     <TopProductCard
                       image="/image/trial/image-03.png"
                       count={8800}
                     />
                   </div>
-                  <div className="absolute left-[72.86%] top-[200px]">
+                  <div className="absolute left-[82.86%] translate-x-[-50%]  top-[200px]">
                     <TopProductCard
                       image="/image/trial/image-04.png"
                       count={1300}
                     />
                   </div>
-                  <div className="absolute left-[1.43%] bottom-[30px]">
+                  <div className="absolute left-[11.43%] translate-x-[-50%]  bottom-[30px]">
                     <div className="w-[200px] text-center">
                       <p className="w-[80%] mx-auto text-gray-50">
                         Panthetoin Deep Moisture Mask

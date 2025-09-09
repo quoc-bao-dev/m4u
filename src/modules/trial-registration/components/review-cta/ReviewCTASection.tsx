@@ -60,10 +60,10 @@ const ReviewCTASection = () => {
       <div className="md:pt-30"></div>
 
       <section className="py-[96px] bg-[#FBF7F0]">
-        <Container className="pr-0!">
-          <div className="flex gap-6 items-center relative">
-            <div className="w-[40%] flex justify-center">
-              <h2 className="text-center text-[44px] leading-[120%] md:text-[56px] lg:text-[64px] font-bold text-gray-400">
+        <Container className="px-0 md:pr-0!">
+          <div className="flex flex-col md:flex-row gap-6 items-center relative">
+            <div className="md:w-[40%] flex justify-center">
+              <h2 className="text-center text-title-sect leading-[120%] md:text-[56px] lg:text-[64px] font-bold text-gray-400">
                 Còn chần chờ gì nữa mà không{' '}
                 <span className="text-gray-900">trở thành</span>
                 <br />
@@ -71,9 +71,13 @@ const ReviewCTASection = () => {
               </h2>
             </div>
 
-            <div className="w-[60%] relative">
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-                <ReviewCTACarousel items={items} />
+            {/* Mobile: Center carousel, Desktop: Keep original layout */}
+            <div className="w-full md:w-[60%] relative">
+              {/* Mobile: Center the carousel */}
+              <div className="overflow-hidden  md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 w-full flex justify-center px-8 md:px-0">
+                <div className="overflow-hidden -ml-[300px] -mr-[300px] md:ml-0 md:mr-0">
+                  <ReviewCTACarousel items={items} />
+                </div>
               </div>
             </div>
           </div>
