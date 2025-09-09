@@ -31,45 +31,46 @@ const TopProductSection = () => {
             </div>
             {/* Right */}
             <div className="h-full">
+              <div className="pt-40 md:pt-50"></div>
               <div className="w-full flex items-center justify-center pt-5">
-                <div className="relative w-[700px] pt-50">
-                  <div className="absolute left-[17.14%] translate-x-[-50%] top-[135px]">
+                <div className="relative w-[700px]">
+                  <div className="absolute left-[17.14%] translate-x-[-50%] top-[17.95%] translate-y-[-50%]">
                     <TopProductCard
                       image="/image/trial/image-02.png"
                       count={6900}
                     />
                   </div>
-                  <div className="absolute left-[50.86%] translate-x-[-50%] top-[40px]">
+                  <div className="absolute left-[50.1%] translate-x-[-50%] top-[0%] translate-y-[-50%]">
                     <TopProductCard
                       image="/image/trial/image-03.png"
                       count={8800}
                     />
                   </div>
-                  <div className="absolute left-[82.86%] translate-x-[-50%]  top-[200px]">
+                  <div className="absolute left-[82.86%] translate-x-[-50%]  top-[29.0%] translate-y-[-50%]">
                     <TopProductCard
                       image="/image/trial/image-04.png"
                       count={1300}
                     />
                   </div>
-                  <div className="absolute left-[11.43%] translate-x-[-50%]  bottom-[30px]">
+                  <div className="absolute left-[16.43%] translate-x-[-50%]  bottom-[5.54%] ">
                     <div className="w-[200px] text-center">
-                      <p className="w-[80%] mx-auto text-gray-50">
+                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
                         Panthetoin Deep Moisture Mask
                       </p>
                     </div>
                   </div>
 
-                  <div className="absolute left-[35.71%] bottom-[70px]">
+                  <div className="absolute left-[50.71%] translate-x-[-50%] bottom-[5.93%] translate-y-[-50%]">
                     <div className="w-[200px] text-center">
-                      <p className="w-[80%] mx-auto text-gray-50">
+                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
                         Panthetoin Deep Moisture Mask
                       </p>
                     </div>
                   </div>
 
-                  <div className="absolute right-[1.43%] bottom-[30px]">
+                  <div className="absolute right-[16.43%]  translate-x-[50%] bottom-[5.54%]">
                     <div className="w-[200px] text-center">
-                      <p className="w-[80%] mx-auto text-gray-50">
+                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
                         Panthetoin Deep Moisture Mask
                       </p>
                     </div>

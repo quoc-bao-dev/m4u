@@ -85,7 +85,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         </div>
 
         {/* Content with overlap capability */}
-        <main className="relative z-20 bg-gray-50- bg-white min-h-screen rounded-b-4xl">
+        <main className="relative z-20 bg-gray-50- bg-white min-h-screen rounded-b-4xl overflow-hidden">
           {children}
         </main>
 
