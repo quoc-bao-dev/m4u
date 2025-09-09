@@ -132,7 +132,7 @@ const TopReviewerCard = ({
   return (
     <div
       ref={cardRef}
-      className={`p-0 py-0 border border-greyscale-200 rounded-4xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className}`}
+      className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className}`}
     >
       <Image
         src={productImage}
