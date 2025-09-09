@@ -31,37 +31,42 @@ interface Product {
 const kols = [
   {
     name: 'MANYO',
-    image: IMAGES.kol3,
-    rating: 4.9,
+    image:
+    'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
+      rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: IMAGES.kol2,
-    rating: 4.9,
+    image:
+    'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
+      rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: IMAGES.kol1,
-    rating: 4.9,
+    image:
+    'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
+        rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: IMAGES.kol3,
-    rating: 4.9,
+    image:
+    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+        rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: IMAGES.kol2,
-    rating: 4.9,
+    image:
+    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+        rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: IMAGES.kol1,
+    image: 'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
     rating: 4.9,
     reviews: 69,
   },
@@ -266,7 +271,7 @@ const RankingList = () => {
 
       {/* Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 2xl:gap-x-16 gap-y-4 lg:gap-y-8 xl:gap-y-12">
-        {products.map((product) => (
+        {products.map((product, idx) => (
           <TopReviewerCard
             key={product.id}
             productName={product.productName}
@@ -276,6 +281,7 @@ const RankingList = () => {
             productImage={product.productImage}
             kols={product.kols}
             topReview={product.topReview}
+            isRightColumn={idx % 2 === 1}
           />
         ))}
       </div>

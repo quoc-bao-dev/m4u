@@ -1,12 +1,11 @@
 'use client'
 import { OrbitingCircles } from '@/components/magicui/orbiting-circles'
-import { IMAGES } from '@/core/constants/IMAGES'
-import Image from 'next/image'
-import CountUp from 'react-countup'
-import { useEffect, useRef, useState } from 'react'
-import { useDevice } from '@/core/hooks'
-import { div } from 'framer-motion/client'
 import { Logo } from '@/core/components'
+import { IMAGES } from '@/core/constants/IMAGES'
+import { useDevice } from '@/core/hooks'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import CountUp from 'react-countup'
 
 const Donation = () => {
   const { isMobile, isTablet } = useDevice()
@@ -82,8 +81,8 @@ const Donation = () => {
         ref={containerRef}
         className="py-12 xl:py-20 relative flex h-[50vh]  md:h-[80vh] w-full flex-col items-center justify-center overflow-hidden"
       >
-        <div className="absolute top-0 z-[1] w-full h-24 bg-gradient-to-b from-[#F3F4F6] via-[#F3F4F6] to-transparent"></div>
-        <div className="absolute bottom-0 z-10 w-full h-20 bg-gradient-to-t from-[#F3F4F6] via-[#F3F4F6] to-transparent"></div>
+        <div className="absolute top-0 z-[1] w-full h-24 bg-gradient-to-b from-white to-transparent"></div>
+        <div className="absolute bottom-0 z-10 w-full h-20 bg-gradient-to-t from-white to-transparent"></div>
         <div className="relative lg:hidden">
           <Logo className="size-[40px] md:size-[60px]" />
           <Image
