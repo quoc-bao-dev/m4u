@@ -4,6 +4,7 @@ import { ArrowRightIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
+import { useDevice } from '@/core/hooks'
 
 // Interface định nghĩa props cho ReviewCard
 interface ReviewCardProps {
@@ -55,6 +56,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   isActive = false,
   onClick
 }) => {
+  const {isMobile} = useDevice()
   const videoRef = useRef<HTMLVideoElement | null>(null)
 
   // Chỉ phát video khi card active; còn lại tạm dừng và reset
@@ -70,12 +72,47 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     }
   }, [isActive])
 
+  // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
+  useEffect(() => {
+    const vid = videoRef.current
+    if (!vid || !reviewerVideo) return
+
+    const renderFirstFrame = async () => {
+      try {
+        vid.muted = true
+        // đảm bảo inline trên iOS
+        ;(vid as any).playsInline = true
+        // buộc trình duyệt render frame đầu: play rồi pause ngay
+        // await vid.play()
+        vid.pause()
+        try {
+          vid.currentTime = 0.001
+        } catch {}
+      } catch {}
+    }
+
+    const onLoaded = () => {
+      renderFirstFrame()
+    }
+
+    vid.addEventListener('loadeddata', onLoaded)
+    vid.addEventListener('loadedmetadata', onLoaded)
+    if (vid.readyState >= 2) {
+      renderFirstFrame()
+    }
+
+    return () => {
+      vid.removeEventListener('loadeddata', onLoaded)
+      vid.removeEventListener('loadedmetadata', onLoaded)
+    }
+  }, [reviewerVideo])
+
   return (
-    <div onClick={onClick} className={`shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
+    <div onClick={onClick} className={`h-fit shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}>
       {/* Hình ảnh reviewer */}
       <motion.div
         className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl"
-        animate={{ height: isActive ? 450 : 342}}
+        animate={{ height: isActive ? (isMobile ? 300 : 450) : (isMobile ? 250 : 342)}}
         transition={{ type: 'spring', stiffness: 140, damping: 18 }}
       >
         {reviewerVideo ? (
@@ -86,8 +123,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
             muted
             loop
             playsInline
-            preload="metadata"
-            // poster={reviewerImage}
+            autoPlay={isActive}
+            preload="auto"
           />
         ) : (
           <Image

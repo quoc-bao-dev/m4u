@@ -10,19 +10,17 @@ const InfluencerSection = () => {
       <Container className="">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 rounded-3xl bg-[#FFFAED] pb-10 md:pb-0">
           {/* Left: Image */}
-          <div className="relative w-full md:flex-1">
-            <div
-              className="relative w-full overflow-hidden rounded-3xl max-w-[800px] "
-              style={{ aspectRatio: '845/600' }}
-            >
-              <Image
-                src="/image/influencer/image-01.png"
-                alt="influencer"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
+          <div
+            className="relative w-1/2 overflow-hidden rounded-3xl max-w-[800px] "
+            style={{ aspectRatio: '845/600' }}
+          >
+            <Image
+              src="/image/influencer/image-01.png"
+              alt="influencer"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
 
           {/* Right: Content */}

@@ -2,8 +2,9 @@
 
 import { useDevice } from '@/core/hooks'
 import { cn } from '@/core/utils'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import React from 'react'
+import { useInView } from '@/core/hooks'
 
 type Easing =
   | 'linear'
@@ -47,34 +48,23 @@ type BlurCircle1Props = {
 const BlurCircle1: React.FC<BlurCircle1Props> = ({ className, animation }) => {
   const cfg = BLUR_CIRCLE1_CONFIG
   const motionCfg = { ...cfg.motion, ...animation }
-  const { isMobile } = useDevice()
+  const { isMobile, isTablet } = useDevice()
+  const prefersReducedMotion = useReducedMotion()
+  const { ref, isInView } = useInView<HTMLDivElement>({
+    threshold: 0,
+    rootMargin: '100px',
+  })
 
-  if (isMobile) {
-    return (
-      <div className={className}>
-        <div
-          style={{
-            width: '216px',
-            height: '216px',
-            borderRadius: '50%',
-            background:
-              'linear-gradient(180deg, #5EB2FC 0%, #B3B3FC 50%, #FF5EBE 100%)',
-            opacity: 0.35,
-            filter: 'blur(100px)',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
-      </div>
-    )
-  }
+  // Mobile & tablet: tắt hoàn toàn blur để tiết kiệm tài nguyên
+  if (isMobile || isTablet) return null
+
+  // Desktop: chỉ animate khi phần tử trong viewport và không yêu cầu giảm chuyển động
+  const shouldAnimate = isInView && !prefersReducedMotion
 
   return (
     <>
       {/* desktop */}
-      <div className={cn('hidden xl:block', className)}>
+      <div ref={ref} className={cn('hidden xl:block', className)}>
         <svg
           width={cfg.svg.width}
           height={cfg.svg.height}
@@ -84,41 +74,31 @@ const BlurCircle1: React.FC<BlurCircle1Props> = ({ className, animation }) => {
         >
           <motion.g
             filter={`url(#${cfg.filterId})`}
-            initial={{
-              x:
-                motionCfg.axis === 'y'
-                  ? 0
-                  : -motionCfg.amplitudeX + motionCfg.offsetX,
-              y:
-                motionCfg.axis === 'x'
-                  ? 0
-                  : -motionCfg.amplitudeY + motionCfg.offsetY,
-              rotate: 0,
-            }}
-            animate={{
-              x:
-                motionCfg.axis === 'y'
-                  ? 0
-                  : [
-                      motionCfg.offsetX - motionCfg.amplitudeX,
-                      motionCfg.offsetX + motionCfg.amplitudeX,
-                      motionCfg.offsetX - motionCfg.amplitudeX,
-                    ],
-              y:
-                motionCfg.axis === 'x'
-                  ? 0
-                  : [
-                      motionCfg.offsetY - motionCfg.amplitudeY,
-                      motionCfg.offsetY + motionCfg.amplitudeY,
-                      motionCfg.offsetY - motionCfg.amplitudeY,
-                    ],
-              rotate: [0, motionCfg.rotation, 0],
-            }}
-            transition={{
-              duration: motionCfg.duration,
-              repeat: motionCfg.repeat,
-              ease: motionCfg.ease,
-            }}
+            initial={{ x: 0, y: 0, rotate: 0 }}
+            animate={
+              shouldAnimate
+                ? {
+                    x:
+                      motionCfg.axis === 'y'
+                        ? 0
+                        : [
+                            (motionCfg.offsetX || 0) - 6,
+                            (motionCfg.offsetX || 0) + 6,
+                            (motionCfg.offsetX || 0) - 6,
+                          ],
+                    y:
+                      motionCfg.axis === 'x'
+                        ? 0
+                        : [
+                            (motionCfg.offsetY || 0) - 6,
+                            (motionCfg.offsetY || 0) + 6,
+                            (motionCfg.offsetY || 0) - 6,
+                          ],
+                    rotate: [0, 4, 0],
+                  }
+                : { x: 0, y: 0, rotate: 0 }
+            }
+            transition={{ duration: 12, repeat: shouldAnimate ? Infinity : 0, ease: 'easeInOut' }}
             style={{ willChange: 'transform' }}
           >
             <circle
@@ -147,7 +127,7 @@ const BlurCircle1: React.FC<BlurCircle1Props> = ({ className, animation }) => {
                 result="shape"
               />
               <feGaussianBlur
-                stdDeviation="100"
+                stdDeviation="60"
                 result="effect1_foregroundBlur"
               />
             </filter>
@@ -159,59 +139,11 @@ const BlurCircle1: React.FC<BlurCircle1Props> = ({ className, animation }) => {
               y2={cfg.gradient.y2}
               gradientUnits="userSpaceOnUse"
             >
-              <motion.stop
-                offset="0%"
-                animate={{
-                  stopColor: [
-                    cfg.gradient.colors[0], // blue
-                    cfg.gradient.colors[1], // purple
-                    cfg.gradient.colors[2], // pink
-                    cfg.gradient.colors[0],
-                  ],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              <motion.stop
-                offset="100%"
-                animate={{
-                  stopColor: [
-                    cfg.gradient.colors[1], // purple
-                    cfg.gradient.colors[2], // pink
-                    cfg.gradient.colors[0], // blue
-                    cfg.gradient.colors[1],
-                  ],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
+              <stop offset="0%" stopColor={cfg.gradient.colors[0]} />
+              <stop offset="100%" stopColor={cfg.gradient.colors[1]} />
             </linearGradient>
           </defs>
         </svg>
-      </div>
-      {/* tablet */}
-      <div className={cn('block xl:hidden', className)}>
-        <div
-          style={{
-            width: '216px',
-            height: '216px',
-            borderRadius: '50%',
-            background:
-              'linear-gradient(180deg, #5EB2FC 0%, #B3B3FC 50%, #FF5EBE 100%)',
-            opacity: 0.35,
-            filter: 'blur(100px)',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
       </div>
     </>
   )
