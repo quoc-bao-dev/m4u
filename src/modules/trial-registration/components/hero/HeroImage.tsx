@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const HeroImage = ({
-  duration = 1.7,
+  duration = 4,
   delay = 0,
   src = '/image/trial/image-01.png',
   alt = 'Hero Image',
