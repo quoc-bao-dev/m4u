@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/core/utils'
 import { Lightning } from '@/icons'
 import { Star as StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
@@ -17,6 +18,7 @@ interface ProductCardProps {
   participation: number // 0-100
   time?: string // HH:MM:SS
   className?: string
+  classNameImage?: string
 }
 
 const clampRate = (value: number) => {
@@ -44,6 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   participation,
   time,
   className = '',
+  classNameImage = '',
 }) => {
   const safeRate = clampRate(rate)
   const progressPercent = Math.max(0, Math.min(100, Math.round(participation)))
@@ -73,8 +76,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={imageAlt}
           width={820}
           height={820}
-          className="w-full md:h-[220px] xl:h-[300px] object-cover rounded-t-3xl"
+          className={cn(
+            'w-full h-[200px] md:h-[220px] xl:h-[300px] max-h-full object-contain rounded-t-3xl',
+            classNameImage
+          )}
         />
+
         {time && (
           <div className="flex justify-end pr-3 pb-3">
             <div className="relative flex items-center gap-2">
@@ -83,13 +90,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 .slice(0, 3)
                 .map((segment, index, arr) => (
                   <React.Fragment key={`${segment}-${index}`}>
-                    <div className="size-[36px] rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A] flex items-center justify-center">
-                      <span className="text-white font-bold leading-none">
+                    <div className="size-[30px] sm:size-[36px] rounded-[10px] sm:rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A] flex items-center justify-center">
+                      <span className="text-white text-sm sm:text-base font-bold leading-none">
                         {segment.padStart(2, '0')}
                       </span>
                     </div>
                     {index < arr.length - 1 && (
-                      <span className="text-[#FF3B30] text-2xl font-bold">
+                      <span className="text-[#FF3B30] text-xl sm:text-2xl font-bold">
                         :
                       </span>
                     )}
@@ -100,23 +107,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
       </div>
       <div
-        className="p-5 flex flex-col gap-1 rounded-b-3xl w-full"
+        className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
         style={{ backgroundColor: contentBg }}
       >
-        <h3 className="text-sm font-bold text-greyscale-900">{brand}</h3>
-        <h3 className="text-greyscale-900 text-lg truncate">{productName}</h3>
+        <h3 className="text-xs sm:text-sm font-bold text-greyscale-900">
+          {brand}
+        </h3>
+        <h3 className="text-greyscale-900 text-base sm:text-lg truncate">
+          {productName}
+        </h3>
         <div className="py-1">
-          <div className="relative w-full h-1.5">
+          <div className="relative w-full h-1 sm:h-1.5">
             <div className="relative" style={{ width: `${progressPercent}%` }}>
-              <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-              <Lightning className="size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
+              <div className="h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+              <Lightning className="size-5 sm:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
             </div>
-            <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+            <div className="opacity-20 absolute top-0 left-0 h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
           </div>
         </div>
-        <p className="text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
+        <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
         <button
-          className="w-fit mt-4 py-4 px-5 rounded-full cursor-pointer"
+          className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5 rounded-full cursor-pointer text-sm sm:text-base"
           style={{
             border: `1px solid ${accentHex}`,
             color: accentHex,

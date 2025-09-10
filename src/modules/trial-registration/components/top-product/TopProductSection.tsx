@@ -42,6 +42,7 @@ const TopProductSection = () => {
                   </div>
                   <div className="absolute left-[50.1%] translate-x-[-50%] top-[0%] translate-y-[-50%]">
                     <TopProductCard
+                      isTop
                       image="/image/trial/image-03.png"
                       count={8800}
                     />

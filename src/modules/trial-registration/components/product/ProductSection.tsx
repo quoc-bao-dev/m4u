@@ -1,13 +1,16 @@
+'use client'
+
 import { Container } from '@/core/components/common/group'
 import FilterMobile from '../filters/FilterMobile'
 import FilterSidebar from './FilterSidebar'
 import ProductCard from './ProductCard'
 import ScrollRevealCard from './ScrollRevealCard'
 import { PRODUCTS_MOCK } from './mock'
+import { Link } from '@/locale'
 
 const ProductSection = () => (
   <>
-    <section className="py-[96px]">
+    <section className="py-[96px] relative z-10">
       <Container>
         {/* Mobile Filter */}
         <FilterMobile />
@@ -25,17 +28,19 @@ const ProductSection = () => (
                   delay={index * 0.1} // Stagger animation for each card
                   duration={0.6}
                 >
-                  <ProductCard
-                    brand={p.brand}
-                    productName={p.productName}
-                    participation={p.participation}
-                    image={p.image}
-                    imageAlt={p.imageAlt}
-                    rate={p.rate}
-                    bgColor={p.bgColor}
-                    hex={p.hex}
-                    time={p.time}
-                  />
+                  <Link href={`/product/${p.id}`}>
+                    <ProductCard
+                      brand={p.brand}
+                      productName={p.productName}
+                      participation={p.participation}
+                      image={p.image}
+                      imageAlt={p.imageAlt}
+                      rate={p.rate}
+                      bgColor={p.bgColor}
+                      hex={p.hex}
+                      time={p.time}
+                    />
+                  </Link>
                 </ScrollRevealCard>
               ))}
             </div>

@@ -5,6 +5,7 @@ type TopProductCardProps = {
   image: string
   alt?: string
   className?: string
+  isTop?: boolean
 }
 
 const TopProductCard = ({
@@ -12,6 +13,7 @@ const TopProductCard = ({
   image,
   alt = 'top-product',
   className,
+  isTop,
 }: TopProductCardProps) => {
   const formattedCount =
     typeof count === 'number' ? count.toLocaleString('en-US') : count
@@ -27,8 +29,25 @@ const TopProductCard = ({
             <p className="text-gray-400 text-sm md:text-[20px]">reviews</p>
           </div>
         </div>
-        <div className="relative z-10  scale-[60%]  md:scale-[70%]  lg:scale-[100%] size-[140px] rounded-full border border-gray-200 bg-white overflow-hidden flex items-center justify-center shadow-sm">
-          <Image src={image} alt={alt} width={160} height={160} />
+        <div className="relative z-10  scale-[60%]  md:scale-[70%]  lg:scale-[100%] size-[140px] rounded-full border border-gray-200 bg-white flex items-center justify-center shadow-sm">
+          <Image
+            src={image}
+            alt={alt}
+            width={160}
+            height={160}
+            className="rounded-full"
+          />
+
+          {isTop && (
+            <div className="absolute right-[-45%] top-[-30%]  size-[100px]">
+              <Image
+                src={'/image/trial/image-icon-02.png'}
+                alt="top-product"
+                width={200}
+                height={200}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
