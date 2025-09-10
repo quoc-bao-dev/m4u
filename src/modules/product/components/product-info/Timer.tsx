@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 
 const Timer = ({ time }: { time: string }) => {
   return (
-    <>
+    <div className="relative flex items-center gap-2">
       {time
         .split(':')
         .slice(0, 3)
@@ -18,7 +18,7 @@ const Timer = ({ time }: { time: string }) => {
             )}
           </Fragment>
         ))}
-    </>
+    </div>
   )
 }
 

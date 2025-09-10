@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/core/utils'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useRef, useState } from 'react'
 
 type AccordionItemProps = PropsWithChildren<{
   title: string
@@ -14,6 +14,7 @@ const AccordionItem = ({
   children,
 }: AccordionItemProps) => {
   const [open, setOpen] = useState<boolean>(defaultOpen)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="rounded-[16px] md:rounded-[24px] border border-gray-1000  cursor-pointer">
@@ -21,10 +22,13 @@ const AccordionItem = ({
         <button
           type="button"
           className="flex w-fit items-center justify-between gap-3 px-3 md:px-4 py-3 text-left"
+          aria-expanded={open}
         >
           <span
             className={
-              !open ? '-rotate-90 transition-transform' : 'transition-transform'
+              !open
+                ? '-rotate-90 transition-transform duration-300'
+                : 'transition-transform duration-300'
             }
           >
             <ArrowIcon />
@@ -34,11 +38,21 @@ const AccordionItem = ({
           </span>
         </button>
       </div>
-      {open && (
+      <div
+        ref={contentRef}
+        className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+        style={{
+          maxHeight: open
+            ? contentRef.current
+              ? contentRef.current.scrollHeight
+              : 0
+            : 0,
+        }}
+      >
         <div className="px-3 md:px-6 pb-4 text-sm text-gray-700">
           {children}
         </div>
-      )}
+      </div>
     </div>
   )
 }

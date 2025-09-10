@@ -5,7 +5,8 @@ import { Grid } from '@/core/components/common/group'
 import Button from '@/core/components/ui/button'
 import { Play } from '@phosphor-icons/react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useDevice } from '@/core/hooks/useDevice'
+import { ScrollRevealCard } from '@/modules/trial-registration'
 
 // Mock data for reviewers
 const mockReviewers = [
@@ -83,14 +84,15 @@ const options = [
 ]
 
 const Reviewer = () => {
-  const [sortBy, setSortBy] = useState('Latest')
-  const [filterBy, setFilterBy] = useState('Most viewed')
+  const { isMobile } = useDevice()
+
+  const reviewersToRender = isMobile ? mockReviewers.slice(0, 3) : mockReviewers
 
   return (
-    <div className="pt-[48px]">
+    <div className="pt-[20px] md:pt-[48px]">
       {/* Filter Section */}
       <div className="flex justify-end">
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-4 md:mb-8">
           <span className="text-gray-700 font-medium truncate">Filter by:</span>
 
           {/* Filter Dropdown */}
@@ -113,8 +115,14 @@ const Reviewer = () => {
 
       {/* Review Cards Grid */}
       <Grid className="grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        {mockReviewers.map((reviewer) => (
-          <ReviewCard key={reviewer.id} reviewer={reviewer} />
+        {reviewersToRender.map((reviewer, index) => (
+          <ScrollRevealCard
+            key={reviewer.id}
+            delay={index * 0.05}
+            duration={0.6}
+          >
+            <ReviewCard reviewer={reviewer} />
+          </ScrollRevealCard>
         ))}
       </Grid>
 
@@ -131,7 +139,7 @@ const Reviewer = () => {
 // Review Card Component
 const ReviewCard = ({ reviewer }: { reviewer: (typeof mockReviewers)[0] }) => {
   return (
-    <div className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/5 hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300">
       {/* Video Thumbnail */}
       <div className="relative bg-gray-100 w-full aspect-[410/342]">
         <Image

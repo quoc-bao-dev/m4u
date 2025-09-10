@@ -61,11 +61,11 @@ const SimilarProductSection = () => {
 
         <div className="pt-10"></div>
 
-        <div className="relative md:px-10 lg:px-24">
+        <div className="relative xl:px-24">
           <div className="overflow-visible" ref={emblaRef}>
-            <div className="flex ">
+            <div className="flex w-full">
               {SIMILAR_PRODUCTS.map((p) => (
-                <div key={p.id} className="px-2 w-[80%]">
+                <div key={p.id} className="px-2 sm:basis-1/3">
                   <ProductCard
                     brand={p.brand}
                     productName={p.productName}

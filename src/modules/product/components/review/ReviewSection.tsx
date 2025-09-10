@@ -23,7 +23,7 @@ const ReviewSection = () => {
   }
 
   return (
-    <section className="pb-[96px]">
+    <section className="pb-[40px] md:pb-[96px]">
       <Container>
         {/* Header */}
         <div className="text-center mb-8">

@@ -5,12 +5,15 @@ import Image from 'next/image'
 import RightContent from './RightContent'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useState } from 'react'
+import Timer from './Timer'
 
 const ProductInfo = () => {
   const images = [
     '/image/product/image-slide-00.png',
     '/image/product/image-slide-01.png',
     '/image/product/image-slide-02.png',
+    '/image/product/image-slide-03.png',
+    '/image/product/image-slide-03.png',
     '/image/product/image-slide-03.png',
   ]
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -29,15 +32,19 @@ const ProductInfo = () => {
           <div className="md:col-span-4 md:sticky md:top-20 self-start">
             <div className="relative aspect-[3/3] md:aspect-[6/7.5] w-full rounded-2xl overflow-hidden">
               <Image
-                src={images[selectedIndex]}
+                src={'/image/product/image-01.png'}
                 alt="product-image"
                 fill
                 className="object-cover"
                 priority
               />
+              <div className="md:hidden absolute bottom-2 right-2">
+                <Timer time="19:25:00" />
+              </div>
             </div>
 
-            <div className="mt-2">
+            <div className="mt-2 relative">
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-10 md:w-16 z-10 bg-gradient-to-l from-gray-50 to-transparent" />
               <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex">
                   {images.map((src, idx) => (
@@ -51,7 +58,7 @@ const ProductInfo = () => {
                         alt={`product-thumb-${idx}`}
                         className={`size-[80px] md:size-[100px] object-cover rounded-lg border-2 ${
                           selectedIndex === idx
-                            ? 'border-black'
+                            ? 'border-gray-200'
                             : 'border-transparent'
                         }`}
                       />
