@@ -3,14 +3,19 @@
 import React, { memo } from 'react'
 import { motion } from 'framer-motion'
 
-const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
+const LiveAvatar: React.FC<{ src: string; alt?: string; small?: boolean }> = ({
   src,
   alt = '',
+  small = false,
 }) => {
   return (
-    <div className="w-12 md:w-16 flex flex-col items-center">
+    <div
+      className={`${small ? 'w-8' : 'w-12 md:w-16'} flex flex-col items-center`}
+    >
       <div
-        className="relative size-12 md:size-16 transform-gpu"
+        className={`relative transform-gpu ${
+          small ? 'size-8 ' : 'size-12 md:size-16'
+        }`}
         style={{ willChange: 'transform' }}
       >
         {/* Rotating gradient ring */}
@@ -77,22 +82,38 @@ const LiveAvatar: React.FC<{ src: string; alt?: string }> = ({
           {/* <div className="pointer-events-none absolute -inset-1 rounded-full border-4 border-red-500 z-50" /> */}
         </div>
       </div>
-      <span className="mt-1 px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] leading-none font-semibold uppercase tracking-wider">
-        live
-      </span>
+      {!small && (
+        <span className="mt-1 px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] leading-none font-semibold uppercase tracking-wider">
+          live
+        </span>
+      )}
     </div>
   )
 }
 
-const AvatarStack = () => {
+const AvatarStack = ({ small = false }: { small?: boolean }) => {
   return (
     <div className="flex -space-x-1 md:-space-x-2">
       {/* Avatar placeholders - replace with actual user avatars */}
       {[1, 2, 3, 4].map((i) => (
-        <LiveAvatar key={i} src={`/image/reviewer-carousel/image-0${i}.jpg`} />
+        <LiveAvatar
+          key={i}
+          src={`/image/reviewer-carousel/image-0${i}.jpg`}
+          small={small}
+        />
       ))}
-      <div className="size-12 md:size-16 bg-gray-900 rounded-full border-2 md:border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium">
-        <p className="text-base md:text-xl font-medium">69</p>
+      <div
+        className={`${
+          small ? 'size-8' : 'size-12 md:size-16'
+        } bg-gray-900 rounded-full border-2 md:border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium`}
+      >
+        <p
+          className={`${
+            small ? 'text-xs md:text-sm' : 'text-base md:text-xl'
+          } font-medium`}
+        >
+          69+
+        </p>
       </div>
     </div>
   )

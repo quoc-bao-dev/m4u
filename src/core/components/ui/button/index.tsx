@@ -58,7 +58,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <motion.button
-      className={`inline-flex items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 cursor-pointer ${className} ${
+      className={`inline-flex w-fit items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 cursor-pointer ${className} ${
         sizeClasses[size]
       } ${variantClasses[variant]} ${
         disabled ? 'cursor-not-allowed opacity-50' : ''

@@ -2,16 +2,25 @@
 import { IMAGES } from '@/core/constants/IMAGES'
 import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react'
 import { gsap } from 'gsap'
-import React, { UIEventHandler, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, {
+  UIEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import ReviewCard from './ReviewCard'
 import Button from '@/core/components/ui/button'
+import Link from 'next/link'
 
 // Dữ liệu mẫu cho ReviewCard
 const reviewerData = [
   {
     reviewerImage: IMAGES.reviewer1,
     reviewerAlt: 'reviewer',
-    reviewerVideo: 'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
+    reviewerVideo:
+      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
     productImage: IMAGES.product1,
     productAlt: 'product',
     brandName: 'MANYO',
@@ -19,12 +28,13 @@ const reviewerData = [
     timeInfo: '09h 16m 30s',
     progressPercentage: 70,
     participationText: '70/100 participation',
-    buttonText: 'Đăng ký dùng thử'
+    buttonText: 'Đăng ký dùng thử',
   },
   {
     reviewerImage: IMAGES.reviewer1,
     reviewerAlt: 'reviewer',
-    reviewerVideo: 'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
+    reviewerVideo:
+      'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
     productImage: IMAGES.product1,
     productAlt: 'product',
     brandName: 'COSRX',
@@ -32,12 +42,13 @@ const reviewerData = [
     timeInfo: '02h 45m 10s',
     progressPercentage: 45,
     participationText: '45/100 participation',
-    buttonText: 'Đăng ký dùng thử'
+    buttonText: 'Đăng ký dùng thử',
   },
   {
     reviewerImage: IMAGES.reviewer1,
     reviewerAlt: 'reviewer',
-    reviewerVideo: 'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
+    reviewerVideo:
+      'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
     productImage: IMAGES.product1,
     productAlt: 'product',
     brandName: 'INNISFREE',
@@ -45,12 +56,13 @@ const reviewerData = [
     timeInfo: '15h 02m 00s',
     progressPercentage: 82,
     participationText: '82/120 participation',
-    buttonText: 'Đăng ký dùng thử'
+    buttonText: 'Đăng ký dùng thử',
   },
   {
     reviewerImage: IMAGES.reviewer1,
     reviewerAlt: 'reviewer',
-    reviewerVideo: 'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+    reviewerVideo:
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
     productImage: IMAGES.product1,
     productAlt: 'product',
     brandName: 'LANEIGE',
@@ -58,12 +70,13 @@ const reviewerData = [
     timeInfo: '01h 12m 20s',
     progressPercentage: 30,
     participationText: '30/80 participation',
-    buttonText: 'Đăng ký dùng thử'
+    buttonText: 'Đăng ký dùng thử',
   },
   {
     reviewerImage: IMAGES.reviewer1,
     reviewerAlt: 'reviewer',
-    reviewerVideo: 'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+    reviewerVideo:
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
     productImage: IMAGES.product1,
     productAlt: 'product',
     brandName: 'SOME BY MI',
@@ -71,8 +84,8 @@ const reviewerData = [
     timeInfo: '20h 00m 00s',
     progressPercentage: 96,
     participationText: '96/100 participation',
-    buttonText: 'Đăng ký dùng thử'
-  }
+    buttonText: 'Đăng ký dùng thử',
+  },
 ]
 
 const Reviewer = () => {
@@ -172,7 +185,7 @@ const Reviewer = () => {
       onComplete: () => {
         const normalized = normalizeToMiddle(indexInLoop)
         setActiveLoopIndex(normalized)
-      }
+      },
     })
   }
 
@@ -196,7 +209,7 @@ const Reviewer = () => {
     const targetCenter = target.offsetLeft + target.clientWidth / 2
     el.scrollLeft = targetCenter - containerCenter
     setActiveLoopIndex(middleStart)
-  }, [middleStart]) 
+  }, [middleStart])
 
   return (
     <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
@@ -211,13 +224,19 @@ const Reviewer = () => {
           </p>
         </div>
         <div className="hidden xl:flex gap-4 items-center">
-          <button onClick={() => scrollByCard(-1)} className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
+          <button
+            onClick={() => scrollByCard(-1)}
+            className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+          >
             <ArrowLeftIcon
               weight="bold"
               className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
             />
           </button>
-          <button onClick={() => scrollByCard(1)} className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
+          <button
+            onClick={() => scrollByCard(1)}
+            className="p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+          >
             <ArrowRightIcon
               weight="bold"
               className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
@@ -254,20 +273,28 @@ const Reviewer = () => {
         ))}
       </div>
       <div className="xl:hidden flex gap-4 items-center">
-          <button onClick={() => scrollByCard(-1)} className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
-            <ArrowLeftIcon
-              weight="bold"
-              className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
-            />
-          </button>
-          <button onClick={() => scrollByCard(1)} className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group">
-            <ArrowRightIcon
-              weight="bold"
-              className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
-            />
-          </button>
-        </div>
-      <Button>Xem tất cả</Button>
+        <button
+          onClick={() => scrollByCard(-1)}
+          className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+        >
+          <ArrowLeftIcon
+            weight="bold"
+            className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+          />
+        </button>
+        <button
+          onClick={() => scrollByCard(1)}
+          className="p-4 xl:p-5 rounded-full bg-white border border-greyscale-200 hover:bg-greyscale-200 transition-all duration-300 cursor-pointer group"
+        >
+          <ArrowRightIcon
+            weight="bold"
+            className="text-greyscale-700 size-7 group-hover:scale-110 transition-all duration-300"
+          />
+        </button>
+      </div>
+      <Link href="vi/trial-registration">
+        <Button>Xem tất cả</Button>
+      </Link>
     </div>
   )
 }
