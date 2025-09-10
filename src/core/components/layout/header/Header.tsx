@@ -4,14 +4,14 @@ import { memo } from 'react'
 import { Logo } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
+import UserMenu from '@/components/ui/user-menu'
 import Link from 'next/link'
 
 const Header = () => {
   return (
     <Container>
       <div className="flex justify-between items-center py-3">
-        <div className="flex items-center justify-center size-[28px] md:size-[36px] aspect-square rounded-full border-2 border-gray-900">
-          {/* hamburger */}
+      {/* <div className="flex items-center justify-center size-[28px] md:size-[36px] aspect-square rounded-full border-2 border-gray-900">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 26 20"
@@ -23,7 +23,8 @@ const Header = () => {
               fill="#111827"
             />
           </svg>
-        </div>
+        </div> */}
+        <UserMenu />
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href={'/vi'}> 
             <Logo className="size-[40px] md:size-[60px]" />
