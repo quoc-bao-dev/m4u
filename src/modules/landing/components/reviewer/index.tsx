@@ -292,7 +292,7 @@ const Reviewer = () => {
           />
         </button>
       </div>
-      <Link href="vi/trial-registration">
+      <Link href="vi/review-hub">
         <Button>Xem tất cả</Button>
       </Link>
     </div>

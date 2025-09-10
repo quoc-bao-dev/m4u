@@ -276,7 +276,7 @@ const Deal: React.FC = () => {
         </button>
       </div>
 
-      <Link href="vi/review-hub">
+      <Link href="vi/trial-registration">
         <Button>Xem tất cả</Button>
       </Link>
     </div>
