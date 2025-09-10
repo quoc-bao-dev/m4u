@@ -47,7 +47,7 @@ const Donation = () => {
           alt="heart"
           width={24}
           height={24}
-          className="absolute bottom-1/2 left-0"
+          className="absolute bottom-1/2 -left-2"
         />
         <h2 className="text-2xl lg:text-[40px]/[110%] font-bold text-greyscale-700 text-center">
           <span className="text-greyscale-400">
@@ -81,8 +81,8 @@ const Donation = () => {
         ref={containerRef}
         className="py-12 xl:py-20 relative flex h-[50vh]  md:h-[80vh] w-full flex-col items-center justify-center overflow-hidden"
       >
-        <div className="absolute top-0 z-[1] w-full h-24 bg-gradient-to-b from-white to-transparent"></div>
-        <div className="absolute bottom-0 z-10 w-full h-20 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 z-[1] w-full h-24 bg-gradient-to-b from-[#F9FAFC] to-transparent"></div>
+        <div className="absolute bottom-0 z-10 w-full h-20 bg-gradient-to-t from-[#F9FAFC] to-transparent"></div>
         <div className="relative lg:hidden">
           <Logo className="size-[40px] md:size-[60px]" />
           <Image
