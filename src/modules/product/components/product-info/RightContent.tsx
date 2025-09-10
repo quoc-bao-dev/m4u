@@ -1,10 +1,8 @@
-import { RegisterCTA } from '@/modules/landing/components/cta'
-import AvatarStack from './AvatarStack'
-import { AccordionItem } from '@/modules/trial-registration'
-import { Fragment } from 'react'
 import { Rating } from '@/core/components'
-import Timer from './Timer'
 import Button from '@/core/components/ui/button'
+import { AccordionItem } from '@/modules/trial-registration'
+import AvatarStack from './AvatarStack'
+import Timer from './Timer'
 
 const RightContent = () => {
   const time = '19:25:00'
@@ -67,10 +65,7 @@ const RightContent = () => {
       </h2>
       <div className="flex justify-between items-center">
         <div className="flex gap-1 items-center">
-          <Rating
-            rate={3}
-            className="md:mb-2 w-[100px] md:w-auto md:h-[16px]"
-          />
+          <Rating rate={3} className="md:mb-2 w-[100px] md:w-[160px]" />
           <p className="text-[14px] md:text-[28px] text-greyscale-900">
             4.8 <span className="text-greyscale-400">(69 reviews)</span>
           </p>
@@ -85,7 +80,7 @@ const RightContent = () => {
         <AvatarStack />
         <div className="flex justify-start">
           <Button size="md" variant="primary">
-            Register now
+            <span className="truncate"> Register now</span>
           </Button>
         </div>
       </div>

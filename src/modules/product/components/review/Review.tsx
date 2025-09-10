@@ -49,7 +49,7 @@ const StarDistributionBar = ({
   percentage: number
   maxCount: number
 }) => (
-  <div className="flex items-center gap-3">
+  <div className="flex items-center gap-3 ">
     <div className="flex items-center gap-1">
       <span className="text-sm text-gray-600 w-[10px]">{stars}</span>
       <StarIcon />
@@ -65,14 +65,16 @@ const StarDistributionBar = ({
 )
 
 const FeatureRatingItem = ({ name, rating }: FeatureRating) => (
-  <div className="flex items-center gap-2 justify-between mt-4 md:mt-0 w-full">
-    <Rating rate={rating} className="h-[16px] w-fit md:w-auto" />
+  <div className="flex items-center gap-2 justify-between md:mt-0 w-full">
+    <Rating rate={rating} className="w-[100px] md:w-[120px]" />
 
     <div className="flex-1 flex gap-4">
       <span className="text-sm font-semibold text-gray-900 truncate">
         {rating.toFixed(1)} <span className="text-greyscale-400">/5</span>
       </span>{' '}
-      <span className="text-sm text-left text-greyscale-400">{name}</span>
+      <span className="text-sm text-left text-greyscale-400 truncate">
+        {name}
+      </span>
     </div>
   </div>
 )
@@ -85,7 +87,7 @@ const Review: React.FC<ReviewSectionProps> = ({
   const maxCount = Math.max(...starDistribution.map((item) => item.count))
 
   return (
-    <div className={cn('rounded-2xl p-8 border', className)}>
+    <div className={cn('rounded-2xl p-4 md:p-8 border', className)}>
       <div className="flex flex-col md:flex-row justify-between">
         <div className="md:w-[60%] flex gap-8 items-center">
           {/* Overall Rating */}
@@ -109,7 +111,7 @@ const Review: React.FC<ReviewSectionProps> = ({
 
         {/* Feature Ratings */}
         <div className="space-y-4 md:w-[38%] lg:w-[30%] flex items-center justify-end">
-          <div className="space-y-3 w-full md:w-auto">
+          <div className="space-y-1 w-full md:w-auto mt-2">
             {featureRatings.map((feature, index) => (
               <FeatureRatingItem key={index} {...feature} />
             ))}
