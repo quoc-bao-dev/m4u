@@ -60,7 +60,7 @@ const MobileMenuWrapper = ({
             className="border border-greyscale-700 p-2 rounded-full size-9 flex items-center justify-center"
           >
             <X className="text-gray-700 size-4" />
-          </button>~
+          </button>
         </div>
 
         {/* Modal Content */}
