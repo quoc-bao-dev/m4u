@@ -1,8 +1,7 @@
 'use client'
 
-import Image from 'next/image'
-import { RegisterCTA } from '../landing/components/cta'
 import Button from '@/core/components/ui/button'
+import Image from 'next/image'
 
 const Influencer = () => {
   return (

@@ -4,6 +4,7 @@ import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
 import { MedalIcon, PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const kols = [
@@ -24,21 +25,21 @@ const kols = [
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
+      'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
     rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
     rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
     rating: 4.9,
     reviews: 69,
   },
@@ -61,33 +62,36 @@ const TopReviewer = () => {
   const scrollStartLeftRef = useRef<number>(0)
   const [isDraggingState, setIsDraggingState] = useState<boolean>(false)
 
-  const handlePlayVideo = useCallback((index: number) => {
-    const target = videoRefs.current[index]
-    if (!target) return
+  const handlePlayVideo = useCallback(
+    (index: number) => {
+      const target = videoRefs.current[index]
+      if (!target) return
 
-    // If clicking the currently playing video, pause (toggle off)
-    if (!target.paused && playingIndex === index) {
-      try {
-        target.pause()
-        setPlayingIndex(null)
-      } catch {}
-      return
-    }
-
-    // Pause all other videos
-    videoRefs.current.forEach((video, i) => {
-      if (video && i !== index) {
+      // If clicking the currently playing video, pause (toggle off)
+      if (!target.paused && playingIndex === index) {
         try {
-          video.pause()
+          target.pause()
+          setPlayingIndex(null)
         } catch {}
+        return
       }
-    })
 
-    try {
-      target.play()
-      setPlayingIndex(index)
-    } catch {}
-  }, [playingIndex])
+      // Pause all other videos
+      videoRefs.current.forEach((video, i) => {
+        if (video && i !== index) {
+          try {
+            video.pause()
+          } catch {}
+        }
+      })
+
+      try {
+        target.play()
+        setPlayingIndex(index)
+      } catch {}
+    },
+    [playingIndex]
+  )
 
   // Auto play the first video on mount
   useEffect(() => {
@@ -106,8 +110,7 @@ const TopReviewer = () => {
       setPlayingIndex(0)
     } catch {}
   }, [])
-  
-  
+
   // Horizontal drag-to-scroll handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!scrollContainerRef.current) return
@@ -140,13 +143,15 @@ const TopReviewer = () => {
       <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[100%] tracking-tight">
         Endorsed by top reviewers
       </h2>
-      <Image
-        src={IMAGES.topProduct}
-        alt="top-reviewer"
-        width={1000}
-        height={1000}
-        className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
-      />
+      <Link href="/vi/review-hub/detail" className='flex-shrink-0'>
+        <Image
+          src={IMAGES.topProduct}
+          alt="top-reviewer"
+          width={1000}
+          height={1000}
+          className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
+        />
+      </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
         <h2 className="hidden lg:block text-gradient-blue-black font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
           Endorsed by top reviewers
@@ -179,7 +184,9 @@ const TopReviewer = () => {
           <div className="absolute z-[2] top-0 right-0 w-20 h-full bg-gradient-to-l from-yellow-100 to-transparent"></div>
           <div
             ref={scrollContainerRef}
-            className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'}`}
+            className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
+              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+            }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={endDrag}

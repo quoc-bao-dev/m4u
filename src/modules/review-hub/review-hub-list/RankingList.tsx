@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/select'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
-import TopReviewerCard from './components/TopReviewerCard'
+import TopReviewerCard from '../components/TopReviewerCard'
 
 interface Kol {
   name: string
