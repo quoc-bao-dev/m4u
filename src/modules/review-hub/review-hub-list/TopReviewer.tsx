@@ -1,5 +1,5 @@
 'use client'
-import Rating from '@/components/Rating'
+import Rating from '@/core/components/common/Rating'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
 import { MedalIcon, PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
@@ -143,7 +143,7 @@ const TopReviewer = () => {
       <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[100%] tracking-tight">
         Endorsed by top reviewers
       </h2>
-      <Link href="/vi/review-hub/detail" className='flex-shrink-0'>
+      <Link href="/vi/review-hub/detail" className="flex-shrink-0">
         <Image
           src={IMAGES.topProduct}
           alt="top-reviewer"
@@ -153,33 +153,36 @@ const TopReviewer = () => {
         />
       </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
-        <h2 className="hidden lg:block text-gradient-blue-black font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
-          Endorsed by top reviewers
-        </h2>
-        <div className="flex gap-3">
-          <span className="text-5xl lg:text-7xl xl:text-[96px]/[110%] font-semibold">
-            🥇
-          </span>
-          <div className="flex flex-col gap-2 2xl:gap-3">
-            <h3 className="text-xs md:text-xl font-bold text-greyscale-900">
-              MANYO
-            </h3>
-            <p className="text-sm lg:text-3xl 2xl:text-[32px] lg:leading-[100%] text-greyscale-900">
-              Panthetoin Deep Moisture Mask
-            </p>
-            <div className="flex items-center gap-3 xl:pt-2 2xl:pt-4">
-              <Rating
-                value={Number(4.0)}
-                readOnly
-                maxWidth={isMobile ? 116 : 136}
-              />
-              <p className="text-sm lg:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
-                <span className="text-greyscale-900 font-medium">4.0 </span>
-                (69 reviews)
+        <Link href="/vi/review-hub/detail" className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer">
+          <h2 className="hidden lg:block text-black group-hover:text-yellow-600 transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
+            Endorsed by top reviewers
+          </h2>
+          <div className="flex gap-3">
+            <span className="text-5xl lg:text-7xl xl:text-[96px]/[110%] font-semibold">
+              🥇
+            </span>
+            <div className="flex flex-col gap-2 2xl:gap-3">
+              <h3 className="text-xs md:text-xl font-bold text-greyscale-900">
+                MANYO
+              </h3>
+              <p className="group-hover:text-yellow-600 transition-colors duration-300 text-sm lg:text-3xl 2xl:text-[32px] lg:leading-[100%] text-greyscale-900">
+                Panthetoin Deep Moisture Mask
               </p>
+              <div className="flex items-center gap-3 xl:pt-2 2xl:pt-4">
+                <Rating
+                  value={Number(4.0)}
+                  readOnly
+                  maxWidth={isMobile ? 116 : 136}
+                />
+                <p className="text-sm lg:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
+                  <span className="text-greyscale-900 font-medium">4.0 </span>
+                  (69 reviews)
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
+
         <div className="relative">
           <div className="absolute z-[2] top-0 right-0 w-20 h-full bg-gradient-to-l from-yellow-100 to-transparent"></div>
           <div

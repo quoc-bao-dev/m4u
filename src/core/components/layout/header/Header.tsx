@@ -4,7 +4,7 @@ import { memo } from 'react'
 import { Logo } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
-import UserMenu from '@/components/menu/user-menu'
+import UserMenu from '@/core/components/layout/menu/user-menu'
 import Link from 'next/link'
 
 const Header = () => {

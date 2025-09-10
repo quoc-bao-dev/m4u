@@ -1,11 +1,12 @@
 'use client'
-import Rating from '@/components/Rating'
+import Rating from '@/core/components/common/Rating'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useInView } from '@/core/hooks/useInView'
 import { useDevice } from '@/core/hooks'
 import { PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { Ref, useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 interface Kol {
   name: string
@@ -39,7 +40,10 @@ const TopReviewerCard = ({
 }: TopReviewerCardProps) => {
   const { isMobile, isTablet } = useDevice()
   // Left column should start earlier; right column should start a bit later
-  const { ref: cardRef, isInView } = useInView<HTMLDivElement>({ threshold: 0.3, rootMargin: isRightColumn ? '-10% 0px -40% 0px' : '-20% 0px -30% 0px' })
+  const { ref: cardRef, isInView } = useInView<HTMLDivElement>({
+    threshold: 0.3,
+    rootMargin: isRightColumn ? '-10% 0px -40% 0px' : '-20% 0px -30% 0px',
+  })
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const isDraggingRef = useRef<boolean>(false)
   const dragStartXRef = useRef<number>(0)
@@ -69,19 +73,42 @@ const TopReviewerCard = ({
   }, [])
 
   // Video controls (similar to TopReviewer)
-  const handlePlayVideo = useCallback((index: number) => {
+  const handlePlayVideo = useCallback(
+    (index: number) => {
+      const target = videoRefs.current[index]
+      if (!target) return
+
+      // Toggle pause if clicking the currently playing video
+      if (!target.paused && playingIndex === index) {
+        try {
+          target.pause()
+          setPlayingIndex(null)
+        } catch {}
+        return
+      }
+
+      // Pause others
+      videoRefs.current.forEach((video, i) => {
+        if (video && i !== index) {
+          try {
+            video.pause()
+          } catch {}
+        }
+      })
+
+      try {
+        target.play()
+        setPlayingIndex(index)
+      } catch {}
+    },
+    [playingIndex]
+  )
+
+  // Hover play/pause per video tile
+  const handleHoverStart = useCallback((index: number) => {
+    if (isDraggingRef.current) return
     const target = videoRefs.current[index]
     if (!target) return
-
-    // Toggle pause if clicking the currently playing video
-    if (!target.paused && playingIndex === index) {
-      try {
-        target.pause()
-        setPlayingIndex(null)
-      } catch {}
-      return
-    }
-
     // Pause others
     videoRefs.current.forEach((video, i) => {
       if (video && i !== index) {
@@ -90,12 +117,20 @@ const TopReviewerCard = ({
         } catch {}
       }
     })
-
     try {
       target.play()
       setPlayingIndex(index)
     } catch {}
-  }, [playingIndex])
+  }, [])
+
+  const handleHoverEnd = useCallback((index: number) => {
+    const target = videoRefs.current[index]
+    if (!target) return
+    try {
+      target.pause()
+    } catch {}
+    setPlayingIndex((curr) => (curr === index ? null : curr))
+  }, [])
 
   // Autoplay/pause based on viewport visibility
   useEffect(() => {
@@ -129,10 +164,12 @@ const TopReviewerCard = ({
       setPlayingIndex(null)
     }
   }, [kols, isInView])
+
   return (
-    <div
-      ref={cardRef}
-      className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className}`}
+    <Link
+      ref={cardRef as Ref<HTMLAnchorElement>}
+      href="/vi/review-hub/detail"
+      className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
       <Image
         src={productImage}
@@ -157,10 +194,10 @@ const TopReviewerCard = ({
               </span>
             )}
             <div className="flex flex-col gap-2 2xl:gap-3">
-              <h3 className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900">
+              <h3 className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900 transition-colors duration-300 group-hover:text-yellow-600">
                 {brandName}
               </h3>
-              <p className="text-sm lg:text-base xl:text-xl 2xl:text-2xl leading-[100%] text-greyscale-900">
+              <p className="text-sm lg:text-base xl:text-xl 2xl:text-2xl leading-[100%] text-greyscale-900 transition-colors duration-300 group-hover:text-yellow-600">
                 {productName}
               </p>
               <div className="flex items-center gap-3 pt-0 xl:pt-1 2xl:pt-2">
@@ -191,7 +228,9 @@ const TopReviewerCard = ({
           <div className="absolute z-[2] top-0 right-0 w-10 h-full bg-gradient-to-l from-white to-transparent"></div>
           <div
             ref={scrollContainerRef}
-            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'}`}
+            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
+              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+            }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={endDrag}
@@ -202,6 +241,8 @@ const TopReviewerCard = ({
                 className="group relative cursor-pointer"
                 key={index}
                 onClick={() => handlePlayVideo(index)}
+                onMouseEnter={() => handleHoverStart(index)}
+                // onMouseLeave={() => handleHoverEnd(index)}
               >
                 <div className="absolute top-1 right-1 flex items-center gap-0.5 bg-white rounded-full py-0.5 px-1">
                   <StarIcon
@@ -212,11 +253,17 @@ const TopReviewerCard = ({
                     {kol.rating}
                   </span>
                 </div>
-                <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl">
+                <div className="opacity-0 hover:opacity-100 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl">
                   {playingIndex === index ? (
-                    <PauseIcon weight="fill" className="size-8 2xl:size-10 text-white" />
+                    <PauseIcon
+                      weight="fill"
+                      className="size-8 2xl:size-10 text-white"
+                    />
                   ) : (
-                    <PlayIcon weight="fill" className="size-8 2xl:size-10 text-white" />
+                    <PlayIcon
+                      weight="fill"
+                      className="size-8 2xl:size-10 text-white"
+                    />
                   )}
                 </div>
                 <video
@@ -237,7 +284,7 @@ const TopReviewerCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

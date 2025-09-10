@@ -26,8 +26,8 @@ export const useDeviceStore = create<DeviceState>((set: any) => ({
   height: 0,
   setDeviceInfo: (width: number, height: number) => {
     const isMobile = width < BREAKPOINTS.md // < 768px
-    const isTablet = width >= BREAKPOINTS.md && width <= BREAKPOINTS.lg // 768px - 1024px
-    const isDesktop = width > BREAKPOINTS.lg // > 1024px
+    const isTablet = width >= BREAKPOINTS.md && width < BREAKPOINTS.lg // 768px - 1023px
+    const isDesktop = width >= BREAKPOINTS.lg // >= 1024px
 
     set({
       width,
