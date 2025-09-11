@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
   showCloseButton?: boolean; // New prop to control close button visibility
   isFullscreen?: boolean; // Default to false for backwards compatibility
+  position?: 'center' | 'bottom'; // New prop to control modal position
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -17,6 +19,7 @@ export const Modal: React.FC<ModalProps> = ({
   className,
   showCloseButton = true, // Default to true for backwards compatibility
   isFullscreen = false,
+  position = 'center', // Default to center for backwards compatibility
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -52,10 +55,14 @@ export const Modal: React.FC<ModalProps> = ({
 
   const contentClasses = isFullscreen
     ? "w-full h-full"
-    : "relative w-full rounded-3xl bg-white  dark:bg-gray-900";
+    : "relative w-full rounded-t-3xl lg:rounded-3xl bg-white  dark:bg-gray-900";
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99">
+  const containerClasses = position === 'bottom' 
+    ? "fixed inset-0 flex items-end justify-center overflow-y-auto modal z-[9999]"
+    : "fixed inset-0 flex items-center justify-center overflow-y-auto modal z-[9999]";
+
+  const modalContent = (
+    <div className={containerClasses}>
       {!isFullscreen && (
         <div
           className="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[2px]"
@@ -70,7 +77,7 @@ export const Modal: React.FC<ModalProps> = ({
         {showCloseButton && (
           <button
             onClick={onClose}
-            className="absolute right-3 top-3 z-99 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-gray-100 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-10 sm:w-10"
+            className="absolute right-3 top-3 z-99 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-gray-100 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-10 sm:w-10 cursor-pointer"
           >
             <svg
               width="24"
@@ -92,4 +99,6 @@ export const Modal: React.FC<ModalProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
