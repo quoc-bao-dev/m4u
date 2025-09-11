@@ -1,6 +1,8 @@
+'use client'
 import * as React from 'react'
 import Image, { type StaticImageData } from 'next/image'
 import { CaretRightIcon, StarIcon } from '@phosphor-icons/react'
+import { Loading } from '@/core/components/common/loading'
 
 export type KOLCardProps = {
   image: StaticImageData | string
@@ -19,6 +21,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
   reviews,
   onClick,
 }) => {
+  const [isLoading, setIsLoading] = React.useState(true)
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
 
   const handleMouseEnter = () => {
@@ -28,6 +31,11 @@ export const KOLCard: React.FC<KOLCardProps> = ({
   const handleMouseLeave = () => {
     videoRef.current?.pause()
   }
+
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 3000)
+
   return (
     <div className="shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl">
       <button
@@ -40,16 +48,20 @@ export const KOLCard: React.FC<KOLCardProps> = ({
         <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
           <CaretRightIcon weight="fill" className="size-5 text-white" />
         </div>
-        <video
-          src={image as string}
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          width={1000}
-          height={1000}
-          className="w-full object-cover aspect-[410/342]"
-        />
+        {isLoading ? (
+          <Loading className="w-full object-cover aspect-[410/342]" />
+        ) : (
+          <video
+            src={image as string}
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            width={1000}
+            height={1000}
+            className="w-full object-cover aspect-[410/342]"
+          />
+        )}
 
         <div className="2xl:p-5 p-4 bg-orange-100 flex gap-3 items-center justify-between">
           <Image

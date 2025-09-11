@@ -20,14 +20,14 @@ export const Loading: React.FC<LoadingProps> = ({
   const sizePx = { sm: 24, md: 32, lg: 48 } as const;
 
   return (
-    <div className={`fixed inset-0 bg-white flex flex-col items-center justify-center gap-3 ${className}`}>
+    <div className={`bg-white flex flex-col items-center justify-center gap-3 ${className}`}>
       {/* Spinner GIF */}
         <Image
           src="/image/loading.gif"
           alt="Đang tải"
           width={sizePx[size]}
           height={sizePx[size]}
-          className="object-contain size-1/2"
+          className="object-cover size-full"
           unoptimized
         />
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
@@ -22,6 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
   position = 'center', // Default to center for backwards compatibility
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [animateIn, setAnimateIn] = useState(false);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -51,6 +52,16 @@ export const Modal: React.FC<ModalProps> = ({
     };
   }, [isOpen]);
 
+  // Trigger enter animation when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // next tick to ensure initial translate-y is applied before transitioning
+      const id = requestAnimationFrame(() => setAnimateIn(true));
+      return () => cancelAnimationFrame(id);
+    }
+    setAnimateIn(false);
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const contentClasses = isFullscreen
@@ -60,6 +71,7 @@ export const Modal: React.FC<ModalProps> = ({
   const containerClasses = position === 'bottom' 
     ? "fixed inset-0 flex items-end justify-center overflow-y-auto modal z-[9999]"
     : "fixed inset-0 flex items-center justify-center overflow-y-auto modal z-[9999]";
+
 
   const modalContent = (
     <div className={containerClasses}>
@@ -71,7 +83,7 @@ export const Modal: React.FC<ModalProps> = ({
       )}
       <div
         ref={modalRef}
-        className={`${contentClasses}  ${className}`}
+        className={`${contentClasses} ${position === 'bottom' ? `transform transition-transform duration-300 ease-out ${animateIn ? 'translate-y-0' : 'translate-y-full'}` : ''}  ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseButton && (
