@@ -7,6 +7,7 @@ import { PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { Ref, useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { Loading } from '@/core/components/common/loading'
 
 interface Kol {
   name: string
@@ -164,6 +165,11 @@ const TopReviewerCard = ({
       setPlayingIndex(null)
     }
   }, [kols, isInView])
+  const [isLoading, setIsLoading] = useState(true)
+
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 3000)
 
   return (
     <Link
@@ -171,15 +177,19 @@ const TopReviewerCard = ({
       href="/vi/review-hub/detail"
       className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
-      <Image
-        src={productImage}
-        alt="top-reviewer"
-        width={1000}
-        height={1000}
-        className="hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
-      />
-      <div className="py-2 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
-        <div className="flex gap-3 justify-between items-end">
+      {isLoading ? (
+        <Loading className="flex-shrink-0 hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl" />
+      ) : (
+        <Image
+          src={productImage}
+          alt="top-reviewer"
+          width={1000}
+          height={1000}
+          className="hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
+        />
+      )}
+      <div className="py-2 px-2 xl:px-0 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
+        <div className="flex gap-3 lg:gap-2 justify-between items-end">
           <div className="flex flex-col xl:flex-row gap-2">
             {topReview && topReview > 0 && topReview <= 3 ? (
               <span className="text-[40px]/[100%] xl:text-[48px]/[110%] 2xl:text-[64px]/[110%] font-semibold">

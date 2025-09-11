@@ -270,7 +270,7 @@ const RankingList = () => {
       </div>
 
       {/* Content Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 2xl:gap-x-16 gap-y-4 lg:gap-y-8 xl:gap-y-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 xl:gap-x-10 2xl:gap-x-16 gap-y-4 xl:gap-y-8 2xl:gap-y-12">
         {products.map((product, idx) => (
           <TopReviewerCard
             key={product.id}

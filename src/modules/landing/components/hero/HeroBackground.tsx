@@ -15,7 +15,7 @@ const HeroBackground = () => {
         />
          <video
           className="block lg:hidden w-full object-cover h-full "
-          src="/image/hero-baner/heroMb.mp4"
+          src="/image/hero-baner/heroMB.mp4"
           autoPlay
           loop
           muted
