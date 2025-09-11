@@ -1,3 +1,5 @@
+'use client'
+
 import ReviewerCarousel from '@/modules/landing/components/introduction/ReviewerCarousel'
 import { DatePicker } from '@/core/components/ui'
 import { useState } from 'react'
