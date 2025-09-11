@@ -178,8 +178,8 @@ const TopReviewerCard = ({
         height={1000}
         className="hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
       />
-      <div className="py-2 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
-        <div className="flex gap-3 justify-between items-end">
+      <div className="py-2 px-2 xl:px-0 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
+        <div className="flex gap-3 lg:gap-2 justify-between items-end">
           <div className="flex flex-col xl:flex-row gap-2">
             {topReview && topReview > 0 && topReview <= 3 ? (
               <span className="text-[40px]/[100%] xl:text-[48px]/[110%] 2xl:text-[64px]/[110%] font-semibold">
