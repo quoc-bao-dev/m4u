@@ -14,6 +14,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguageSwitch, Language } from '@/locale/hooks/useLanguageSwitch'
 import useLoginModal from '@/modules/auth/stores/useLoginModal'
+import { useNavigate } from '@/locale'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [
@@ -147,6 +148,8 @@ const MenuContent = ({
 
   const { open: openLoginModal } = useLoginModal()
 
+  const nav = useNavigate()
+
   return (
     <>
       {/* Reviewer Question Section */}
@@ -174,6 +177,7 @@ const MenuContent = ({
                   openLoginModal()
                 } else {
                   setIsReviewer(option.value)
+                  nav('/review-hub')
                 }
               }}
               className={`${
