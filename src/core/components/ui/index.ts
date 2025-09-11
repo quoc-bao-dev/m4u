@@ -1,2 +1,6 @@
 export * from './rating'
 export * from './select'
+export * from './pin-input'
+export { default as Input } from './input'
+export { default as RadioGroup } from './radio-group'
+export { default as DatePicker } from './date-picker'
