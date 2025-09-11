@@ -150,7 +150,7 @@ const Donation = () => {
           radius={isMobile ? 200 : isTablet ? 300 : 500}
           speed={0.8}
         >
-          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation1}
               alt="donation"
@@ -160,7 +160,7 @@ const Donation = () => {
             />
           </div>
           <div className="size-3 xl:size-6 rounded-full bg-purple-300/72"></div>
-          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation2}
               alt="donation"
@@ -170,7 +170,7 @@ const Donation = () => {
             />
           </div>
           <div className="size-2 xl:size-4 rounded-full bg-[#887EF9]/72"></div>
-          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation3}
               alt="donation"
@@ -180,7 +180,7 @@ const Donation = () => {
             />
           </div>
           <div className="size-3 xl:size-6 rounded-full bg-[#FCD34D]/72"></div>
-          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-9 md:size-20 lg:size-32 rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation4}
               alt="donation"
@@ -198,7 +198,7 @@ const Donation = () => {
           reverse
           speed={0.8}
         >
-          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation5}
               alt="donation"
@@ -209,7 +209,7 @@ const Donation = () => {
           </div>
           <div className="size-2 xl:size-4 rounded-full bg-[#FF8092]/72"></div>
           <div className="size-2 xl:size-4 rounded-full bg-[#38BDF8]/72"></div>
-          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation6}
               alt="donation"
@@ -219,7 +219,7 @@ const Donation = () => {
             />
           </div>
           <div className="size-3 xl:size-6 rounded-full bg-[#FFC4E3]/72"></div>
-          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden">
+          <div className="flex-shrink-0 size-7 md:size-20 xl:size-[100px] rounded-full overflow-hidden border-2 border-pink-600 shadow-lg">
             <Image
               src={IMAGES.donation7}
               alt="donation"
