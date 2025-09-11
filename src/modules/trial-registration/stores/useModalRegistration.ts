@@ -3,14 +3,14 @@ import { create } from 'zustand'
 interface ModalRegistrationState {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-  onpen: () => void
+  open: () => void
   close: () => void
 }
 
 const useModalRegistration = create<ModalRegistrationState>((set) => ({
-  isOpen: true,
+  isOpen: false,
   setIsOpen: (open) => set({ isOpen: open }),
-  onpen: () => set({ isOpen: true }),
+  open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),
 }))
 

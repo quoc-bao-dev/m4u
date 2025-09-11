@@ -1,8 +1,11 @@
+'use client'
+
 import { Rating } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import { AccordionItem } from '@/modules/trial-registration'
 import AvatarStack from './AvatarStack'
 import Timer from './Timer'
+import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 
 const RightContent = () => {
   const time = '19:25:00'
@@ -79,9 +82,7 @@ const RightContent = () => {
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4 md:gap-0">
         <AvatarStack />
         <div className="flex justify-start">
-          <Button size="md" variant="primary">
-            <span className="truncate"> Register now</span>
-          </Button>
+          <ButtonRegister />
         </div>
       </div>
 
@@ -94,6 +95,16 @@ const RightContent = () => {
         <AccordionItem title="Ingredients">{termContent} </AccordionItem>
       </div>
     </div>
+  )
+}
+
+const ButtonRegister = () => {
+  const { open: onpen } = useModalRegistration()
+
+  return (
+    <Button size="md" variant="primary" onClick={onpen}>
+      <span className="truncate"> Register now</span>
+    </Button>
   )
 }
 

@@ -176,7 +176,7 @@ export const PINInput: React.FC<PINInputProps> = ({
   }
 
   return (
-    <div className={cn('flex gap-2', className)}>
+    <div className={cn('flex gap-1', className)}>
       {Array.from({ length }, (_, index) => (
         <input
           key={index}
@@ -194,7 +194,7 @@ export const PINInput: React.FC<PINInputProps> = ({
           disabled={disabled}
           placeholder={placeholder}
           className={cn(
-            'w-16 h-16 text-center text-4xl font-bold bg-transparent border-0 outline-none transition-all duration-200 focus:outline-none',
+            ' size-10 md:size-16 text-center md:text-4xl font-bold bg-transparent border-0 outline-none transition-all duration-200 focus:outline-none',
             pin[index] !== '' ? 'text-[#3B82F6]' : 'text-gray-300',
             disabled && 'opacity-50 cursor-not-allowed',
             inputClassName

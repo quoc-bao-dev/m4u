@@ -13,7 +13,11 @@ const TermNBenefitSection = () => {
           <span className="text-gray-900">Quyền lợi </span> & Điều khoản
         </h2>
 
-        <AccordionItem title="Quyền Lợi Thành Viên Reviewer" defaultOpen>
+        <AccordionItem
+          title="Quyền Lợi Thành Viên Reviewer"
+          defaultOpen={true}
+          className="bg-white"
+        >
           <ul className="list-disc space-y-2 pl-5">
             <li>
               Trải nghiệm sản phẩm miễn phí các sản phẩm làm đẹp hot nhất.
@@ -29,14 +33,20 @@ const TermNBenefitSection = () => {
           </ul>
         </AccordionItem>
 
-        <AccordionItem title="Quyền Lợi Thành Viên Reviewer">
+        <AccordionItem
+          title="Quyền Lợi Thành Viên Reviewer"
+          className="bg-white"
+        >
           <p>
             Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ
             liệu.
           </p>
         </AccordionItem>
 
-        <AccordionItem title="Quyền Lợi Thành Viên Reviewer">
+        <AccordionItem
+          title="Quyền Lợi Thành Viên Reviewer"
+          className="bg-white"
+        >
           <p>
             Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các
             hoạt động.

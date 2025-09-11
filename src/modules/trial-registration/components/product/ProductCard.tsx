@@ -5,6 +5,7 @@ import { Lightning } from '@/icons'
 import { Star as StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import React from 'react'
+import useModalRegistration from '../../stores/useModalRegistration'
 
 interface ProductCardProps {
   image: string
@@ -52,6 +53,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const progressPercent = Math.max(0, Math.min(100, Math.round(participation)))
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
+
+  const { open: openModalRegistration } = useModalRegistration()
+
+  const handleOpenModalRegistration = (e: any) => {
+    if (e && typeof e.stopPropagation === 'function') {
+      e.stopPropagation()
+      e.preventDefault()
+    }
+    openModalRegistration()
+  }
 
   return (
     <div
@@ -127,7 +138,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
         <button
-          className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5 rounded-full cursor-pointer text-sm sm:text-base"
+          onClick={handleOpenModalRegistration}
+          className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5  md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base"
           style={{
             border: `1px solid ${accentHex}`,
             color: accentHex,

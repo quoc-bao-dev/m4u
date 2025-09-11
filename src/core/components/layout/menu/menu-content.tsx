@@ -13,6 +13,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguageSwitch, Language } from '@/locale/hooks/useLanguageSwitch'
+import useLoginModal from '@/modules/auth/stores/useLoginModal'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [
@@ -122,7 +123,12 @@ interface MenuContentProps {
   isMobile?: boolean
 }
 
-const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: MenuContentProps) => {
+const MenuContent = ({
+  isReviewer,
+  setIsReviewer,
+  onClose,
+  isMobile = false,
+}: MenuContentProps) => {
   const { switchLanguage, currentLocale } = useLanguageSwitch()
 
   // Map current locale to our language options
@@ -138,6 +144,8 @@ const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: M
         return 'vi'
     }
   }
+
+  const { open: openLoginModal } = useLoginModal()
 
   return (
     <>
@@ -159,7 +167,15 @@ const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: M
           {reviewerOptions.map((option) => (
             <button
               key={option.id}
-              onClick={() => setIsReviewer(option.value)}
+              onClick={() => {
+                if (option.id === 'yes') {
+                  setIsReviewer(option.value)
+                  onClose()
+                  openLoginModal()
+                } else {
+                  setIsReviewer(option.value)
+                }
+              }}
               className={`${
                 isMobile ? 'flex-1' : 'w-[184px]'
               } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
@@ -212,9 +228,7 @@ const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: M
           </h3>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">
-              General
-            </h4>
+            <h4 className="text-sm font-medium text-greyscale-500">General</h4>
             <div className="flex items-center justify-between gap-3">
               {settingsItems.general.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
@@ -240,18 +254,18 @@ const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: M
               {/* Language Selector */}
               <div className="flex items-center gap-1 bg-greyscale-50 rounded-xl p-1">
                 {languageOptions.map((lang) => (
-                   <button
-                     key={lang.id}
-                     onClick={() => {
-                       switchLanguage(lang.id as Language)
-                       onClose()
-                     }}
-                     className={`flex items-center border gap-1.5 px-1.5 py-1 rounded-lg transition-all duration-200 cursor-pointer ${
-                       getCurrentLanguage() === lang.id
-                         ? 'bg-white shadow-xs border-greyscale-200'
-                         : 'hover:bg-white/50 border-transparent'
-                     }`}
-                   >
+                  <button
+                    key={lang.id}
+                    onClick={() => {
+                      switchLanguage(lang.id as Language)
+                      onClose()
+                    }}
+                    className={`flex items-center border gap-1.5 px-1.5 py-1 rounded-lg transition-all duration-200 cursor-pointer ${
+                      getCurrentLanguage() === lang.id
+                        ? 'bg-white shadow-xs border-greyscale-200'
+                        : 'hover:bg-white/50 border-transparent'
+                    }`}
+                  >
                     <Image
                       src={lang.flag}
                       alt={lang.name}
@@ -275,9 +289,7 @@ const MenuContent = ({ isReviewer, setIsReviewer, onClose, isMobile = false }: M
           </div>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">
-              Support
-            </h4>
+            <h4 className="text-sm font-medium text-greyscale-500">Support</h4>
             <div className="flex flex-col gap-2">
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
