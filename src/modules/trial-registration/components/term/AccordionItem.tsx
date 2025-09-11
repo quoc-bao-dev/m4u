@@ -6,19 +6,33 @@ import { PropsWithChildren, useRef, useState } from 'react'
 type AccordionItemProps = PropsWithChildren<{
   title: string
   defaultOpen?: boolean
+  className?: string
 }>
 
 const AccordionItem = ({
   title,
   defaultOpen = false,
   children,
+  className,
 }: AccordionItemProps) => {
   const [open, setOpen] = useState<boolean>(defaultOpen)
+  const [isFirstRender, setIsFirstRender] = useState<boolean>(true)
   const contentRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="rounded-[16px] md:rounded-[24px] border border-gray-1000  cursor-pointer">
-      <div className="w-full" onClick={() => setOpen((prev) => !prev)}>
+    <div
+      className={cn(
+        'rounded-[16px] md:rounded-[24px] border border-gray-1000  cursor-pointer',
+        className
+      )}
+    >
+      <div
+        className="w-full"
+        onClick={() => {
+          setOpen((prev) => !prev)
+          setIsFirstRender(false)
+        }}
+      >
         <button
           type="button"
           className="flex w-fit items-center justify-between gap-3 px-3 md:px-4 py-3 text-left"
@@ -40,12 +54,15 @@ const AccordionItem = ({
       </div>
       <div
         ref={contentRef}
-        className="overflow-hidden transition-[max-height] duration-300 ease-in-out"
+        className={cn(
+          'overflow-hidden',
+          !isFirstRender && 'transition-[max-height] duration-300 ease-in-out'
+        )}
         style={{
           maxHeight: open
             ? contentRef.current
               ? contentRef.current.scrollHeight
-              : 0
+              : 'none'
             : 0,
         }}
       >

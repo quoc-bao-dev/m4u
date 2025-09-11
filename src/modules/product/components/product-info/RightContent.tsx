@@ -1,10 +1,11 @@
-import { RegisterCTA } from '@/modules/landing/components/cta'
-import AvatarStack from './AvatarStack'
-import { AccordionItem } from '@/modules/trial-registration'
-import { Fragment } from 'react'
+'use client'
+
 import { Rating } from '@/core/components'
-import Timer from './Timer'
 import Button from '@/core/components/ui/button'
+import { AccordionItem } from '@/modules/trial-registration'
+import AvatarStack from './AvatarStack'
+import Timer from './Timer'
+import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 
 const RightContent = () => {
   const time = '19:25:00'
@@ -67,10 +68,7 @@ const RightContent = () => {
       </h2>
       <div className="flex justify-between items-center">
         <div className="flex gap-1 items-center">
-          <Rating
-            rate={3}
-            className="md:mb-2 w-[100px] md:w-auto md:h-[16px]"
-          />
+          <Rating rate={3} className="md:mb-2 w-[100px] md:w-[160px]" />
           <p className="text-[14px] md:text-[28px] text-greyscale-900">
             4.8 <span className="text-greyscale-400">(69 reviews)</span>
           </p>
@@ -84,9 +82,7 @@ const RightContent = () => {
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4 md:gap-0">
         <AvatarStack />
         <div className="flex justify-start">
-          <Button size="md" variant="primary">
-            Register now
-          </Button>
+          <ButtonRegister />
         </div>
       </div>
 
@@ -99,6 +95,16 @@ const RightContent = () => {
         <AccordionItem title="Ingredients">{termContent} </AccordionItem>
       </div>
     </div>
+  )
+}
+
+const ButtonRegister = () => {
+  const { open: onpen } = useModalRegistration()
+
+  return (
+    <Button size="md" variant="primary" onClick={onpen}>
+      <span className="truncate"> Register now</span>
+    </Button>
   )
 }
 

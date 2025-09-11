@@ -29,6 +29,7 @@
 
   --color-pink-100: #FFF0F8;
   --color-pink-200: #FFE1F1;
+  --color-pink-500: #EC4899;
   --color-pink-600: #FE6BBA;
 
   --color-green-100: #E8FBF5;
@@ -91,6 +92,34 @@
 
 body {
   font-family: var(--font-primary);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.6) transparent;
+}
+
+.scrollbar-stable {
+  scrollbar-gutter: stable both-edges;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.6);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.8);
 }
 
 .scroll-hidden::-webkit-scrollbar {
