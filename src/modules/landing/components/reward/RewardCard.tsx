@@ -8,7 +8,7 @@ type RewardCardProps = {
   label: string
   title: string
   bgColor: string
-  iconColor: string
+  iconColor?: string
   elasticColor?: string
   isActive?: boolean
   isDimmed?: boolean

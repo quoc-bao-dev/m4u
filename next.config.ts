@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    domains: ['bds.fmrp.vn', '192.168.1.178'],
+    domains: ['bds.fmrp.vn', '192.168.1.199'],
   },
   webpack(config) {
     // Fallback cho khi không dùng turbopack

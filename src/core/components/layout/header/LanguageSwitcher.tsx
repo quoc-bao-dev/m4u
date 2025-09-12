@@ -1,24 +1,24 @@
 'use client'
 
-import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useGetLanguageCurrent } from '@/services/language/queries'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 const LanguageSwitcher = () => {
-  const { currentLocale, availableLocales, localeNames, switchLanguage } =
-    useLanguageSwitch()
+  const { currentLocale, localeNames, switchLanguage } = useLanguageSwitch()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
 
+  const { data: languageCurrent } = useGetLanguageCurrent()
+  
   const currentLabel = useMemo(
     () => localeNames[currentLocale],
     [currentLocale, localeNames]
   )
 
-  const handleSelect = (
-    target: Language | (typeof availableLocales)[number]
-  ) => {
-    switchLanguage(target)
+  const handleSelect = (language: any) => {
+    switchLanguage(language.code)
     setIsOpen(false)
   }
 
@@ -53,12 +53,10 @@ const LanguageSwitcher = () => {
     }
   }, [isOpen])
 
-  // Mapping flags to locales
-  const flagMap = {
-    vi: '/image/flag/image-01.png',
-    en: '/image/flag/image-02.png',
-    ko: '/image/flag/image-03.png',
-  } as const
+  // Get current language data from API
+  const currentLanguageData = useMemo(() => {
+    return languageCurrent?.find((lang: any) => lang.code === currentLocale)
+  }, [languageCurrent, currentLocale])
 
   return (
     <div ref={containerRef} className="relative">
@@ -68,13 +66,13 @@ const LanguageSwitcher = () => {
         className="inline-flex items-center gap-1 md:gap-3 rounded-full md:px-4 py-2 text-gray-800 hover:bg-gray-50"
       >
         <span className="hidden md:block text-base md:text-lg font-medium">
-          {currentLabel}
+          {currentLanguageData?.name || currentLabel}
         </span>
         <Image
-          src={flagMap[currentLocale]}
-          alt={`${currentLabel} flag`}
-          width={20}
-          height={20}
+          src={currentLanguageData?.image || '/image/flag/image-01.png'}
+          alt={`${currentLanguageData?.name || currentLabel} flag`}
+          width={200}
+          height={200}
           className="rounded-full object-cover size-[28px] md:size-[32px]"
         />
         <svg
@@ -95,26 +93,26 @@ const LanguageSwitcher = () => {
 
       {isOpen && (
         <ul className="absolute right-0 mt-2 w-48 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
-          {availableLocales.map((loc) => (
-            <li key={loc}>
+          {languageCurrent?.map((lang: any) => (
+            <li key={lang.id}>
               <button
                 type="button"
-                onClick={() => handleSelect(loc)}
+                onClick={() => handleSelect(lang)}
                 className={`flex w-full items-center justify-between px-4 py-2 text-left hover:bg-gray-50 ${
-                  currentLocale === loc ? 'bg-gray-50 font-semibold' : ''
+                  currentLocale === lang.code ? 'bg-gray-50 font-semibold' : ''
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <Image
-                    src={flagMap[loc]}
-                    alt={`${localeNames[loc]} flag`}
+                    src={lang?.image}
+                    alt={lang?.name}
                     width={20}
                     height={20}
                     className="rounded-full object-cover"
                   />
-                  <span>{localeNames[loc]}</span>
+                  <span>{lang?.name}</span>
                 </div>
-                {currentLocale === loc && (
+                {currentLocale === lang.code && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"

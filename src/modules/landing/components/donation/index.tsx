@@ -1,13 +1,18 @@
 'use client'
 import { OrbitingCircles } from '@/components/magicui/orbiting-circles'
+import { Skeleton } from '@/components/ui/skeleton'
 import { Logo } from '@/core/components'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
+import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import CountUp from 'react-countup'
 
 const Donation = () => {
+  const { isLoading, data: homePage } = useGetHomePage()
+  const data = homePage?.section8
+
   const { isMobile, isTablet } = useDevice()
   // quan sát khi component vào viewport
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -49,19 +54,22 @@ const Donation = () => {
           height={24}
           className="absolute bottom-1/2 -left-2"
         />
-        <h2 className="text-2xl lg:text-[40px]/[110%] font-bold text-greyscale-700 text-center">
-          <span className="text-greyscale-400">
-            Chung tay lan tỏa yêu thương,
-          </span>{' '}
-          đồng hành cùng mẹ đơn thân
-        </h2>
+
+        {isLoading ? (
+          <Skeleton className="w-3/5 h-20" />
+        ) : (
+          <div
+            className="text-2xl lg:text-[40px]/[110%] font-bold text-greyscale-700 text-center"
+            dangerouslySetInnerHTML={{ __html: data?.title }}
+          />
+        )}
 
         <div className="flex flex-col items-center gap-1 lg:gap-3">
           {hasViewed ? (
             <CountUp
               className="text-xl lg:text-4xl font-bold text-pink-600"
               start={0}
-              end={1234567890}
+              end={data?.subtitle}
               suffix=" ₫"
               duration={2.2}
               separator=","
@@ -115,19 +123,26 @@ const Donation = () => {
             height={24}
             className="absolute bottom-1/2 left-0"
           />
-          <h2 className="text-2xl lg:text-[40px]/[110%] font-semibold text-greyscale-700 text-center">
-            <span className="text-greyscale-400">
+          {isLoading ? (
+            <Skeleton className="w-4/5 h-32" />
+          ) : (
+            <div
+              className="text-2xl lg:text-[40px]/[110%] font-semibold text-greyscale-700 text-center"
+              dangerouslySetInnerHTML={{ __html: data?.title }}
+            >
+              {/* <span className="text-greyscale-400">
               Chung tay lan tỏa yêu thương,
             </span>{' '}
-            đồng hành cùng mẹ đơn thân
-          </h2>
+            đồng hành cùng mẹ đơn thân */}
+            </div>
+          )}
 
           <div className="flex flex-col items-center gap-1 lg:gap-3">
             {hasViewed ? (
               <CountUp
                 className="text-xl lg:text-4xl font-bold text-pink-600"
                 start={0}
-                end={1234567890}
+                end={data?.subtitle}
                 suffix=" ₫"
                 duration={2.2}
                 separator=","

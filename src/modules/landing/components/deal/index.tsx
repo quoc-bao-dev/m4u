@@ -8,6 +8,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Link from 'next/link'
 import Button from '@/core/components/ui/button'
+import { useGetHomePage } from '@/services/home/queries'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const deals = [
   {
@@ -58,6 +60,9 @@ const deals = [
 ]
 
 const Deal: React.FC = () => {
+  const { isLoading, data: homePage } = useGetHomePage()
+  const data = homePage?.section7
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     dragFree: true,
@@ -112,15 +117,25 @@ const Deal: React.FC = () => {
       />
 
       <div className="z-[3] flex justify-between items-center w-full px-3 lg:px-10 xl:px-24">
-        <div className="flex flex-col gap-2 xl:gap-4">
-          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold text-greyscale-700">
-            Cơ hội độc quyền <br className="lg:hidden" />
-            <span className="text-greyscale-400">dành cho bạn</span>
-          </h2>
-          <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
-            Ưu đãi độc quyền trong ngày. Số lượng giới hạn, đăng ký ngay trước
-            khi hết!
-          </p>
+        <div className="flex flex-col gap-2 xl:gap-4 w-full">
+          {isLoading ? (
+            <Skeleton className="w-3/5 h-12" />
+          ) : (
+            <div
+              className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold text-greyscale-700"
+              dangerouslySetInnerHTML={{ __html: data?.title }}
+            >
+              {/* Cơ hội độc quyền <br className="lg:hidden" />
+            <span className="text-greyscale-400">dành cho bạn</span> */}
+            </div>
+          )}
+          {isLoading ? (
+            <Skeleton className="w-4/5 h-7" />
+          ) : (
+            <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
+              {data?.subtitle}
+            </p>
+          )}
         </div>
         <div className="hidden xl:flex gap-4 items-center">
           <button
