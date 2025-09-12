@@ -1,3 +1,7 @@
+'use client'
+
+import { useLogoutConfirmModal } from '@/modules/auth'
+import { UserResponse } from '@/services/auth/type'
 import {
   CheckCircle,
   PencilSimpleLine,
@@ -7,9 +11,7 @@ import {
   UsersThree,
 } from '@phosphor-icons/react'
 import React from 'react'
-import { UserResponse } from '@/services/auth/type'
-import { useAuth } from '@/modules/auth'
-import { useToast } from '@/core/hooks'
+import { sMenuSignal } from './sMenuSignal'
 
 type UserType = UserResponse['info']
 
@@ -65,11 +67,11 @@ const Header = ({ user }: HeaderProps) => {
         {/* Profile info */}
         <div className="flex items-center space-x-4">
           {/* Avatar */}
-          <div className="size-[64px] rounded-full overflow-hidden bg-greyscale-100">
+          <div className="size-[64px] rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200">
             <img
               src={user.avatar || '/placeholder-avatar.jpg'}
               alt={user.fullname || 'User'}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover "
               onError={(e) => {
                 const target = e.target as HTMLImageElement
                 target.src = '/image/avatar/image-01.png'
@@ -89,10 +91,10 @@ const Header = ({ user }: HeaderProps) => {
         </div>
 
         {/* Membership badge */}
-        <div className="bg-yellow-100 px-3 py-1 rounded-full flex items-center gap-1 relative z-10">
+        <div className="bg-[#FFD4001A] px-3 py-1 rounded-full flex items-center gap-1 relative z-10">
           <GoldIcon />
-          <span className="text-sm font-medium text-yellow-600">
-            {user.point > 1000 ? 'Gold membership' : 'Silver membership'}
+          <span className="text-xs md:text-sm font-medium text-[#FF9900] truncate">
+            Gold membership
           </span>
         </div>
       </div>
@@ -133,25 +135,25 @@ const Top = ({ user }: TopProps) => {
       id: 'trial-history',
       label: 'Trial registration history',
       icon: CheckCircle,
-      href: '/trial-history',
+      href: '/vi/developing',
     },
     {
       id: 'my-reviews',
       label: 'My reviews',
       icon: PencilSimpleLine,
-      href: '/my-reviews',
+      href: '/vi/developing',
     },
     {
       id: 'referral-list',
       label: 'Referral List',
       icon: UsersThree,
-      href: '/referral-list',
+      href: '/vi/developing',
     },
     {
       id: 'referral-code',
       label: 'Referral Code',
       icon: QrCode,
-      href: '/referral-code',
+      href: '/vi/developing',
     },
   ]
 
@@ -205,12 +207,13 @@ export const AccountButton = () => {
 }
 
 export const LogoutButton = () => {
-  const { clearUser } = useAuth()
-  const { showSuccess } = useToast()
+  const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
 
   const handleLogout = () => {
-    clearUser()
-    showSuccess('Logged out successfully!')
+    // clearUser()
+    // showSuccess('Logged out successfully!')
+    openLogoutConfirmModal()
+    sMenuSignal.set('close')
   }
 
   return (

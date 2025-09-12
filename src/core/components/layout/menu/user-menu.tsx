@@ -5,11 +5,21 @@ import { Menu } from '@/icons'
 import { useState } from 'react'
 import DesktopMenuWrapper from './desktop-menu-wrapper'
 import MobileMenuWrapper from './mobile-menu-wrapper'
+import { sMenuSignal } from './sMenuSignal'
 
 const UserMenu = () => {
   const { isMobile } = useDevice()
   const [isReviewer, setIsReviewer] = useState<boolean | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+
+  sMenuSignal.watch((value) => {
+    if (value === 'open') {
+      setIsOpen(true)
+    } else if (value === 'close') {
+      setIsOpen(false)
+    }
+    sMenuSignal.set(null)
+  })
 
   return (
     <>

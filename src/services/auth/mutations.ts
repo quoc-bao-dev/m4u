@@ -1,7 +1,8 @@
-import { useMutation } from '@tanstack/react-query'
+import { tokenManager } from '@/core/http/axiosInstance'
+import { useAuth } from '@/modules/auth'
 import { authApi } from '@/services/auth/api'
 import { LoginRequest, LoginResponse } from '@/services/auth/type'
-import { useAuth } from '@/modules/auth'
+import { useMutation } from '@tanstack/react-query'
 
 export const useLogin = () => {
   const { setUser } = useAuth()
@@ -15,6 +16,8 @@ export const useLogin = () => {
       // Only proceed if result is true and token exists
       if (response.result === true && response.token) {
         // Lấy thông tin user sau khi login thành công
+
+        tokenManager.setTokens(response.token)
         try {
           const userResponse = await authApi.userInfo({ token: response.token })
           if (userResponse.data.result) {

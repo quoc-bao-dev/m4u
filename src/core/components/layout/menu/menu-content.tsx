@@ -3,7 +3,7 @@
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useNavigate } from '@/locale'
 import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
-import { useLoginModal, useAuth } from '@/modules/auth'
+import { useAuth, useLoginModal } from '@/modules/auth'
 import {
   CalendarPlusIcon,
   CubeIcon,
@@ -33,19 +33,19 @@ const productCommunityItems = [
     id: 'donation-charity',
     label: 'Donation & Charity',
     icon: 'HandHeartIcon',
-    href: '/vi/donation-charity',
+    href: '/vi/developing',
   },
   {
     id: 'review-hub',
     label: 'Review hub',
     icon: 'StarIcon',
-    href: '/vi/review-hub',
+    href: '/vi/developing',
   },
   {
     id: 'event',
     label: 'Event',
     icon: 'CalendarPlusIcon',
-    href: '/vi/event',
+    href: '/vi/developing',
   },
 ]
 
@@ -179,7 +179,7 @@ const MenuContent = ({
               className={`${
                 isMobile ? 'flex-1' : 'w-[184px]'
               } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                isReviewer === option.value
+                option.id === 'yes'
                   ? 'bg-pink-600 text-white'
                   : 'bg-white border border-pink-600 text-pink-600 hover:bg-pink-50'
               }`}
@@ -192,7 +192,11 @@ const MenuContent = ({
     )
   }, [])
   return (
-    <>
+    <div
+      className={`${
+        isMobile ? 'flex flex-col h-full min-h-0 overflow-hidden' : ''
+      }`}
+    >
       {/* Reviewer Question Section */}
       <div className="py-2 pb-6 md:py-6 px-4 flex flex-col gap-3 relative overflow-hidden">
         {/* <div className="absolute top-[calc(33.33%-2px)] left-0 w-full h-10 bg-gradient-to-b from-white to-transparent z-[2] pointer-events-none"></div> */}
@@ -201,7 +205,7 @@ const MenuContent = ({
           alt="top-gradient"
           width={1000}
           height={1000}
-          className="absolute -bottom-[10px] left-0 w-full h-full object-cover z-[1] pointer-events-none"
+          className="absolute -bottom-[0px] left-0 w-full h-full object-cover z-[1] pointer-events-none scale-[1.2]"
         />
 
         {/* Render based on authentication status */}
@@ -213,7 +217,11 @@ const MenuContent = ({
       </div>
 
       {/* Content Sections */}
-      <div className="flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3">
+      <div
+        className={`flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3 ${
+          isMobile ? 'flex-1 min-h-0 overflow-y-auto' : ''
+        }`}
+      >
         {/* Render authenticated menu top section */}
         {isAuthenticated && <AuthenticatedMenu.Top user={user} />}
         <div className="flex flex-col gap-4 shadow-[0px_4px_24px_0px_#0000000F] rounded-xl pb-3">
@@ -320,21 +328,20 @@ const MenuContent = ({
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-3 cursor-pointer group"
-                  >
-                    <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
-                      <IconComponent
-                        weight="fill"
-                        size={16}
-                        className="text-[#3B82F6] group-hover:text-blue-500"
-                      />
+                  <Link key={item.id} href={'/vi/developing'}>
+                    <div className="flex items-center gap-3 cursor-pointer group">
+                      <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
+                        <IconComponent
+                          weight="fill"
+                          size={16}
+                          className="text-[#3B82F6] group-hover:text-blue-500"
+                        />
+                      </div>
+                      <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
+                        {item.label}
+                      </span>
                     </div>
-                    <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
-                      {item.label}
-                    </span>
-                  </div>
+                  </Link>
                 )
               })}
               {/* Render logout button only when authenticated */}
@@ -343,7 +350,7 @@ const MenuContent = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

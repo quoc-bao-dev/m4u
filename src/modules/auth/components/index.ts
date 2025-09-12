@@ -1,1 +1,2 @@
-export { default as LoginModal } from './LoginModal'
+export * from './modal'
+export * from './auto-login'

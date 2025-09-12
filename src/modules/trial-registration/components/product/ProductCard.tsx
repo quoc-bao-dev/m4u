@@ -6,6 +6,7 @@ import { Star as StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import React from 'react'
 import useModalRegistration from '../../stores/useModalRegistration'
+import Timer from './Timer'
 
 interface ProductCardProps {
   image: string
@@ -54,6 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
 
+  const placeTime = '1:12:34:02'
+
   const { open: openModalRegistration } = useModalRegistration()
 
   const handleOpenModalRegistration = (e: any) => {
@@ -93,29 +96,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
         />
 
-        {time && (
-          <div className="flex justify-end pr-3 pb-3">
-            <div className="relative flex items-center gap-2">
-              {time
-                .split(':')
-                .slice(0, 3)
-                .map((segment, index, arr) => (
-                  <React.Fragment key={`${segment}-${index}`}>
-                    <div className="size-[30px] sm:size-[36px] rounded-[10px] sm:rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A] flex items-center justify-center">
-                      <span className="text-white text-sm sm:text-base font-bold leading-none">
-                        {segment.padStart(2, '0')}
-                      </span>
-                    </div>
-                    {index < arr.length - 1 && (
-                      <span className="text-[#FF3B30] text-xl sm:text-2xl font-bold">
-                        :
-                      </span>
-                    )}
-                  </React.Fragment>
-                ))}
-            </div>
-          </div>
-        )}
+        {time && <Timer initTime={placeTime} />}
       </div>
       <div
         className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
