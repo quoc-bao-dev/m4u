@@ -22,18 +22,19 @@ const RightContent = ({
   ingredients,
 }: RightContentProps) => {
   return (
-    <div className="w-full bg-yellow-100  py-5 px-6 md:p-[48px] md:rounded-3xl">
+    <div className="w-full bg-yellow-100  py-4 px-4 lg:p-[48px] md:rounded-3xl">
       <p className="text-[12px] md:text-[20px] font-bold">&nbsp;</p>
       <h2 className="text-[16px] md:text-[32px]">{name}</h2>
       <div className="flex justify-between items-center">
-        <div className="flex gap-1 items-center">
-          <Rating rate={3} className="md:mb-2 w-[100px] md:w-[160px]" />
-          <p className="text-[14px] md:text-[28px] text-greyscale-900">
-            4.8 <span className="text-greyscale-400">(69 reviews)</span>
+        <div className="flex gap-2 items-center flex-row md:flex-col lg:flex-row">
+          <Rating rate={3} className=":mb-2 w-[100px] md:w-[120px]" />
+          <p className="text-[14px] md:text-[16px] lg:text-[20px] xl:text-[28px] text-greyscale-900 truncate">
+            4.8{' '}
+            <span className="text-greyscale-400 truncate">(69 reviews)</span>
           </p>
         </div>
 
-        {time && time !== '00:00:00' ? (
+        {time && time !== '0:00:00:00' ? (
           <div className="relative hidden md:flex items-center gap-2">
             <Timer initTime={time} />
           </div>
@@ -48,11 +49,6 @@ const RightContent = ({
       </div>
 
       <div className="pt-4 md:pt-10 flex flex-col gap-4">
-        {/* <AccordionItem title="Description" defaultOpen>
-          <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
-            <p dangerouslySetInnerHTML={{ __html: content }} />
-          </div>
-        </AccordionItem> */}
         {ingredients?.map((ing, index) => (
           <AccordionItem
             key={ing.id}
