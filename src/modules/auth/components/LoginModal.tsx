@@ -4,16 +4,55 @@ import { ModalClient } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import Input from '@/core/components/ui/input'
 import PasswordInput from '@/core/components/ui/password-input'
-import { useState } from 'react'
+import { useLogin } from '@/services/auth/mutations'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Controller, useForm } from 'react-hook-form'
+import { LoginFormData, loginSchema } from '../schemas'
 import useLoginModal from '../stores/useLoginModal'
+import { useToast } from '@/core/hooks'
 
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const loginMutation = useLogin()
+  const { showError, showSuccess } = useToast()
 
-  const handleSubmit = () => {
-    // Hook up auth here
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      phone: '',
+      password: '',
+      type_login: 'password',
+    },
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const response = await loginMutation.mutateAsync(data)
+
+      // Check if result is false (API returned error)
+      if (response && response.result === false) {
+        showError(response.message || 'Login failed. Please try again.')
+        return
+      }
+
+      // Login thành công, reset form và đóng modal
+      showSuccess('Login successful!')
+      reset()
+      close()
+    } catch (error: any) {
+      // Extract error message from API response
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Login failed. Please try again.'
+      showError(errorMessage)
+      console.error('Login failed:', error)
+    }
   }
 
   return (
@@ -36,20 +75,35 @@ const LoginModal = () => {
             Welcome back! Enter your details to sign in.
           </p>
 
-          <div className="space-y-6">
-            <Input
-              label="Username"
-              placeholder="yourname"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div>
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    label="Phone Number"
+                    placeholder="Enter your phone number"
+                    type="tel"
+                    {...field}
+                    error={errors.phone?.message}
+                  />
+                )}
+              />
+            </div>
 
             <div className="w-full">
-              <PasswordInput
-                label="Password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              <Controller
+                name="password"
+                control={control}
+                render={({ field }) => (
+                  <PasswordInput
+                    label="Password"
+                    placeholder="••••••••"
+                    {...field}
+                    error={errors.password?.message}
+                  />
+                )}
               />
               <div className="mt-2 text-right">
                 <button
@@ -62,11 +116,16 @@ const LoginModal = () => {
             </div>
 
             <div className="pt-2">
-              <Button size="sm" className="w-full" onClick={handleSubmit}>
-                Sign In
+              <Button
+                type="submit"
+                size="sm"
+                className="w-full"
+                disabled={loginMutation.isPending}
+              >
+                {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </ModalClient>

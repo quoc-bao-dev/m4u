@@ -3,6 +3,7 @@ import { ReactQueryProvider } from '@/lib/react-query'
 import { PropsWithChildren } from 'react'
 import { DeviceProvider } from './DeviceProvider'
 import ModalProvider from './ModalProvider'
+import { ToastProvider } from '@/core/components/common'
 
 const AppProvider = ({ children }: PropsWithChildren) => {
   return (
@@ -10,7 +11,10 @@ const AppProvider = ({ children }: PropsWithChildren) => {
       <GlobalLoadingProvider>
         <ReactQueryProvider>
           <DeviceProvider>
-            <ModalProvider>{children}</ModalProvider>
+            <ModalProvider>
+              {children}
+              <ToastProvider />
+            </ModalProvider>
           </DeviceProvider>
         </ReactQueryProvider>
       </GlobalLoadingProvider>
