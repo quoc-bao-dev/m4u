@@ -1,15 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
+import { useEffect, useState } from 'react'
 
 // Domain configuration
 const DOMAIN_CONFIG = {
   default: '', // Will use axiosInstance default baseURL
-  local: 'http://localhost:3000',
-  development: 'https://dev-api.example.com',
-  staging: 'https://staging-api.example.com',
-  production: 'https://api.example.com',
   custom: '',
 }
 
@@ -38,6 +35,8 @@ interface KeyValuePair {
 }
 
 export default function ApiTestPage() {
+  console.log('DOMAIN_CONFIG', envConfig.baseUrl)
+
   const [apiPath, setApiPath] = useState('')
   const [method, setMethod] = useState<
     'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
@@ -207,7 +206,8 @@ export default function ApiTestPage() {
           : undefined
         : convertToObject(bodyFields)
 
-      // Use axios instance directly if default, otherwise create temporary instance
+      // Use axios instance directly if default (uses its configured baseURL)
+      // Otherwise create temporary instance with custom baseURL
       let tempAxios = axiosInstance
       if (selectedDomain !== 'default') {
         const baseURL = getCurrentBaseURL()
@@ -218,6 +218,7 @@ export default function ApiTestPage() {
           tempAxios.defaults.baseURL = baseURL
         }
       }
+      // For 'default' option, tempAxios = axiosInstance (no baseURL override)
 
       switch (method) {
         case 'GET':
