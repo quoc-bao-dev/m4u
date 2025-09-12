@@ -64,6 +64,7 @@ const Timer: React.FC<TimerProps> = ({ initTime }) => {
   return (
     <div className="flex justify-end pr-3 pb-3">
       <div className="relative flex items-center gap-1.5">
+        <div className="size-[30px]- sm:size-[38px]- w-[38px] h-[42px]"></div>
         {segments.map((segment, index, arr) => (
           <React.Fragment key={`${segment}-${index}`}>
             <div className="flex items-center justify-center flex-col gap-0.5 size-[30px]- sm:size-[38px]- w-[38px] h-[42px] py-1 px-1 rounded-[10px] sm:rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A]">

@@ -18,7 +18,9 @@ const Page = () => {
           playbackRate={0.3}
           className="absolute inset-0 -z-10 w-full h-full object-cover pointer-events-none opacity-60"
         />{' '}
-        <ProductSection />
+        <div className="relative z-40">
+          <ProductSection />
+        </div>
         <TermNBenefitSection />
         <ReviewCTASection />
       </div>
