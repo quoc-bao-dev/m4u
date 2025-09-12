@@ -1,21 +1,25 @@
 'use client'
 
 import { memo } from 'react'
-import { Logo } from '../../brand'
+import { LogoLoading } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
 import UserMenu from '@/core/components/layout/menu/user-menu'
-import Link from 'next/link'
+import { useLoading } from '@/core/hooks'
 
 const Header = () => {
+  const { isLoading } = useLoading()
+
   return (
     <Container>
       <div className="flex justify-between items-center py-3">
         <UserMenu />
         <div className="absolute left-1/2 -translate-x-1/2">
-          <Link href={'/vi'}> 
-            <Logo className="size-[40px] md:size-[60px]" />
-          </Link>
+          <LogoLoading 
+            isLoading={isLoading}
+            size="md"
+            href="/vi"
+          />
         </div>
         <LanguageSwitcher />
       </div>

@@ -134,11 +134,11 @@ const TopReviewer = () => {
   }, [])
 
   // No vertical wheel scrolling — only drag-to-scroll horizontally as requested
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
 
-  setTimeout(() => {
-    setIsLoading(false)
-  }, 3000)
+  // setTimeout(() => {
+  //   setIsLoading(false)
+  // }, 3000)
 
   return (
     <div className="relative px-3 p-6 lg:p-8 2xl:p-12 flex flex-col lg:flex-row gap-4 lg:gap-8 lg:rounded-3xl bg-yellow-100 w-full overflow-hidden">
@@ -150,9 +150,9 @@ const TopReviewer = () => {
         Endorsed by top reviewers
       </h2>
       <Link href="/vi/review-hub/detail" className="flex-shrink-0">
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
-        ) : (
+        ) : ( */}
           <Image
             src={IMAGES.topProduct}
             alt="top-reviewer"
@@ -160,7 +160,7 @@ const TopReviewer = () => {
             height={1000}
             className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
           />
-        )}
+        {/* )} */}
       </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
         <Link
@@ -228,9 +228,9 @@ const TopReviewer = () => {
                     <PlayIcon weight="fill" className="size-10 text-white" />
                   )}
                 </div>
-                {isLoading ? (
+                {/* {isLoading ? (
                   <Loading className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]" />
-                ) : (
+                ) : ( */}
                   <video
                     ref={(el) => {
                       if (el) videoRefs.current[index] = el
@@ -244,7 +244,7 @@ const TopReviewer = () => {
                     height={1000}
                     className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]"
                   />
-                )}
+                {/* )} */}
               </div>
             ))}
           </div>
