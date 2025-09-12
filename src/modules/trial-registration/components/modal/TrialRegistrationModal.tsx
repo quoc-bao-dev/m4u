@@ -54,9 +54,8 @@ const TrialRegistrationModal = () => {
           <div className="h-full md:grid lg:grid-cols-2 gap-10 relative z-10">
             <div
               className={cn(
-                'w-full h-full xl:aspect-[7/9] hidden lg:block  max-h-max md:max-h-[580px] xl:max-h-max',
-                height < 768 &&
-                  'md:max-h-[580px] lg:max-h-[580px] xl:max-h-[580px]'
+                'w-full h-full xl:aspect-[7/9] hidden lg:block  max-h-max md:max-h-[580px]',
+                height < 768 && 'md:max-h-[580px] lg:max-h-[580px]'
               )}
             >
               <Image
@@ -69,7 +68,7 @@ const TrialRegistrationModal = () => {
             </div>
             <div
               className={cn(
-                'h-full max-h-max  md:max-h-[580px] xl:max-h-max',
+                'h-full max-h-max  md:max-h-[580px] ',
                 height < 768 &&
                   'max-h-max md:max-h-[580px] lg:max-h-[580px] xl:max-h-[580px]'
               )}
