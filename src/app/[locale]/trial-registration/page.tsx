@@ -9,7 +9,7 @@ import {
 
 const Page = () => {
   return (
-    <main>
+    <main className="overflow-x-hidden rounded-b-4xl">
       <HeroSection />
       <TopProductSection />
       <div className="relative">
