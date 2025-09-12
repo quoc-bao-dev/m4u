@@ -39,7 +39,7 @@ const productCommunityItems = [
     id: 'review-hub',
     label: 'Review hub',
     icon: 'StarIcon',
-    href: '/vi/developing',
+    href: '/vi/review-hub',
   },
   {
     id: 'event',

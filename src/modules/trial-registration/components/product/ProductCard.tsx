@@ -55,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
 
-  const placeTime = '1:12:34:02'
+  // const placeTime = '1:12:34:02'
 
   const { open: openModalRegistration } = useModalRegistration()
 
@@ -68,76 +68,81 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div
-      className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit select-none w-full ${className}`}
-    >
-      <div className="rounded-t-3xl relative overflow-hidden w-full">
-        <div
-          className="absolute inset-0 -z-10 w-full h-full"
-          style={{
-            background: `radial-gradient(circle, white 0%, ${withAlpha(
-              accentHex,
-              '26'
-            )} )`,
-          }}
-        />
-        <div className="absolute top-4 left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-base font-medium text-greyscale-900">
-          <StarIcon weight="fill" className="size-5 text-yellow-600" />
-          {safeRate.toFixed(1)}
-        </div>
-        <Image
-          src={image}
-          alt={imageAlt}
-          width={820}
-          height={820}
-          className={cn(
-            'w-full h-[200px] md:h-[220px] xl:h-[300px] max-h-full object-contain rounded-t-3xl',
-            classNameImage
-          )}
-        />
-
-        {time && <Timer initTime={placeTime} />}
-      </div>
+    <div className="bg-gray-50- rounded-3xl">
       <div
-        className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
-        style={{ backgroundColor: contentBg }}
+        className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit select-none w-full ${className}`}
       >
-        <h3 className="text-xs sm:text-sm font-bold text-greyscale-900">
-          {brand}
-        </h3>
-        <h3 className="text-greyscale-900 text-base sm:text-lg truncate">
-          {productName}
-        </h3>
-        <div className="py-1">
-          <div className="relative w-full h-1 sm:h-1.5">
-            <div className="relative" style={{ width: `${progressPercent}%` }}>
-              <div className="h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-              <Lightning className="size-5 sm:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
-            </div>
-            <div className="opacity-20 absolute top-0 left-0 h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+        <div className="rounded-t-3xl relative overflow-hidden w-full">
+          <div
+            className="absolute inset-0 -z-10 w-full h-full"
+            style={{
+              background: `radial-gradient(circle, white 0%, ${withAlpha(
+                accentHex,
+                '26'
+              )} )`,
+            }}
+          />
+          <div className="absolute top-4 left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-base font-medium text-greyscale-900">
+            <StarIcon weight="fill" className="size-5 text-yellow-600" />
+            {safeRate.toFixed(1)}
           </div>
+          <Image
+            src={image}
+            alt={imageAlt}
+            width={820}
+            height={820}
+            className={cn(
+              'w-full h-[200px] md:h-[220px] xl:h-[300px] max-h-full object-contain rounded-t-3xl',
+              classNameImage
+            )}
+          />
+
+          {time && <Timer initTime={time} />}
         </div>
-        <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
-        <button
-          onClick={handleOpenModalRegistration}
-          className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5  md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base"
-          style={{
-            border: `1px solid ${accentHex}`,
-            color: accentHex,
-            backgroundColor: 'transparent',
-            transition: 'all 300ms ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = accentHex
-            e.currentTarget.style.color = '#000'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'transparent'
-            e.currentTarget.style.color = accentHex
-          }}
+        <div
+          className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
+          style={{ backgroundColor: contentBg }}
         >
-          <span className="truncate">Đăng ký dùng thử</span>
-        </button>
+          <h3 className="text-xs sm:text-sm font-bold text-greyscale-900">
+            {brand}
+          </h3>
+          <h3 className="text-greyscale-900 text-base sm:text-lg truncate">
+            {productName}
+          </h3>
+          <div className="py-1">
+            <div className="relative w-full h-1 sm:h-1.5">
+              <div
+                className="relative"
+                style={{ width: `${progressPercent}%` }}
+              >
+                <div className="h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                <Lightning className="size-5 sm:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
+              </div>
+              <div className="opacity-20 absolute top-0 left-0 h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+            </div>
+          </div>
+          <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
+          <button
+            onClick={handleOpenModalRegistration}
+            className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5  md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base"
+            style={{
+              border: `1px solid ${accentHex}`,
+              color: accentHex,
+              backgroundColor: 'transparent',
+              transition: 'all 300ms ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = accentHex
+              e.currentTarget.style.color = '#000'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.color = accentHex
+            }}
+          >
+            <span className="truncate">Đăng ký dùng thử</span>
+          </button>
+        </div>
       </div>
     </div>
   )

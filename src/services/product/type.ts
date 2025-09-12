@@ -7,6 +7,8 @@ export interface Product {
   slug: string
   date_end_promotion: string | null
   time_left_dd_hh_mm_ss: string | null
+  background_color: string | null
+  color_header: string | null
 }
 
 export interface ProductListLink {
