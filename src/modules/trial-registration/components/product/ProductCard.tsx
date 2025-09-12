@@ -98,6 +98,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           />
 
           {time && <Timer initTime={time} />}
+          {!time && <div className="h-[54px]!"></div>}
         </div>
         <div
           className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
