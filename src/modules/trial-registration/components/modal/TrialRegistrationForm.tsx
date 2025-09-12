@@ -64,24 +64,45 @@ const TrialRegistrationForm = ({ onSubmit }: TrialRegistrationFormProps) => {
       <div className="flex-1 min-h-0">
         <div className="h-full overflow-y-auto custom-scrollbar">
           <form onSubmit={handleSubmit} className="space-y-4 px-1">
-            {/* Full Name */}
-            <Input
-              label="Họ và tên"
-              placeholder="Nhập họ và tên"
-              value={formData.fullName}
-              onChange={(e) => handleInputChange('fullName', e.target.value)}
-              required
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Full Name */}
+              <Input
+                label="Họ và tên"
+                placeholder="Nhập họ và tên"
+                value={formData.fullName}
+                onChange={(e) => handleInputChange('fullName', e.target.value)}
+                required
+              />
+              {/* Date of Birth */}
+              <DatePicker
+                label="Ngày sinh"
+                value={formData.dateOfBirth}
+                onChange={(value) => handleInputChange('dateOfBirth', value)}
+                required
+              />
+            </div>
 
-            {/* Phone Number */}
-            <Input
-              label="Số điện thoại"
-              type="tel"
-              placeholder="Nhập số điện thoại"
-              value={formData.phoneNumber}
-              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-              required
-            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Phone Number */}
+              <Input
+                label="Số điện thoại"
+                type="tel"
+                placeholder="Nhập số điện thoại"
+                value={formData.phoneNumber}
+                onChange={(e) =>
+                  handleInputChange('phoneNumber', e.target.value)
+                }
+                required
+              />
+              {/* Address */}
+              <Input
+                label="Địa chỉ"
+                placeholder="Nhập địa chỉ"
+                value={formData.address}
+                onChange={(e) => handleInputChange('address', e.target.value)}
+                required
+              />
+            </div>
 
             {/* Gender */}
             <RadioGroup
@@ -96,14 +117,6 @@ const TrialRegistrationForm = ({ onSubmit }: TrialRegistrationFormProps) => {
                 { value: 'male', label: 'Nam' },
                 { value: 'other', label: 'Khác' },
               ]}
-              required
-            />
-
-            {/* Date of Birth */}
-            <DatePicker
-              label="Ngày sinh"
-              value={formData.dateOfBirth}
-              onChange={(value) => handleInputChange('dateOfBirth', value)}
               required
             />
 
@@ -128,15 +141,6 @@ const TrialRegistrationForm = ({ onSubmit }: TrialRegistrationFormProps) => {
                 </div>
               </div>
             </div>
-
-            {/* Address */}
-            <Input
-              label="Địa chỉ"
-              placeholder="Nhập địa chỉ"
-              value={formData.address}
-              onChange={(e) => handleInputChange('address', e.target.value)}
-              required
-            />
           </form>
         </div>
       </div>

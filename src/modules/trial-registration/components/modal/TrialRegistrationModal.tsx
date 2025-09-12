@@ -4,6 +4,8 @@ import { ModalClient } from '@/core/components'
 import useModalRegistration from '../../stores/useModalRegistration'
 import Image from 'next/image'
 import TrialRegistrationForm from './TrialRegistrationForm'
+import { useDevice } from '@/core/hooks'
+import { cn } from '@/core/utils'
 
 interface FormData {
   fullName: string
@@ -15,6 +17,9 @@ interface FormData {
 
 const TrialRegistrationModal = () => {
   const { isOpen, open: onpen, close } = useModalRegistration()
+
+  const { height } = useDevice()
+  console.log('[height]', height)
 
   const handleFormSubmit = (data: FormData) => {
     console.log('Form submitted:', data)
@@ -47,7 +52,12 @@ const TrialRegistrationModal = () => {
             />
           </div>
           <div className="h-full md:grid lg:grid-cols-2 gap-10 relative z-10">
-            <div className="w-full h-full xl:aspect-[7/9] hidden lg:block  max-h-max md:max-h-[580px] xl:max-h-max">
+            <div
+              className={cn(
+                'w-full h-full xl:aspect-[7/9] hidden lg:block  max-h-max md:max-h-[580px]',
+                height < 768 && 'md:max-h-[580px] lg:max-h-[580px]'
+              )}
+            >
               <Image
                 src={'/image/trial/image-modal-01.jpg'}
                 alt="trial"
@@ -56,7 +66,13 @@ const TrialRegistrationModal = () => {
                 className="object-cover w-full h-full rounded-3xl"
               />
             </div>
-            <div className="h-full max-h-max  md:max-h-[580px] xl:max-h-max">
+            <div
+              className={cn(
+                'h-full max-h-max  md:max-h-[580px] ',
+                height < 768 &&
+                  'max-h-max md:max-h-[580px] lg:max-h-[580px] xl:max-h-[580px]'
+              )}
+            >
               <TrialRegistrationForm onSubmit={handleFormSubmit} />
             </div>
           </div>
