@@ -28,9 +28,9 @@ const TrialRegistrationModal = () => {
         open={isOpen}
         onClose={close}
         showCloseButton={true}
-        className="w-full mx-3 md:mx-0 h-[90%] md:h-auto md:w-[800px]  lg:w-[1000px] xl:w-[1230px] rounded-4xl overflow-hidden"
+        className="w-full mx-3 md:mx-0  h-[90%] md:h-auto md:w-[800px] lg:w-[1000px] xl:w-[1230px] rounded-4xl "
       >
-        <div className="w-full h-full relative p-8 rounded-4xl">
+        <div className="w-full h-full relative p-8 rounded-4xl overflow-hidden">
           <div className="absolute top-0 right-0">
             <img
               src={'/image/trial/top-gradient.png'}
@@ -47,7 +47,7 @@ const TrialRegistrationModal = () => {
             />
           </div>
           <div className="h-full md:grid lg:grid-cols-2 gap-10 relative z-10">
-            <div className="w-full xl:aspect-[7/9] hidden lg:block">
+            <div className="w-full h-full xl:aspect-[7/9] hidden lg:block  max-h-max md:max-h-[580px] xl:max-h-max">
               <Image
                 src={'/image/trial/image-modal-01.jpg'}
                 alt="trial"
@@ -56,7 +56,7 @@ const TrialRegistrationModal = () => {
                 className="object-cover w-full h-full rounded-3xl"
               />
             </div>
-            <div className="h-full">
+            <div className="h-full max-h-max  md:max-h-[580px] xl:max-h-max">
               <TrialRegistrationForm onSubmit={handleFormSubmit} />
             </div>
           </div>

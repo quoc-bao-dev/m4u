@@ -13,8 +13,8 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguageSwitch, Language } from '@/locale/hooks/useLanguageSwitch'
-import useLoginModal from '@/modules/auth/stores/useLoginModal'
 import { useNavigate } from '@/locale'
+import { useLoginModal } from '@/modules/auth'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [

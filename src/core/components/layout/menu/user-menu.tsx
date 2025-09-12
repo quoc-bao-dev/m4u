@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import MobileMenuWrapper from './mobile-menu-wrapper'
-import DesktopMenuWrapper from './desktop-menu-wrapper'
 import { useDevice } from '@/core/hooks'
 import { Menu } from '@/icons'
+import { useState } from 'react'
+import DesktopMenuWrapper from './desktop-menu-wrapper'
+import MobileMenuWrapper from './mobile-menu-wrapper'
 
 const UserMenu = () => {
   const { isMobile } = useDevice()

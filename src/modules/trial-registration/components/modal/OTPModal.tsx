@@ -41,10 +41,15 @@ const OTPModal = () => {
     openRegisterSuccessModal()
   }
 
+  const handelClose = () => {
+    store.close()
+    setOtp('')
+  }
+
   return (
     <ModalClient
       open={isOpen}
-      onClose={store.close}
+      onClose={handelClose}
       showCloseButton={true}
       className="w-full mx-3 md:mx-0 md:w-[720px] h-fit md:h-auto rounded-4xl"
     >

@@ -1,18 +1,16 @@
 'use client'
 
 import { ModalClient } from '@/core/components'
+import Button from '@/core/components/ui/button'
 import Input from '@/core/components/ui/input'
 import PasswordInput from '@/core/components/ui/password-input'
-import Button from '@/core/components/ui/button'
 import { useState } from 'react'
 import useLoginModal from '../stores/useLoginModal'
-import { Eye, EyeSlash } from '@phosphor-icons/react'
 
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = () => {
     // Hook up auth here
@@ -64,7 +62,7 @@ const LoginModal = () => {
             </div>
 
             <div className="pt-2">
-              <Button size="xs" className="w-full" onClick={handleSubmit}>
+              <Button size="sm" className="w-full" onClick={handleSubmit}>
                 Sign In
               </Button>
             </div>
