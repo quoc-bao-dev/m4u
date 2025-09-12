@@ -20,19 +20,24 @@ const ProductInfo = () => {
 
   const { slug } = useParams()
 
-  // console.log('[slug]', slug)
-
   const { data: productDetail } = useGetProductDetail({ slug: slug as string })
 
-  console.log('[productDetail]', productDetail)
-  const images = [
-    '/image/product/image-slide-00.png',
-    '/image/product/image-slide-01.png',
-    '/image/product/image-slide-02.png',
-    '/image/product/image-slide-03.png',
-    '/image/product/image-slide-03.png',
-    '/image/product/image-slide-03.png',
-  ]
+  const detail = productDetail?.data
+  const images = (() => {
+    const merged = [
+      ...(detail?.image ? [detail.image] : []),
+      ...(Array.isArray(detail?.list_images)
+        ? detail!.list_images.filter(Boolean)
+        : []),
+    ]
+    // Dedupe while preserving order
+    const seen = new Set<string>()
+    return merged.filter((src) => {
+      if (seen.has(src)) return false
+      seen.add(src)
+      return true
+    })
+  })()
 
   return (
     <section className="py-[96px]">
@@ -42,14 +47,16 @@ const ProductInfo = () => {
           <div className="md:col-span-4 md:sticky md:top-20 self-start">
             <div className="relative aspect-[3/3] md:aspect-[6/7.5] w-full rounded-2xl overflow-hidden">
               <Image
-                src={'/image/product/image-01.png'}
+                src={images[selectedIndex] || '/image/product/image-01.png'}
                 alt="product-image"
                 fill
                 className="object-cover"
                 priority
               />
               <div className="md:hidden absolute bottom-2 right-2">
-                <Timer time="19:25:00" />
+                <Timer
+                  time={(detail?.time_left_dd_hh_mm_ss as string) || '00:00:00'}
+                />
               </div>
             </div>
 
@@ -93,7 +100,12 @@ const ProductInfo = () => {
           <div className="md:col-span-8">
             <div className="md:h-fit">
               <RevertContainer className="md:mx-0!">
-                <RightContent />
+                <RightContent
+                  name={detail?.name || ''}
+                  content={detail?.content || ''}
+                  time={detail?.time_left_dd_hh_mm_ss || undefined}
+                  ingredients={detail?.ingredients || []}
+                />
               </RevertContainer>
             </div>
           </div>

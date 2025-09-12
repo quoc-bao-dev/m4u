@@ -6,66 +6,25 @@ import { AccordionItem } from '@/modules/trial-registration'
 import AvatarStack from './AvatarStack'
 import Timer from './Timer'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
+import { Ingredient } from '@/services/product'
 
-const RightContent = () => {
-  const time = '19:25:00'
-  const termContent = (
-    <div className="space-y-6">
-      {/* Feature Icons */}
-      <div className="flex gap-6">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-2 ">
-          <LeafIcon />
-          <span className="text-sm font-medium text-gray-700 text-center md:text-left">
-            Vegan Friendly
-          </span>
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-2 ">
-          <RabbitIcon />
-          <span className="text-sm font-medium text-gray-700 text-center md:text-left">
-            Cruelty Free
-          </span>
-        </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-2 ">
-          <HeartIcon />
-          <span className="text-sm font-medium text-gray-700 text-center md:text-left">
-            Pregnancy Safe
-          </span>
-        </div>
-      </div>
+type RightContentProps = {
+  name: string
+  content: string
+  time?: string
+  ingredients: Ingredient[]
+}
 
-      {/* Product Description */}
-      <div className="bg-amber-50 md:p-6 rounded-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
-          The Biodance Hydro Cera-nol Real Deep Mask
-        </h3>
-        <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
-          <p>
-            This mask provides intensive hydration and soothing benefits,
-            infused with active ingredients and utilizes Biodance's patented
-            Hydro Cera-nol to help strengthen the skin's barrier while calming
-            irritation.
-          </p>
-          <p>
-            The mask contains 50,000 PPM of high-purity glacial water, rich in
-            minerals, which enhances the absorption of active ingredients and
-            forms a moisturizing film that helps to lock in hydration.
-          </p>
-          <p>
-            Solidified into an ampoule form, delivering a concentrated dose of
-            nourishment directly to the skin. Over time, the mask turns
-            transparent, allowing the active ingredients to deeply penetrate the
-            skin for maximum effectiveness.
-          </p>
-        </div>
-      </div>
-    </div>
-  )
+const RightContent = ({
+  name,
+  content,
+  time,
+  ingredients,
+}: RightContentProps) => {
   return (
     <div className="w-full bg-yellow-100  py-5 px-6 md:p-[48px] md:rounded-3xl">
-      <p className="text-[12px] md:text-[20px] font-bold">MANYO</p>
-      <h2 className="text-[16px] md:text-[32px]">
-        Panthetoin Deep Moisture Mask
-      </h2>
+      <p className="text-[12px] md:text-[20px] font-bold">&nbsp;</p>
+      <h2 className="text-[16px] md:text-[32px]">{name}</h2>
       <div className="flex justify-between items-center">
         <div className="flex gap-1 items-center">
           <Rating rate={3} className="md:mb-2 w-[100px] md:w-[160px]" />
@@ -75,7 +34,7 @@ const RightContent = () => {
         </div>
 
         <div className="relative hidden md:flex items-center gap-2">
-          <Timer time={time} />
+          <Timer time={time || '00:00:00'} />
         </div>
       </div>
 
@@ -87,12 +46,18 @@ const RightContent = () => {
       </div>
 
       <div className="pt-4 md:pt-10 flex flex-col gap-4">
-        <AccordionItem title="Ingredients" defaultOpen>
-          {termContent}{' '}
+        <AccordionItem title="Description" defaultOpen>
+          <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
+            <p dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
         </AccordionItem>
-        <AccordionItem title="Ingredients">{termContent} </AccordionItem>
-        <AccordionItem title="Ingredients">{termContent} </AccordionItem>
-        <AccordionItem title="Ingredients">{termContent} </AccordionItem>
+        {ingredients?.map((ing) => (
+          <AccordionItem key={ing.id} title={ing.title || ing.name}>
+            <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
+              <p dangerouslySetInnerHTML={{ __html: ing.content }} />
+            </div>
+          </AccordionItem>
+        ))}
       </div>
     </div>
   )
