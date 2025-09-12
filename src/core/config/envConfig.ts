@@ -4,6 +4,3 @@ export const envConfig = {
     'http://192.168.1.178:8883/api',
   apiTimeout: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '10000'),
 }
-
-console.log('envConfig', envConfig)
-console.log('envConfig.baseUrl', process.env.BASE_API_URL)

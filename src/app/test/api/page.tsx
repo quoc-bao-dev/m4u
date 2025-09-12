@@ -1,6 +1,5 @@
 'use client'
 
-import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
 import { useEffect, useState } from 'react'
 
@@ -35,8 +34,6 @@ interface KeyValuePair {
 }
 
 export default function ApiTestPage() {
-  console.log('DOMAIN_CONFIG', envConfig.baseUrl)
-
   const [apiPath, setApiPath] = useState('')
   const [method, setMethod] = useState<
     'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
