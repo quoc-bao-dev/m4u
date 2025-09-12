@@ -156,7 +156,7 @@ const FilterSidebar = () => {
   }
 
   return (
-    <aside className="w-[280px] shrink-0">
+    <aside className="md:w-[240px] lg:w-[280px] shrink-0">
       <div className="rounded-2xl bg-white shadow-lg p-4">
         <div className="flex items-center gap-2 pb-2 mb-2 border-b">
           <FilterIcon />{' '}
