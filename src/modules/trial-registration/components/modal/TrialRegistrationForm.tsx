@@ -144,7 +144,7 @@ const TrialRegistrationForm = ({ onSubmit }: TrialRegistrationFormProps) => {
       {/* Submit Button */}
       <div className="pt-4 flex justify-center md:justify-start">
         <Button
-          size="xs"
+          size="sm"
           type="submit"
           className="w-fit"
           endIcon={<ArrowRightIcon weight="bold" className="size-5" />}

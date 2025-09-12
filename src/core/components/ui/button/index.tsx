@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
   }
   const sizePaddingClasses = {
     xs: 'py-2 xl:py-3 px-5',
-    sm: 'py-3 xl:py-5.5 px-5',
+    sm: 'py-3 xl:py-4 px-5',
     md: 'py-3 xl:py-5.5 px-5',
   }
 

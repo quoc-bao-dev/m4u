@@ -100,7 +100,7 @@ function Calendar({
           defaultClassNames.week_number
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none',
+          'relative w-full h-full p-0 text-center group/day aspect-square select-none',
           defaultClassNames.day
         ),
         range_start: cn(
@@ -114,7 +114,7 @@ function Calendar({
           defaultClassNames.today
         ),
         outside: cn(
-          'text-muted-foreground/40 aria-selected:text-muted-foreground/40 opacity-50',
+          'text-muted-foreground/40 aria-selected:text-muted-foreground/40',
           defaultClassNames.outside
         ),
         disabled: cn(
@@ -217,8 +217,16 @@ function CalendarDayButton({
       data-range-start={modifiers.range_start}
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
+      data-outside={modifiers.outside}
       className={cn(
         'data-[selected-single=true]:bg-pink-500 data-[selected-single=true]:text-white data-[selected-single=true]:rounded-full data-[range-middle=true]:bg-pink-100 data-[range-middle=true]:text-pink-900 data-[range-start=true]:bg-pink-500 data-[range-start=true]:text-white data-[range-start=true]:rounded-full data-[range-end=true]:bg-pink-500 data-[range-end=true]:text-white data-[range-end=true]:rounded-full group-data-[focused=true]/day:border-pink-500 group-data-[focused=true]/day:ring-pink-500/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] rounded-full hover:bg-pink-50 hover:text-pink-900',
+        // Outside-day default dimming
+        'data-[outside=true]:opacity-50 data-[outside=true]:text-muted-foreground',
+        // Ensure selected outside-days look selected, not dimmed
+        'data-[outside=true]:data-[selected-single=true]:opacity-100 data-[outside=true]:data-[selected-single=true]:text-white',
+        'data-[outside=true]:data-[range-start=true]:opacity-100 data-[outside=true]:data-[range-start=true]:text-white',
+        'data-[outside=true]:data-[range-end=true]:opacity-100 data-[outside=true]:data-[range-end=true]:text-white',
+        'data-[outside=true]:data-[range-middle=true]:opacity-100 data-[outside=true]:data-[range-middle=true]:text-pink-900',
         isSunday && !modifiers.selected && 'text-red-500',
         defaultClassNames.day,
         className

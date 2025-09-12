@@ -119,7 +119,7 @@ export const ModalClient: React.FC<ModalProps> = ({
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="absolute right-1 top-1 z-50 flex h-9.5 w-9.5 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-10 sm:w-10"
+                className="cursor-pointer absolute right-1 top-1 z-50 flex h-9.5 w-9.5 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-10 sm:w-10"
               >
                 <svg
                   width="24"
