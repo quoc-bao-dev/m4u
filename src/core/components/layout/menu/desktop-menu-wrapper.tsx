@@ -5,6 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { cn } from '@/core/utils'
 import { Menu } from '@/icons'
 import MenuContent from './menu-content'
 
@@ -24,8 +25,13 @@ const DesktopMenuWrapper = ({
   return (
     <DropdownMenu open={isOpen} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>
-        <button className="hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
-          <Menu className="text-gray-700 size-9 cursor-pointer" />
+        <button className="hover:bg-gray-100 rounded-full transition-colors cursor-pointer duration-300-">
+          <Menu
+            className={cn('size-9 rounded-full', {
+              'text-gray-700 bg-white': !isOpen,
+              'text-white bg-gray-700': isOpen,
+            })}
+          />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
