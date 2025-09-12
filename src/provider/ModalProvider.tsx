@@ -1,4 +1,4 @@
-import { LoginModal } from '@/modules/auth'
+import { LoginModal, LogoutConfirmModal } from '@/modules/auth'
 import {
   OTPModal,
   RegisterSuccessModal,
@@ -14,6 +14,7 @@ const ModalProvider = ({ children }: PropsWithChildren) => {
       <OTPModal />
       <RegisterSuccessModal />
       <LoginModal />
+      <LogoutConfirmModal />
     </>
   )
 }

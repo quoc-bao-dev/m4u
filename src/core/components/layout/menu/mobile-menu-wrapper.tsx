@@ -45,14 +45,22 @@ const MobileMenuWrapper = ({
   if (!isOpen) return null
 
   const content = (
-    <div className={`fixed inset-0 h-screen w-screen z-[9999] sm:hidden overflow-hidden`}>
+    <div
+      className={`fixed inset-0 h-screen w-screen z-[9999] sm:hidden overflow-hidden`}
+    >
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${entered ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
+          entered ? 'opacity-100' : 'opacity-0'
+        }`}
         onClick={onClose}
       />
       {/* Sliding Panel */}
-      <div className={`absolute inset-y-0 left-0 right-0 bg-white transform transition-transform duration-300 ease-out ${entered ? 'translate-x-0' : '-translate-x-full'}`}>
+      <div
+        className={`absolute inset-y-0 left-0 right-0 bg-white transform transition-transform duration-300 ease-out ${
+          entered ? 'translate-x-0' : '-translate-x-full'
+        } flex flex-col h-full`}
+      >
         {/* Close Button */}
         <div className="flex py-4 px-6">
           <button
@@ -64,12 +72,14 @@ const MobileMenuWrapper = ({
         </div>
 
         {/* Modal Content */}
-        <MenuContent
-          isReviewer={isReviewer}
-          setIsReviewer={setIsReviewer}
-          onClose={onClose}
-          isMobile={true}
-        />
+        <div className="flex-1 min-h-0 overflow-hidden">
+          <MenuContent
+            isReviewer={isReviewer}
+            setIsReviewer={setIsReviewer}
+            onClose={onClose}
+            isMobile={true}
+          />
+        </div>
       </div>
     </div>
   )
