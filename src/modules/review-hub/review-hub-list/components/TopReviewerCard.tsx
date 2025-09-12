@@ -2,12 +2,11 @@
 import Rating from '@/core/components/common/Rating'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useInView } from '@/core/hooks/useInView'
-import { useDevice } from '@/core/hooks'
+import { useDevice, useQueryLoading } from '@/core/hooks'
 import { PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { Ref, useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Loading } from '@/core/components/common/loading'
 
 interface Kol {
   name: string
@@ -124,14 +123,6 @@ const TopReviewerCard = ({
     } catch {}
   }, [])
 
-  const handleHoverEnd = useCallback((index: number) => {
-    const target = videoRefs.current[index]
-    if (!target) return
-    try {
-      target.pause()
-    } catch {}
-    setPlayingIndex((curr) => (curr === index ? null : curr))
-  }, [])
 
   // Autoplay/pause based on viewport visibility
   useEffect(() => {
@@ -165,11 +156,27 @@ const TopReviewerCard = ({
       setPlayingIndex(null)
     }
   }, [kols, isInView])
-  const [isLoading, setIsLoading] = useState(true)
-
-  setTimeout(() => {
-    setIsLoading(false)
-  }, 3000)
+  // Ví dụ sử dụng TanStack Query với global loading
+  useQueryLoading(
+    ['product', productName], // queryKey
+    async () => {
+      // Simulate API call để lấy thông tin sản phẩm
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      return {
+        name: productName,
+        brand: brandName,
+        rating: rating,
+        reviews: reviewCount,
+        image: productImage,
+        kols: kols
+      }
+    },
+    {
+      showGlobalLoading: true, // Logo sẽ loading khi fetch data
+      staleTime: 5 * 60 * 1000, // Cache 5 phút
+      enabled: true // Chỉ chạy khi component mount
+    }
+  )
 
   return (
     <Link
@@ -177,9 +184,9 @@ const TopReviewerCard = ({
       href="/vi/review-hub/detail"
       className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
-      {isLoading ? (
+      {/* {isLoading ? (
         <Loading className="flex-shrink-0 hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl" />
-      ) : (
+      ) : ( */}
         <Image
           src={productImage}
           alt="top-reviewer"
@@ -187,7 +194,7 @@ const TopReviewerCard = ({
           height={1000}
           className="hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
         />
-      )}
+      {/* )} */}
       <div className="py-2 px-2 xl:px-0 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
         <div className="flex gap-3 lg:gap-2 justify-between items-end">
           <div className="flex flex-col xl:flex-row gap-2">

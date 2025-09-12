@@ -1,3 +1,5 @@
+import { GlobalLoadingProvider } from '@/core/context/GlobalLoadingContext'
+import { ReactQueryProvider } from '@/lib/react-query'
 import { PropsWithChildren } from 'react'
 import { DeviceProvider } from './DeviceProvider'
 import ModalProvider from './ModalProvider'
@@ -5,9 +7,13 @@ import ModalProvider from './ModalProvider'
 const AppProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <DeviceProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </DeviceProvider>
+      <GlobalLoadingProvider>
+        <ReactQueryProvider>
+          <DeviceProvider>
+            <ModalProvider>{children}</ModalProvider>
+          </DeviceProvider>
+        </ReactQueryProvider>
+      </GlobalLoadingProvider>
     </>
   )
 }
