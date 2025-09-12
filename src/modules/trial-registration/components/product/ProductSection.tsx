@@ -18,6 +18,7 @@ const ProductSection = () => {
     const items = productList?.data ?? []
     return items.map((p) => ({
       id: p.id,
+      slug: p.slug,
       brand: p.code || 'Brand',
       productName: p.name,
       participation: 70,
@@ -56,7 +57,7 @@ const ProductSection = () => {
                     delay={index * 0.1} // Stagger animation for each card
                     duration={0.6}
                   >
-                    <Link href={`/product/${p.id}`}>
+                    <Link href={`/product/${p.slug}`}>
                       <ProductCard
                         brand={p.brand}
                         productName={p.productName}
@@ -66,7 +67,7 @@ const ProductSection = () => {
                         rate={p.rate}
                         bgColor={p.bgColor!}
                         hex={p.hex!}
-                        time={p.time}
+                        time={p.time!}
                       />
                     </Link>
                   </ScrollRevealCard>

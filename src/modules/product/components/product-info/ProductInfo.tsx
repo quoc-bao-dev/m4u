@@ -1,13 +1,30 @@
 'use client'
 
 import { Container, RevertContainer } from '@/core/components'
-import Image from 'next/image'
-import RightContent from './RightContent'
+import { useGetProductDetail } from '@/services/product'
 import useEmblaCarousel from 'embla-carousel-react'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import RightContent from './RightContent'
 import Timer from './Timer'
 
 const ProductInfo = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [emblaRef] = useEmblaCarousel({
+    align: 'start',
+    containScroll: 'trimSnaps',
+    dragFree: true,
+    loop: true,
+  })
+
+  const { slug } = useParams()
+
+  // console.log('[slug]', slug)
+
+  const { data: productDetail } = useGetProductDetail({ slug: slug as string })
+
+  console.log('[productDetail]', productDetail)
   const images = [
     '/image/product/image-slide-00.png',
     '/image/product/image-slide-01.png',
@@ -16,13 +33,6 @@ const ProductInfo = () => {
     '/image/product/image-slide-03.png',
     '/image/product/image-slide-03.png',
   ]
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [emblaRef] = useEmblaCarousel({
-    align: 'start',
-    containScroll: 'trimSnaps',
-    dragFree: true,
-    loop: true,
-  })
 
   return (
     <section className="py-[96px]">
