@@ -1,6 +1,7 @@
+
 'use client'
 
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { LogoLoading } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -8,7 +9,14 @@ import UserMenu from '@/core/components/layout/menu/user-menu'
 import { useLoading } from '@/core/hooks'
 
 const Header = () => {
-  const { isLoading } = useLoading()
+  const { isLoading, startLoading, stopLoading } = useLoading()
+ 
+  useEffect(() => {
+    startLoading()
+    setTimeout(() => {
+      stopLoading()
+    }, 3000)
+  }, [])
 
   return (
     <Container>

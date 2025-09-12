@@ -10,6 +10,9 @@ import {
   StarIcon,
   type Icon,
 } from '@phosphor-icons/react'
+import { useGetHomePage } from '@/services/home/queries'
+import { Skeleton } from '@/components/ui/skeleton'
+import Image from 'next/image'
 
 // Interface định nghĩa cấu trúc dữ liệu cho mỗi bước tham gia
 interface JoinStep {
@@ -64,30 +67,41 @@ const joinSteps: JoinStep[] = [
 ]
 
 const JoinNow = () => {
+  const { isLoading, data: homePage } = useGetHomePage()
+  const data = homePage?.section5
+
   return (
     <div className="py-12 px-3 xl:py-24 xl:px-24 flex flex-col gap-10 justify-center items-center">
-      <ScrollReveal direction="up" duration={0.8} delay={0.1} start="top 90%">
-        <div className="flex flex-col items-center gap-2 xl:gap-4">
-          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center font-bold text-greyscale-700">
-            Tham gia ngay, <br className="lg:hidden" />
-            <span className="text-greyscale-400">lợi ích liền tay!</span>
-          </h2>
+      <div className="flex flex-col items-center gap-2 xl:gap-4 w-full">
+        {isLoading ? (
+          <Skeleton className="w-3/5 h-12" />
+        ) : (
+          <div
+            className="2xl:text-6xl xl:text-5xl text-2xl text-center font-bold text-greyscale-700"
+            dangerouslySetInnerHTML={{ __html: data?.title }}
+          >
+            {/* Tham gia ngay, <br className="lg:hidden" />
+            <span className="text-greyscale-400">lợi ích liền tay!</span> */}
+          </div>
+        )}
+        {isLoading ? (
+          <Skeleton className="w-4/5 h-7" />
+        ) : (
           <p className="2xl:text-2xl xl:text-xl text-base text-center text-greyscale-700">
-            Quy trình hợp tác đơn giản, giúp bạn biến đam mê làm đẹp thành thu
-            nhập.
+            {data?.subtitle}
           </p>
-        </div>
-      </ScrollReveal>
+        )}
+      </div>
       <div className="relative w-full">
         {/* Đường kẻ nối chỉ từ điểm đầu đến điểm cuối */}
         <div className="absolute top-0 bottom-0 lg:top-[calc(100%-102px)] lg:bottom-[106px] left-3.5 lg:left-[10%] lg:right-[10%] h-full lg:h-0.5 border-r-2 lg:border-t-2 border-dashed border-green-500 z-0"></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 2xl:gap-8 lg:gap-4 gap-6 w-full">
-          {joinSteps.map((step, index) => {
-            const IconComponent = step.icon
+          {data?.tab.map((step: any, index: number) => {
+            // const IconComponent = step.icon
             return (
               <ScrollReveal
-                key={step.id}
+                key={index}
                 direction="up"
                 duration={0.6}
                 delay={index * 0.15}
@@ -101,9 +115,16 @@ const JoinNow = () => {
                     {/* Icon container với background và hiệu ứng xoay */}
                     <div className="relative size-[70px] xl:size-[100px] bg-[#2DD4BF] rounded-[20px] flex justify-center items-center">
                       <div className="size-[70px] xl:size-[100px] bg-[#2DD4BF]/30 rounded-[20px] absolute top-0 left-0 -rotate-15"></div>
-                      <IconComponent
+                      {/* <IconComponent
                         weight="fill"
                         className="z-1 relative size-11 text-white"
+                      /> */}
+                      <Image
+                        src={step.img}
+                        alt={step.title}
+                        width={100}
+                        height={100}
+                        className="size-11 text-white z-10"
                       />
                     </div>
                     {/* Nội dung mô tả bước */}
@@ -112,7 +133,7 @@ const JoinNow = () => {
                         {step.title}
                       </h3>
                       <p className="2xl:text-base text-sm text-greyscale-700 text-center">
-                        {step.description}
+                        {step.subtitle}
                       </p>
                     </div>
                   </div>
@@ -120,7 +141,7 @@ const JoinNow = () => {
                   <div className="flex flex-col gap-8 items-center relative z-10">
                     <span className="hidden lg:block size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
                     <span className="text-silver-sand-900 font-medium text-2xl lg:text-[40px]">
-                      {step.stepNumber}
+                      {step.name_step}
                     </span>
                   </div>
                 </div>
@@ -129,9 +150,7 @@ const JoinNow = () => {
           })}
         </div>
       </div>
-      <ScrollReveal direction="up" duration={0.8} delay={0.8}>
-        <Button>Đăng ký trải nghiệm ngay</Button>
-      </ScrollReveal>
+      <Button>Đăng ký trải nghiệm ngay</Button>
     </div>
   )
 }

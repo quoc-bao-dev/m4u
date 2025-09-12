@@ -28,7 +28,7 @@ const LogoLoading: React.FC<LogoLoadingProps> = ({
     <div className={`${sizeClasses[size]} ${className}`}>
       {isLoading ? (
         <Image
-          src="/image/loading.gif"
+          src="/image/M4U.gif"
           alt="Đang tải"
           width={sizePx[size]}
           height={sizePx[size]}

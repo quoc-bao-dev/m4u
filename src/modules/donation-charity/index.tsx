@@ -1,11 +1,13 @@
 import React from 'react'
-import Testsvg from './testsvg'
+import ModalSection from './ModalSection'
+import Donation from '../landing/components/donation'
 
 const DonationCharity = () => {
   return (
     <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-2xl font-bold'>Donation Charity</h1>
-      <Testsvg />
+      {/* <Hero /> */}
+      <Donation isHero={true} className='h-screen' />
+      <ModalSection />
     </div>
   )
 }

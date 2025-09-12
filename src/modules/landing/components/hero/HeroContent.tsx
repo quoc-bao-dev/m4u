@@ -4,8 +4,13 @@ import React from 'react'
 import Image from 'next/image'
 import { RegisterCTA } from '../cta'
 import Link from 'next/link'
+import { useGetHomePage } from '@/services/home/queries'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const HeroContent = () => {
+  const { isLoading, data: homePage } = useGetHomePage()
+  const data = homePage?.section1
+
   return (
     <div className="grid grid-cols-1 grid-rows-[1fr_auto] md:grid-rows-1 md:grid-cols-2 lg:gap-12 h-full">
       {/* Left Content */}
@@ -45,17 +50,25 @@ const HeroContent = () => {
               `}</style>
 
               <div className="text-[42px] md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px]">
-                <h1 className="hero-title font-bold leading-[120%] md:leading-none">
-                  <span className="text-gray-900">Giảm </span>
-                  <span className="text-[#FF8092]">50%</span>
-                  <span className="text-gray-900"> và</span> <br />
-                  <span className="text-gray-900">tặng voucher</span>
-                </h1>
+                {isLoading ? (
+                  <Skeleton className="w-4/5 h-36" />
+                ) : (
+                  <h1
+                    className="hero-title font-bold leading-[120%] md:leading-none"
+                    dangerouslySetInnerHTML={{ __html: data?.title }}
+                  />
+                )}
               </div>
 
               <div className="text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
-                <p className="hero-subtitle ">khi review sản phẩm và</p>
-                <p className="hero-subtitle ">đăng ký nhóm trải nghiệm</p>
+              {isLoading ? (
+                  <Skeleton className="w-4/5 h-24" />
+                ) : (
+                <div
+                  className="hero-subtitle "
+                  dangerouslySetInnerHTML={{ __html: data?.content }}
+                />
+                )}
               </div>
             </div>
             {/* CTA Button */}
