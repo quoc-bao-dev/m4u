@@ -3,6 +3,7 @@
 import { Container, RevertContainer } from '@/core/components'
 import { useGetProductDetail } from '@/services/product'
 import useEmblaCarousel from 'embla-carousel-react'
+import WheelGesturesPlugin from 'embla-carousel-wheel-gestures'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
@@ -11,12 +12,15 @@ import Timer from './Timer'
 
 const ProductInfo = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [emblaRef] = useEmblaCarousel({
-    align: 'start',
-    containScroll: 'trimSnaps',
-    dragFree: true,
-    loop: true,
-  })
+  const [emblaRef] = useEmblaCarousel(
+    {
+      align: 'start',
+      containScroll: 'trimSnaps',
+      dragFree: true,
+      loop: true,
+    },
+    [WheelGesturesPlugin()]
+  )
 
   const { slug } = useParams()
 
@@ -53,11 +57,16 @@ const ProductInfo = () => {
                 className="object-cover"
                 priority
               />
-              <div className="md:hidden absolute bottom-2 right-2">
-                <Timer
-                  time={(detail?.time_left_dd_hh_mm_ss as string) || '00:00:00'}
-                />
-              </div>
+              {detail?.time_left_dd_hh_mm_ss &&
+              detail?.time_left_dd_hh_mm_ss !== '00:00:00' ? (
+                <div className="md:hidden absolute bottom-2 right-2">
+                  <Timer
+                    initTime={
+                      (detail?.time_left_dd_hh_mm_ss as string) || '00:00:00'
+                    }
+                  />
+                </div>
+              ) : null}
             </div>
 
             <div className="mt-2 relative">
@@ -68,7 +77,7 @@ const ProductInfo = () => {
                     <button
                       key={src}
                       onClick={() => setSelectedIndex(idx)}
-                      className="shrink-0 mr-2 last:mr-0"
+                      className="shrink-0 mr-2 last:mr-0 cursor-pointer"
                     >
                       <img
                         src={src}

@@ -3,10 +3,10 @@
 import { Rating } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import { AccordionItem } from '@/modules/trial-registration'
-import AvatarStack from './AvatarStack'
-import Timer from './Timer'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { Ingredient } from '@/services/product'
+import AvatarStack from './AvatarStack'
+import Timer from './Timer'
 
 type RightContentProps = {
   name: string
@@ -33,9 +33,11 @@ const RightContent = ({
           </p>
         </div>
 
-        <div className="relative hidden md:flex items-center gap-2">
-          <Timer time={time || '00:00:00'} />
-        </div>
+        {time && time !== '00:00:00' ? (
+          <div className="relative hidden md:flex items-center gap-2">
+            <Timer initTime={time} />
+          </div>
+        ) : null}
       </div>
 
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4 md:gap-0">
@@ -46,14 +48,19 @@ const RightContent = ({
       </div>
 
       <div className="pt-4 md:pt-10 flex flex-col gap-4">
-        <AccordionItem title="Description" defaultOpen>
+        {/* <AccordionItem title="Description" defaultOpen>
           <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
             <p dangerouslySetInnerHTML={{ __html: content }} />
           </div>
-        </AccordionItem>
-        {ingredients?.map((ing) => (
-          <AccordionItem key={ing.id} title={ing.title || ing.name}>
+        </AccordionItem> */}
+        {ingredients?.map((ing, index) => (
+          <AccordionItem
+            key={ing.id}
+            title={ing.title || ing.name}
+            defaultOpen={index == 0}
+          >
             <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
+              <h1 className="text-lg font-medium ">{ing.name}</h1>
               <p dangerouslySetInnerHTML={{ __html: ing.content }} />
             </div>
           </AccordionItem>
