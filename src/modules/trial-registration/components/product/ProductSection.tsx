@@ -36,8 +36,6 @@ const ProductSection = () => {
     }))
   }, [productList])
 
-  console.log('[products]', products)
-
   return (
     <>
       <section className="py-[96px] relative z-40">
