@@ -13,6 +13,8 @@ import React, {
 import ReviewCard from './ReviewCard'
 import Button from '@/core/components/ui/button'
 import Link from 'next/link'
+import { useGetHomePage } from '@/services/home/queries'
+import { Skeleton } from '@/components/ui/skeleton'
 
 // Dữ liệu mẫu cho ReviewCard
 const reviewerData = [
@@ -89,6 +91,9 @@ const reviewerData = [
 ]
 
 const Reviewer = () => {
+  const { isLoading, data: homePage } = useGetHomePage()
+  const data = homePage?.section6
+
   // Theo dõi item đang ở giữa vùng nhìn của thanh cuộn ngang
   const [activeLoopIndex, setActiveLoopIndex] = useState<number>(0)
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -214,14 +219,24 @@ const Reviewer = () => {
   return (
     <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
       <div className="flex justify-between items-center w-full px-3 xl:px-24">
-        <div className="flex flex-col gap-2 xl:gap-4">
-          <h2 className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold capitalize text-greyscale-700">
-            Reviewer <span className="text-greyscale-400">nói gì?</span>
-          </h2>
-          <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
-            Những video và hình ảnh đánh giá chân thật nhất từ cộng đồng người
-            dùng đã trải nghiệm.
-          </p>
+        <div className="flex flex-col gap-2 xl:gap-4 w-full">
+          {isLoading ? (
+            <Skeleton className="w-2/5 h-12" />
+          ) : (
+            <div
+              className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold capitalize text-greyscale-700"
+              dangerouslySetInnerHTML={{ __html: data?.title }}
+            >
+              {/* Reviewer <span className="text-greyscale-400">nói gì?</span> */}
+            </div>
+          )}
+          {isLoading ? (
+            <Skeleton className="w-4/5 h-7" />
+          ) : (
+            <p className="2xl:text-2xl xl:text-xl text-base text-center xl:text-left text-greyscale-700">
+              {data?.subtitle}
+            </p>
+          )}
         </div>
         <div className="hidden xl:flex gap-4 items-center">
           <button

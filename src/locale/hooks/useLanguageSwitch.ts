@@ -6,7 +6,7 @@ import { locales, type Locale, localeNames } from '../config';
 export enum Language {
   VI = 'vi',
   EN = 'en',
-  KO = 'ko',
+  KR = 'kr',
 }
 
 export function useLanguageSwitch() {

@@ -115,7 +115,7 @@ const languageOptions = [
     name: 'English',
   },
   {
-    id: 'ko',
+    id: 'kr',
     label: 'KR',
     flag: IMAGES.kr,
     name: '한국어',
@@ -145,8 +145,8 @@ const MenuContent = ({
         return 'vi'
       case 'en':
         return 'en'
-      case 'ko':
-        return 'ko'
+      case 'kr':
+        return 'kr'
       default:
         return 'vi'
     }
