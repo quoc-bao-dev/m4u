@@ -1,6 +1,9 @@
 'use client'
 
 import { IMAGES } from '@/core/constants/IMAGES'
+import { useNavigate } from '@/locale'
+import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useAuth, useLoginModal } from '@/modules/auth'
 import {
   CalendarPlusIcon,
   CubeIcon,
@@ -12,9 +15,11 @@ import {
 } from '@phosphor-icons/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useLanguageSwitch, Language } from '@/locale/hooks/useLanguageSwitch'
-import { useNavigate } from '@/locale'
-import { useLoginModal } from '@/modules/auth'
+import { useCallback } from 'react'
+import AuthenticatedMenu, {
+  AccountButton,
+  LogoutButton,
+} from './authenticated-menu'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [
@@ -28,19 +33,19 @@ const productCommunityItems = [
     id: 'donation-charity',
     label: 'Donation & Charity',
     icon: 'HandHeartIcon',
-    href: '/vi/donation-charity',
+    href: '/vi/developing',
   },
   {
     id: 'review-hub',
     label: 'Review hub',
     icon: 'StarIcon',
-    href: '/vi/review-hub',
+    href: '/vi/developing',
   },
   {
     id: 'event',
     label: 'Event',
     icon: 'CalendarPlusIcon',
-    href: '/vi/event',
+    href: '/vi/developing',
   },
 ]
 
@@ -131,6 +136,7 @@ const MenuContent = ({
   isMobile = false,
 }: MenuContentProps) => {
   const { switchLanguage, currentLocale } = useLanguageSwitch()
+  const { user, isAuthenticated } = useAuth()
 
   // Map current locale to our language options
   const getCurrentLanguage = () => {
@@ -150,19 +156,9 @@ const MenuContent = ({
 
   const nav = useNavigate()
 
-  return (
-    <>
-      {/* Reviewer Question Section */}
-      <div className="py-2 pb-6 md:py-6 px-4 flex flex-col gap-3 relative overflow-hidden">
-        <div className="absolute top-[calc(33.33%-2px)] left-0 w-full h-10 bg-gradient-to-b from-white to-transparent z-[2] pointer-events-none"></div>
-        <Image
-          src={IMAGES.topGradient}
-          alt="top-gradient"
-          width={1000}
-          height={1000}
-          className="absolute top-1/3 left-0 w-full h-full object-cover z-[1] pointer-events-none"
-        />
-
+  const NotAuthenticatedHeader = useCallback(() => {
+    return (
+      <>
         <h2 className="text-lg font-semibold text-greyscale-900 z-[3]">
           Are you an M4U&apos;s reviewer?
         </h2>
@@ -183,7 +179,7 @@ const MenuContent = ({
               className={`${
                 isMobile ? 'flex-1' : 'w-[184px]'
               } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                isReviewer === option.value
+                option.id === 'yes'
                   ? 'bg-pink-600 text-white'
                   : 'bg-white border border-pink-600 text-pink-600 hover:bg-pink-50'
               }`}
@@ -192,10 +188,42 @@ const MenuContent = ({
             </button>
           ))}
         </div>
+      </>
+    )
+  }, [])
+  return (
+    <div
+      className={`${
+        isMobile ? 'flex flex-col h-full min-h-0 overflow-hidden' : ''
+      }`}
+    >
+      {/* Reviewer Question Section */}
+      <div className="py-2 pb-6 md:py-6 px-4 flex flex-col gap-3 relative overflow-hidden">
+        {/* <div className="absolute top-[calc(33.33%-2px)] left-0 w-full h-10 bg-gradient-to-b from-white to-transparent z-[2] pointer-events-none"></div> */}
+        <Image
+          src={IMAGES.topGradient}
+          alt="top-gradient"
+          width={1000}
+          height={1000}
+          className="absolute -bottom-[0px] left-0 w-full h-full object-cover z-[1] pointer-events-none scale-[1.2]"
+        />
+
+        {/* Render based on authentication status */}
+        {isAuthenticated ? (
+          <AuthenticatedMenu.Header user={user} />
+        ) : (
+          <NotAuthenticatedHeader />
+        )}
       </div>
 
       {/* Content Sections */}
-      <div className="flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3">
+      <div
+        className={`flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3 ${
+          isMobile ? 'flex-1 min-h-0 overflow-y-auto' : ''
+        }`}
+      >
+        {/* Render authenticated menu top section */}
+        {isAuthenticated && <AuthenticatedMenu.Top user={user} />}
         <div className="flex flex-col gap-4 shadow-[0px_4px_24px_0px_#0000000F] rounded-xl pb-3">
           <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
             Product & Community
@@ -290,6 +318,8 @@ const MenuContent = ({
                 ))}
               </div>
             </div>
+            {/* Render account button only when authenticated */}
+            {isAuthenticated && <AccountButton />}
           </div>
 
           <div className="px-3 flex flex-col gap-3">
@@ -298,28 +328,29 @@ const MenuContent = ({
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-3 cursor-pointer group"
-                  >
-                    <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
-                      <IconComponent
-                        weight="fill"
-                        size={16}
-                        className="text-[#3B82F6] group-hover:text-blue-500"
-                      />
+                  <Link key={item.id} href={'/vi/developing'}>
+                    <div className="flex items-center gap-3 cursor-pointer group">
+                      <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
+                        <IconComponent
+                          weight="fill"
+                          size={16}
+                          className="text-[#3B82F6] group-hover:text-blue-500"
+                        />
+                      </div>
+                      <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
+                        {item.label}
+                      </span>
                     </div>
-                    <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
-                      {item.label}
-                    </span>
-                  </div>
+                  </Link>
                 )
               })}
+              {/* Render logout button only when authenticated */}
+              {isAuthenticated && <LogoutButton />}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

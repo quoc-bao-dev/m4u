@@ -109,6 +109,64 @@ export default function ApiTestPage() {
     }
   }
 
+  const handleFillFromHistory = (call: SavedApiCall) => {
+    // Fill all form fields
+    setMethod(call.method as any)
+    setApiPath(call.path)
+    setRequestBody(call.requestBody || '')
+    setError(null)
+
+    // Load params
+    if (call.params) {
+      const paramPairs = Object.entries(call.params).map(([key, value]) => ({
+        key,
+        value,
+      }))
+      setParams(paramPairs.length > 0 ? paramPairs : [{ key: '', value: '' }])
+    } else {
+      setParams([{ key: '', value: '' }])
+    }
+
+    // Load body fields if not JSON
+    if (call.requestBody && !call.requestBody.startsWith('{')) {
+      try {
+        const bodyObj = JSON.parse(call.requestBody)
+        const bodyPairs = Object.entries(bodyObj).map(([key, value]) => ({
+          key,
+          value: String(value),
+        }))
+        setBodyFields(
+          bodyPairs.length > 0 ? bodyPairs : [{ key: '', value: '' }]
+        )
+        setUseJsonBody(false)
+      } catch {
+        setUseJsonBody(true)
+      }
+    } else {
+      setUseJsonBody(true)
+    }
+
+    // Set domain based on saved domain
+    if (call.domain === axiosInstance.defaults.baseURL) {
+      setSelectedDomain('default')
+    } else {
+      const domainKey = Object.keys(DOMAIN_CONFIG).find(
+        (key) =>
+          DOMAIN_CONFIG[key as keyof typeof DOMAIN_CONFIG] === call.domain
+      )
+      if (domainKey) {
+        setSelectedDomain(domainKey as keyof typeof DOMAIN_CONFIG)
+      } else {
+        setSelectedDomain('custom')
+        setCustomDomain(call.domain)
+      }
+    }
+
+    // Clear response to allow new request
+    setResponse(null)
+    setSelectedHistory(null)
+  }
+
   const handleDeleteHistory = (id: string) => {
     setSavedCalls((prev) => prev.filter((call) => call.id !== id))
     if (selectedHistory?.id === id) {
@@ -665,6 +723,17 @@ export default function ApiTestPage() {
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleFillFromHistory(call)
+                            }}
+                            className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          >
+                            Fill to Form
+                          </button>
+                        </div>
                         <div className="flex items-center space-x-2 mb-2">
                           <span
                             className={`px-2 py-1 text-xs font-medium rounded ${

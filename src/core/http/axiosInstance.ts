@@ -132,7 +132,7 @@ axiosInstance.interceptors.response.use(
           // Refresh failed, clear tokens and redirect to login
           tokenManager.clearTokens()
           if (typeof window !== 'undefined') {
-            window.location.href = '/login'
+            // window.location.href = '/login'
           }
           return Promise.reject(refreshError)
         }
@@ -140,7 +140,7 @@ axiosInstance.interceptors.response.use(
         // No refresh token, redirect to login
         tokenManager.clearTokens()
         if (typeof window !== 'undefined') {
-          window.location.href = '/login'
+          //   window.location.href = '/login'
         }
       }
     }
