@@ -5,6 +5,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios'
 import { envConfig } from '../config'
+import { locales, defaultLocale } from '@/locale/config'
 
 const ACCESS_TOKEN_KEY = 'accessToken'
 const REFRESH_TOKEN_KEY = 'refreshToken'
@@ -58,6 +59,23 @@ axiosInstance.interceptors.request.use(
 
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
+    }
+
+    // Attach _locale from current URL prefix if available
+    const detectLocaleFromPath = (): string | null => {
+      if (typeof window === 'undefined') return null
+      const firstSegment = window.location.pathname.split('/')[1]
+      // locales is readonly tuple; cast to array of string for includes
+      const supportedLocales = [...locales] as string[]
+      return supportedLocales.includes(firstSegment) ? firstSegment : null
+    }
+
+    const detectedLocale = detectLocaleFromPath() || defaultLocale
+    const hasLocaleParam = (config.params as any)?.hasOwnProperty?.('_locale')
+    config.params = {
+      ...config.params,
+      // do not overwrite if caller already provided _locale
+      ...(!hasLocaleParam ? { _locale: detectedLocale } : {}),
     }
 
     // Add timestamp to prevent caching

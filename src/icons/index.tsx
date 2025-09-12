@@ -4,6 +4,11 @@ import VectorCommision from './VectorCommision.svg'
 import Vector from './Vector.svg'
 import Menu from './menu.svg'
 import QuoteIcon from './Quote.svg'
+import MoneySavingIcon from './money-saving.svg'
+import WomanIcon from './woman.svg'
+import TagPercentIcon from './tag-percent.svg'
+import PackagePercentIcon from './package-percent.svg'
+
 export {
   CurrencyCircleDollar,
   Lightning,
@@ -11,4 +16,8 @@ export {
   Vector,
   Menu,
   QuoteIcon,
+  MoneySavingIcon,
+  WomanIcon,
+  TagPercentIcon,
+  PackagePercentIcon,
 }

@@ -66,7 +66,7 @@ const LanguageSwitcher = () => {
         className="inline-flex items-center gap-1 md:gap-3 rounded-full md:px-4 py-2 text-gray-800 hover:bg-gray-50"
       >
         <span className="hidden md:block text-base md:text-lg font-medium">
-          {currentLanguageData?.name || currentLabel}
+          {currentLanguageData?.name_website || currentLabel}
         </span>
         <Image
           src={currentLanguageData?.image || '/image/flag/image-01.png'}
@@ -110,7 +110,7 @@ const LanguageSwitcher = () => {
                     height={20}
                     className="rounded-full object-cover"
                   />
-                  <span>{lang?.name}</span>
+                  <span>{lang?.name_website}</span>
                 </div>
                 {currentLocale === lang.code && (
                   <svg

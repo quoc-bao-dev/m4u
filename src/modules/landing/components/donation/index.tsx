@@ -8,8 +8,49 @@ import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import CountUp from 'react-countup'
-
-const Donation = () => {
+const kols = [
+  {
+    id: 1,
+    image: IMAGES.kol1,
+  },
+  {
+    id: 2,
+    image: IMAGES.kol2,
+  },
+  {
+    id: 3,
+    image: IMAGES.kol3,
+  },
+  {
+    id: 4,
+    image: IMAGES.kol1,
+  },
+  {
+    id: 5,
+    image: IMAGES.kol2,
+  },
+  {
+    id: 6,
+    image: IMAGES.kol2,
+  },
+  {
+    id: 7,
+    image: IMAGES.kol3,
+  },
+  {
+    id: 8,
+    image: IMAGES.kol1,
+  },
+  {
+    id: 9,
+    image: IMAGES.kol2,
+  },
+]
+interface DonationProps {
+  isHero?: boolean
+  className?: string
+}
+const Donation = ({ isHero = false, className }: DonationProps) => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section8
 
@@ -38,7 +79,9 @@ const Donation = () => {
   }, [hasViewed])
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div
+      className={`flex flex-col items-center justify-center w-full ${className}`}
+    >
       <div className="lg:hidden relative flex flex-col justify-center items-center lg:gap-6 gap-2 w-[90%] lg:w-[464px]">
         <Image
           src={IMAGES.heart1}
@@ -60,7 +103,7 @@ const Donation = () => {
         ) : (
           <div
             className="text-2xl lg:text-[40px]/[110%] font-bold text-greyscale-700 text-center"
-            dangerouslySetInnerHTML={{ __html: data?.title }}
+            dangerouslySetInnerHTML={{ __html: data?.title ?? '' }}
           />
         )}
 
@@ -69,7 +112,7 @@ const Donation = () => {
             <CountUp
               className="text-xl lg:text-4xl font-bold text-pink-600"
               start={0}
-              end={data?.subtitle}
+              end={Number(data?.subtitle ?? 0)}
               suffix=" ₫"
               duration={2.2}
               separator=","
@@ -128,13 +171,8 @@ const Donation = () => {
           ) : (
             <div
               className="text-2xl lg:text-[40px]/[110%] font-semibold text-greyscale-700 text-center"
-              dangerouslySetInnerHTML={{ __html: data?.title }}
-            >
-              {/* <span className="text-greyscale-400">
-              Chung tay lan tỏa yêu thương,
-            </span>{' '}
-            đồng hành cùng mẹ đơn thân */}
-            </div>
+              dangerouslySetInnerHTML={{ __html: data?.title ?? '' }}
+            ></div>
           )}
 
           <div className="flex flex-col items-center gap-1 lg:gap-3">
@@ -142,7 +180,7 @@ const Donation = () => {
               <CountUp
                 className="text-xl lg:text-4xl font-bold text-pink-600"
                 start={0}
-                end={data?.subtitle}
+                end={Number(data?.subtitle ?? 0)}
                 suffix=" ₫"
                 duration={2.2}
                 separator=","
@@ -156,9 +194,56 @@ const Donation = () => {
             <p className="text-sm lg:text-base text-greyscale-700">
               Đã được quyên góp!
             </p>
-            <button className="border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-2 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
-              Tìm hiểu thêm
-            </button>
+            {!isHero ? (
+              <button className="border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-2 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
+                Tìm hiểu thêm
+              </button>
+            ) : (
+              <div className="flex flex-col items-center justify-center">
+                <div className="flex -space-x-2 lg:-space-x-4 z-10">
+                  {kols.slice(0, 5).map((kol, index) => (
+                    <Image
+                      key={`${kol.id}-${index}`}
+                      src={kol.image}
+                      alt="top-reviewer"
+                      width={1000}
+                      height={1000}
+                      className="flex-shrink-0 size-10 lg:size-12 xl:size-14 2xl:size-16 rounded-full object-cover border-2 border-white bg-[#D5DEDA]"
+                    />
+                  ))}
+                  {kols.length > 5 && (
+                    <div className="flex-shrink-0 size-10 lg:size-12 xl:size-14 2xl:size-16 rounded-full object-cover border-2 border-white bg-black flex items-center justify-center text-white text-base font-semibold">
+                      +{kols.length - 5}
+                    </div>
+                  )}
+                </div>
+                <div className="-mt-4 pt-7 pb-3 px-4 bg-pink-600 rounded-2xl flex flex-col items-center justify-center gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      <p className="text-white text-[32px] font-semibold">04</p>
+                      <p className="text-white text-sm">month</p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <p className="text-white text-[32px] font-semibold">20</p>
+                      <p className="text-white text-sm">day</p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <p className="text-white text-[32px] font-semibold">13</p>
+                      <p className="text-white text-sm">hour</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center justify-center gap-1">
+                    <p className="text-white text-base">
+                      <span className="font-bold">69K+ individuals</span>
+                      just donated our community!
+                    </p>
+                    <span className="text-pink-100 text-xs">
+                      *Financial statements are made public every month.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <OrbitingCircles
