@@ -11,7 +11,7 @@
   --font-mono: var(--font-geist-mono);
   --font-primary: 'TikTok Sans', ui-sans-serif, system-ui, sans-serif;
 
-  --camaron: #FF8092
+  --camaron: #FF8092;
 
   --color-greyscale-100: #f3f4f6;
   --color-greyscale-200: #E5E7EB;
@@ -46,8 +46,11 @@
 
   --color-yellow-100: #FFFAED;
   --color-yellow-300: #FDEAB7;
+  --color-yellow-500: #FBD56E;
   --color-yellow-600: #FACA4A;
   
+  --text-6xl: 4rem;
+
   --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -220,6 +223,10 @@ body {
     @apply text-[24px] md:text-[42px] lg:text-[54px] xl:text-[64px];
   }
 
+  .container-custom {
+    @apply px-0 md:px-8 lg:px-12 xl:px-20 2xl:px-24 w-full mx-auto;
+  }
+
   .safe-area-padding {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -294,4 +301,18 @@ body {
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+
+/* Embla Carousel Styles */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 auto;
+  min-width: 0;
+}
 }
