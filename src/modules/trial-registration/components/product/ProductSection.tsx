@@ -1,5 +1,6 @@
 'use client'
 
+import { Skeleton } from '@/components/ui/skeleton'
 import { Container } from '@/core/components/common/group'
 import { Link } from '@/locale'
 import { useGetProductList } from '@/services/product'
@@ -8,12 +9,9 @@ import FilterMobile from '../filters/FilterMobile'
 import FilterSidebar from './FilterSidebar'
 import ProductCard from './ProductCard'
 import ScrollRevealCard from './ScrollRevealCard'
-import { Skeleton } from '@/components/ui/skeleton'
 
 const ProductSection = () => {
   const { data: productList, isLoading } = useGetProductList()
-
-  console.log('[productList]', productList)
 
   const products = useMemo(() => {
     const items = productList?.data ?? []

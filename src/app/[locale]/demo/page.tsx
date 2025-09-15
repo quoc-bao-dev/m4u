@@ -1,12 +1,14 @@
-'use client';
+'use client'
 
-import { useLanguageSwitch, useNavigate, useTranslation } from '@/locale/hooks';
+import { useLanguageSwitch, useNavigate, useTranslation } from '@/locale/hooks'
 
 export default function DemoPage() {
-  const { t, l } = useTranslation();
+  const { t, l } = useTranslation()
   const { switchLanguage, currentLocale, availableLocales, localeNames } =
-    useLanguageSwitch();
-  const navigate = useNavigate();
+    useLanguageSwitch()
+  const navigate = useNavigate()
+
+  console.log('[currentLocale]', currentLocale)
 
   return (
     <div className="container mx-auto p-8">
@@ -86,5 +88,5 @@ export default function DemoPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
