@@ -25,7 +25,7 @@ const HeroSection = () => {
               <PromoRibbons
                 text1="Review any 3 sheet masks"
                 text2="chance to win an iPhone 16"
-                className="pt-4 scale-[80%] 2x:scale-[100%]"
+                className="pt-4 scale-[80%] 2xl:scale-[100%]"
               />
             </div>
             <div className="max-w-[380px] mx-auto lg:mx-0 lg:max-w-none">
