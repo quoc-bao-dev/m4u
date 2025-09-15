@@ -1,10 +1,11 @@
-import { HeroSection } from '@/modules/event'
+import { EventSection, HeroSection } from '@/modules/event'
 import React from 'react'
 
 const Page = () => {
   return (
     <main>
-      <HeroSection />{' '}
+      <HeroSection />
+      <EventSection />
     </main>
   )
 }
