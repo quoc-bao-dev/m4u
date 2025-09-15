@@ -85,6 +85,7 @@ const options = [
 ]
 
 const Reviewer = () => {
+  const { t } = useTranslation()
   const { isMobile, isTablet } = useDevice()
 
   const reviewersToRender =
@@ -97,22 +98,24 @@ const Reviewer = () => {
       {/* Filter Section */}
       <div className="flex justify-end">
         <div className="flex items-center gap-4 mb-4 md:mb-8">
-          <span className="text-gray-700 font-medium truncate">Filter by:</span>
+          <span className="text-gray-700 font-medium truncate">
+            {t('product.filterBy')}
+          </span>
 
           {/* Filter Dropdown */}
           <MultiSelect
             options={options}
-            defaultValue={['dat-lich']}
+            // defaultValue={['dat-lich']}
             onChange={(vals) => console.log(vals)}
             className="md:min-w-[150px]"
-            placeholder="Chọn bộ lọc"
+            placeholder={t('product.selectFilter')}
           />
           <MultiSelect
             options={options}
-            defaultValue={['dat-lich']}
+            // defaultValue={['dat-lich']}
             onChange={(vals) => console.log(vals)}
             className="md:min-w-[150px]"
-            placeholder="Chọn bộ lọc"
+            placeholder={t('product.selectFilter')}
           />
         </div>
       </div>
@@ -133,7 +136,7 @@ const Reviewer = () => {
       {/* View All CTA */}
       <div className="flex justify-center">
         <Button size="md" variant="primary">
-          View all
+          {t('product.viewAll')}
         </Button>
       </div>
     </div>
