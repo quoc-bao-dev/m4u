@@ -26,7 +26,10 @@
     "slotsLeft": "단 {count} 자리만 남음",
     "users": "사용자",
     "enrolledTrial": "제품 체험 프로그램에 등록됨",
-    "views": "조회수"
+    "views": "조회수",
+    "filterBy": "필터:",
+    "selectFilter": "필터 선택",
+    "viewAll": "모두 보기"
   },
   "timer": {
     "days": "일",

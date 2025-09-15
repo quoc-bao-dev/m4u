@@ -26,7 +26,10 @@
     "slotsLeft": "Only {count} slots left",
     "users": "users",
     "enrolledTrial": "enrolled in the product's trial program",
-    "views": "views"
+    "views": "views",
+    "filterBy": "Filter by:",
+    "selectFilter": "Select filter",
+    "viewAll": "View all"
   },
   "timer": {
     "days": "day",
