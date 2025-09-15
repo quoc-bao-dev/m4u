@@ -1,6 +1,8 @@
 'use client'
+import { IMAGES } from '@/core/constants/IMAGES'
 import { MoneySavingIcon, PackagePercentIcon, TagPercentIcon, WomanIcon } from '@/icons'
 import { BankIcon, SuitcaseSimpleIcon, UserIcon, UsersFourIcon } from '@phosphor-icons/react'
+import Image from 'next/image'
 import React from 'react'
 
 const Line = () => (
@@ -76,7 +78,7 @@ const ModalSection = () => {
                   <animate
                     id="anim1"
                     attributeName="fill"
-                    values="#FE6BBA; #FEA6D6; #FE89C8; #FE6BBA"
+                    values="#FE6BBA; #FCE4EC; #F8BBD9; #FE6BBA"
                     dur="6s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -84,12 +86,12 @@ const ModalSection = () => {
                 </path>
                 <path
                   d="M184.29 6.75012C209.65 1.64012 235.27 -1.43996 261.12 0.670044C313.4 4.95006 359.81 23.9004 399.21 58.7404C439.71 94.5503 465.06 139.6 477.46 191.93C482.46 213.05 484.66 234.7 481.21 256.28C475.75 290.43 455.5 312.29 422.73 322.61C416.43 324.59 409.78 325.43 403.31 326.88C399.83 327.66 397.99 326.259 396.23 323.19C376.77 289.34 357.15 255.58 337.57 221.81C305.4 166.32 273.59 110.62 240.9 55.4503C227.17 32.2703 205.45 19.1303 179.35 13.1603C176.7 12.5503 174.01 12.1102 171.33 11.5802C171.29 11.1402 171.25 10.6796 171.2 10.2296C175.56 9.05963 179.87 7.6401 184.29 6.75012Z"
-                  fill="#FE89C8"
+                  fill="#F8BBD9"
                 >
                   <animate
                     id="anim2"
                     attributeName="fill"
-                    values="#FE89C8; #FE6BBA; #FEA6D6; #FE89C8"
+                    values="#F8BBD9; #FE6BBA; #FCE4EC; #F8BBD9"
                     dur="6s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -97,12 +99,12 @@ const ModalSection = () => {
                 </path>
                 <path
                   d="M474.85 295.69C475.22 295.88 475.62 296.06 476.01 296.24C473.35 304.33 470.9 312.49 468.01 320.49C455.03 356.36 435.809 388.33 408.03 414.77C373.9 447.249 333.79 468.05 287.3 476.63C268.2 480.16 249.02 481.39 229.72 480.4C188.55 478.31 149.56 468.46 114.84 445.42C94.5201 431.93 81.3203 413.12 78.2903 388.5C76.1203 370.86 79.4902 353.78 86.4202 337.38C87.8002 334.12 90.2305 334.26 92.9504 334.26C120.76 334.26 148.57 334.22 176.38 334.2C226.67 334.15 276.96 334.13 327.25 334.06C350.89 334.03 374.54 334.13 398.18 333.79C428.01 333.37 452.45 321.22 471.95 298.82C472.88 297.75 473.88 296.73 474.85 295.69Z"
-                  fill="#FEA6D6"
+                  fill="#FCE4EC"
                 >
                   <animate
                     id="anim3"
                     attributeName="fill"
-                    values="#FEA6D6; #FE89C8; #FE6BBA; #FEA6D6"
+                    values="#FCE4EC; #F8BBD9; #FE6BBA; #FCE4EC"
                     dur="6s"
                     begin="0s"
                     repeatCount="indefinite"
@@ -116,7 +118,11 @@ const ModalSection = () => {
               </defs>
             </svg>
 
-
+            <div className='absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-4'>
+              <Image src={IMAGES.logo} alt='logo' width={80} height={80} />
+              <p className='text-greyscale-900 text-xl font-semibold'>Charity Fund</p>
+            </div>
+            
             <div className="absolute top-[18%] left-[10%] w-[20%] text-white flex flex-col items-center justify-center gap-1">
               <TagPercentIcon className="size-10 2xl:size-12" />
               <div className="text-center text-xs">

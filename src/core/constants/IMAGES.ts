@@ -1,4 +1,5 @@
 export const IMAGES = {
+  logo: '/image/logo/logo.svg',
   commissionsReferral: '/image/home/referral-commissions.png',
   commissionsReviewer: '/image/home/reviewer-commissions.png',
   commissionsSeller: '/image/home/seller-commissions.png',
@@ -27,4 +28,5 @@ export const IMAGES = {
   kr: '/image/flag/kr.png',
   us: '/image/flag/us.png',
   vi: '/image/flag/vi.png',
+  speaker: '/image/donation/speaker.png',
 }
