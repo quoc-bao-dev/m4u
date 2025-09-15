@@ -18,12 +18,15 @@ const ProductCarouselEmbla = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true,
     align: 'start',
-    containScroll: false,
+    containScroll: 'trimSnaps',
     dragFree: false,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    duration: 40
   })
   
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [previousIndex, setPreviousIndex] = useState(0)
+  const [isWrapping, setIsWrapping] = useState(false)
 
   const originalProducts: Product[] = [
     {
@@ -31,7 +34,7 @@ const ProductCarouselEmbla = () => {
       brand: 'MANYO',
       productName: 'Panthetoin Deep Moisture Mask',
       contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
+      imageSrc: IMAGES.deal2,
       colorScheme: 'yellow'
     },
     {
@@ -39,7 +42,7 @@ const ProductCarouselEmbla = () => {
       brand: 'MANYO',
       productName: 'Panthetoin Deep Moisture Mask',
       contributionPercentage: 5,
-      imageSrc: IMAGES.deal2,
+      imageSrc: IMAGES.deal1,
       colorScheme: 'pink'
     },
     {
@@ -58,10 +61,48 @@ const ProductCarouselEmbla = () => {
       imageSrc: IMAGES.deal1,
       colorScheme: 'green'
     },
+    {
+      id: '5',
+      brand: 'MANYO',
+      productName: 'Panthetoin Deep Moisture Mask',
+      contributionPercentage: 5,
+      imageSrc: IMAGES.deal1,
+      colorScheme: 'pink'
+    },
+    {
+      id: '6',
+      brand: 'MANYO',
+      productName: 'Panthetoin Deep Moisture Mask',
+      contributionPercentage: 5,
+      imageSrc: IMAGES.deal3,
+      colorScheme: 'blue'
+    },
+    {
+      id: '7',
+      brand: 'MANYO',
+      productName: 'Panthetoin Deep Moisture Mask',
+      contributionPercentage: 5,
+      imageSrc: IMAGES.deal1,
+      colorScheme: 'green'
+    },
+    {
+      id: '8',
+      brand: 'MANYO',
+      productName: 'Panthetoin Deep Moisture Mask',
+      contributionPercentage: 5,
+      imageSrc: IMAGES.deal1,
+      colorScheme: 'pink'
+    },
+    {
+      id: '9',
+      brand: 'MANYO',
+      productName: 'Panthetoin Deep Moisture Mask',
+      contributionPercentage: 5,
+      imageSrc: IMAGES.deal3,
+      colorScheme: 'blue'
+    },
+    
   ]
-
-  // Tạo array để loop - duplicate products để có đủ slides
-  const loopedProducts = [...originalProducts, ...originalProducts, ...originalProducts]
 
   const scrollTo = useCallback((index: number) => {
     if (emblaApi) {
@@ -75,10 +116,19 @@ const ProductCarouselEmbla = () => {
 
   const onSelect = useCallback((emblaApi: any) => {
     const currentIndex = emblaApi.selectedScrollSnap()
-    // Tính toán index thực tế trong originalProducts
-    const realIndex = currentIndex % originalProducts.length
-    setSelectedIndex(realIndex)
-  }, [originalProducts.length])
+    const total = originalProducts.length
+    const wasAtEndToStart = previousIndex === total - 1 && currentIndex === 0
+    const wasAtStartToEnd = previousIndex === 0 && currentIndex === total - 1
+
+    if (wasAtEndToStart || wasAtStartToEnd) {
+      setIsWrapping(true)
+      // Tắt cờ ngay sau một frame để chặn animation vào lúc wrap
+      requestAnimationFrame(() => setIsWrapping(false))
+    }
+
+    setPreviousIndex(currentIndex)
+    setSelectedIndex(currentIndex)
+  }, [previousIndex])
 
   useEffect(() => {
     if (emblaApi) {
@@ -95,39 +145,34 @@ const ProductCarouselEmbla = () => {
     scrollTo(index)
   }
 
-  // Khởi tạo carousel ở giữa để có thể loop
-  useEffect(() => {
-    if (emblaApi) {
-      // Bắt đầu từ slide giữa để có thể scroll cả 2 hướng
-      const middleIndex = originalProducts.length
-      emblaApi.scrollTo(middleIndex, false) // false = không animation
-    }
-  }, [emblaApi, originalProducts.length])
-
   return (
-    <div className="w-full">
-      <div className="embla" ref={emblaRef}>
-        <div className="embla__container flex items-end">
-          {loopedProducts.map((product, index) => {
-            const originalIndex = index % originalProducts.length
-            return (
-              <div 
-                key={`${product.id}-${index}`}
-                className="embla__slide flex-shrink-0 flex justify-center cursor-pointer"
-                onClick={() => handleCardClick(index)}
-              >
-                <ProductCard
-                  brand={product.brand}
-                  productName={product.productName}
-                  contributionPercentage={product.contributionPercentage}
-                  imageSrc={product.imageSrc}
-                  scale={originalIndex === selectedIndex ? 1 : 0.8}
-                  colorScheme={product.colorScheme}
-                  className={originalIndex === selectedIndex ? '' : ''}
-                />
-              </div>
-            )
-          })}
+    <div className="w-full flex gap-6 items-end will-change-transform transform-gpu">
+      <div className="flex-1 overflow-hidden will-change-transform transform-gpu">
+        <div className="embla will-change-transform transform-gpu" ref={emblaRef}>
+          <div className="embla__container flex items-end will-change-transform transform-gpu">
+            {originalProducts.map((product, index) => {
+              return (
+                <div 
+                  key={product.id}
+                  className={`embla__slide mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu ${isWrapping ? 'transition-none' : 'transition-transform duration-500 ease-out'}`}
+                  onClick={() => handleCardClick(index)}
+                >
+                  <ProductCard
+                    brand={product.brand}
+                    productName={product.productName}
+                    contributionPercentage={product.contributionPercentage}
+                    imageSrc={product.imageSrc}
+                    scale={1}
+                    colorScheme={product.colorScheme}
+                    widthClass="w-[280px]"
+                    variant={index === selectedIndex ? 'main' : 'item'}
+                    disableEnterAnimation={isWrapping}
+                    className={index === selectedIndex ? '' : ''}
+                  />
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ const statusConfig: Record<EventCardProps['status'], { label: string; className:
 const EventCard = ({ status, date, title, productCount, fundAmount, imageSrc }: EventCardProps) => {
   const cfg = statusConfig[status]
   return (
-    <div className='flex flex-col gap-4 shadow-[0px_4px_10px_0px_#00000040] rounded-xl pb-4'>
+    <div className='group flex flex-col gap-4 shadow-[0px_4px_10px_0px_#00000040] hover:shadow-xl transition-all duration-300 rounded-xl pb-4 cursor-pointer'>
       <div className='relative p-2 bg-pink-300 rounded-xl'>
         <div
           className='relative bg-pink-300 rounded-lg w-full aspect-[56/30]'
@@ -49,7 +49,7 @@ const EventCard = ({ status, date, title, productCount, fundAmount, imageSrc }: 
           </div>
           <p className='text-base font-normal text-greyscale-700'>{date}</p>
         </div>
-        <h4 className='text-2xl font-bold text-greyscale-900'>{title}</h4>
+        <h4 className='text-2xl font-bold text-greyscale-900 group-hover:text-pink-500 transition-all duration-300'>{title}</h4>
         <div className='flex items-center gap-3'>
           <div className='flex items-center justify-center p-3 rounded-full bg-greyscale-800'>
             <Image src="/image/donation/logoWhite.png" alt='icon' width={28} height={28} />

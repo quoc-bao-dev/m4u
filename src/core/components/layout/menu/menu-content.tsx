@@ -33,7 +33,7 @@ const productCommunityItems = [
     id: 'donation-charity',
     label: 'Donation & Charity',
     icon: 'HandHeartIcon',
-    href: '/vi/developing',
+    href: '/vi/donation-charity',
   },
   {
     id: 'review-hub',
