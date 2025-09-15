@@ -3,6 +3,7 @@
 import { MultiSelect } from '@/core/components'
 import { Grid } from '@/core/components/common/group'
 import Button from '@/core/components/ui/button'
+import { useTranslation } from '@/locale'
 import { Play } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { useDevice } from '@/core/hooks/useDevice'
@@ -141,6 +142,8 @@ const Reviewer = () => {
 
 // Review Card Component
 const ReviewCard = ({ reviewer }: { reviewer: (typeof mockReviewers)[0] }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300">
       {/* Video Thumbnail */}
@@ -174,7 +177,9 @@ const ReviewCard = ({ reviewer }: { reviewer: (typeof mockReviewers)[0] }) => {
             {/* User Details */}
             <div>
               <h3 className="font-semibold text-gray-900">{reviewer.name}</h3>
-              <p className="text-sm text-gray-700">{reviewer.views} views</p>
+              <p className="text-sm text-gray-700">
+                {reviewer.views} {t('product.views')}
+              </p>
             </div>
           </div>
 

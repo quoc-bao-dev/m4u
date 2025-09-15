@@ -20,11 +20,13 @@
   },
   "product": {
     "register": "Đăng ký dùng thử",
+    "registerBtn": "Đăng ký dùng thử",
     "participation": "tham gia",
     "reviews": "đánh giá",
     "slotsLeft": "Chỉ còn {count} suất",
-    "users": "người dùng",
-    "enrolledTrial": "đã đăng ký chương trình dùng thử sản phẩm"
+    "users": "người",
+    "enrolledTrial": "đã đăng ký chương trình dùng thử sản phẩm",
+    "views": "lượt xem"
   },
   "timer": {
     "days": "ngày",

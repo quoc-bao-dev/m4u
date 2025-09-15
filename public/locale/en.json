@@ -20,11 +20,13 @@
   },
   "product": {
     "register": "Join the trial",
+    "registerBtn": "Register now",
     "participation": "participation",
     "reviews": "reviews",
     "slotsLeft": "Only {count} slots left",
     "users": "users",
-    "enrolledTrial": "enrolled in the product's trial program"
+    "enrolledTrial": "enrolled in the product's trial program",
+    "views": "views"
   },
   "timer": {
     "days": "day",

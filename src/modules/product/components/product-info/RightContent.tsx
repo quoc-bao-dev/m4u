@@ -71,10 +71,10 @@ const RightContent = ({
 
 const ButtonRegister = () => {
   const { open: onpen } = useModalRegistration()
-
+  const { t } = useTranslation()
   return (
     <Button size="md" variant="primary" onClick={onpen}>
-      <span className="truncate"> Register now</span>
+      <span className="truncate"> {t('product.registerBtn')}</span>
     </Button>
   )
 }

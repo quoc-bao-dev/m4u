@@ -20,11 +20,13 @@
   },
   "product": {
     "register": "체험 신청",
+    "registerBtn": "지금 등록",
     "participation": "참여",
     "reviews": "리뷰",
     "slotsLeft": "단 {count} 자리만 남음",
     "users": "사용자",
-    "enrolledTrial": "제품 체험 프로그램에 등록됨"
+    "enrolledTrial": "제품 체험 프로그램에 등록됨",
+    "views": "조회수"
   },
   "timer": {
     "days": "일",
