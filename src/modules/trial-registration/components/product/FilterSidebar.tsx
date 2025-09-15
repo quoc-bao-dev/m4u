@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslation } from '@/locale/hooks'
 import { useMemo, useState } from 'react'
 
 type FilterOption = {
@@ -144,6 +145,8 @@ const Section = ({
 const FilterSidebar = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
+  const { t } = useTranslation()
+
   const groups = useMemo(() => groupsSeed, [])
 
   const handleToggle = (id: string) => {
@@ -160,7 +163,9 @@ const FilterSidebar = () => {
       <div className="rounded-2xl bg-white shadow-lg p-4">
         <div className="flex items-center gap-2 pb-2 mb-2 border-b">
           <FilterIcon />{' '}
-          <span className="font-bold text-xl text-gray-900">Bộ lọc</span>
+          <span className="font-bold text-xl text-gray-900">
+            {t('filter.title')}
+          </span>
         </div>
         <div className="divide-y">
           {groups.map((g) => (

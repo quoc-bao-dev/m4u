@@ -1,0 +1,37 @@
+{
+  "common": {
+    "home": "홈",
+    "about": "소개",
+    "contact": "연락처",
+    "language": "언어",
+    "welcome": "우리 애플리케이션에 오신 것을 환영합니다"
+  },
+  "navigation": {
+    "home": "홈",
+    "products": "제품",
+    "services": "서비스",
+    "contact": "연락처"
+  },
+  "hero": {
+    "viewNow": "지금 보기"
+  },
+  "filter": {
+    "title": "필터"
+  },
+  "product": {
+    "register": "체험 신청",
+    "registerBtn": "지금 등록",
+    "participation": "참여",
+    "reviews": "리뷰",
+    "slotsLeft": "단 {count} 자리만 남음",
+    "users": "사용자",
+    "enrolledTrial": "제품 체험 프로그램에 등록됨",
+    "views": "조회수"
+  },
+  "timer": {
+    "days": "일",
+    "hours": "시간",
+    "minutes": "분",
+    "seconds": "초"
+  }
+}

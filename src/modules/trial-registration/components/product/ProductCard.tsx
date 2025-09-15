@@ -1,12 +1,13 @@
 'use client'
 
+import { Timer } from '@/core/components'
 import { cn } from '@/core/utils'
 import { Lightning } from '@/icons'
+import { useTranslation } from '@/locale'
 import { Star as StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import React from 'react'
 import useModalRegistration from '../../stores/useModalRegistration'
-import Timer from './Timer'
 
 interface ProductCardProps {
   image: string
@@ -55,7 +56,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
 
-  // const placeTime = '1:12:34:02'
+  const { t } = useTranslation()
 
   const { open: openModalRegistration } = useModalRegistration()
 
@@ -122,7 +123,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <div className="opacity-20 absolute top-0 left-0 h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 participation`}</p>
+          <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 ${t(
+            'product.participation'
+          )}`}</p>
           <button
             onClick={handleOpenModalRegistration}
             className="w-fit mt-4 py-3 px-4 sm:py-4 sm:px-5  md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base"
@@ -141,7 +144,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               e.currentTarget.style.color = accentHex
             }}
           >
-            <span className="truncate">Đăng ký dùng thử</span>
+            <span className="truncate">{t('product.register')}</span>
           </button>
         </div>
       </div>

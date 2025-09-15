@@ -19,7 +19,6 @@ const TrialRegistrationModal = () => {
   const { isOpen, open: onpen, close } = useModalRegistration()
 
   const { height } = useDevice()
-  console.log('[height]', height)
 
   const handleFormSubmit = (data: FormData) => {
     console.log('Form submitted:', data)

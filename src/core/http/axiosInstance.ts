@@ -45,7 +45,7 @@ export const tokenManager = {
 
 // Create axios instance
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: envConfig.baseUrl,
+  baseURL: envConfig.adminUrl,
   timeout: 10000, // 10 seconds
   headers: {
     'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ axiosInstance.interceptors.response.use(
         try {
           // Attempt to refresh token
           const response = await axios.post(
-            `${envConfig.baseUrl}/auth/refresh`,
+            `${envConfig.adminUrl}/auth/refresh`,
             {
               refreshToken,
             }

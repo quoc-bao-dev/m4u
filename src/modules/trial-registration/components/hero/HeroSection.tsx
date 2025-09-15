@@ -1,12 +1,16 @@
 'use client'
+
 import { AnimatedTitle, Container } from '@/core/components'
 import { motion, type Variants } from 'framer-motion'
+import { useTranslation } from '@/locale/hooks'
 import AvatarStack from './AvatarStack'
 import HeroImage from './HeroImage'
 import ScrollDownCTA from './ScrollDownCTA'
 import TestimonialCard from './TestimonialCard'
 
 const HeroSection = () => {
+  const { t } = useTranslation()
+
   const containerVariants: Variants = {
     hidden: {},
     show: {
@@ -93,7 +97,7 @@ const HeroSection = () => {
           </div>
         </Container>
       </div>
-      <ScrollDownCTA />
+      <ScrollDownCTA label={t('hero.viewNow')} />
     </section>
   )
 }

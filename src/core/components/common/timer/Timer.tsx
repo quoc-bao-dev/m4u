@@ -1,42 +1,39 @@
 'use client'
 
 import React from 'react'
+import { useTranslation } from '@/locale'
 
 interface TimerProps {
   initTime: string // Formats supported: D:HH:MM:SS or HH:MM:SS
 }
 
 const parseInitTimeToSeconds = (initTime: string): number => {
-  const segments = initTime.split(':').map((v) => parseInt(v, 10))
-  if (segments.some((n) => Number.isNaN(n) || n < 0)) return 0
-
-  let days = 0
-  let hours = 0
-  let minutes = 0
-  let seconds = 0
-
-  if (segments.length === 4) {
-    ;[days, hours, minutes, seconds] = segments
-  } else if (segments.length === 3) {
-    ;[hours, minutes, seconds] = segments
+  const parts = initTime.split(':').map(Number)
+  if (parts.length === 4) {
+    // D:HH:MM:SS format
+    const [days, hours, minutes, seconds] = parts
+    return days * 24 * 60 * 60 + hours * 60 * 60 + minutes * 60 + seconds
+  } else if (parts.length === 3) {
+    // HH:MM:SS format
+    const [hours, minutes, seconds] = parts
+    return hours * 60 * 60 + minutes * 60 + seconds
   } else {
+    // Invalid format, return 0
     return 0
   }
-
-  return days * 86400 + hours * 3600 + minutes * 60 + seconds
 }
 
 const secondsToParts = (totalSeconds: number) => {
-  const days = Math.floor(totalSeconds / 86400)
-  const remainingAfterDays = totalSeconds % 86400
-  const hours = Math.floor(remainingAfterDays / 3600)
-  const remainingAfterHours = remainingAfterDays % 3600
-  const minutes = Math.floor(remainingAfterHours / 60)
-  const seconds = remainingAfterHours % 60
+  const days = Math.floor(totalSeconds / (24 * 60 * 60))
+  const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60))
+  const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
+  const seconds = totalSeconds % 60
+
   return { days, hours, minutes, seconds }
 }
 
 const Timer: React.FC<TimerProps> = ({ initTime }) => {
+  const { t } = useTranslation()
   const initialSeconds = React.useMemo(
     () => parseInitTimeToSeconds(initTime),
     [initTime]
@@ -72,10 +69,10 @@ const Timer: React.FC<TimerProps> = ({ initTime }) => {
                 {segment}
               </span>
               <span className="text-white text-[11px]! sm:text-sm font-bold leading-none">
-                {index === 0 && 'ngày'}
-                {index === 1 && 'giờ'}
-                {index === 2 && 'phút'}
-                {index === 3 && 'giây'}
+                {index === 0 && t('timer.days')}
+                {index === 1 && t('timer.hours')}
+                {index === 2 && t('timer.minutes')}
+                {index === 3 && t('timer.seconds')}
               </span>
             </div>
             {index < arr.length - 1 && (

@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, RevertContainer } from '@/core/components'
+import { Container, RevertContainer, Timer } from '@/core/components'
 import { useGetProductDetail } from '@/services/product'
 import useEmblaCarousel from 'embla-carousel-react'
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures'
@@ -8,7 +8,6 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import RightContent from './RightContent'
-import Timer from './Timer'
 
 const ProductInfo = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)

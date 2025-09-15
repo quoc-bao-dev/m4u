@@ -1,12 +1,12 @@
 'use client'
 
-import { Rating } from '@/core/components'
+import { Rating, Timer } from '@/core/components'
 import Button from '@/core/components/ui/button'
+import { useTranslation } from '@/locale'
 import { AccordionItem } from '@/modules/trial-registration'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { Ingredient } from '@/services/product'
 import AvatarStack from './AvatarStack'
-import Timer from './Timer'
 
 type RightContentProps = {
   name: string
@@ -21,6 +21,7 @@ const RightContent = ({
   time,
   ingredients,
 }: RightContentProps) => {
+  const { t } = useTranslation()
   return (
     <div className="w-full bg-yellow-100  py-4 px-4 lg:p-[48px] md:rounded-3xl">
       <p className="text-[12px] md:text-[20px] font-bold">&nbsp;</p>
@@ -30,7 +31,9 @@ const RightContent = ({
           <Rating rate={3} className=":mb-2 w-[100px] md:w-[120px]" />
           <p className="text-[14px] md:text-[16px] lg:text-[20px] xl:text-[28px] text-greyscale-900 truncate">
             4.8{' '}
-            <span className="text-greyscale-400 truncate">(69 reviews)</span>
+            <span className="text-greyscale-400 truncate">
+              (69 {t('product.reviews')})
+            </span>
           </p>
         </div>
 
@@ -68,10 +71,10 @@ const RightContent = ({
 
 const ButtonRegister = () => {
   const { open: onpen } = useModalRegistration()
-
+  const { t } = useTranslation()
   return (
     <Button size="md" variant="primary" onClick={onpen}>
-      <span className="truncate"> Register now</span>
+      <span className="truncate"> {t('product.registerBtn')}</span>
     </Button>
   )
 }
