@@ -1,6 +1,8 @@
+'use client'
 import Image from 'next/image'
 import ProductCarouselEmbla from './ProductCarouselEmbla'
 import { IMAGES } from '@/core/constants/IMAGES'
+import EventCard from './EventCard'
 
 const Line = () => {
   return (
@@ -30,12 +32,31 @@ const EventCampaign = () => {
           </div>
           <Image src={IMAGES.speaker} alt='speaker' width={300} height={240} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
         </div>
-        <div className='container-custom flex items-center justify-center gap-6'>
-          <div className='flex flex-col shadow-[0px_4px_10px_0px_#00000040] rounded-xl pb-4'>
-<div className='bg-pink-300 rounded-xl'>
-
-</div>
-          </div>
+        <div className='container-custom !pl-0 grid grid-cols-3 items-center justify-center gap-6'>
+          <EventCard
+            status='happening'
+            date='06/09/2025'
+            title='Livelihood assistance for single mothers in underserved communities.'
+            productCount={69}
+            fundAmount={'1,234,567'}
+            imageSrc='/image/donation/event.jpg'
+          />
+          <EventCard
+            status='coming'
+            date='06/09/2025'
+            title='Livelihood assistance for single mothers in underserved communities.'
+            productCount={69}
+            fundAmount={'1,234,567'}
+            imageSrc='/image/donation/event1.jpg'
+          />
+           <EventCard
+            status='coming'
+            date='06/09/2025'
+            title='Livelihood assistance for single mothers in underserved communities.'
+            productCount={69}
+            fundAmount={'1,234,567'}
+            imageSrc='/image/donation/event2.jpg'
+          />
         </div>
       </div>
     </div>

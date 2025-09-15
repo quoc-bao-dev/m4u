@@ -29,6 +29,7 @@
 
   --color-pink-100: #FFF0F8;
   --color-pink-200: #FFE1F1;
+  --color-pink-300: #FFC4E3;
   --color-pink-500: #EC4899;
   --color-pink-600: #FE6BBA;
 
@@ -42,12 +43,15 @@
   --color-indigo-600: #555CF3;
 
   --color-orange-100: #FEF0ED;
+  --color-orange-500: #F5846E;
   --color-orange-600: #F97316;
 
   --color-yellow-100: #FFFAED;
   --color-yellow-300: #FDEAB7;
   --color-yellow-500: #FBD56E;
   --color-yellow-600: #FACA4A;
+
+  --color-red-600: #F47690;
   
   --text-6xl: 4rem;
 
