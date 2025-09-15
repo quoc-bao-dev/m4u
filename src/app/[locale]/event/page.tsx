@@ -1,4 +1,9 @@
-import { EventSection, HeroSection } from '@/modules/event'
+import {
+  EventSection,
+  GiveTodaySection,
+  HeroSection,
+  QuestionSection,
+} from '@/modules/event'
 import React from 'react'
 
 const Page = () => {
@@ -6,6 +11,8 @@ const Page = () => {
     <main>
       <HeroSection />
       <EventSection />
+      <QuestionSection />
+      <GiveTodaySection />
     </main>
   )
 }

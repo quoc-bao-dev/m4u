@@ -18,14 +18,14 @@ const FilterBar = () => {
   const placeholder = useMemo(() => 'Search...', [])
 
   return (
-    <div className="w-full flex items-center justify-between gap-4 py-2 border-b border-gray-300">
+    <div className="w-full flex justify-between gap-4  border-b border-gray-300  pb-0.5">
       {/* Tabs */}
-      <div className="flex items-center gap-6 relative">
+      <div className="flex items-center gap-6 relative pt-4">
         {TABS.map((tab) => (
           <button
             key={tab}
             className={
-              'relative pb-2 text-[18px] transition-colors ' +
+              'relative pb-3 text-[18px] transition-colors ' +
               (activeTab === tab
                 ? 'text-gray-900 font-semibold'
                 : 'text-gray-400 hover:text-gray-600')

@@ -1,8 +1,6 @@
 'use client'
 
 import { Container } from '@/core/components'
-import { cn } from '@/core/utils'
-import React, { useState, PropsWithChildren } from 'react'
 import AccordionItem from './AccordionItem'
 
 const TermNBenefitSection = () => {
