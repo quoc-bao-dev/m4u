@@ -10,6 +10,8 @@ export default function DemoPage() {
 
   console.log('[currentLocale]', currentLocale)
 
+  console.log('page[locale]', t('common.welcome'))
+
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-6">{t('common.welcome')}</h1>

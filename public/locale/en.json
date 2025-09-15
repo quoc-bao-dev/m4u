@@ -11,5 +11,25 @@
     "products": "Products",
     "services": "Services",
     "contact": "Contact"
+  },
+  "hero": {
+    "viewNow": "View Now"
+  },
+  "filter": {
+    "title": "Filter"
+  },
+  "product": {
+    "register": "Join the trial",
+    "participation": "participation",
+    "reviews": "reviews",
+    "slotsLeft": "Only {count} slots left",
+    "users": "users",
+    "enrolledTrial": "enrolled in the product's trial program"
+  },
+  "timer": {
+    "days": "day",
+    "hours": "hr",
+    "minutes": "min",
+    "seconds": "sec"
   }
 }

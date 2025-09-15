@@ -1,10 +1,12 @@
 import { useCallback } from 'react'
+import { useTranslation } from '@/locale'
 
 interface AvatarStackProps {
   className?: string
 }
 
 const AvatarStack = ({ className = '' }: AvatarStackProps) => {
+  const { t } = useTranslation()
   const Avatar = useCallback(({ src }: { src: string }) => {
     return (
       <div className="size-[40px] lg:size-[64px] rounded-full bg-white border-2 border-white shadow-sm flex items-center justify-center">
@@ -31,11 +33,13 @@ const AvatarStack = ({ className = '' }: AvatarStackProps) => {
       {/* Social Proof Text */}
       <div className="">
         <p className="text-[#F5222D] text-[18px] md:text-[24px] font-bold">
-          ⚡ Only 88 slots left
+          ⚡ {t('product.slotsLeft', { count: 88 })}
         </p>
         <p className="text-[14px] md:text-[20px] text-greyscale-400">
-          <span className="text-greyscale-900 font-bold">69 users</span>{' '}
-          enrolled in the product's trial program
+          <span className="text-greyscale-900 font-bold">
+            69 {t('product.users')}
+          </span>{' '}
+          {t('product.enrolledTrial')}
         </p>
       </div>
     </div>

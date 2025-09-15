@@ -11,5 +11,25 @@
     "products": "Sản phẩm",
     "services": "Dịch vụ",
     "contact": "Liên hệ"
+  },
+  "hero": {
+    "viewNow": "Xem ngay"
+  },
+  "filter": {
+    "title": "Bộ lọc"
+  },
+  "product": {
+    "register": "Đăng ký dùng thử",
+    "participation": "tham gia",
+    "reviews": "đánh giá",
+    "slotsLeft": "Chỉ còn {count} suất",
+    "users": "người dùng",
+    "enrolledTrial": "đã đăng ký chương trình dùng thử sản phẩm"
+  },
+  "timer": {
+    "days": "ngày",
+    "hours": "giờ",
+    "minutes": "phút",
+    "seconds": "giây"
   }
 }

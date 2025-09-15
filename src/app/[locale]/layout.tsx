@@ -1,5 +1,6 @@
 import { MainLayout } from '@/core/components'
 import { locales } from '@/locale/config'
+import { AppProvider } from '@/provider'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { ReactNode } from 'react'
@@ -16,11 +17,14 @@ export function generateStaticParams() {
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
 
-  const messages = await getMessages()
+  // Pass locale explicitly to getMessages
+  const messages = await getMessages({ locale })
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <MainLayout>{children}</MainLayout>
+      <AppProvider>
+        <MainLayout>{children}</MainLayout>
+      </AppProvider>
     </NextIntlClientProvider>
   )
 }
