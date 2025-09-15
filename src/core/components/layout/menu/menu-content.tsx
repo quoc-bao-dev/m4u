@@ -45,7 +45,7 @@ const productCommunityItems = [
     id: 'event',
     label: 'Event',
     icon: 'CalendarPlusIcon',
-    href: '/vi/developing',
+    href: '/vi/event',
   },
 ]
 

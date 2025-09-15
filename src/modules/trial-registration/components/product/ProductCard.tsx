@@ -93,13 +93,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
             width={820}
             height={820}
             className={cn(
-              'w-full h-[200px] md:h-[220px] xl:h-[300px] max-h-full object-contain rounded-t-3xl',
+              'bg-red-500- w-full h-[400px] md:h-[320px] lg:h-[370px] xl:h-[400px] max-h-full object-contain rounded-t-3xl',
               classNameImage
             )}
           />
 
-          {time && <Timer initTime={time} />}
-          {!time && <div className="h-[54px]!"></div>}
+          <div className="absolute bottom-0 right-0">
+            {time && <Timer initTime={time} />}
+          </div>
         </div>
         <div
           className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
