@@ -9,7 +9,6 @@ import { Skeleton } from '@/components/ui/skeleton'
 const InfluencerSection = () => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section9
-  console.log(data)
   return (
     <Section className=" py-8 md:py-14">
       <Container className="">
