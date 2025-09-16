@@ -36,7 +36,7 @@ const EventSidebar = ({
     },
   ],
   totalPrizes = 3,
-  totalPrizePool = 1234567890,
+  totalPrizePool = 1234567,
   time = '2025-10-01T00:00:00+07:00',
   title = 'WINNERS WILL BE ANNOUNCED',
   onJoin,
