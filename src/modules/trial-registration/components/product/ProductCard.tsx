@@ -10,6 +10,7 @@ import React from 'react'
 import useModalRegistration from '../../stores/useModalRegistration'
 
 interface ProductCardProps {
+  id: number
   image: string
   imageAlt?: string
   rate: number // 0-5
@@ -39,6 +40,7 @@ const withAlpha = (hexColor: string, alphaHex: string) => {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  id,
   image,
   imageAlt = 'product',
   rate,
@@ -70,7 +72,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       e.stopPropagation()
       e.preventDefault()
     }
-    openModalRegistration()
+    openModalRegistration({
+      productId: id,
+      productImage: image,
+      productName,
+      productBrand: brand,
+      productColor: contentBg,
+    })
   }
 
   return (
@@ -109,7 +117,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div
           className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full"
-          style={{ backgroundColor: contentBg }}
+          style={{ backgroundColor: withAlpha(contentBg, "90") }}
         >
           <h3 className="text-xs sm:text-sm font-bold text-greyscale-900">
             {brand}

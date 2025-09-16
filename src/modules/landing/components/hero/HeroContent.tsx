@@ -3,9 +3,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { RegisterCTA } from '../cta'
-import Link from 'next/link'
 import { useGetHomePage } from '@/services/home/queries'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Link } from '@/locale'
 
 const HeroContent = () => {
   const { isLoading, data: homePage } = useGetHomePage()
@@ -73,17 +73,17 @@ const HeroContent = () => {
             </div>
             {/* CTA Button */}
             <div className="hidden md:block">
-              <Link href={'/vi/trial-registration'}>
+              <Link href={'/trial-registration'}>
                 <RegisterCTA
                   className="mt-4"
-                  label="Đăng ký trải nghiệm ngay"
+                  label={data?.title_button}
                 />
               </Link>
             </div>
 
             <div className="block md:hidden">
-              <Link href={'/vi/trial-registration'}>
-                <RegisterCTA className="mt-4" label="Đăng ký ngay" />
+              <Link href={'/trial-registration'}>
+                <RegisterCTA className="mt-4" label={data?.title_button} />
               </Link>
             </div>
           </div>

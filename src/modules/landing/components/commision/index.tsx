@@ -95,7 +95,7 @@ const CommisionSection = () => {
                   >
                     <Image
                       src={item.icon}
-                      alt={item.title_header}
+                      alt={item.title_header || ''}
                       width={100}
                       height={100}
                       className="size-6 xl:size-7"
@@ -122,7 +122,7 @@ const CommisionSection = () => {
 
                     <Image
                       src={item.img}
-                      alt={item.title}
+                      alt={item.title || ''}
                       width={500}
                       height={500}
                       className="w-[40%] aspect-[230/315] object-cover ml-auto absolute bottom-0 right-0"

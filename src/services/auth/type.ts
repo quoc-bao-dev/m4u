@@ -46,3 +46,14 @@ export type LoginRequest = {
   password: string
   type_login: string
 }
+
+export type SignUpRequest = {
+  fullname: string
+  phone: string
+  birthday: string
+  address: string
+  gender: number
+  id_product: string
+  event: string
+  key_code: string
+}

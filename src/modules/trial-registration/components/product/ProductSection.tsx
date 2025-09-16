@@ -25,7 +25,7 @@ const ProductSection = () => {
       limitPeople: Number(p.limit_people),
       image: p.image,
       imageAlt: p.slug,
-      rate: p.average_star,
+      rate: p.average_star || 5,
       // Lấy key màu từ API tại đây (ví dụ: p.color_hex) → gán vào hex/bgColor
       bgColor: p.color_header,
       hex: p.background_color,
@@ -84,6 +84,7 @@ const ProductSection = () => {
                     >
                       <Link href={`/product/${p.slug}`}>
                         <ProductCard
+                          id={p.id}
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}

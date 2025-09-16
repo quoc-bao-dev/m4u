@@ -28,7 +28,7 @@ const DesktopMenuWrapper = ({
         <button className="hover:bg-gray-100 rounded-full transition-colors cursor-pointer duration-300-">
           <Menu
             className={cn('size-9 rounded-full', {
-              'text-gray-700 bg-white': !isOpen,
+              'text-gray-700 bg-white hover:bg-gray-200 transition-colors duration-300': !isOpen,
               'text-white bg-gray-700': isOpen,
             })}
           />

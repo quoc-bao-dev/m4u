@@ -1,3 +1,4 @@
+import VideoWrapper from '@/components/VideoWrapper'
 import Donation from '../landing/components/donation'
 import EventCampaign from './EventCampaign'
 import GiveToDay from './GiveToDay'
@@ -10,6 +11,11 @@ const DonationCharity = () => {
       <ModalSection />
       <EventCampaign />
       <GiveToDay />
+      {/* <VideoWrapper
+          src="/image/background.mp4"
+          playbackRate={0.3}
+          className="absolute inset-0 -z-10 w-full h-full object-cover pointer-events-none"
+        /> */}
     </div>
   )
 }

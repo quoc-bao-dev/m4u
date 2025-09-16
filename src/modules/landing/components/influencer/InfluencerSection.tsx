@@ -50,7 +50,7 @@ const InfluencerSection = () => {
             )}
             <RegisterCTA
               className="mt-6 inline-flex"
-              label="Đăng ký trải nghiệm ngay"
+              label={data?.title_button}
             />
           </div>
         </div>

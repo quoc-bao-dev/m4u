@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import apiHome from './service'
+import apiHome from './api'
 import { useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 
 export const useGetHomePage = () => {

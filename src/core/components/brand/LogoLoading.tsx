@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Logo from './Logo'
+import { Link } from '@/locale'
 
 interface LogoLoadingProps {
   size?: 'sm' | 'md' | 'lg'

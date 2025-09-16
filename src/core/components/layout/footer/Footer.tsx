@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import { Logo } from '@/core/components/brand'
 import { Container, Grid } from '@/core/components/common'
 import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
 import { memo } from 'react'
+import { Link } from '@/locale'
 
 type FooterProps = {
   className?: string
