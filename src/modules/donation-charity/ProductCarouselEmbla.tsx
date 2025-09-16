@@ -138,13 +138,13 @@ const ProductCarouselEmbla = () => {
   return (
     <div className="w-full flex gap-6 items-end will-change-transform transform-gpu">
       <div className="flex-1 overflow-hidden will-change-transform transform-gpu">
-        <div className="embla will-change-transform transform-gpu" ref={emblaRef}>
+        <div className="-mt-[10%] lg:-mt-[5%] 2xl:-mt-[0%] embla will-change-transform transform-gpu" ref={emblaRef}>
           <div className="embla__container flex items-end will-change-transform transform-gpu">
             {originalProducts.map((product, index) => {
               return (
                 <div
                   key={product.id}
-                  className={`embla__slide mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
+                  className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
                   onClick={() => handleCardClick(index)}
                 >
                   <ProductCard
@@ -154,7 +154,7 @@ const ProductCarouselEmbla = () => {
                     imageSrc={product.imageSrc}
                     scale={1}
                     colorScheme={product.colorScheme}
-                    widthClass="w-[280px]"
+                    widthClass="w-[150px] lg:w-[280px]"
                     variant={index === selectedIndex ? 'main' : 'item'}
                     disableEnterAnimation={false}
                     className={index === selectedIndex ? '' : ''}

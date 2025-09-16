@@ -118,16 +118,16 @@ const ProductCard = ({
             />
           </div>
         )}
-        <div className={`p-4 flex flex-col items-center justify-center ${variant === 'main' ? 'pt-36' : 'pt-4'}`}>
-          <h3 className={`text-base font-bold text-greyscale-900`}>
+        <div className={`p-1.5 lg:p-4 flex flex-col items-center justify-center ${variant === 'main' ? 'pt-28 lg:pt-36' : 'pt-4'}`}>
+          <h3 className={`text-[8px] lg:text-base font-bold text-greyscale-900`}>
             {brand}
           </h3>
-          <p className={`h-16 text-2xl font-medium text-greyscale-700 text-center line-clamp-2`}>
+          <p className={`h-10 lg:h-16 text-xs lg:text-2xl font-medium text-greyscale-700 text-center line-clamp-2`}>
             {productName}
           </p>
         </div>
-        <div className={`p-4 pt-1.5 w-full ${colors.bottom} rounded-b-[8px]`} style={{ boxShadow: insetShadow }}>
-          <p className={`text-xl text-greyscale-700 text-center`}>
+        <div className={`p-1.5 lg:p-4 pt-[2px] lg:pt-1.5 w-full ${colors.bottom} rounded-b-[8px]`} style={{ boxShadow: insetShadow }}>
+          <p className={`text-[8px] lg:text-xl text-greyscale-700 text-center`}>
             <span className='font-bold'>{contributionPercentage}% </span> contribution
           </p>
         </div>
