@@ -3,9 +3,15 @@ import { useTranslation } from '@/locale'
 
 interface AvatarStackProps {
   className?: string
+  limitPeople: number
+  participation: number
 }
 
-const AvatarStack = ({ className = '' }: AvatarStackProps) => {
+const AvatarStack = ({
+  className = '',
+  limitPeople,
+  participation,
+}: AvatarStackProps) => {
   const { t } = useTranslation()
   const Avatar = useCallback(({ src }: { src: string }) => {
     return (
@@ -32,12 +38,14 @@ const AvatarStack = ({ className = '' }: AvatarStackProps) => {
 
       {/* Social Proof Text */}
       <div className="">
-        <p className="text-[#F5222D] text-[18px] md:text-[24px] font-bold">
-          ⚡ {t('product.slotsLeft', { count: 88 })}
-        </p>
+        {limitPeople > 0 && (
+          <p className="text-[#F5222D] text-[18px] md:text-[24px] font-bold">
+            ⚡ {t('product.slotsLeft', { count: limitPeople - participation })}
+          </p>
+        )}
         <p className="text-[14px] md:text-[20px] text-greyscale-400">
           <span className="text-greyscale-900 font-bold">
-            69 {t('product.users')}
+            {participation} {t('product.users')}
           </span>{' '}
           {t('product.enrolledTrial')}
         </p>

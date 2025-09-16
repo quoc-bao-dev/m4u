@@ -20,6 +20,7 @@ interface ProductCardProps {
   brand: string
   productName: string
   participation: number // 0-100
+  limitPeople: number
   time?: string // HH:MM:SS
   className?: string
   classNameImage?: string
@@ -49,12 +50,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   brand,
   productName,
   participation,
+  limitPeople,
   time,
   className = '',
   classNameImage = '',
 }) => {
   const safeRate = clampRate(rate)
-  const progressPercent = Math.max(0, Math.min(100, Math.round(participation)))
+  const progressPercent = Math.max(
+    0,
+    Math.min(100, Math.round((participation / limitPeople) * 100))
+  )
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
 
@@ -132,7 +137,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <div className="opacity-20 absolute top-0 left-0 h-1 sm:h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/100 ${t(
+          <p className="text-xs sm:text-sm text-greyscale-700">{`${progressPercent}/${limitPeople} ${t(
             'product.participation'
           )}`}</p>
           <button

@@ -9,6 +9,10 @@ export interface Product {
   time_left_dd_hh_mm_ss: string | null
   background_color: string | null
   color_header: string | null
+  average_star: number
+  limit_people: number
+  count_join: number
+  quantity_reviews: number
 }
 
 export interface ProductListLink {
@@ -60,6 +64,10 @@ export interface ProductDetailData {
   time_left_dd_hh_mm_ss: string | null
   list_images: string[]
   ingredients: Ingredient[]
+  average_star: number
+  limit_people: number
+  count_join: number
+  quantity_reviews: number
 }
 
 export interface ProductDetailResponse {

@@ -21,10 +21,11 @@ const ProductSection = () => {
       slug: p.slug,
       brand: p.code || 'Brand',
       productName: p.name,
-      participation: 70,
+      participation: Number(p.count_join),
+      limitPeople: Number(p.limit_people),
       image: p.image,
       imageAlt: p.slug,
-      rate: 0,
+      rate: p.average_star,
       // Lấy key màu từ API tại đây (ví dụ: p.color_hex) → gán vào hex/bgColor
       bgColor: p.color_header,
       hex: p.background_color,
@@ -87,6 +88,7 @@ const ProductSection = () => {
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
+                          limitPeople={p.limitPeople}
                           image={p.image}
                           imageAlt={p.imageAlt}
                           rate={p.rate}
