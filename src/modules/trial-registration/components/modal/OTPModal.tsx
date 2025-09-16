@@ -8,6 +8,7 @@ import { useMemo, useState } from 'react'
 import useTrialOTPModal from '../../stores/useTrialOTPModal'
 import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
 import { useToast } from '@/core/hooks/useToast'
+import { useTranslations } from 'next-intl'
 
 const maskPhoneNumber = (phone?: string) => {
   if (!phone) return ''
@@ -18,6 +19,7 @@ const maskPhoneNumber = (phone?: string) => {
 }
 
 const OTPModal = () => {
+  const t = useTranslations()
   const store = useTrialOTPModal()
   const isOpen = store.isOpen
   const effectivePhone = store.phone
@@ -79,10 +81,10 @@ const OTPModal = () => {
         openRegisterSuccessModal()
       } else {
         // Nếu thất bại, hiển thị toast lỗi với message trả về
-        showError(response?.message || 'Xác thực OTP thất bại')
+        showError(response?.message || t('trial.otp.errors.verifyFailed'))
       }
     } catch (error: any) {
-      showError(error?.message || 'Có lỗi xảy ra khi xác thực OTP')
+      showError(error?.message || t('trial.otp.errors.verifyError'))
     }
   }
 
@@ -105,12 +107,10 @@ const OTPModal = () => {
 
         <div className="relative z-10">
           <h2 className="text-[24px] md:text-[32px] font-bold text-gray-900 mb-2">
-            Nhập mã xác thực
+            {t('trial.otp.title')}
           </h2>
           <p className="text-sm text-gray-600 mb-6">
-            Nhập mã OTP gồm {effectiveLength} chữ số vừa được gửi về số điện
-            thoại{' '}
-            <span className="font-semibold text-gray-900">{maskedPhone}</span>
+            {t('trial.otp.desc', { length: effectiveLength, phone: maskedPhone })}
           </p>
 
           <div className="mb-8">
@@ -131,7 +131,7 @@ const OTPModal = () => {
               disabled={otp.length !== effectiveLength || signUpMutation.isPending}
               onClick={handelOpenSuccessModal}
             >
-              {signUpMutation.isPending ? 'Đang xử lý...' : 'Xác nhận'}
+              {signUpMutation.isPending ? t('trial.otp.processing') : t('trial.otp.confirm')}
             </Button>
           </div>
         </div>

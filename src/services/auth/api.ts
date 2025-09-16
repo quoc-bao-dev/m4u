@@ -1,10 +1,21 @@
 import axiosInstance from '@/core/http/axiosInstance'
-import { LoginRequest, LoginResponse, UserRequest, UserResponse, SignUpRequest } from './type'
+import {
+  LoginRequest,
+  LoginResponse,
+  UserRequest,
+  UserResponse,
+  SignUpRequest,
+} from './type'
 import { envConfig } from '@/core/config'
 
 export const authApi = {
   login: (data: LoginRequest) =>
     axiosInstance.post<LoginResponse>('/login', data, {
+      baseURL: envConfig.accountUrl,
+    }),
+
+  logout: (token: string) =>
+    axiosInstance.post('/logout', { token }, {
       baseURL: envConfig.accountUrl,
     }),
 

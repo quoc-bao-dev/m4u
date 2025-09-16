@@ -1,3 +1,4 @@
+import { useToast } from '@/core/hooks'
 import { tokenManager } from '@/core/http/axiosInstance'
 import { useAuth } from '@/modules/auth'
 import { authApi } from '@/services/auth/api'
@@ -34,6 +35,15 @@ export const useLogin = () => {
   })
 }
 
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: async (token: string) => {
+      const response = await authApi.logout(token)
+      return response.data
+    },
+  })
+}
+
 export const useStartSignUp = () => {
   return useMutation({
     mutationFn: async (data: SignUpRequest) => {
@@ -49,7 +59,6 @@ export const useSignUp = () => {
   return useMutation({
     mutationFn: async (data: SignUpRequest) => {
       const response = await authApi.sign_up(data)
-      console.log(response)
       return response.data
     },
     onSuccess: async (response: LoginResponse) => {

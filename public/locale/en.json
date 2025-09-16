@@ -36,5 +36,113 @@
     "hours": "hr",
     "minutes": "min",
     "seconds": "sec"
+  },
+  "auth": {
+    "logoutSuccess": "Logged out successfully!",
+    "loginSuccess": "Login successful!",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "welcomeBack": "Welcome back! Enter your details to sign in.",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter your phone number",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?"
+  },
+  "menu": {
+    "reviewerQuestion": "Are you an M4U's reviewer?",
+    "reviewerOptions": {
+      "yes": "Yes, I'm a member",
+      "no": "Not yet, sign me up"
+    },
+    "section": {
+      "productCommunity": "Product & Community",
+      "settings": "Settings",
+      "general": "General",
+      "support": "Support"
+    },
+    "productCommunity": {
+      "trial-samples": "Trial samples",
+      "donation-charity": "Donation & Charity",
+      "review-hub": "Review hub",
+      "event": "Event"
+    },
+    "settings": {
+      "general": {
+        "language": "Language"
+      },
+      "support": {
+        "help-centre": "Help centre",
+        "feedback-submission": "Feedback Submission"
+      }
+    },
+    "auth": {
+      "loadingUser": "Loading user information...",
+      "unknown": "Unknown",
+      "unknownUser": "Unknown User",
+      "joinedSince": "Joined since {date}",
+      "membership": {
+        "gold": "Gold membership"
+      },
+      "stats": {
+        "referrals": "Referrals",
+        "active": "Active",
+        "accountBalance": "Account Balance",
+        "points": "Points"
+      },
+      "activity": {
+        "title": "My activity",
+        "trialHistory": "Trial registration history",
+        "myReviews": "My reviews",
+        "referralList": "Referral List",
+        "referralCode": "Referral Code"
+      },
+      "account": {
+        "preferences": "Account Preferences"
+      },
+      "logout": "Log out"
+    }
+  }
+  ,
+  "trial": {
+    "form": {
+      "headerTitle": "Register for a Product Sample",
+      "headerSubtitle": "Leave your details and we'll contact you.",
+      "fields": {
+        "fullName": { "label": "Full Name", "placeholder": "Enter your full name" },
+        "phoneNumber": { "label": "Phone Number", "placeholder": "Enter your phone number" },
+        "dateOfBirth": { "label": "Date of Birth" },
+        "address": { "label": "Address", "placeholder": "Enter your address" },
+        "gender": {
+          "label": "Gender",
+          "options": { "female": "Female", "male": "Male", "other": "Other" }
+        }
+      },
+      "productSection": { "label": "Product for Trial" },
+      "submit": { "processing": "Processing...", "continue": "Continue" },
+      "validation": {
+        "fullNameMin": "Please enter a valid full name",
+        "phoneInvalid": "Invalid phone number",
+        "genderRequired": "Please select a gender",
+        "dobRequired": "Please select your date of birth",
+        "addressMin": "Please enter a valid address"
+      },
+      "api": { "registerFailed": "Registration failed", "registerError": "An error occurred during registration" }
+    }
+    ,
+    "otp": {
+      "title": "Enter verification code",
+      "desc": "Enter the {length}-digit OTP sent to phone {phone}",
+      "processing": "Processing...",
+      "confirm": "Confirm",
+      "errors": {
+        "verifyFailed": "OTP verification failed",
+        "verifyError": "An error occurred during OTP verification"
+      }
+    }
+    ,
+    "success": {
+      "title": "Successfully registered!",
+      "message": "We’ve received your application. Your trial product will be shipped to your address within the next few days."
+    }
   }
 }

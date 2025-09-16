@@ -36,5 +36,113 @@
     "hours": "giờ",
     "minutes": "phút",
     "seconds": "giây"
+  },
+  "auth": {
+    "logoutSuccess": "Đăng xuất thành công!",
+    "loginSuccess": "Đăng nhập thành công!",
+    "signIn": "Đăng nhập",
+    "signingIn": "Đang đăng nhập...",
+    "welcomeBack": "Chào mừng bạn đến với ứng dụng của chúng tôi! Nhập thông tin của bạn để đăng nhập.",
+    "phoneNumber": "Số điện thoại",
+    "enterPhoneNumber": "Nhập số điện thoại",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?"
+  },
+  "menu": {
+    "reviewerQuestion": "Bạn có phải reviewer của M4U không?",
+    "reviewerOptions": {
+      "yes": "Có, tôi là thành viên",
+      "no": "Chưa, đăng ký ngay"
+    },
+    "section": {
+      "productCommunity": "Sản phẩm & Cộng đồng",
+      "settings": "Cài đặt",
+      "general": "Chung",
+      "support": "Hỗ trợ"
+    },
+    "productCommunity": {
+      "trial-samples": "Dùng thử sản phẩm",
+      "donation-charity": "Quyên góp & Từ thiện",
+      "review-hub": "Review hub",
+      "event": "Sự kiện"
+    },
+    "settings": {
+      "general": {
+        "language": "Ngôn ngữ"
+      },
+      "support": {
+        "help-centre": "Trung tâm hỗ trợ",
+        "feedback-submission": "Góp ý"
+      }
+    },
+    "auth": {
+      "loadingUser": "Đang tải thông tin người dùng...",
+      "unknown": "Không xác định",
+      "unknownUser": "Người dùng",
+      "joinedSince": "Tham gia từ {date}",
+      "membership": {
+        "gold": "Hội viên Gold"
+      },
+      "stats": {
+        "referrals": "Giới thiệu",
+        "active": "Kích hoạt",
+        "accountBalance": "Số dư tài khoản",
+        "points": "Điểm"
+      },
+      "activity": {
+        "title": "Hoạt động của tôi",
+        "trialHistory": "Lịch sử đăng ký dùng thử",
+        "myReviews": "Đánh giá của tôi",
+        "referralList": "Danh sách giới thiệu",
+        "referralCode": "Mã giới thiệu"
+      },
+      "account": {
+        "preferences": "Tuỳ chọn tài khoản"
+      },
+      "logout": "Đăng xuất"
+    }
+  }
+  ,
+  "trial": {
+    "form": {
+      "headerTitle": "Đăng ký dùng thử sản phẩm",
+      "headerSubtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn.",
+      "fields": {
+        "fullName": { "label": "Họ và tên", "placeholder": "Nhập họ và tên" },
+        "phoneNumber": { "label": "Số điện thoại", "placeholder": "Nhập số điện thoại" },
+        "dateOfBirth": { "label": "Ngày sinh" },
+        "address": { "label": "Địa chỉ", "placeholder": "Nhập địa chỉ" },
+        "gender": {
+          "label": "Giới tính",
+          "options": { "female": "Nữ", "male": "Nam", "other": "Khác" }
+        }
+      },
+      "productSection": { "label": "Sản phẩm dùng thử" },
+      "submit": { "processing": "Đang xử lý...", "continue": "Tiếp tục" },
+      "validation": {
+        "fullNameMin": "Vui lòng nhập họ tên hợp lệ",
+        "phoneInvalid": "Số điện thoại không hợp lệ",
+        "genderRequired": "Vui lòng chọn giới tính",
+        "dobRequired": "Vui lòng chọn ngày sinh",
+        "addressMin": "Vui lòng nhập địa chỉ hợp lệ"
+      },
+      "api": { "registerFailed": "Đăng ký thất bại", "registerError": "Có lỗi xảy ra khi đăng ký" }
+    }
+    ,
+    "otp": {
+      "title": "Nhập mã xác thực",
+      "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
+      "processing": "Đang xử lý...",
+      "confirm": "Xác nhận",
+      "errors": {
+        "verifyFailed": "Xác thực OTP thất bại",
+        "verifyError": "Có lỗi xảy ra khi xác thực OTP"
+      }
+    }
+    ,
+    "success": {
+      "title": "Đăng ký thành công!",
+      "message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Sản phẩm dùng thử sẽ được gửi đến địa chỉ của bạn trong vài ngày tới."
+    }
   }
 }

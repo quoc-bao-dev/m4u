@@ -15,6 +15,7 @@ import {
 } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { useCallback } from 'react'
+import { useTranslations } from 'next-intl'
 import AuthenticatedMenu, {
   AccountButton,
   LogoutButton,
@@ -24,25 +25,25 @@ import AuthenticatedMenu, {
 const productCommunityItems = [
   {
     id: 'trial-samples',
-    label: 'Trial samples',
+    label: 'menu.productCommunity.trial-samples',
     icon: 'CubeIcon',
     href: '/trial-registration',
   },
   {
     id: 'donation-charity',
-    label: 'Donation & Charity',
+    label: 'menu.productCommunity.donation-charity',
     icon: 'HandHeartIcon',
     href: '/donation-charity',
   },
   {
     id: 'review-hub',
-    label: 'Review hub',
+    label: 'menu.productCommunity.review-hub',
     icon: 'StarIcon',
     href: '/review-hub',
   },
   {
     id: 'event',
-    label: 'Event',
+    label: 'menu.productCommunity.event',
     icon: 'CalendarPlusIcon',
     href: '/event',
   },
@@ -53,19 +54,19 @@ const settingsItems = {
   general: [
     {
       id: 'language',
-      label: 'Language',
+      label: 'menu.settings.general.language',
       icon: 'TranslateIcon',
     },
   ],
   support: [
     {
       id: 'help-centre',
-      label: 'Help centre',
+      label: 'menu.settings.support.help-centre',
       icon: 'HeadsetIcon',
     },
     {
       id: 'feedback-submission',
-      label: 'Feedback Submission',
+      label: 'menu.settings.support.feedback-submission',
       icon: 'NotePencilIcon',
     },
   ],
@@ -75,12 +76,12 @@ const settingsItems = {
 const reviewerOptions = [
   {
     id: 'yes',
-    label: "Yes, I'm a member",
+    label: 'menu.reviewerOptions.yes',
     value: true,
   },
   {
     id: 'no',
-    label: 'Not yet, sign me up',
+    label: 'menu.reviewerOptions.no',
     value: false,
   },
 ]
@@ -134,6 +135,7 @@ const MenuContent = ({
   onClose,
   isMobile = false,
 }: MenuContentProps) => {
+  const t = useTranslations()
   const { switchLanguage, currentLocale } = useLanguageSwitch()
   const { user, isAuthenticated } = useAuth()
 
@@ -159,7 +161,7 @@ const MenuContent = ({
     return (
       <>
         <h2 className="text-lg font-semibold text-greyscale-900 z-[3]">
-          Are you an M4U&apos;s reviewer?
+          {t('menu.reviewerQuestion')}
         </h2>
         <div className="flex gap-3 z-[3]">
           {reviewerOptions.map((option) => (
@@ -183,7 +185,7 @@ const MenuContent = ({
                   : 'bg-white border border-pink-600 text-pink-600 hover:bg-pink-50'
               }`}
             >
-              {option.label}
+              {t(option.label)}
             </button>
           ))}
         </div>
@@ -225,7 +227,7 @@ const MenuContent = ({
         {isAuthenticated && <AuthenticatedMenu.Top user={user} />}
         <div className="flex flex-col gap-4 shadow-[0px_4px_24px_0px_#0000000F] rounded-xl pb-3">
           <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
-            Product & Community
+            {t('menu.section.productCommunity')}
           </h3>
           <div className="grid grid-cols-2 gap-4 px-3">
             {productCommunityItems.map((item) => {
@@ -245,7 +247,7 @@ const MenuContent = ({
                     />
                   </div>
                   <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
-                    {item.label}
+                    {t(item.label)}
                   </span>
                 </Link>
               )
@@ -255,11 +257,11 @@ const MenuContent = ({
 
         <div className="flex flex-col gap-4 shadow-[0px_4px_24px_0px_#0000000F] rounded-xl pb-3">
           <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
-            Settings
+            {t('menu.section.settings')}
           </h3>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">General</h4>
+            <h4 className="text-sm font-medium text-greyscale-500">{t('menu.section.general')}</h4>
             <div className="flex items-center justify-between gap-3">
               {settingsItems.general.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
@@ -276,7 +278,7 @@ const MenuContent = ({
                       />
                     </div>
                     <span className="text-sm font-normal text-greyscale-700">
-                      {item.label}
+                      {t(item.label)}
                     </span>
                   </div>
                 )
@@ -322,7 +324,7 @@ const MenuContent = ({
           </div>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">Support</h4>
+            <h4 className="text-sm font-medium text-greyscale-500">{t('menu.section.support')}</h4>
             <div className="flex flex-col gap-2">
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
@@ -337,7 +339,7 @@ const MenuContent = ({
                         />
                       </div>
                       <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
-                        {item.label}
+                        {t(item.label)}
                       </span>
                     </div>
                   </Link>

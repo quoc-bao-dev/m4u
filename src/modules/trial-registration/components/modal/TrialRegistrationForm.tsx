@@ -12,25 +12,14 @@ import Image from 'next/image'
 import { withAlpha } from '@/core/utils'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 
-const schema = z.object({
-  fullName: z.string().trim().min(2, 'Vui lòng nhập họ tên hợp lệ'),
-  phoneNumber: z
-    .string()
-    .trim()
-    .min(8, 'Số điện thoại không hợp lệ')
-    .max(15, 'Số điện thoại không hợp lệ'),
-  gender: z.enum(['female', 'male', 'other'] as const, {
-    message: 'Vui lòng chọn giới tính',
-  }),
-  dateOfBirth: z.string().min(1, 'Vui lòng chọn ngày sinh'),
-  address: z.string().trim().min(5, 'Vui lòng nhập địa chỉ hợp lệ'),
-})
+// schema sẽ được tạo trong component để dùng i18n messages
 
-type FormData = z.infer<typeof schema>
+// type is derived inside component after schema is created
 
 interface TrialRegistrationFormProps {
-  onSubmit?: (data: FormData) => void
+  onSubmit?: (data: { fullName: string; phoneNumber: string; gender: 'female' | 'male' | 'other'; dateOfBirth: string; address: string }) => void
   productId: string | number
   productImage: string
   productName: string
@@ -39,6 +28,21 @@ interface TrialRegistrationFormProps {
 }
 
 const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName, productBrand, productColor }: TrialRegistrationFormProps) => {
+  const t = useTranslations()
+  const schema = z.object({
+    fullName: z.string().trim().min(2, t('trial.form.validation.fullNameMin')),
+    phoneNumber: z
+      .string()
+      .trim()
+      .min(8, t('trial.form.validation.phoneInvalid'))
+      .max(15, t('trial.form.validation.phoneInvalid')),
+    gender: z.enum(['female', 'male', 'other'] as const, {
+      message: t('trial.form.validation.genderRequired'),
+    }),
+    dateOfBirth: z.string().min(1, t('trial.form.validation.dobRequired')),
+    address: z.string().trim().min(5, t('trial.form.validation.addressMin')),
+  })
+  type TrialFormData = z.infer<typeof schema>
   const { close: closeModalRegistration } = useModalRegistration()
   const { open: openOTPModal } = useTrialOTPModal()
   const { showError } = useToast()
@@ -49,7 +53,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<FormData>({
+  } = useForm<TrialFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       fullName: '',
@@ -98,7 +102,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
     })
   }
 
-  const onSubmitForm = async (data: FormData) => {
+  const onSubmitForm = async (data: TrialFormData) => {
     onSubmit?.(data)
 
     const apiData = {
@@ -118,10 +122,10 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
       if (response?.result === true) {
         handleOpenOTPModal(data.phoneNumber)
       } else {
-        showError(response?.message || 'Đăng ký thất bại')
+        showError(response?.message || t('trial.form.api.registerFailed'))
       }
     } catch (error: any) {
-      showError(error?.message || 'Có lỗi xảy ra khi đăng ký')
+      showError(error?.message || t('trial.form.api.registerError'))
     }
   }
 
@@ -130,10 +134,10 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
       {/* Form Header */}
       <div className="mb-6 flex-shrink-0 px-1">
         <h2 className="text-[20px] md:text-[28px] xl:text-[34px] font-bold text-gray-900 mb-1">
-          Register for a Product Sample
+          {t('trial.form.headerTitle')}
         </h2>
         <p className="text-sm text-gray-600">
-          Leave your details and we’ll contact you.
+          {t('trial.form.headerSubtitle')}
         </p>
       </div>
 
@@ -149,8 +153,8 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 render={({ field }) => (
                   <div className="w-full">
                     <Input
-                      label="Họ và tên"
-                      placeholder="Nhập họ và tên"
+                      label={t('trial.form.fields.fullName.label')}
+                      placeholder={t('trial.form.fields.fullName.placeholder')}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       required
@@ -169,7 +173,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 render={({ field }) => (
                   <div className="w-full">
                     <DatePicker
-                      label="Ngày sinh"
+                      label={t('trial.form.fields.dateOfBirth.label')}
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
                       required
@@ -190,9 +194,9 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 render={({ field }) => (
                   <div className="w-full">
                     <Input
-                      label="Số điện thoại"
+                      label={t('trial.form.fields.phoneNumber.label')}
                       type="tel"
-                      placeholder="Nhập số điện thoại"
+                      placeholder={t('trial.form.fields.phoneNumber.placeholder')}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       required
@@ -211,8 +215,8 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 render={({ field }) => (
                   <div className="w-full">
                     <Input
-                      label="Địa chỉ"
-                      placeholder="Nhập địa chỉ"
+                      label={t('trial.form.fields.address.label')}
+                      placeholder={t('trial.form.fields.address.placeholder')}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       required
@@ -232,14 +236,14 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
               render={({ field }) => (
                 <div className="w-full">
                   <RadioGroup
-                    label="Giới tính"
+                    label={t('trial.form.fields.gender.label')}
                     name="gender"
                     value={field.value}
                     onChange={(value) => field.onChange(value)}
                     options={[
-                      { value: 'female', label: 'Nữ' },
-                      { value: 'male', label: 'Nam' },
-                      { value: 'other', label: 'Khác' },
+                      { value: 'female', label: t('trial.form.fields.gender.options.female') },
+                      { value: 'male', label: t('trial.form.fields.gender.options.male') },
+                      { value: 'other', label: t('trial.form.fields.gender.options.other') },
                     ]}
                     required
                   />
@@ -253,7 +257,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
             {/* Product for Trial */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sản phẩm dùng thử <span className="text-red-500">*</span>
+                {t('trial.form.productSection.label')} <span className="text-red-500">*</span>
               </label>
               <div className="max-w-[450px] rounded-lg p-2 flex items-center space-x-3"
                 style={{ backgroundColor: withAlpha(productColor, 0.4) }}>
@@ -284,15 +288,12 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 disabled={startSignUpMutation.isPending}
                 endIcon={!startSignUpMutation.isPending && <ArrowRightIcon weight="bold" className="size-5" />}
               >
-                {startSignUpMutation.isPending ? 'Đang xử lý...' : 'Tiếp tục'}
+                {startSignUpMutation.isPending ? t('trial.form.submit.processing') : t('trial.form.submit.continue')}
               </Button>
             </div>
           </form>
         </div>
       </div>
-      
-      {/* Error Message */}
-      {/* Sử dụng toast thay cho hiển thị lỗi cục bộ */}
     </div>
   )
 }

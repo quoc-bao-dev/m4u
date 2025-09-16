@@ -36,5 +36,113 @@
     "hours": "시간",
     "minutes": "분",
     "seconds": "초"
+  },
+  "auth": {
+    "logoutSuccess": "로그아웃 성공!",
+    "loginSuccess": "로그인 성공!",
+    "signIn": "로그인",
+    "signingIn": "로그인 중...",
+    "welcomeBack": "오신 것을 환영합니다! 로그인 정보를 입력하세요.",
+    "phoneNumber": "전화번호",
+    "enterPhoneNumber": "전화번호를 입력하세요",
+    "password": "비밀번호",
+    "forgotPassword": "비밀번호를 잊으셨나요?"
+  },
+  "menu": {
+    "reviewerQuestion": "M4U 리뷰어이신가요?",
+    "reviewerOptions": {
+      "yes": "네, 회원입니다",
+      "no": "아직 아니에요, 가입할래요"
+    },
+    "section": {
+      "productCommunity": "제품 & 커뮤니티",
+      "settings": "설정",
+      "general": "일반",
+      "support": "지원"
+    },
+    "productCommunity": {
+      "trial-samples": "체험 샘플",
+      "donation-charity": "기부 & 자선",
+      "review-hub": "리뷰 허브",
+      "event": "이벤트"
+    },
+    "settings": {
+      "general": {
+        "language": "언어"
+      },
+      "support": {
+        "help-centre": "도움말 센터",
+        "feedback-submission": "피드백 제출"
+      }
+    },
+    "auth": {
+      "loadingUser": "사용자 정보를 불러오는 중...",
+      "unknown": "알 수 없음",
+      "unknownUser": "사용자",
+      "joinedSince": "가입일 {date}",
+      "membership": {
+        "gold": "골드 멤버십"
+      },
+      "stats": {
+        "referrals": "추천",
+        "active": "활성",
+        "accountBalance": "계정 잔액",
+        "points": "포인트"
+      },
+      "activity": {
+        "title": "나의 활동",
+        "trialHistory": "체험 신청 내역",
+        "myReviews": "내 리뷰",
+        "referralList": "추천 목록",
+        "referralCode": "추천 코드"
+      },
+      "account": {
+        "preferences": "계정 설정"
+      },
+      "logout": "로그아웃"
+    }
+  }
+  ,
+  "trial": {
+    "form": {
+      "headerTitle": "제품 샘플 신청",
+      "headerSubtitle": "정보를 남겨주시면 연락드리겠습니다.",
+      "fields": {
+        "fullName": { "label": "성명", "placeholder": "성명을 입력하세요" },
+        "phoneNumber": { "label": "전화번호", "placeholder": "전화번호를 입력하세요" },
+        "dateOfBirth": { "label": "생년월일" },
+        "address": { "label": "주소", "placeholder": "주소를 입력하세요" },
+        "gender": {
+          "label": "성별",
+          "options": { "female": "여성", "male": "남성", "other": "기타" }
+        }
+      },
+      "productSection": { "label": "체험 제품" },
+      "submit": { "processing": "처리 중...", "continue": "계속" },
+      "validation": {
+        "fullNameMin": "올바른 성명을 입력하세요",
+        "phoneInvalid": "유효하지 않은 전화번호입니다",
+        "genderRequired": "성별을 선택하세요",
+        "dobRequired": "생년월일을 선택하세요",
+        "addressMin": "올바른 주소를 입력하세요"
+      },
+      "api": { "registerFailed": "신청 실패", "registerError": "신청 중 오류가 발생했습니다" }
+    }
+    ,
+    "otp": {
+      "title": "인증 코드 입력",
+      "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",
+      "processing": "처리 중...",
+      "confirm": "확인",
+      "errors": {
+        "verifyFailed": "OTP 인증에 실패했습니다",
+        "verifyError": "OTP 인증 중 오류가 발생했습니다"
+      }
+    }
+    ,
+    "success": {
+      "title": "신청이 완료되었습니다!",
+      "message": "신청이 접수되었습니다. 체험 제품은 며칠 내에 귀하의 주소로 발송됩니다."
+    }
   }
 }
