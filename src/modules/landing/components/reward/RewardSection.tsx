@@ -94,7 +94,7 @@ const RewardSection = () => {
                         icon={
                           <Image
                             src={card.img}
-                            alt={card.title}
+                            alt={card.title ||''}
                             width={31}
                             height={31}
                           />

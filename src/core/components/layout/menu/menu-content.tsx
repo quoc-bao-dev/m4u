@@ -1,7 +1,7 @@
 'use client'
 
 import { IMAGES } from '@/core/constants/IMAGES'
-import { useNavigate } from '@/locale'
+import { Link, useNavigate } from '@/locale'
 import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import { useAuth, useLoginModal } from '@/modules/auth'
 import {
@@ -14,7 +14,6 @@ import {
   TranslateIcon,
 } from '@phosphor-icons/react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useCallback } from 'react'
 import AuthenticatedMenu, {
   AccountButton,
@@ -27,25 +26,25 @@ const productCommunityItems = [
     id: 'trial-samples',
     label: 'Trial samples',
     icon: 'CubeIcon',
-    href: '/vi/trial-registration',
+    href: '/trial-registration',
   },
   {
     id: 'donation-charity',
     label: 'Donation & Charity',
     icon: 'HandHeartIcon',
-    href: '/vi/donation-charity',
+    href: '/donation-charity',
   },
   {
     id: 'review-hub',
     label: 'Review hub',
     icon: 'StarIcon',
-    href: '/vi/review-hub',
+    href: '/review-hub',
   },
   {
     id: 'event',
     label: 'Event',
     icon: 'CalendarPlusIcon',
-    href: '/vi/event',
+    href: '/event',
   },
 ]
 
@@ -328,7 +327,7 @@ const MenuContent = ({
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <Link key={item.id} href={'/vi/developing'}>
+                  <Link key={item.id} href={'/developing'}>
                     <div className="flex items-center gap-3 cursor-pointer group">
                       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
                         <IconComponent

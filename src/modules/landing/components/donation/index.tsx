@@ -4,6 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Logo } from '@/core/components'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
+import { Link } from '@/locale'
 import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
@@ -243,9 +244,9 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
             <p className="text-sm lg:text-base text-greyscale-700">Đã được quyên góp!</p>
 
             {!isHero ? (
-              <button className="border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-2 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
-                Tìm hiểu thêm
-              </button>
+              <Link href="/donation-charity" className="border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-2 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
+               {data?.title_button}
+              </Link>
             ) : (
               <KOLsDisplay />
             )}
@@ -259,9 +260,9 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
 
       <div className='lg:hidden'>
         {!isHero ? (
-          <button className=" border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-1 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
-            Tìm hiểu thêm
-          </button>
+          <Link href="/donation-charity" className=" border border-[#3B82F6] hover:bg-[#3B82F6] hover:text-white transition-all duration-300 py-1 xl:py-4 px-5 rounded-full text-base font-semibold text-[#3B82F6] cursor-pointer">
+            {data?.title_button}
+          </Link>
         ) : (
           <KOLsDisplay />
         )}

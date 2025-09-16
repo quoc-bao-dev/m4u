@@ -12,9 +12,9 @@ import React, {
 } from 'react'
 import ReviewCard from './ReviewCard'
 import Button from '@/core/components/ui/button'
-import Link from 'next/link'
 import { useGetHomePage } from '@/services/home/queries'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Link } from '@/locale'
 
 // Dữ liệu mẫu cho ReviewCard
 const reviewerData = [
@@ -307,8 +307,8 @@ const Reviewer = () => {
           />
         </button>
       </div>
-      <Link href="vi/review-hub">
-        <Button>Xem tất cả</Button>
+      <Link href="/review-hub">
+        <Button>{data?.title_button}</Button>
       </Link>
     </div>
   )

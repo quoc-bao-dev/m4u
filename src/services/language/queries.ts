@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import apiLanguage from './service'
+import apiLanguage from './api'
 
 export const useGetLanguageCurrent = () => {
     const fetchLanguageCurrent = async () => {
