@@ -6,6 +6,7 @@ import { useGetProductRelationList } from '@/services/product'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useMemo } from 'react'
 import { sProductIdSignal } from '../../store/sProductIdSignal'
+import { Link } from '@/locale'
 
 const SimilarProductSection = () => {
   const productId = sProductIdSignal.use()
@@ -20,6 +21,7 @@ const SimilarProductSection = () => {
 
     return productRelationList.data.map((product) => ({
       id: product.id.toString(),
+      slug: product.slug,
       brand: 'Brand', // Có thể cần lấy từ API hoặc hardcode
       productName: product.name,
       participation: 70, // Default value, có thể cần lấy từ API
@@ -60,6 +62,10 @@ const SimilarProductSection = () => {
     },
   })
 
+  if (carouselItems.length === 0) {
+    return null
+  }
+
   return (
     <section className="py-[40px] md:py-[96px]">
       <Container className="overflow-hidden">
@@ -73,13 +79,31 @@ const SimilarProductSection = () => {
 
         <div className="relative xl:px-24">
           {isLoading ? (
-            <div className="flex justify-center items-center py-10">
-              <div className="text-lg">Loading similar products...</div>
-            </div>
-          ) : carouselItems.length === 0 ? (
-            <div className="flex justify-center items-center py-10">
-              <div className="text-lg text-gray-500">
-                No similar products found
+            <div className="overflow-visible sm:overflow-hidden">
+              <div className="flex w-full">
+                {[1, 2, 3].map((index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-4/5 sm:w-1/2 md:w-1/3 px-2 h-full flex justify-center"
+                  >
+                    <div className="h-full w-full max-w-sm xl:max-w-md">
+                      <div className="bg-gray-50 rounded-3xl shadow-[0px_4px_24px_0px_#0000000F] h-fit select-none w-full animate-pulse">
+                        <div className="rounded-t-3xl relative overflow-hidden w-full">
+                          <div className="w-full h-[400px] md:h-[320px] lg:h-[370px] xl:h-[400px] bg-gray-200 rounded-t-3xl"></div>
+                        </div>
+                        <div className="p-4 sm:p-5 flex flex-col gap-1 rounded-b-3xl w-full bg-gray-100">
+                          <div className="h-4 bg-gray-200 rounded w-16"></div>
+                          <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                          <div className="py-1">
+                            <div className="h-1 sm:h-1.5 bg-gray-200 rounded-full w-full"></div>
+                          </div>
+                          <div className="h-4 bg-gray-200 rounded w-20"></div>
+                          <div className="h-10 bg-gray-200 rounded-2xl w-full mt-2"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (
@@ -98,19 +122,21 @@ const SimilarProductSection = () => {
                     className="flex-shrink-0 w-4/5 sm:w-1/2 md:w-1/3 px-2 h-full flex justify-center"
                   >
                     <div className="h-full w-full max-w-sm xl:max-w-md">
-                      <ProductCard
-                        brand={p.brand}
-                        productName={p.productName}
-                        participation={p.participation}
-                        image={p.image}
-                        imageAlt={p.imageAlt}
-                        rate={p.rate}
-                        bgColor={p.bgColor}
-                        hex={p.hex}
-                        time={p.time}
-                        classNameImage="xl:h-[400px]"
-                        className="h-full flex flex-col"
-                      />
+                      <Link href={`/product/${p.slug}`}>
+                        <ProductCard
+                          brand={p.brand}
+                          productName={p.productName}
+                          participation={p.participation}
+                          image={p.image}
+                          imageAlt={p.imageAlt}
+                          rate={p.rate}
+                          bgColor={p.bgColor}
+                          hex={p.hex}
+                          time={p.time}
+                          classNameImage="xl:h-[400px]"
+                          className="h-full flex flex-col"
+                        />
+                      </Link>
                     </div>
                   </div>
                 ))}
