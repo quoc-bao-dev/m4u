@@ -15,6 +15,23 @@ export const useGetProductList = () => {
   })
 }
 
+export const useGetProductRelationList = ({ id }: { id: string }) => {
+  const { currentLocale } = useLanguageSwitch()
+  const _locale = currentLocale
+  const queryFn = async () => {
+    const response = await productApi.getProductRelationList({
+      _local: _locale,
+      id,
+    })
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['product-relation-list', _locale, id],
+    queryFn: queryFn,
+    enabled: !!id,
+  })
+}
+
 export const useGetProductDetail = ({ slug }: { slug: string }) => {
   const { currentLocale } = useLanguageSwitch()
   const _locale = currentLocale

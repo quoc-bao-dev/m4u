@@ -6,8 +6,9 @@ import useEmblaCarousel from 'embla-carousel-react'
 import WheelGesturesPlugin from 'embla-carousel-wheel-gestures'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import RightContent from './RightContent'
+import { sProductIdSignal } from '../../store/sProductIdSignal'
 
 const ProductInfo = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -26,6 +27,16 @@ const ProductInfo = () => {
   const { data: productDetail, isLoading } = useGetProductDetail({
     slug: slug as string,
   })
+
+  useEffect(() => {
+    if (productDetail?.data.id) {
+      console.log(productDetail.data.id)
+      sProductIdSignal.set(productDetail.data.id.toString())
+    }
+    return () => {
+      sProductIdSignal.set(null)
+    }
+  }, [productDetail])
 
   const detail = productDetail?.data
   const images = (() => {
@@ -162,7 +173,6 @@ const ProductInfo = () => {
               <RevertContainer className="md:mx-0!">
                 <RightContent
                   name={detail?.name || ''}
-                  content={detail?.content || ''}
                   time={detail?.time_left_dd_hh_mm_ss || undefined}
                   ingredients={detail?.ingredients || []}
                 />

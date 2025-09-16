@@ -26,16 +26,16 @@ export default function Countdown({ targetDate }: CountdownProps) {
       <div className="rounded-2xl bg-red-500 text-white text-3xl font-semibold tracking-tight shadow-lg size-[64px] flex items-center justify-center text-center">
         {String(value).padStart(2, '0')}
       </div>
-      <div className="mt-2 text-gray-600 text-sm">{label}</div>
+      <div className="mt-2 text-gray-600 text-xl md:text">{label}</div>
     </div>
   )
 
   return (
     <div className="flex items-center justify-center gap-4 mt-8">
       <NumberBox value={days} label="day" />
-      <span className="text-3xl -mt-4">:</span>
+      <span className="text-3xl -mt-8 text-red-500">:</span>
       <NumberBox value={hours} label="hour" />
-      <span className="text-3xl -mt-4">:</span>
+      <span className="text-3xl -mt-8 text-red-500">:</span>
       <NumberBox value={minutes} label="minute" />
     </div>
   )
