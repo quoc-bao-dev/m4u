@@ -1,7 +1,12 @@
-import React from 'react'
+import { EventDetailSection, EventRelativeSection } from '@/modules/event'
 
 const Page = () => {
-  return <div>Page</div>
+  return (
+    <main>
+      <EventDetailSection />
+      <EventRelativeSection />
+    </main>
+  )
 }
 
 export default Page

@@ -31,7 +31,7 @@ export default function Countdown({ targetDate }: CountdownProps) {
   )
 
   return (
-    <div className="flex items-center justify-center gap-4 mt-8">
+    <div className="flex items-center justify-center gap-4 mt-0">
       <NumberBox value={days} label="day" />
       <span className="text-3xl -mt-8 text-red-500">:</span>
       <NumberBox value={hours} label="hour" />
