@@ -37,7 +37,7 @@ const EventCard = ({ status, date, title, productCount, fundAmount, imageSrc }: 
         >
           <Image src={imageSrc} alt='event' width={300} height={240} className='absolute inset-0 w-full h-full object-cover' />
         </div>
-        <Image src={IMAGES.logo} alt='mask' width={80} height={80} className='p-1.5 lg:p-3 2xl:p-4 absolute right-0 bottom-0 size-9.5 md:size-12 lg:size-16 2xl:size-20 object-cover' />
+        <Image src={IMAGES.logo} alt='mask' width={80} height={80} className='p-1.5 lg:p-3 2xl:p-4 absolute right-0 bottom-0 w-[14%] aspect-square object-cover' />
       </div>
       <div className='px-2 xl:px-4 flex flex-col gap-4'>
         <div className='flex items-center justify-between gap-4'>

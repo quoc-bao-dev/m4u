@@ -5,7 +5,7 @@ import ModalSection from './ModalSection'
 
 const DonationCharity = () => {
   return (
-    <div className='flex flex-col items-center justify-center pb-24'>
+    <div className='flex flex-col items-center justify-center pb-12 xl:pb-24'>
       <Donation isHero={true} className='lg:h-screen pt-16 lg:pt-0' />
       <ModalSection />
       <EventCampaign />

@@ -16,16 +16,16 @@ const Line = ( { className }: { className?: string } ) => {
 
 const EventCampaign = () => {
   return (
-    <div className='py-12 xl:py-24 pl-3 md:pl-0 flex flex-col items-center justify-center w-full'>
+    <div className='py-8 xl:py-24 pl-3 md:pl-0 flex flex-col items-center justify-center w-full'>
       <div className='flex flex-col items-center justify-center gap-4 container-custom'>
-        <h2 className='text-2xl xl:text-6xl font-bold text-greyscale-400'>
+        <h2 className='pr-3 md:pr-0 text-2xl xl:text-6xl font-bold text-greyscale-400'>
           <span className='text-gradient-blue-black'>
             Your Glow,
           </span>
           Her Growth</h2>
-        <p className='text-base xl:text-2xl text-greyscale-700 text-center max-w-6xl'>Each product contributes 5% to volunteer campaigns that uplift single moms—funding daily needs and skills programs. When you try & review, you help twice.</p>
+        <p className='pr-3 md:pr-0 text-base xl:text-2xl text-greyscale-700 text-center max-w-6xl'>Each product contributes 5% to volunteer campaigns that uplift single moms—funding daily needs and skills programs. When you try & review, you help twice.</p>
       </div>
-      <div className='flex flex-col lg:pl-12 xl:pl-24 w-full'>
+      <div className='flex flex-col md:pl-6 lg:pl-12 xl:pl-24 w-full'>
         <ProductCarouselEmbla />
         <div className='relative'>
           <div className='ml-[75px] lg:ml-[136px]'>
