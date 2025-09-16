@@ -1,9 +1,14 @@
+'use client'
+
 import React from 'react'
 import Review from './Review'
 import { Container } from '@/core/components'
 import Reviewer from './Reviewer'
+import { useTranslation } from '@/locale'
 
 const ReviewSection = () => {
+  const { t } = useTranslation()
+
   // Sample data based on the image
   const reviewData = {
     overallRating: 4.8,
@@ -28,8 +33,12 @@ const ReviewSection = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-title-sect font-bold">
-            <span className="text-greyscale-900">Honest Reviews</span>{' '}
-            <span className="text-greyscale-400">From Real Users</span>
+            <span className="text-greyscale-900">
+              {t('product.honestReviews')}
+            </span>{' '}
+            <span className="text-greyscale-400">
+              {t('product.fromRealUsers')}
+            </span>
           </h2>
         </div>
         <Review {...reviewData} />

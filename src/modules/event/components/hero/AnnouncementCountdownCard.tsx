@@ -22,6 +22,7 @@ export default function AnnouncementCountdownCard({
           alt={imageAlt}
           className="absolute -left-[55%] -top-[50%] size-[160px] object-contain drop-shadow-md pointer-events-none select-none"
         />
+        <div className="pt-8"></div>
         <Countdown targetDate={targetDate} />
       </div>
       <div className="pt-10"></div>

@@ -29,7 +29,10 @@
     "views": "조회수",
     "filterBy": "필터:",
     "selectFilter": "필터 선택",
-    "viewAll": "모두 보기"
+    "viewAll": "모두 보기",
+    "exploreSimilarProducts": "유사한 제품 탐색",
+    "honestReviews": "솔직한 리뷰",
+    "fromRealUsers": "실제 사용자로부터"
   },
   "timer": {
     "days": "일",

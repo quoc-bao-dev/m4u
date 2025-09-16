@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import { BroadcastIcon } from '@phosphor-icons/react'
 import { IMAGES } from '@/core/constants/IMAGES'
+import EventBadge from './EventBadge'
+import EventFrame from './EventFrame'
 
 type EventCardProps = {
   status: 'happening' | 'coming'
@@ -31,44 +33,18 @@ const EventCard = ({
   const cfg = statusConfig[status]
   return (
     <div className="flex flex-col gap-4 shadow-lg/5 rounded-xl pb-4 hover:shadow-xl/5 transition-all duration-300">
-      <div className="relative p-2 bg-pink-300 rounded-xl">
-        <div
-          className="relative bg-pink-300 rounded-lg w-full aspect-[56/30]"
-          style={{
-            WebkitMaskImage: 'url(/image/donation/mask.png)',
-            maskImage: 'url(/image/donation/mask.png)',
-            WebkitMaskRepeat: 'no-repeat',
-            maskRepeat: 'no-repeat',
-            WebkitMaskSize: 'contain',
-            maskSize: 'contain',
-            WebkitMaskPosition: 'center',
-            maskPosition: 'center',
-          }}
-        >
-          <Image
-            src={imageSrc}
-            alt="event"
-            width={300}
-            height={240}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
+      <EventFrame>
         <Image
-          src={IMAGES.logo}
-          alt="mask"
-          width={80}
-          height={80}
-          className="p-3 2xl:p-4 absolute right-0 bottom-0 size-14 2xl:size-20 object-cover"
+          src={imageSrc}
+          alt="event"
+          width={300}
+          height={240}
+          className="absolute inset-0 w-full h-full object-cover"
         />
-      </div>
+      </EventFrame>
       <div className="px-4 flex flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
-          <div
-            className={`flex items-center gap-1 rounded-full py-2 px-3 ${cfg.className}`}
-          >
-            {cfg.showIcon && <BroadcastIcon className="text-white" />}
-            <span className="text-xs font-medium text-white">{cfg.label}</span>
-          </div>
+          <EventBadge status={status} />
           <p className="text-base font-normal text-greyscale-700">{date}</p>
         </div>
         <h4 className="text-base lg:text-lg 2xl:text-2xl font-bold text-greyscale-900">

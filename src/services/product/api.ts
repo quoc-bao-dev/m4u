@@ -1,24 +1,22 @@
+import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
 import { ProductDetailResponse, ProductListResponse } from './type'
 
 export const productApi = {
   getProductList: ({ _local }: { _local?: string }) =>
-    axiosInstance.get<ProductListResponse>('/api/products/getList', {
-      baseURL: 'https://m4u-admin.fmrp.vn/',
+    axiosInstance.get<ProductListResponse>('products/getList', {
+      baseURL: envConfig.adminUrl,
       params: { _local },
     }),
   getProductRelationList: ({ _local, id }: { _local?: string; id: string }) =>
-    axiosInstance.get<ProductListResponse>('/api/products/getList', {
-      baseURL: 'https://m4u-admin.fmrp.vn/',
+    axiosInstance.get<ProductListResponse>('products/getList', {
+      baseURL: envConfig.adminUrl,
       params: { _local, id, per_page: 3 },
     }),
 
   getProductDetail: ({ slug, _local }: { slug: string; _local?: string }) =>
-    axiosInstance.get<ProductDetailResponse>(
-      `/api/products/getDetail/${slug}`,
-      {
-        baseURL: 'https://m4u-admin.fmrp.vn/',
-        params: { _local },
-      }
-    ),
+    axiosInstance.get<ProductDetailResponse>(`products/getDetail/${slug}`, {
+      baseURL: envConfig.adminUrl,
+      params: { _local },
+    }),
 }
