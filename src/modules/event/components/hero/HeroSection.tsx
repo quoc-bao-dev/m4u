@@ -4,6 +4,7 @@ import { Container } from '@/core/components'
 import Image from 'next/image'
 import AnnouncementCountdownCard from './AnnouncementCountdownCard'
 import PromoRibbons from './PromoRibbons'
+import { Link } from '@/locale'
 
 const HeroSection = () => {
   return (
@@ -41,15 +42,17 @@ const HeroSection = () => {
             </div>
             <div className="flex-1 relative flex justify-center mf:block">
               <div className="md:absolute md:bottom-[15%] md:right-0">
-                <AnnouncementCountdownCard
-                  imageUrl="/image/event/image-02.png"
-                  imageAlt="Megaphone"
-                  targetDate="2025-10-01T00:00:00+07:00"
-                  dateLabel="01 October 2025"
-                  headline="WINNERS WILL BE ANNOUNCED"
-                  buttonText="JOIN NOW"
-                  onJoin={() => alert('Joined!')}
-                />
+                <Link href={'/event/1'}>
+                  <AnnouncementCountdownCard
+                    imageUrl="/image/event/image-02.png"
+                    imageAlt="Megaphone"
+                    targetDate="2025-10-01T00:00:00+07:00"
+                    dateLabel="01 October 2025"
+                    headline="WINNERS WILL BE ANNOUNCED"
+                    buttonText="JOIN NOW"
+                    onJoin={() => alert('Joined!')}
+                  />
+                </Link>
               </div>
             </div>
           </div>

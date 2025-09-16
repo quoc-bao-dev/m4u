@@ -129,6 +129,7 @@ const SimilarProductSection = () => {
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
+                          id={Number(p.id)}
                           limitPeople={p.limitPeople}
                           image={p.image}
                           imageAlt={p.imageAlt}
