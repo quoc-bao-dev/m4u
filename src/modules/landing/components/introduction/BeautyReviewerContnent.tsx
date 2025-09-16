@@ -2,8 +2,8 @@
 import { useGetHomePage } from '@/services/home/queries'
 import { Container, Grid } from '@/core/components'
 import { RegisterCTA } from '../cta'
-import Link from 'next/link'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Link } from '@/locale'
 
 const BeautyReviewerSection = () => {
   const { isLoading, data: homePage } = useGetHomePage()
@@ -36,8 +36,8 @@ const BeautyReviewerSection = () => {
               bạn khởi đầu. */}
             </div>
           )}
-          <Link href={'/vi/trial-registration'}>
-            <RegisterCTA className="mt-8" label="Đăng ký trải nghiệm" />
+          <Link href={'/trial-registration'}>
+            <RegisterCTA className="mt-8" label={data?.title_button} />
           </Link>
         </div>
       </Grid>

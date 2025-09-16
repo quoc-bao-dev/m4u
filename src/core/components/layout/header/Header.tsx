@@ -26,7 +26,7 @@ const Header = () => {
           <LogoLoading 
             isLoading={isLoading}
             size="md"
-            href="/vi"
+            href="/"
           />
         </div>
         <LanguageSwitcher />

@@ -11,11 +11,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 import { LoginFormData, loginSchema } from '../../schemas'
 import useLoginModal from '../../stores/useLoginModal'
+import { useTranslations } from 'next-intl'
 
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
   const loginMutation = useLogin()
   const { showError, showSuccess } = useToast()
+  const t = useTranslations('auth')
 
   const {
     control,
@@ -42,7 +44,7 @@ const LoginModal = () => {
       }
 
       // Login thành công, reset form và đóng modal
-      showSuccess('Login successful!')
+      showSuccess(t('loginSuccess'))
       reset()
       close()
       sMenuSignal.set('open')
@@ -71,10 +73,10 @@ const LoginModal = () => {
 
         <div className="relative z-10">
           <h2 className="text-[28px] md:text-[40px] font-bold text-gray-900 mb-2">
-            Sign In
+            {t('signIn')}
           </h2>
           <p className="text-sm text-gray-600 mb-8">
-            Welcome back! Enter your details to sign in.
+            {t('welcomeBack')}
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -84,8 +86,8 @@ const LoginModal = () => {
                 control={control}
                 render={({ field }) => (
                   <Input
-                    label="Phone Number"
-                    placeholder="Enter your phone number"
+                    label={t('phoneNumber')}
+                    placeholder={t('enterPhoneNumber')}
                     type="tel"
                     {...field}
                     error={errors.phone?.message}
@@ -100,7 +102,7 @@ const LoginModal = () => {
                 control={control}
                 render={({ field }) => (
                   <PasswordInput
-                    label="Password"
+                    label={t('password')}
                     placeholder="••••••••"
                     {...field}
                     error={errors.password?.message}
@@ -112,7 +114,7 @@ const LoginModal = () => {
                   type="button"
                   className="text-sm font-medium text-[#3B82F6] hover:underline"
                 >
-                  Forgot Password?
+                  {t('forgotPassword')}
                 </button>
               </div>
             </div>
@@ -124,7 +126,7 @@ const LoginModal = () => {
                 className="w-full"
                 disabled={loginMutation.isPending}
               >
-                {loginMutation.isPending ? 'Signing In...' : 'Sign In'}
+                {loginMutation.isPending ? t('signingIn') : t('signIn')}
               </Button>
             </div>
           </form>

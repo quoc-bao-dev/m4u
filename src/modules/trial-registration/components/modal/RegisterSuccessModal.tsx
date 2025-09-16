@@ -4,12 +4,14 @@ import { ModalClient } from '@/core/components'
 import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
 import Confetti from 'react-confetti'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 const RegisterSuccessModal = () => {
+  const t = useTranslations()
   const store = useRegisterSuccessModal()
   const isOpen = store.isOpen
-  const effectiveTitle = store.title
-  const effectiveMessage = store.message
+  const effectiveTitle = t('trial.success.title')
+  const effectiveMessage = t('trial.success.message')
   const handleClose = store.close
 
   // đo kích thước modal để gắn confetti vào mép trên

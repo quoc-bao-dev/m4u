@@ -4,15 +4,26 @@ import { envConfig } from '@/core/config'
 import { useToast } from '@/core/hooks'
 import { useAuth } from '@/modules/auth'
 import useLogoutConfirmModal from '@/modules/auth/stores/useLogoutConfirmModal'
+import { useLogout } from '@/services/auth/mutations'
+import { tokenManager } from '@/core/http/axiosInstance'
+import { useTranslations } from 'next-intl'
 
 const LogoutConfirmModal = () => {
   const { isOpen, close } = useLogoutConfirmModal()
   const { clearUser } = useAuth()
   const { showSuccess } = useToast()
+  const logoutMutation = useLogout()
+  const t = useTranslations('auth')
 
   const handleConfirm = () => {
+    const token = tokenManager.getAccessToken()
+
+    if (token) {
+      logoutMutation.mutate(token)
+    }
+
     clearUser()
-    showSuccess('Logged out successfully!')
+    showSuccess(t('logoutSuccess'))
     localStorage.removeItem(envConfig.accessTokenKey)
     close()
   }

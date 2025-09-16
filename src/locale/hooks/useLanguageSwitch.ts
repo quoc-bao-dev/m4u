@@ -1,3 +1,5 @@
+'use client'
+
 import { useLocale } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useRouter } from '../navigation'
