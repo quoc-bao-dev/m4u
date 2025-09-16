@@ -35,7 +35,6 @@ const ProductSection = () => {
           : p.time_left_dd_hh_mm_ss,
     }))
   }, [productList])
-  console.log(products)
 
   return (
     <>
