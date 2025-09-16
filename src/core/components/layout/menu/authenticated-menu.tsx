@@ -11,8 +11,11 @@ import {
   UsersThreeIcon
 } from '@phosphor-icons/react'
 import React from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { sMenuSignal } from './sMenuSignal'
+import moment from 'moment'
+import 'moment/locale/vi'
+import 'moment/locale/ko'
 
 type UserType = UserResponse['info']
 
@@ -35,16 +38,17 @@ const AuthenticatedMenu = ({ user, children }: AuthenticatedMenuProps) => {
 
 const Header = ({ user }: HeaderProps) => {
   const t = useTranslations()
+  const locale = useLocale()
 
   // Format join date from created_at
   const formatJoinDate = (dateString: string) => {
     try {
-      const date = new Date(dateString)
-      const formatted = date.toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-      })
+      const m = moment(dateString)
+      if (!m.isValid()) return t('menu.auth.unknown')
+
+      // Map locale for moment (project uses 'kr' while moment uses 'ko')
+      const momentLocale = locale === 'kr' ? 'ko' : locale || 'en'
+      const formatted = m.locale(momentLocale).format('L')
       return t('menu.auth.joinedSince', { date: formatted })
     } catch {
       return t('menu.auth.unknown')

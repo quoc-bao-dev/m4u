@@ -182,7 +182,7 @@ const TopReviewerCard = ({
     <Link
       ref={cardRef as Ref<HTMLAnchorElement>}
       href="/review-hub/detail"
-      className={`p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
+      className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
       {/* {isLoading ? (
         <Loading className="flex-shrink-0 hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl" />

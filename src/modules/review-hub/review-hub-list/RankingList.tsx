@@ -185,7 +185,7 @@ const RankingList = () => {
         <div className="flex gap-3 2xl:gap-4 overflow-x-scroll scroll-hidden w-full">
           {/* Free From Filter */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[140px] bg-white">
               <SelectValue placeholder="Free From" />
             </SelectTrigger>
             <SelectContent>
@@ -199,7 +199,7 @@ const RankingList = () => {
 
           {/* Benefits Filter */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[120px]">
+            <SelectTrigger className="w-[120px] bg-white">
               <SelectValue placeholder="Benefits" />
             </SelectTrigger>
             <SelectContent>
@@ -213,7 +213,7 @@ const RankingList = () => {
 
           {/* Skin Type Filter */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[120px]">
+            <SelectTrigger className="w-[120px] bg-white">
               <SelectValue placeholder="Skin Type" />
             </SelectTrigger>
             <SelectContent>
@@ -227,7 +227,7 @@ const RankingList = () => {
 
           {/* Key Ingredients Filter */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-[150px] bg-white">
               <SelectValue placeholder="Key Ingredients" />
             </SelectTrigger>
             <SelectContent>
@@ -241,7 +241,7 @@ const RankingList = () => {
 
           {/* Rating Filter */}
           <Select defaultValue="all">
-            <SelectTrigger className="w-[100px]">
+            <SelectTrigger className="w-[100px] bg-white">
               <SelectValue placeholder="Rating" />
             </SelectTrigger>
             <SelectContent>
