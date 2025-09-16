@@ -1,6 +1,6 @@
 'use client'
 
-import { Input, Select } from '@/core/components'
+import { Select } from '@/core/components'
 import { useMemo, useState } from 'react'
 
 const TABS = ['All', 'Event', 'Challenge'] as const

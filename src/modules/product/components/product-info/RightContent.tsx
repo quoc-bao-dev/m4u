@@ -10,17 +10,11 @@ import AvatarStack from './AvatarStack'
 
 type RightContentProps = {
   name: string
-  content: string
   time?: string
   ingredients: Ingredient[]
 }
 
-const RightContent = ({
-  name,
-  content,
-  time,
-  ingredients,
-}: RightContentProps) => {
+const RightContent = ({ name, time, ingredients }: RightContentProps) => {
   const { t } = useTranslation()
   return (
     <div className="w-full bg-yellow-100  py-4 px-4 lg:p-[48px] md:rounded-3xl">
