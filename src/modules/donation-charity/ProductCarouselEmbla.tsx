@@ -15,18 +15,17 @@ interface Product {
 }
 
 const ProductCarouselEmbla = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: 'start',
     containScroll: 'trimSnaps',
-    dragFree: false,
+    dragFree: true,
     slidesToScroll: 1,
     duration: 40
   })
-  
+
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const [previousIndex, setPreviousIndex] = useState(0)
-  const [isWrapping, setIsWrapping] = useState(false)
+
 
   const originalProducts: Product[] = [
     {
@@ -101,7 +100,7 @@ const ProductCarouselEmbla = () => {
       imageSrc: IMAGES.deal3,
       colorScheme: 'blue'
     },
-    
+
   ]
 
   const scrollTo = useCallback((index: number) => {
@@ -115,46 +114,37 @@ const ProductCarouselEmbla = () => {
   }, [])
 
   const onSelect = useCallback((emblaApi: any) => {
-    const currentIndex = emblaApi.selectedScrollSnap()
-    const total = originalProducts.length
-    const wasAtEndToStart = previousIndex === total - 1 && currentIndex === 0
-    const wasAtStartToEnd = previousIndex === 0 && currentIndex === total - 1
-
-    if (wasAtEndToStart || wasAtStartToEnd) {
-      setIsWrapping(true)
-      // Tắt cờ ngay sau một frame để chặn animation vào lúc wrap
-      requestAnimationFrame(() => setIsWrapping(false))
-    }
-
-    setPreviousIndex(currentIndex)
-    setSelectedIndex(currentIndex)
-  }, [previousIndex])
+    setSelectedIndex(emblaApi.selectedScrollSnap())
+  }, [])
 
   useEffect(() => {
-    if (emblaApi) {
-      onInit()
-      onSelect(emblaApi)
-      emblaApi.on('reInit', onInit)
-      emblaApi.on('select', onSelect)
+    if (!emblaApi) return
+
+    onInit()
+    onSelect(emblaApi)
+    emblaApi.on('reInit', onInit)
+    emblaApi.on('select', onSelect)
+
+    return () => {
+      emblaApi.off('reInit', onInit)
+      emblaApi.off('select', onSelect)
     }
   }, [emblaApi, onInit, onSelect])
 
   const handleCardClick = (index: number) => {
-    const originalIndex = index % originalProducts.length
-    setSelectedIndex(originalIndex)
     scrollTo(index)
   }
 
   return (
     <div className="w-full flex gap-6 items-end will-change-transform transform-gpu">
       <div className="flex-1 overflow-hidden will-change-transform transform-gpu">
-        <div className="embla will-change-transform transform-gpu" ref={emblaRef}>
+        <div className="-mt-[10%] lg:-mt-[5%] 2xl:-mt-[0%] embla will-change-transform transform-gpu" ref={emblaRef}>
           <div className="embla__container flex items-end will-change-transform transform-gpu">
             {originalProducts.map((product, index) => {
               return (
-                <div 
+                <div
                   key={product.id}
-                  className={`embla__slide mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu ${isWrapping ? 'transition-none' : 'transition-transform duration-500 ease-out'}`}
+                  className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
                   onClick={() => handleCardClick(index)}
                 >
                   <ProductCard
@@ -164,9 +154,9 @@ const ProductCarouselEmbla = () => {
                     imageSrc={product.imageSrc}
                     scale={1}
                     colorScheme={product.colorScheme}
-                    widthClass="w-[280px]"
+                    widthClass="w-[150px] lg:w-[280px]"
                     variant={index === selectedIndex ? 'main' : 'item'}
-                    disableEnterAnimation={isWrapping}
+                    disableEnterAnimation={false}
                     className={index === selectedIndex ? '' : ''}
                   />
                 </div>
