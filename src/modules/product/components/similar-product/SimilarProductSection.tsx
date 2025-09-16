@@ -6,9 +6,10 @@ import { useGetProductRelationList } from '@/services/product'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useMemo } from 'react'
 import { sProductIdSignal } from '../../store/sProductIdSignal'
-import { Link } from '@/locale'
+import { Link, useTranslation } from '@/locale'
 
 const SimilarProductSection = () => {
+  const { t } = useTranslation()
   const productId = sProductIdSignal.use()
 
   const { data: productRelationList, isLoading } = useGetProductRelationList({
@@ -24,10 +25,11 @@ const SimilarProductSection = () => {
       slug: product.slug,
       brand: 'Brand', // Có thể cần lấy từ API hoặc hardcode
       productName: product.name,
-      participation: 70, // Default value, có thể cần lấy từ API
+      participation: product.count_join, // Default value, có thể cần lấy từ API
+      rate: product.average_star,
+      limitPeople: product.limit_people,
       image: product.image,
       imageAlt: product.name,
-      rate: 4.9, // Default value, có thể cần lấy từ API
       bgColor: product.background_color || '#FFF7ED',
       hex: product.color_header || '#FF8500',
       time:
@@ -71,7 +73,7 @@ const SimilarProductSection = () => {
       <Container className="overflow-hidden">
         <div className="text-center">
           <h2 className="text-title-sect font-extrabold leading-tight text-[#0B0B0B]">
-            Explore Similar Products
+            {t('product.exploreSimilarProducts')}
           </h2>
         </div>
 
@@ -127,6 +129,7 @@ const SimilarProductSection = () => {
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
+                          limitPeople={p.limitPeople}
                           image={p.image}
                           imageAlt={p.imageAlt}
                           rate={p.rate}

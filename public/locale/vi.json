@@ -29,7 +29,10 @@
     "views": "lượt xem",
     "filterBy": "Sắp xếp:",
     "selectFilter": "Chọn bộ lọc",
-    "viewAll": "Xem tất cả"
+    "viewAll": "Xem tất cả",
+    "exploreSimilarProducts": "Khám phá sản phẩm tương tự",
+    "honestReviews": "Đánh giá chân thực",
+    "fromRealUsers": "Từ người dùng thực"
   },
   "timer": {
     "days": "ngày",

@@ -12,9 +12,21 @@ type RightContentProps = {
   name: string
   time?: string
   ingredients: Ingredient[]
+  rate: number
+  quantityReviews: number
+  limitPeople: number
+  participation: number
 }
 
-const RightContent = ({ name, time, ingredients }: RightContentProps) => {
+const RightContent = ({
+  name,
+  time,
+  ingredients,
+  rate,
+  quantityReviews,
+  limitPeople,
+  participation,
+}: RightContentProps) => {
   const { t } = useTranslation()
   return (
     <div className="w-full bg-yellow-100  py-4 px-4 lg:p-[48px] md:rounded-3xl">
@@ -22,11 +34,11 @@ const RightContent = ({ name, time, ingredients }: RightContentProps) => {
       <h2 className="text-[16px] md:text-[32px]">{name}</h2>
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-center flex-row md:flex-col lg:flex-row">
-          <Rating rate={3} className=":mb-2 w-[100px] md:w-[120px]" />
+          <Rating rate={rate} className=":mb-2 w-[100px] md:w-[120px]" />
           <p className="text-[14px] md:text-[16px] lg:text-[20px] xl:text-[28px] text-greyscale-900 truncate">
-            4.8{' '}
+            {rate}{' '}
             <span className="text-greyscale-400 truncate">
-              (69 {t('product.reviews')})
+              ({quantityReviews} {t('product.reviews')})
             </span>
           </p>
         </div>
@@ -39,7 +51,7 @@ const RightContent = ({ name, time, ingredients }: RightContentProps) => {
       </div>
 
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4 md:gap-0">
-        <AvatarStack />
+        <AvatarStack limitPeople={limitPeople} participation={participation} />
         <div className="flex justify-start">
           <ButtonRegister />
         </div>

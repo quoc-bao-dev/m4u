@@ -29,7 +29,10 @@
     "views": "views",
     "filterBy": "Filter by:",
     "selectFilter": "Select filter",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "exploreSimilarProducts": "Explore Similar Products",
+    "honestReviews": "Honest Reviews",
+    "fromRealUsers": "From Real Users"
   },
   "timer": {
     "days": "day",

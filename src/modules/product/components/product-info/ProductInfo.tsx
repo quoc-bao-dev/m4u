@@ -30,7 +30,6 @@ const ProductInfo = () => {
 
   useEffect(() => {
     if (productDetail?.data.id) {
-      console.log(productDetail.data.id)
       sProductIdSignal.set(productDetail.data.id.toString())
     }
     return () => {
@@ -175,6 +174,10 @@ const ProductInfo = () => {
                   name={detail?.name || ''}
                   time={detail?.time_left_dd_hh_mm_ss || undefined}
                   ingredients={detail?.ingredients || []}
+                  rate={detail?.average_star || 0}
+                  quantityReviews={detail?.quantity_reviews || 0}
+                  limitPeople={detail?.limit_people || 0}
+                  participation={detail?.count_join || 0}
                 />
               </RevertContainer>
             </div>
