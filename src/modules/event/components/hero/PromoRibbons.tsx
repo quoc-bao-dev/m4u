@@ -7,7 +7,7 @@ type Props = {
 const PromoRibbons = ({ text1, text2, className }: Props) => {
   return (
     <div className={`relative ${className}`}>
-      <div className="relative">
+      <div className="relative ">
         <svg
           width="351"
           height="81"

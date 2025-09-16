@@ -71,8 +71,10 @@ const EventCard = ({
           </div>
           <p className="text-base font-normal text-greyscale-700">{date}</p>
         </div>
-        <h4 className="text-2xl font-bold text-greyscale-900">{title}</h4>
-        <div className="flex items-center gap-3">
+        <h4 className="text-base lg:text-lg 2xl:text-2xl font-bold text-greyscale-900">
+          {title}
+        </h4>
+        <div className="hidden md:flex items-center gap-3">
           <div className="flex items-center justify-center p-3 rounded-full bg-greyscale-800">
             <Image
               src="/image/donation/logoWhite.png"
@@ -85,12 +87,19 @@ const EventCard = ({
             M4U charity fund
           </p>
         </div>
+
+        <div className="md:hidden">
+          <p className="text-sm text-greyscale-700 line-clamp-2">
+            Love sheet masks? Review any 3 of our featured mask products for
+            FREE and share your honest ...
+          </p>
+        </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-normal text-greyscale-700">
               Total products
             </p>
-            <p className="text-2xl font-semibold text-orange-500">
+            <p className="text-base lg:text-lg 2xl:text-2xl font-semibold text-orange-500">
               {productCount}
             </p>
           </div>
@@ -98,7 +107,7 @@ const EventCard = ({
             <p className="text-sm font-normal text-greyscale-700">
               Total funds converted
             </p>
-            <p className="text-2xl font-semibold text-orange-500">
+            <p className="text-base lg:text-lg 2xl:text-2xl font-semibold text-orange-500">
               {fundAmount}
               <span className="text-sm underline">đ</span>
             </p>

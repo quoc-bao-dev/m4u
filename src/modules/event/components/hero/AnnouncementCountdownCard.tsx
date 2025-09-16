@@ -12,7 +12,7 @@ export default function AnnouncementCountdownCard({
   onJoin = () => {},
 }) {
   return (
-    <div className="w-full">
+    <div className="w-[467px] mx-auto scale-[70%] md:scale-[60%] lg:scale-[70%] xl:scale-[100%] md:origin-bottom-right">
       {/* Megaphone image */}
 
       {/* Countdown */}
@@ -25,7 +25,7 @@ export default function AnnouncementCountdownCard({
         <Countdown targetDate={targetDate} />
       </div>
       <div className="pt-10"></div>
-      <div className="relative w-full max-w-[457px] flex justify-between mx-auto">
+      <div className="relative w-full flex justify-between mx-auto">
         <LeftFrame />
         <RightFrame />
         <div className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -40,10 +40,10 @@ export default function AnnouncementCountdownCard({
         </div>
         <div className="absolute left-1/2 -translate-x-1/2 translate-y-1/2 bottom-0">
           <div className="relative group">
-            <button className="bg-pink-600 text-white font-semibold w-[345px] py-2 rounded-xl relative group-hover:bg-pink-600 transition-all duration-300">
+            <button className="bg-pink-600 text-white text-xl md:text-base font-semibold w-[345px] py-3 md:py-2 rounded-xl relative group-hover:bg-pink-600 transition-all duration-300">
               {buttonText}
             </button>
-            <div className="-z-10 absolute w-full h-full bg-pink-600/20 rounded-xl top-0 -rotate-[4deg] group-hover:bg-pink-600/50 transition-all duration-300"></div>
+            <div className="-z-10 absolute w-full h-full bg-pink-600/20 rounded-xl top-0 -rotate-[5deg] group-hover:bg-pink-600/50 transition-all duration-300"></div>
           </div>
         </div>
       </div>
