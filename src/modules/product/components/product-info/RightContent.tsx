@@ -9,12 +9,16 @@ import { Ingredient } from '@/services/product'
 import AvatarStack from './AvatarStack'
 
 type RightContentProps = {
+  id: string | number
   name: string
+  code: string
+  image: string
+  colorHeader?: string | null
   time?: string
   ingredients: Ingredient[]
 }
 
-const RightContent = ({ name, time, ingredients }: RightContentProps) => {
+const RightContent = ({ id, name, code, image, colorHeader, time, ingredients }: RightContentProps) => {
   const { t } = useTranslation()
   return (
     <div className="w-full bg-yellow-100  py-4 px-4 lg:p-[48px] md:rounded-3xl">
@@ -41,7 +45,13 @@ const RightContent = ({ name, time, ingredients }: RightContentProps) => {
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4 md:gap-0">
         <AvatarStack />
         <div className="flex justify-start">
-          <ButtonRegister />
+          <ButtonRegister
+            productId={id}
+            productImage={image}
+            productName={name}
+            productCode={code}
+            productColor={colorHeader || undefined}
+          />
         </div>
       </div>
 
@@ -63,11 +73,32 @@ const RightContent = ({ name, time, ingredients }: RightContentProps) => {
   )
 }
 
-const ButtonRegister = () => {
+type ButtonRegisterProps = {
+  productId: string | number
+  productImage: string
+  productName: string
+  productCode: string
+  productColor?: string
+}
+
+const ButtonRegister = ({ productId, productImage, productName, productCode, productColor }: ButtonRegisterProps) => {
   const { open: onpen } = useModalRegistration()
   const { t } = useTranslation()
   return (
-    <Button size="md" variant="primary" onClick={onpen}>
+    <Button
+      size="md"
+      variant="primary"
+      onClick={() =>
+        onpen({
+          productId,
+          productImage,
+          productName,
+          // Map code vào productBrand để hiển thị trong form
+          productBrand: productCode,
+          productColor,
+        })
+      }
+    >
       <span className="truncate"> {t('product.registerBtn')}</span>
     </Button>
   )

@@ -172,7 +172,11 @@ const ProductInfo = () => {
             <div className="md:h-fit">
               <RevertContainer className="md:mx-0!">
                 <RightContent
+                  id={detail?.id || ''}
                   name={detail?.name || ''}
+                  code={detail?.code || ''}
+                  image={detail?.image || ''}
+                  colorHeader={detail?.color_header || detail?.background_color || undefined}
                   time={detail?.time_left_dd_hh_mm_ss || undefined}
                   ingredients={detail?.ingredients || []}
                 />

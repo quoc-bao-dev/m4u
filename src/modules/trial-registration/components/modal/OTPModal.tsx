@@ -3,9 +3,11 @@
 import { ModalClient } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import { PINInput } from '@/core/components/ui/pin-input'
+import { useSignUp } from '@/services/auth/mutations'
 import { useMemo, useState } from 'react'
 import useTrialOTPModal from '../../stores/useTrialOTPModal'
 import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
+import { useToast } from '@/core/hooks/useToast'
 
 const maskPhoneNumber = (phone?: string) => {
   if (!phone) return ''
@@ -20,25 +22,68 @@ const OTPModal = () => {
   const isOpen = store.isOpen
   const effectivePhone = store.phone
   const effectiveLength = store.length
-  const confirmHandler = store.onConfirm
+  const formData = store.formData
+  const productId = store.productId
   const [otp, setOtp] = useState('')
 
   const { open: openRegisterSuccessModal } = useRegisterSuccessModal()
+  const signUpMutation = useSignUp()
+  const { showError } = useToast()
+
+  // Chuyển đổi gender từ string sang number theo yêu cầu API
+  const getGenderNumber = (gender: string): number => {
+    switch (gender) {
+      case 'male':
+        return 1
+      case 'female':
+        return 2
+      case 'other':
+        return 3
+      default:
+        return 2
+    }
+  }
 
   const maskedPhone = useMemo(
     () => maskPhoneNumber(effectivePhone),
     [effectivePhone]
   )
 
-  const handleConfirm = () => {
-    if (otp.length === effectiveLength) {
-      confirmHandler?.(otp)
-    }
-  }
 
-  const handelOpenSuccessModal = () => {
-    store.close()
-    openRegisterSuccessModal()
+  const handelOpenSuccessModal = async () => {
+    if (!formData) {
+      console.error('Không có dữ liệu form')
+      return
+    }
+
+    try {
+      // Chuẩn bị dữ liệu cho API sign_up
+      const apiData = {
+        fullname: formData.fullName,
+        phone: formData.phoneNumber,
+        birthday: formData.dateOfBirth,
+        address: formData.address,
+        gender: getGenderNumber(formData.gender),
+        id_product: String(productId || ''),
+        event: 'register',
+        key_code: otp
+      }
+
+      // Gọi API đăng ký với OTP
+      const response = await signUpMutation.mutateAsync(apiData)
+      
+      if (response?.result === true) {
+        // Nếu thành công, đóng modal OTP và mở modal thành công
+        store.close()
+        setOtp('')
+        openRegisterSuccessModal()
+      } else {
+        // Nếu thất bại, hiển thị toast lỗi với message trả về
+        showError(response?.message || 'Xác thực OTP thất bại')
+      }
+    } catch (error: any) {
+      showError(error?.message || 'Có lỗi xảy ra khi xác thực OTP')
+    }
   }
 
   const handelClose = () => {
@@ -62,7 +107,7 @@ const OTPModal = () => {
           <h2 className="text-[24px] md:text-[32px] font-bold text-gray-900 mb-2">
             Nhập mã xác thực
           </h2>
-          <p className="text-sm text-gray-600 mb-8">
+          <p className="text-sm text-gray-600 mb-6">
             Nhập mã OTP gồm {effectiveLength} chữ số vừa được gửi về số điện
             thoại{' '}
             <span className="font-semibold text-gray-900">{maskedPhone}</span>
@@ -83,10 +128,10 @@ const OTPModal = () => {
             <Button
               size="xs"
               className="w-fit"
-              disabled={otp.length !== effectiveLength}
+              disabled={otp.length !== effectiveLength || signUpMutation.isPending}
               onClick={handelOpenSuccessModal}
             >
-              Xác nhận
+              {signUpMutation.isPending ? 'Đang xử lý...' : 'Xác nhận'}
             </Button>
           </div>
         </div>

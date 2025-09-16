@@ -83,6 +83,7 @@ const ProductSection = () => {
                     >
                       <Link href={`/product/${p.slug}`}>
                         <ProductCard
+                          id={p.id}
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
