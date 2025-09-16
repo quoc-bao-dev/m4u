@@ -16,7 +16,7 @@ const Line = () => {
 
 const EventCampaign = () => {
   return (
-    <div className='py-24 flex flex-col items-center justify-center gap-10 w-full'>
+    <div className='py-24 flex flex-col items-center justify-center w-full'>
       <div className='flex flex-col items-center justify-center gap-4 container-custom'>
         <h2 className='text-6xl font-bold text-greyscale-400'><span className='text-gradient-blue-black'>
           Your Glow,
@@ -27,7 +27,7 @@ const EventCampaign = () => {
       <div className='flex flex-col pl-24 w-full'>
         <ProductCarouselEmbla />
         <div className='relative'>
-          <div className='ml-[198px]'>
+          <div className='ml-[136px]'>
             <Line />
           </div>
           <Image src={IMAGES.speaker} alt='speaker' width={300} height={240} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' />
@@ -49,7 +49,7 @@ const EventCampaign = () => {
             fundAmount={'1,234,567'}
             imageSrc='/image/donation/event1.jpg'
           />
-           <EventCard
+          <EventCard
             status='coming'
             date='06/09/2025'
             title='Livelihood assistance for single mothers in underserved communities.'
