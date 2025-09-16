@@ -121,7 +121,7 @@ const JoinNow = () => {
                       /> */}
                       <Image
                         src={step.img}
-                        alt={step.title}
+                        alt={step.title || ''}
                         width={100}
                         height={100}
                         className="size-11 text-white z-10"
@@ -150,7 +150,7 @@ const JoinNow = () => {
           })}
         </div>
       </div>
-      <Button>Đăng ký trải nghiệm ngay</Button>
+      <Button>{data?.title_button}</Button>
     </div>
   )
 }

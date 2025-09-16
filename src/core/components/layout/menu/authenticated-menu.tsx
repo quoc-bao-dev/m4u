@@ -3,15 +3,19 @@
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { UserResponse } from '@/services/auth/type'
 import {
-  CheckCircle,
-  PencilSimpleLine,
-  QrCode,
-  SignOut,
-  UserCircle,
-  UsersThree,
+  CheckCircleIcon,
+  PencilSimpleLineIcon,
+  QrCodeIcon,
+  SignOutIcon,
+  UserCircleIcon,
+  UsersThreeIcon
 } from '@phosphor-icons/react'
 import React from 'react'
+import { useTranslations, useLocale } from 'next-intl'
 import { sMenuSignal } from './sMenuSignal'
+import moment from 'moment'
+import 'moment/locale/vi'
+import 'moment/locale/ko'
 
 type UserType = UserResponse['info']
 
@@ -33,17 +37,21 @@ const AuthenticatedMenu = ({ user, children }: AuthenticatedMenuProps) => {
 }
 
 const Header = ({ user }: HeaderProps) => {
+  const t = useTranslations()
+  const locale = useLocale()
+
   // Format join date from created_at
   const formatJoinDate = (dateString: string) => {
     try {
-      const date = new Date(dateString)
-      return date.toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-      })
+      const m = moment(dateString)
+      if (!m.isValid()) return t('menu.auth.unknown')
+
+      // Map locale for moment (project uses 'kr' while moment uses 'ko')
+      const momentLocale = locale === 'kr' ? 'ko' : locale || 'en'
+      const formatted = m.locale(momentLocale).format('L')
+      return t('menu.auth.joinedSince', { date: formatted })
     } catch {
-      return 'Unknown'
+      return t('menu.auth.unknown')
     }
   }
 
@@ -55,7 +63,7 @@ const Header = ({ user }: HeaderProps) => {
   if (!user) {
     return (
       <div className="flex items-center justify-center py-8">
-        <p className="text-greyscale-500">Loading user information...</p>
+        <p className="text-greyscale-500">{t('menu.auth.loadingUser')}</p>
       </div>
     )
   }
@@ -82,11 +90,9 @@ const Header = ({ user }: HeaderProps) => {
           {/* Name and join date */}
           <div>
             <h3 className="text-[18px] font-bold text-greyscale-900 mb-1">
-              {user.fullname || 'Unknown User'}
+              {user.fullname || t('menu.auth.unknownUser')}
             </h3>
-            <p className="text-[12px] text-greyscale-500">
-              Joined since {formatJoinDate(user.created_at)}
-            </p>
+            <p className="text-[12px] text-greyscale-500">{formatJoinDate(user.created_at)}</p>
           </div>
         </div>
 
@@ -94,7 +100,7 @@ const Header = ({ user }: HeaderProps) => {
         <div className="bg-[#FFD4001A] px-3 py-1 rounded-full flex items-center gap-1 relative z-10">
           <GoldIcon />
           <span className="text-xs md:text-sm font-medium text-[#FF9900] truncate">
-            Gold membership
+            {t('menu.auth.membership.gold')}
           </span>
         </div>
       </div>
@@ -104,9 +110,9 @@ const Header = ({ user }: HeaderProps) => {
         {/* Referrals */}
         <div className="text-center">
           <div className="text-base font-bold text-greyscale-900 mb-1">
-            {user.referral_code ? 'Active' : '0'}
+            {user.referral_code ? t('menu.auth.stats.active') : '0'}
           </div>
-          <div className="text-[12px] text-greyscale-500">Referrals</div>
+          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.referrals')}</div>
         </div>
 
         {/* Account Balance */}
@@ -114,7 +120,7 @@ const Header = ({ user }: HeaderProps) => {
           <div className="text-base font-bold text-greyscale-900 mb-1">
             {formatBalance(user.account_balance)}
           </div>
-          <div className="text-[12px] text-greyscale-500">Account Balance</div>
+          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.accountBalance')}</div>
         </div>
 
         {/* Points */}
@@ -122,7 +128,7 @@ const Header = ({ user }: HeaderProps) => {
           <div className="text-base font-bold text-greyscale-900 mb-1">
             {user.point || '0'}
           </div>
-          <div className="text-[12px] text-greyscale-500">Points</div>
+          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.points')}</div>
         </div>
       </div>
     </div>
@@ -130,29 +136,30 @@ const Header = ({ user }: HeaderProps) => {
 }
 
 const Top = ({ user }: TopProps) => {
+  const t = useTranslations()
   const activityItems = [
     {
       id: 'trial-history',
-      label: 'Trial registration history',
-      icon: CheckCircle,
+      label: 'menu.auth.activity.trialHistory',
+      icon: CheckCircleIcon,
       href: '/vi/developing',
     },
     {
       id: 'my-reviews',
-      label: 'My reviews',
-      icon: PencilSimpleLine,
+      label: 'menu.auth.activity.myReviews',
+      icon: PencilSimpleLineIcon,
       href: '/vi/developing',
     },
     {
       id: 'referral-list',
-      label: 'Referral List',
-      icon: UsersThree,
+      label: 'menu.auth.activity.referralList',
+      icon: UsersThreeIcon,
       href: '/vi/developing',
     },
     {
       id: 'referral-code',
-      label: 'Referral Code',
-      icon: QrCode,
+      label: 'menu.auth.activity.referralCode',
+      icon: QrCodeIcon,
       href: '/vi/developing',
     },
   ]
@@ -160,7 +167,7 @@ const Top = ({ user }: TopProps) => {
   return (
     <div className="flex flex-col gap-4 shadow-[0px_4px_24px_0px_#0000000F] rounded-xl pb-3">
       <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
-        My activity
+        {t('menu.auth.activity.title')}
       </h3>
       <div className="grid grid-cols-4 gap-4 px-3">
         {activityItems.map((item) => {
@@ -179,7 +186,7 @@ const Top = ({ user }: TopProps) => {
                 />
               </div>
               <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500 text-center">
-                {item.label}
+                {t(item.label)}
               </span>
             </a>
           )
@@ -190,23 +197,25 @@ const Top = ({ user }: TopProps) => {
 }
 
 export const AccountButton = () => {
+  const t = useTranslations()
   return (
     <button className="flex items-center gap-2 cursor-pointer group">
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
-        <UserCircle
+        <UserCircleIcon
           weight="fill"
           size={16}
           className="text-[#3B82F6] group-hover:text-blue-500"
         />
       </div>
       <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
-        Account Preferences
+        {t('menu.auth.account.preferences')}
       </span>
     </button>
   )
 }
 
 export const LogoutButton = () => {
+  const t = useTranslations()
   const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
 
   const handleLogout = () => {
@@ -222,14 +231,14 @@ export const LogoutButton = () => {
       className="flex items-center gap-2 cursor-pointer group"
     >
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
-        <SignOut
+        <SignOutIcon
           weight="fill"
           size={16}
           className="text-[#FF8092] group-hover:text-red-500"
         />
       </div>
       <span className="text-sm font-normal text-greyscale-700 group-hover:text-red-500">
-        Log out
+        {t('menu.auth.logout')}
       </span>
     </button>
   )

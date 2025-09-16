@@ -115,7 +115,7 @@ const KOLs = () => {
       <div className="flex justify-end items-center gap-2 lg:gap-4 w-full">
         <h3 className="text-lg font-normal text-greyscale-600">Filter by:</h3>
         <Select defaultValue="latest">
-          <SelectTrigger className="w-30 lg:w-[180px]">
+          <SelectTrigger className="w-30 lg:w-[180px] bg-white">
             <SelectValue placeholder="Sắp xếp theo" />
           </SelectTrigger>
           <SelectContent>
@@ -127,7 +127,7 @@ const KOLs = () => {
           </SelectContent>
         </Select>
         <Select defaultValue="all">
-          <SelectTrigger className="w-30 lg:w-[180px]">
+          <SelectTrigger className="w-30 lg:w-[180px] bg-white">
             <SelectValue placeholder="Most viewed" />
           </SelectTrigger>
           <SelectContent>

@@ -3,9 +3,9 @@ import { Loading } from '@/core/components/common/loading'
 import Rating from '@/core/components/common/Rating'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
+import { Link } from '@/locale'
 import { MedalIcon, PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const kols = [
@@ -149,7 +149,7 @@ const TopReviewer = () => {
       <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[100%] tracking-tight">
         Endorsed by top reviewers
       </h2>
-      <Link href="/vi/review-hub/detail" className="flex-shrink-0">
+      <Link href="/review-hub/detail" className="flex-shrink-0">
         {/* {isLoading ? (
           <Loading className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
         ) : ( */}
@@ -164,7 +164,7 @@ const TopReviewer = () => {
       </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
         <Link
-          href="/vi/review-hub/detail"
+          href="/review-hub/detail"
           className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer"
         >
           <h2 className="hidden lg:block text-black group-hover:text-yellow-600 transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
