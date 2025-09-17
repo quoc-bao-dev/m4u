@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslation } from '@/locale/hooks'
+import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 
 type FilterOption = {
@@ -15,64 +15,7 @@ type FilterGroup = {
   options: FilterOption[]
 }
 
-const groupsSeed: FilterGroup[] = [
-  {
-    id: 'without',
-    title: 'Không chứa',
-    options: [
-      { id: 'huong-lieu', label: 'Hương liệu nhân tạo', count: 6 },
-      { id: 'con', label: 'Cồn', count: 9 },
-      { id: 'sulphates', label: 'Sulphates', count: 8 },
-      { id: 'goc-dong-vat', label: 'Gốc động vật', count: 8 },
-      { id: 'silicone', label: 'Silicone', count: 24 },
-    ],
-  },
-  {
-    id: 'usage',
-    title: 'Công dụng',
-    options: [
-      { id: 'duong-am-sau', label: 'Dưỡng ẩm sâu', count: 6 },
-      { id: 'kiem-dau', label: 'Kiểm dầu & cân bằng', count: 9 },
-      { id: 'tri-mun', label: 'Trị mụn & làm dịu da', count: 8 },
-      { id: 'chong-lao-hoa', label: 'Chống lão hóa & phục hồi', count: 6 },
-      { id: 'duong-trang', label: 'Dưỡng trắng & làm sáng da', count: 13 },
-    ],
-  },
-  {
-    id: 'skin',
-    title: 'Loại da',
-    options: [
-      { id: 'da-kho', label: 'Da khô', count: 6 },
-      { id: 'da-dau', label: 'Da dầu', count: 9 },
-      { id: 'da-nhay-cam', label: 'Da nhạy cảm', count: 13 },
-      { id: 'da-hon-hop', label: 'Da hỗn hợp', count: 8 },
-      { id: 'da-thuong', label: 'Da thường', count: 8 },
-      { id: 'da-mun', label: 'Da mụn', count: 24 },
-    ],
-  },
-  {
-    id: 'ingredients',
-    title: 'Thành phần chính',
-    options: [
-      { id: 'nha-dam', label: 'Nha đam', count: 6 },
-      { id: 'collagen', label: 'Collagen', count: 9 },
-      { id: 'ha', label: 'Hyaluronic Acid', count: 8 },
-      { id: 'tram-tra', label: 'Tràm trà', count: 6 },
-      { id: 'rau-ma', label: 'Rau má', count: 24 },
-    ],
-  },
-  {
-    id: 'rating',
-    title: 'Đánh giá',
-    options: [
-      { id: '5', label: '5.0', count: 6 },
-      { id: '4', label: '4.0', count: 9 },
-      { id: '3', label: '3.0', count: 8 },
-      { id: '2', label: '2.0', count: 6 },
-      { id: '1', label: '1.0', count: 24 },
-    ],
-  },
-]
+// This will be replaced with dynamic data from translations
 
 const Section = ({
   group,
@@ -144,10 +87,69 @@ const Section = ({
 
 const FilterSidebar = () => {
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const t = useTranslations('filter')
 
-  const { t } = useTranslation()
-
-  const groups = useMemo(() => groupsSeed, [])
+  const groups = useMemo(
+    () => [
+      {
+        id: 'without',
+        title: t('without'),
+        options: [
+          { id: 'huong-lieu', label: t('artificialFragrance'), count: 6 },
+          { id: 'con', label: t('alcohol'), count: 9 },
+          { id: 'sulphates', label: t('sulphates'), count: 8 },
+          { id: 'goc-dong-vat', label: t('animalDerived'), count: 8 },
+          { id: 'silicone', label: t('silicone'), count: 24 },
+        ],
+      },
+      {
+        id: 'usage',
+        title: t('usage'),
+        options: [
+          { id: 'duong-am-sau', label: t('deepMoisturizing'), count: 6 },
+          { id: 'kiem-dau', label: t('oilControl'), count: 9 },
+          { id: 'tri-mun', label: t('acneTreatment'), count: 8 },
+          { id: 'chong-lao-hoa', label: t('antiAging'), count: 6 },
+          { id: 'duong-trang', label: t('whitening'), count: 13 },
+        ],
+      },
+      {
+        id: 'skin',
+        title: t('skinType'),
+        options: [
+          { id: 'da-kho', label: t('drySkin'), count: 6 },
+          { id: 'da-dau', label: t('oilySkin'), count: 9 },
+          { id: 'da-nhay-cam', label: t('sensitiveSkin'), count: 13 },
+          { id: 'da-hon-hop', label: t('combinationSkin'), count: 8 },
+          { id: 'da-thuong', label: t('normalSkin'), count: 8 },
+          { id: 'da-mun', label: t('acneSkin'), count: 24 },
+        ],
+      },
+      {
+        id: 'ingredients',
+        title: t('ingredients'),
+        options: [
+          { id: 'nha-dam', label: t('aloeVera'), count: 6 },
+          { id: 'collagen', label: t('collagen'), count: 9 },
+          { id: 'ha', label: t('hyaluronicAcid'), count: 8 },
+          { id: 'tram-tra', label: t('teaTree'), count: 6 },
+          { id: 'rau-ma', label: t('gotuKola'), count: 24 },
+        ],
+      },
+      {
+        id: 'rating',
+        title: t('reviews'),
+        options: [
+          { id: '5', label: '5.0', count: 6 },
+          { id: '4', label: '4.0', count: 9 },
+          { id: '3', label: '3.0', count: 8 },
+          { id: '2', label: '2.0', count: 6 },
+          { id: '1', label: '1.0', count: 24 },
+        ],
+      },
+    ],
+    [t]
+  )
 
   const handleToggle = (id: string) => {
     setSelected((prev) => {
@@ -163,9 +165,7 @@ const FilterSidebar = () => {
       <div className="rounded-2xl bg-white shadow-lg p-4">
         <div className="flex items-center gap-2 pb-2 mb-2 border-b">
           <FilterIcon />{' '}
-          <span className="font-bold text-xl text-gray-900">
-            {t('filter.title')}
-          </span>
+          <span className="font-bold text-xl text-gray-900">{t('title')}</span>
         </div>
         <div className="divide-y">
           {groups.map((g) => (

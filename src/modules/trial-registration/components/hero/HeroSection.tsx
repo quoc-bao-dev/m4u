@@ -3,6 +3,7 @@
 import { AnimatedTitle, Container } from '@/core/components'
 import { motion, type Variants } from 'framer-motion'
 import { useTranslation } from '@/locale/hooks'
+import { useMemo } from 'react'
 import AvatarStack from './AvatarStack'
 import HeroImage from './HeroImage'
 import ScrollDownCTA from './ScrollDownCTA'
@@ -10,6 +11,23 @@ import TestimonialCard from './TestimonialCard'
 
 const HeroSection = () => {
   const { t } = useTranslation()
+
+  // Memoize the animated title characters for performance
+  const joinTitleChars = useMemo(() => {
+    const joinText = t('trialHero.joinTitle')
+    return joinText.split('').map((letter, index) => ({
+      id: index + 1,
+      letter: letter,
+    }))
+  }, [t])
+
+  const experienceTitleChars = useMemo(() => {
+    const experienceText = t('trialHero.experienceTitle')
+    return experienceText.split('').map((letter, index) => ({
+      id: index + 1,
+      letter: letter,
+    }))
+  }, [t])
 
   const containerVariants: Variants = {
     hidden: {},
@@ -44,33 +62,12 @@ const HeroSection = () => {
                   >
                     <AnimatedTitle
                       className="text-gray-900"
-                      heroPerTitle={[
-                        { id: 1, letter: 'T' },
-                        { id: 2, letter: 'h' },
-                        { id: 3, letter: 'a' },
-                        { id: 4, letter: 'm' },
-                        { id: 5, letter: ' ' },
-                        { id: 6, letter: 'g' },
-                        { id: 7, letter: 'i' },
-                        { id: 8, letter: 'a' },
-                      ]}
+                      heroPerTitle={joinTitleChars}
                       delay={0}
                     />{' '}
                     <AnimatedTitle
                       className="text-[#FF8092] truncate"
-                      heroPerTitle={[
-                        { id: 1, letter: 't' },
-                        { id: 2, letter: 'r' },
-                        { id: 3, letter: 'ả' },
-                        { id: 4, letter: 'i' },
-                        { id: 5, letter: ' ' },
-                        { id: 6, letter: 'n' },
-                        { id: 7, letter: 'g' },
-                        { id: 8, letter: 'h' },
-                        { id: 9, letter: 'i' },
-                        { id: 10, letter: 'ệ' },
-                        { id: 11, letter: 'm' },
-                      ]}
+                      heroPerTitle={experienceTitleChars}
                       delay={0.3}
                     />
                   </motion.h1>
@@ -78,7 +75,7 @@ const HeroSection = () => {
 
                 {/* Sub-headline */}
                 <p className="text-desc font-medium text-gray-800">
-                  viết review nhận ngay ưu đãi
+                  {t('trialHero.writeReviewGetOffer')}
                 </p>
                 {/* Social Proof Section */}
                 <AvatarStack />

@@ -1,8 +1,13 @@
+'use client'
+
 import { Container } from '@/core/components'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import TopProductCard from './TopProductCard'
 
 const TopProductSection = () => {
+  const t = useTranslations()
+
   return (
     <>
       <section className="bg-yellow-100 relative">
@@ -25,8 +30,10 @@ const TopProductSection = () => {
             {/* Left */}
             <div className="h-full flex items-center md:pt-0 pt-10">
               <h2 className="text-title-sect text-gray-400 font-bold leading-[120%]">
-                <span className="text-gray-900">Top 3 sản phẩm</span> được quan
-                tâm nhiều nhất
+                <span className="text-gray-900">
+                  {t('topProduct.top3Products')}
+                </span>{' '}
+                {t('topProduct.mostCared')}
               </h2>
             </div>
             {/* Right */}

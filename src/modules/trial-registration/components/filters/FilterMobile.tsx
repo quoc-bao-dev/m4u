@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useMobileFilterStore } from '../../stores/useMobileFilterStore'
 import BottomSheet from './BottomSheet'
 import FilterChip from './FilterChip'
@@ -21,37 +22,39 @@ const FilterMobile = () => {
     toggleSkinType,
   } = useMobileFilterStore()
 
+  const t = useTranslations('filter')
+
   const skinTypes = [
-    { id: 'da-kho', label: 'Da khô', count: 6 },
-    { id: 'da-dau', label: 'Da dầu', count: 9 },
-    { id: 'da-nhay-cam', label: 'Da nhạy cảm', count: 13 },
-    { id: 'da-hon-hop', label: 'Da hỗn hợp', count: 8 },
-    { id: 'da-thuong', label: 'Da thường', count: 8 },
-    { id: 'da-mun', label: 'Da mụn', count: 24 },
+    { id: 'da-kho', label: t('drySkin'), count: 6 },
+    { id: 'da-dau', label: t('oilySkin'), count: 9 },
+    { id: 'da-nhay-cam', label: t('sensitiveSkin'), count: 13 },
+    { id: 'da-hon-hop', label: t('combinationSkin'), count: 8 },
+    { id: 'da-thuong', label: t('normalSkin'), count: 8 },
+    { id: 'da-mun', label: t('acneSkin'), count: 24 },
   ]
 
   const filterOptions: FilterOption[] = [
     {
       id: 'without',
-      label: 'Không chứa',
+      label: t('without'),
     },
     {
       id: 'usage',
-      label: 'Công dụng',
+      label: t('usage'),
     },
     {
       id: 'skin-type',
-      label: 'Loại da',
+      label: t('skinType'),
       hasDropdown: true,
       isActive: isSkinTypeOpen,
     },
     {
       id: 'ingredients',
-      label: 'Thành phần',
+      label: t('ingredients'),
     },
     {
       id: 'rating',
-      label: 'Đánh giá',
+      label: t('reviews'),
     },
   ]
 
@@ -76,7 +79,7 @@ const FilterMobile = () => {
       <BottomSheet
         open={isSkinTypeOpen}
         onClose={closeSkinTypePopup}
-        title="Loại da"
+        title={t('skinType')}
       >
         <div className="space-y-4">
           {skinTypes.map((skinType) => {

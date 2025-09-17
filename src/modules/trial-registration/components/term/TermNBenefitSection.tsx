@@ -1,54 +1,38 @@
 'use client'
 
 import { Container } from '@/core/components'
+import { useTranslations } from 'next-intl'
 import AccordionItem from './AccordionItem'
 
 const TermNBenefitSection = () => {
+  const t = useTranslations('termBenefit')
   return (
     <section className=" pb-[60px] md:py-[96px]">
       <Container className="space-y-3 xl:px-[200px]">
         <h2 className="text-title-sect font-bold text-gray-400 pb-5">
-          <span className="text-gray-900">Quyền lợi </span> & Điều khoản
+          <span className="text-gray-900">{t('benefits')} </span> & {t('terms')}
         </h2>
 
         <AccordionItem
-          title="Quyền Lợi Thành Viên Reviewer"
+          title={t('memberBenefits')}
           defaultOpen={true}
           className="bg-white"
         >
           <ul className="list-disc space-y-2 pl-5">
-            <li>
-              Trải nghiệm sản phẩm miễn phí các sản phẩm làm đẹp hot nhất.
-            </li>
-            <li>Thu nhập hấp dẫn từ đường link giới thiệu của bạn.</li>
-            <li>Được ưu tiên trải nghiệm các sản phẩm mới và giới hạn.</li>
-            <li>
-              Hỗ trợ và định hướng nâng cao chất lượng review từ chuyên gia.
-            </li>
-            <li>
-              Kết nối cộng đồng để chia sẻ kinh nghiệm và học hỏi lẫn nhau.
-            </li>
+            <li>{t('benefit1')}</li>
+            <li>{t('benefit2')}</li>
+            <li>{t('benefit3')}</li>
+            <li>{t('benefit4')}</li>
+            <li>{t('benefit5')}</li>
           </ul>
         </AccordionItem>
 
-        <AccordionItem
-          title="Quyền Lợi Thành Viên Reviewer"
-          className="bg-white"
-        >
-          <p>
-            Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ
-            liệu.
-          </p>
+        <AccordionItem title={t('memberBenefits')} className="bg-white">
+          <p>{t('placeholder1')}</p>
         </AccordionItem>
 
-        <AccordionItem
-          title="Quyền Lợi Thành Viên Reviewer"
-          className="bg-white"
-        >
-          <p>
-            Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các
-            hoạt động.
-          </p>
+        <AccordionItem title={t('memberBenefits')} className="bg-white">
+          <p>{t('placeholder2')}</p>
         </AccordionItem>
       </Container>
     </section>

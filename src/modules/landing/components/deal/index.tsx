@@ -10,13 +10,14 @@ import Button from '@/core/components/ui/button'
 import { useGetHomePage } from '@/services/home/queries'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Link } from '@/locale'
+import { useTranslations } from 'next-intl'
 
 const deals = [
   {
     id: 1,
     title: 'MANYO',
     description: 'Panthetoin Deep Moisture Mask',
-    participation: '70/100 participation',
+    participation: '70/100',
     image: IMAGES.deal1,
     bgColor: '#FFE1F1',
     hex: '#FE6BBA',
@@ -25,7 +26,7 @@ const deals = [
     id: 2,
     title: 'MANYO',
     description: 'Panthetoin Deep Moisture Mask',
-    participation: '70/100 participation',
+    participation: '70/100',
     image: IMAGES.deal2,
     bgColor: '#FDEAB7',
     hex: '#FACA4A',
@@ -34,7 +35,7 @@ const deals = [
     id: 3,
     title: 'MANYO',
     description: 'Panthetoin Deep Moisture Mask',
-    participation: '70/100 participation',
+    participation: '70/100',
     image: IMAGES.deal3,
     bgColor: '#D1F7EA',
     hex: '#10805B',
@@ -43,7 +44,7 @@ const deals = [
     id: 4,
     title: 'MANYO',
     description: 'Panthetoin Deep Moisture Mask',
-    participation: '70/100 participation',
+    participation: '70/100',
     image: IMAGES.deal1,
     bgColor: '#FFE1F1',
     hex: '#FE6BBA',
@@ -52,7 +53,7 @@ const deals = [
     id: 5,
     title: 'MANYO',
     description: 'Panthetoin Deep Moisture Mask',
-    participation: '70/100 participation',
+    participation: '70/100',
     image: IMAGES.deal2,
     bgColor: '#FDEAB7',
     hex: '#FACA4A',
@@ -62,6 +63,7 @@ const deals = [
 const Deal: React.FC = () => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section7
+  const t = useTranslations('product')
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -239,7 +241,7 @@ const Deal: React.FC = () => {
                         </div>
                       </div>
                       <p className="text-xs xl:text-sm text-greyscale-700">
-                        {deal.participation}
+                        {deal.participation} {t('participation')}
                       </p>
                       <button
                         className="w-fit mt-3 xl:mt-4 py-2 xl:py-4 px-3 xl:px-5 rounded-full cursor-pointer text-sm xl:text-base"
@@ -258,7 +260,7 @@ const Deal: React.FC = () => {
                           e.currentTarget.style.color = deal.hex
                         }}
                       >
-                        Đăng ký dùng thử
+                        {t('register')}
                       </button>
                     </div>
                   </div>

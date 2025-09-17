@@ -1,10 +1,13 @@
 'use client'
 import { Container } from '@/core/components'
 import { IMAGES } from '@/core/constants/IMAGES'
+import { useTranslations } from 'next-intl'
 import React, { useMemo } from 'react'
 import ReviewCTACarousel from './ReviewCTACarousel'
 
 const ReviewCTASection = () => {
+  const t = useTranslations('reviewCTA')
+
   const items = useMemo(
     () => [
       {
@@ -18,8 +21,8 @@ const ReviewCTASection = () => {
         productName: 'Panthetoin Deep Moisture Mask',
         timeInfo: '09h 16m 30s',
         progressPercentage: 70,
-        participationText: '70/100 participation',
-        buttonText: 'Đăng ký dùng thử',
+        participationText: `70/100 ${t('participation')}`,
+        buttonText: t('registerTrial'),
       },
       {
         reviewerImage: IMAGES.reviewer1,
@@ -32,8 +35,8 @@ const ReviewCTASection = () => {
         productName: 'Advance Snail 96 Mucin Power Essence',
         timeInfo: '02h 45m 10s',
         progressPercentage: 45,
-        participationText: '45/100 participation',
-        buttonText: 'Đăng ký dùng thử',
+        participationText: `45/100 ${t('participation')}`,
+        buttonText: t('registerTrial'),
       },
       {
         reviewerImage: IMAGES.reviewer1,
@@ -46,11 +49,11 @@ const ReviewCTASection = () => {
         productName: 'Green Tea Seed Serum',
         timeInfo: '15h 02m 00s',
         progressPercentage: 82,
-        participationText: '82/120 participation',
-        buttonText: 'Đăng ký dùng thử',
+        participationText: `82/120 ${t('participation')}`,
+        buttonText: t('registerTrial'),
       },
     ],
-    []
+    [t]
   )
 
   // carousel logic moved into child component
@@ -64,10 +67,10 @@ const ReviewCTASection = () => {
           <div className="flex flex-col md:flex-row gap-6 items-center relative">
             <div className="md:w-[40%] flex justify-center">
               <h2 className="text-center text-title-sect leading-[120%] md:text-[56px] lg:text-[64px] font-bold text-gray-400">
-                Còn chần chờ gì nữa mà không{' '}
-                <span className="text-gray-900">trở thành</span>
+                {t('title')}{' '}
+                <span className="text-gray-900">{t('become')}</span>
                 <br />
-                <span className="text-gray-900">reviewer ngay?</span>
+                <span className="text-gray-900">{t('reviewerNow')}</span>
               </h2>
             </div>
 

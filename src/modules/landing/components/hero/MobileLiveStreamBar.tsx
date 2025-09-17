@@ -3,12 +3,15 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { LiveStreamBadge } from '../badge'
 import AvatarStack from './AvatarStack'
+import { useTranslations } from 'next-intl'
 
 interface MobileLiveStreamBarProps {
   isVisible: boolean
 }
 
 const MobileLiveStreamBar = ({ isVisible }: MobileLiveStreamBarProps) => {
+  const t = useTranslations('hero.liveStream')
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -33,9 +36,9 @@ const MobileLiveStreamBar = ({ isVisible }: MobileLiveStreamBarProps) => {
               {/* Additional info */}
               <div className="text-right flex flex-col gap-1">
                 <p className="text-sm font-semibold text-gray-600">
-                  Thành viên online{' '}
+                  {t('membersOnline')}{' '}
                 </p>
-                  {/* <span className="text-xs text-[#F5222D] font-semibold">
+                {/* <span className="text-xs text-[#F5222D] font-semibold">
                     69+ mẹ đơn thân
                   </span> */}
 

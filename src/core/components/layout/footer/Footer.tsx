@@ -4,12 +4,15 @@ import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
 import { memo } from 'react'
 import { Link } from '@/locale'
+import { useTranslations } from 'next-intl'
 
 type FooterProps = {
   className?: string
 }
 
 const Footer = ({ className }: FooterProps) => {
+  const t = useTranslations('footer')
+
   return (
     <div
       className={cn(
@@ -61,7 +64,7 @@ const Footer = ({ className }: FooterProps) => {
                 <div className="flex gap-5 flex-col">
                   <div className="grid items-baseline justify-between">
                     <h4 className="text-xs tracking-[0.12em] font-semibold uppercase opacity-80">
-                      Sitemap
+                      {t('sitemap')}
                     </h4>
                   </div>
 
@@ -71,19 +74,19 @@ const Footer = ({ className }: FooterProps) => {
                         href="#"
                         className="opacity-90 hover:opacity-100 transition-opacity"
                       >
-                        Trang chủ
+                        {t('home')}
                       </Link>
                       <Link
                         href="#"
                         className="opacity-90 hover:opacity-100 transition-opacity"
                       >
-                        Tham gia dùng thử
+                        {t('joinTrial')}
                       </Link>
                       <Link
                         href="#"
                         className="opacity-90 hover:opacity-100 transition-opacity"
                       >
-                        Newsfeed
+                        {t('newsfeed')}
                       </Link>
                     </nav>
                     <nav className="flex flex-col gap-2">
@@ -91,13 +94,13 @@ const Footer = ({ className }: FooterProps) => {
                         href="#"
                         className="opacity-90 hover:opacity-100 transition-opacity"
                       >
-                        Tin tức & Sự kiện
+                        {t('newsEvents')}
                       </Link>
                       <Link
                         href="#"
                         className="opacity-90 hover:opacity-100 transition-opacity"
                       >
-                        Tài khoản
+                        {t('account')}
                       </Link>
                     </nav>
                   </div>
@@ -156,7 +159,7 @@ const Footer = ({ className }: FooterProps) => {
           {/* Bottom: copyright */}
           <div className="flex justify-between">
             <div className="flex items-center justify-between pt-2 text-xs text-gray-100 opacity-80">
-              <p>© 2025 — Copyright Mask4U. All rights reserved.</p>
+              <p>{t('copyright')}</p>
               <div className="hidden md:flex items-center gap-4" />
             </div>
 
