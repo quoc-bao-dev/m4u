@@ -20,6 +20,7 @@
   },
   "product": {
     "register": "체험 신청",
+    "writeYourReview": "리뷰 작성",
     "registerBtn": "지금 등록",
     "participation": "참여",
     "reviews": "리뷰",
@@ -33,6 +34,14 @@
     "exploreSimilarProducts": "유사한 제품 탐색",
     "honestReviews": "솔직한 리뷰",
     "fromRealUsers": "실제 사용자로부터"
+  },
+  "cart": {
+    "title": "체험 장바구니 ({count}개 항목)",
+    "empty": "장바구니가 비어있습니다",
+    "clearAll": "모두 삭제",
+    "viewDetails": "자세히 보기",
+    "addedToCart": "장바구니에 추가됨",
+    "alreadyInCart": "이미 장바구니에 있음"
   },
   "timer": {
     "days": "일",
@@ -113,7 +122,7 @@
       "fields": {
         "fullName": { "label": "성명", "placeholder": "성명을 입력하세요" },
         "phoneNumber": { "label": "전화번호", "placeholder": "전화번호를 입력하세요" },
-        "dateOfBirth": { "label": "생년월일" },
+        "dateOfBirth": { "label": "생년월일", "placeholder": "생년월일을 선택하세요" },
         "address": { "label": "주소", "placeholder": "주소를 입력하세요" },
         "gender": {
           "label": "성별",

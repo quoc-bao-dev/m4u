@@ -4,6 +4,7 @@ import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
+import CartIcon from '@/modules/trial-registration/components/cart/CartIcon'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -93,6 +94,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
         <div className="sticky bottom-0 left-0 right-0 z-10 -mt-[100px]">
           <Footer />
         </div>
+
+        {/* Cart Icon - Fixed position */}
+        <CartIcon />
       </div>
     </div>
   )

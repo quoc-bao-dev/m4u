@@ -177,6 +177,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
                       required
+                      placeholder={t('trial.form.fields.dateOfBirth.placeholder')}
                     />
                     {errors.dateOfBirth && (
                       <p className="mt-1 text-xs text-red-600">{errors.dateOfBirth.message}</p>
