@@ -4,6 +4,7 @@ import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
 import { StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useRef } from 'react'
 
 type SideImage = {
@@ -23,6 +24,7 @@ type SimilarProduct = {
 
 const Similar = () => {
   const { isMobile, isTablet } = useDevice()
+  const tProduct = useTranslations('product')
   const firstVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
   const similarProducts: SimilarProduct[] = [
     {
@@ -79,7 +81,7 @@ const Similar = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-4 lg:gap-10 py-12 xl:py-24 w-full px-3 lg:px-0">
       <h2 className="text-gradient-blue-black font-bold text-2xl lg:text-5xl 2xl:text-[64px] xl:leading-[100%] tracking-tight">
-        Explore Similar Products
+        {tProduct('exploreSimilarProducts')}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-10 2xl:gap-16">
         {similarProducts.map((product) => (
@@ -105,7 +107,7 @@ const Similar = () => {
                     <span className="text-greyscale-900 font-medium">
                       {product.rating.toFixed(1)}{' '}
                     </span>
-                    ({product.reviews} reviews)
+                    ({product.reviews} {tProduct('reviews')})
                   </p>
                 </div>
               </div>

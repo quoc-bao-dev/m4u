@@ -42,11 +42,9 @@ const LogoutConfirmModal = () => {
 
         <div className="relative z-10">
           <h2 className="text-[24px] md:text-[32px] font-bold text-gray-900 mb-2">
-            Confirm Logout
+            {t('confirmLogoutTitle')}
           </h2>
-          <p className="text-sm text-gray-600 mb-8">
-            Are you sure you want to log out of your account?
-          </p>
+          <p className="text-sm text-gray-600 mb-8">{t('confirmLogoutDesc')}</p>
 
           <div className="flex items-center gap-3">
             <button
@@ -54,14 +52,14 @@ const LogoutConfirmModal = () => {
               onClick={close}
               className="cursor-pointer flex-1 rounded-full border border-pink-500 text-pink-600 hover:bg-pink-50 px-4 py-2 font-medium transition-colors"
             >
-              Cancel
+              {t('cancel')}
             </button>
             <button
               type="button"
               onClick={handleConfirm}
               className="cursor-pointer flex-1 rounded-full bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 font-medium transition-colors"
             >
-              Logout
+              {t('logout')}
             </button>
           </div>
         </div>

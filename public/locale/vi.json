@@ -102,7 +102,67 @@
     "participation": "participation"
   },
   "reviewHub": {
-    "title": "Review Hub"
+    "title": "Review Hub",
+    "description": "Khám phá reviewer hàng đầu và sản phẩm nổi bật",
+    "endorsedByTopReviewers": "Được các reviewer hàng đầu đề xuất",
+    "filters": {
+      "freeFrom": "Không chứa",
+      "parabens": "Parabens",
+      "sulfates": "Sulfates",
+      "phthalates": "Phthalates",
+      "fragrance": "Hương liệu",
+      "alcohol": "Cồn",
+      "benefits": "Công dụng",
+      "hydrating": "Dưỡng ẩm",
+      "antiAging": "Chống lão hóa",
+      "brightening": "Làm sáng",
+      "acneFighting": "Hỗ trợ trị mụn",
+      "soothing": "Làm dịu",
+      "skinType": "Loại da",
+      "oily": "Da dầu",
+      "dry": "Da khô",
+      "combination": "Da hỗn hợp",
+      "sensitive": "Da nhạy cảm",
+      "normal": "Da thường",
+      "keyIngredients": "Thành phần chính",
+      "retinol": "Retinol",
+      "vitaminC": "Vitamin C",
+      "hyaluronicAcid": "Hyaluronic Acid",
+      "niacinamide": "Niacinamide",
+      "salicylicAcid": "Salicylic Acid",
+      "rating": "Đánh giá",
+      "fiveStars": "5 sao",
+      "fourStarsUp": "4 sao trở lên",
+      "threeStarsUp": "3 sao trở lên",
+      "twoStarsUp": "2 sao trở lên"
+    },
+    "searchPlaceholder": "Tìm kiếm ...",
+    "influencer": {
+      "titleLead": "Biến đam mê làm đẹp",
+      "titleEnd": "thành thu nhập!",
+      "subtitle": "Đăng ký để dùng sản phẩm miễn phí và kiếm tiền từ review của bạn.",
+      "cta": "Đăng ký trải nghiệm ngay"
+    },
+    "kols": {
+      "sortBy": "Sắp xếp theo",
+      "mostViewed": "Xem nhiều nhất",
+      "filterBy": "Lọc theo:",
+      "options": {
+        "latest": "Mới nhất",
+        "oldest": "Cũ nhất",
+        "mostViewed": "Xem nhiều nhất",
+        "highestRated": "Đánh giá cao nhất",
+        "mostLiked": "Thích nhiều nhất"
+      },
+      "period": {
+        "all": "Tất cả",
+        "today": "Hôm nay",
+        "week": "Tuần này",
+        "month": "Tháng này",
+        "year": "Năm nay",
+        "allTime": "Mọi thời gian"
+      }
+    }
   },
   "product": {
     "register": "Đăng ký dùng thử",
@@ -135,7 +195,11 @@
     "phoneNumber": "Số điện thoại",
     "enterPhoneNumber": "Nhập số điện thoại",
     "password": "Mật khẩu",
-    "forgotPassword": "Quên mật khẩu?"
+    "forgotPassword": "Quên mật khẩu?",
+    "confirmLogoutTitle": "Xác nhận đăng xuất",
+    "confirmLogoutDesc": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+    "cancel": "Huỷ",
+    "logout": "Đăng xuất"
   },
   "menu": {
     "reviewerQuestion": "Bạn có phải reviewer của M4U không?",

@@ -102,7 +102,67 @@
     "participation": "participation"
   },
   "reviewHub": {
-    "title": "Review Hub"
+    "title": "Review Hub",
+    "description": "Discover top reviewers and featured products",
+    "endorsedByTopReviewers": "Endorsed by top reviewers",
+    "filters": {
+      "freeFrom": "Free From",
+      "parabens": "Parabens",
+      "sulfates": "Sulfates",
+      "phthalates": "Phthalates",
+      "fragrance": "Fragrance",
+      "alcohol": "Alcohol",
+      "benefits": "Benefits",
+      "hydrating": "Hydrating",
+      "antiAging": "Anti-aging",
+      "brightening": "Brightening",
+      "acneFighting": "Acne Fighting",
+      "soothing": "Soothing",
+      "skinType": "Skin Type",
+      "oily": "Oily",
+      "dry": "Dry",
+      "combination": "Combination",
+      "sensitive": "Sensitive",
+      "normal": "Normal",
+      "keyIngredients": "Key Ingredients",
+      "retinol": "Retinol",
+      "vitaminC": "Vitamin C",
+      "hyaluronicAcid": "Hyaluronic Acid",
+      "niacinamide": "Niacinamide",
+      "salicylicAcid": "Salicylic Acid",
+      "rating": "Rating",
+      "fiveStars": "5 stars",
+      "fourStarsUp": "4 stars and up",
+      "threeStarsUp": "3 stars and up",
+      "twoStarsUp": "2 stars and up"
+    },
+    "searchPlaceholder": "Search ...",
+    "influencer": {
+      "titleLead": "Turn your passion for beauty",
+      "titleEnd": "into income!",
+      "subtitle": "Register to try free products and earn from your reviews.",
+      "cta": "Register to experience now"
+    },
+    "kols": {
+      "sortBy": "Sort by",
+      "mostViewed": "Most viewed",
+      "filterBy": "Filter by:",
+      "options": {
+        "latest": "Latest",
+        "oldest": "Oldest",
+        "mostViewed": "Most viewed",
+        "highestRated": "Highest rated",
+        "mostLiked": "Most liked"
+      },
+      "period": {
+        "all": "All",
+        "today": "Today",
+        "week": "This week",
+        "month": "This month",
+        "year": "This year",
+        "allTime": "All time"
+      }
+    }
   },
   "product": {
     "register": "Join the trial",
@@ -135,7 +195,11 @@
     "phoneNumber": "Phone Number",
     "enterPhoneNumber": "Enter your phone number",
     "password": "Password",
-    "forgotPassword": "Forgot Password?"
+    "forgotPassword": "Forgot Password?",
+    "confirmLogoutTitle": "Confirm Logout",
+    "confirmLogoutDesc": "Are you sure you want to log out of your account?",
+    "cancel": "Cancel",
+    "logout": "Logout"
   },
   "menu": {
     "reviewerQuestion": "Are you an M4U's reviewer?",

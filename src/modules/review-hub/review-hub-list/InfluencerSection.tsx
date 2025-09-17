@@ -2,8 +2,10 @@
 
 import Button from '@/core/components/ui/button'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 const Influencer = () => {
+  const t = useTranslations('reviewHub.influencer')
   return (
     <div className="w-full flex flex-col md:flex-row items-center gap-6 xl:gap-10 rounded-3xl bg-[#FFFAED] pb-10 md:pb-0">
       {/* Left: Image */}
@@ -20,14 +22,12 @@ const Influencer = () => {
       {/* Right: Content */}
       <div className="w-full md:flex-1 flex flex-col gap-2 lg:gap-4 text-left px-3 md:px-0">
         <h2 className="text-[24px] lg:text-[40px] 2xl:text-[64px] font-bold leading-tight text-[#0F172A]">
-          <span className="text-gray-400">Biến đam mê làm đẹp</span>{' '}
+          <span className="text-gray-400">{t('titleLead')}</span>{' '}
           <br className="hidden xl:block" />
-          thành thu nhập!
+          {t('titleEnd')}
         </h2>
-        <p className="text-gray-600 text-base lg:text-lg">
-          Đăng ký để dùng sản phẩm miễn phí và kiếm tiền từ review của bạn.
-        </p>
-        <Button>Đăng ký trải nghiệm ngay </Button>
+        <p className="text-gray-600 text-base lg:text-lg">{t('subtitle')}</p>
+        <Button>{t('cta')}</Button>
       </div>
     </div>
   )
