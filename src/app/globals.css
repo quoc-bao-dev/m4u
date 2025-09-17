@@ -331,7 +331,7 @@ body {
       border-radius: inherit;
       padding: var(--border-width);
       background: conic-gradient(
-        from var(--angle),
+        from var(--border-angle),
         #0254c5 0%,
         transparent 25%,
         rgba(3, 110, 234, 0.2) 50%,
@@ -350,8 +350,8 @@ body {
     }
   }
   
-  /* Property declaration for angle animation */
-  @property --angle {
+  /* Property declaration for border gradient angle animation */
+  @property --border-angle {
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
@@ -360,10 +360,10 @@ body {
   /* Animation for border gradient */
   @keyframes borderMove {
     0% {
-      --angle: 0deg;
+      --border-angle: 0deg;
     }
     100% {
-      --angle: 360deg;
+      --border-angle: 360deg;
     }
   }
 
@@ -375,7 +375,7 @@ body {
     --border-color: white;
     --border-inset-hover: 0px;
     --accent-color: #FF8500;
-    --angle: 0deg;
+    --border-angle: 0deg;
 
     position: relative;
     border: none;
@@ -391,7 +391,7 @@ body {
       border-radius: inherit;
       padding: var(--border-width);
       background: conic-gradient(
-        from var(--angle),
+        from var(--border-angle),
         var(--accent-color) 0%,
         transparent 25%,
         color-mix(in srgb, var(--accent-color) 20%, transparent) 50%,
