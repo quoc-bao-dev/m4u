@@ -4,7 +4,9 @@
     "about": "About",
     "contact": "Contact",
     "language": "Language",
-    "welcome": "Welcome to our application"
+    "welcome": "Welcome to our application",
+    "reviewer": "reviewer",
+    "product": "product"
   },
   "navigation": {
     "home": "Home",
@@ -21,7 +23,54 @@
     }
   },
   "donation": {
-    "donated": "Donated!"
+    "donated": "Donated!",
+    "month": "month",
+    "day": "day",
+    "hour": "hour",
+    "individuals": "individuals",
+    "justDonated": "just donated to our community!",
+    "financialPublicNote": "*Financial statements are made public every month."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "Donation & Charity",
+      "description": "Join M4U in supporting single moms through products and community contributions."
+    },
+    "giveToday": {
+      "titleLead": "Give today,",
+      "titleEnd": "change a tomorrow",
+      "subtitle": "Join M4U’s fund supporting single moms with essentials and skills."
+    },
+    "eventCampaign": {
+      "titleLead": "Your Glow,",
+      "titleEnd": "Her Growth",
+      "desc": "Each product contributes 5% to volunteer campaigns that uplift single moms—funding daily needs and skills programs. When you try & review, you help twice."
+    },
+    "modalSection": {
+      "titleLead": "Our Charity Fund Model:",
+      "titleEnd": "Beauty for a Purpose",
+      "desc": "A portion of our revenue and your community contributions are channeled directly into the M4U for Community Fund, dedicated to supporting single mothers in Vietnam.",
+      "fundingSources": "Funding Sources",
+      "charityFund": "Charity Fund",
+      "discountOnProduct": "% discount on each\nproduct sold",
+      "commission": "% commission from Referrer/ Reviewer/Seller",
+      "directDonations": "Direct donations\nfrom the community",
+      "government": "Government",
+      "organizations": "Organizations",
+      "individuals": "Individuals"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "Happening",
+        "coming": "Coming soon"
+      },
+      "fundName": "M4U charity fund",
+      "totalProducts": "Total products",
+      "totalFundsConverted": "Total funds converted"
+    },
+    "productCard": {
+      "contribution": "contribution"
+    }
   },
   "footer": {
     "sitemap": "Sitemap",
@@ -46,7 +95,8 @@
   "topProduct": {
     "top3Products": "Top 3 products",
     "mostCared": "most cared about",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "productName": "Panthetoin Deep Moisture Mask"
   },
   "termBenefit": {
     "benefitsAndTerms": "Benefits & Terms",
@@ -162,6 +212,66 @@
         "year": "This year",
         "allTime": "All time"
       }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "Review any 3 sheet masks",
+      "ribbonBottom": "chance to win an iPhone 16",
+      "dateLabel": "01 October 2025",
+      "headline": "WINNERS WILL BE ANNOUNCED",
+      "joinNow": "JOIN NOW"
+    },
+    "card": {
+      "fundName": "M4U charity fund",
+      "mobileDesc": "Love sheet masks? Review any 3 of our featured mask products for FREE and share your honest ...",
+      "totalProducts": "Total products",
+      "totalFundsConverted": "Total funds converted"
+    },
+    "filter": {
+      "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },
+      "filters": {
+        "all": "All",
+        "upcoming": "Upcoming",
+        "ongoing": "Ongoing",
+        "ended": "Ended"
+      },
+      "filterBy": "Filter by:",
+      "searchPlaceholder": "Search..."
+    },
+    "questions": {
+      "titleLead": "Frequently Asked ",
+      "titleTail": "& Questions",
+      "perksTitle": "Perks of a reviewer member",
+      "intro": "When you join, you’ll enjoy exclusive perks:",
+      "bullets": {
+        "freeTrials": {
+          "label": "Free product trials:",
+          "desc": "Try today’s hottest beauty picks at no cost."
+        },
+        "earnings": {
+          "label": "Attractive earnings:",
+          "desc": "Earn commission on every eligible order made via your referral link."
+        },
+        "earlyAccess": {
+          "label": "Early access:",
+          "desc": "Be among the first to test new and limited releases from leading brands."
+        },
+        "support": {
+          "label": "Support & guidance:",
+          "desc": "Get step-by-step playbooks and pro tips to level up your reviews and build credibility."
+        },
+        "community": {
+          "label": "Community:",
+          "desc": "Connect with beauty lovers, share experiences, and learn together."
+        }
+      },
+      "placeholder1Title": "Perks of a reviewer member",
+      "placeholder1": "Sample content: You can replace with real content when data is available.",
+      "placeholder2Title": "Perks of a reviewer member",
+      "placeholder2": "Sample content: Members receive additional benefits when participating in activities."
     }
   },
   "product": {

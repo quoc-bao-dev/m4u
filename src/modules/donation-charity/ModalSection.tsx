@@ -1,9 +1,20 @@
 'use client'
 import { IMAGES } from '@/core/constants/IMAGES'
-import { MoneySavingIcon, PackagePercentIcon, TagPercentIcon, WomanIcon } from '@/icons'
-import { BankIcon, SuitcaseSimpleIcon, UserIcon, UsersFourIcon } from '@phosphor-icons/react'
+import {
+  MoneySavingIcon,
+  PackagePercentIcon,
+  TagPercentIcon,
+  WomanIcon,
+} from '@/icons'
+import {
+  BankIcon,
+  SuitcaseSimpleIcon,
+  UserIcon,
+  UsersFourIcon,
+} from '@phosphor-icons/react'
 import Image from 'next/image'
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
 const Line = ({ className }: { className?: string }) => (
   <svg
@@ -21,10 +32,16 @@ const Line = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const LineHorizontal = ({ className, height }: { className?: string, height?: string }) => (
+const LineHorizontal = ({
+  className,
+  height,
+}: {
+  className?: string
+  height?: string
+}) => (
   <svg
     width="18"
-    height={height || "122"}
+    height={height || '122'}
     viewBox="0 0 18 122"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -38,20 +55,20 @@ const LineHorizontal = ({ className, height }: { className?: string, height?: st
 )
 
 const ModalSection = () => {
+  const t = useTranslations('donationCharity.modalSection')
+
   return (
     <div className="py-12 xl:p-24 2xl:px-40 w-full h-full flex flex-col items-center justify-center gap-5 xl:gap-10">
       <div className="px-3 xl:px-0 flex flex-col xl:flex-row items-center justify-center gap-4 xl:gap-10">
         <h2 className="text-center xl:text-left text-2xl xl:text-5xl 2xl:text-[64px] 2xl:leading-[100%] font-bold text-greyscale-400">
           <span className="text-gradient-blue-black whitespace-nowrap">
-            Our Charity Fund Model:
+            {t('titleLead')}
           </span>{' '}
           <br />
-          Beauty for a Purpose
+          {t('titleEnd')}
         </h2>
         <p className="text-center xl:text-left text-base xl:text-2xl text-greyscale-700">
-          A portion of our revenue and your community contributions are
-          channeled directly into the M4U for Community Fund, dedicated to
-          supporting single mothers in Vietnam.
+          {t('desc')}
         </p>
       </div>
       <div className="flex flex-col justify-center items-center gap-0 xl:gap-4 2xl:gap-6 w-full">
@@ -60,13 +77,17 @@ const ModalSection = () => {
             <span className="absolute z-[-1] inset-0 m-8 rounded-full bg-indigo-500 opacity-20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <span className="absolute z-[-1] inset-0 m-11 rounded-full bg-indigo-500 opacity-60 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <MoneySavingIcon className="size-9 xl:size-[72px]" />
-            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">Funding Sources</p>
+            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">
+              {t('fundingSources')}
+            </p>
           </div>
           <div className="relative size-[120px] xl:size-[200px] 2xl:size-[250px] bg-orange-600 rounded-full flex-shrink-0 flex flex-col gap-2 items-center justify-center p-3 xl:p-6 overflow-visible">
             <span className="absolute z-[-1] inset-0 m-8 rounded-full bg-orange-600 opacity-20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <span className="absolute z-[-1] inset-0 m-11 rounded-full bg-orange-600 opacity-60 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <WomanIcon className="size-9 xl:size-[72px]" />
-            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">Funding Sources</p>
+            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">
+              {t('fundingSources')}
+            </p>
           </div>
         </div>
         <div className="flex justify-evenly items-center w-full xl:hidden">
@@ -78,7 +99,9 @@ const ModalSection = () => {
             <span className="absolute z-[-1] inset-0 m-8 rounded-full bg-indigo-500 opacity-20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <span className="absolute z-[-1] inset-0 m-11 rounded-full bg-indigo-500 opacity-60 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <MoneySavingIcon className="size-9 xl:size-[72px]" />
-            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">Funding Sources</p>
+            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">
+              {t('fundingSources')}
+            </p>
           </div>
 
           <Line className="flex-shrink-0 hidden xl:block" />
@@ -137,24 +160,48 @@ const ModalSection = () => {
               </defs>
             </svg>
 
-            <div className='absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-2 xl:gap-4'>
-              <Image src={IMAGES.logo} alt='logo' width={200} height={200} className='size-10 xl:size-20' />
-              <p className='text-greyscale-900 text-[10px] xl:text-xl font-semibold text-center'>Charity<br className='xl:hidden' /> Fund</p>
+            <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-2 xl:gap-4">
+              <Image
+                src={IMAGES.logo}
+                alt="logo"
+                width={200}
+                height={200}
+                className="size-10 xl:size-20"
+              />
+              <p className="text-greyscale-900 text-[10px] xl:text-xl font-semibold text-center">
+                {t('charityFund')
+                  .split('\n')
+                  .map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < t('charityFund').split('\n').length - 1 && (
+                        <br className="xl:hidden" />
+                      )}
+                    </React.Fragment>
+                  ))}
+              </p>
             </div>
 
             <div className="absolute top-[18%] left-[10%] w-[20%] text-white flex flex-col items-center justify-center gap-0.5 xl:gap-1">
               <TagPercentIcon className="size-6 xl:size-10 2xl:size-12" />
               <div className="text-center text-[9px] xl:text-xs">
-                % discount on each
-                <br />
-                product sold
+                {t('discountOnProduct')
+                  .split('\n')
+                  .map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < t('discountOnProduct').split('\n').length - 1 && (
+                        <br />
+                      )}
+                    </React.Fragment>
+                  ))}
               </div>
             </div>
 
             <div className="absolute top-[20%] right-[9%] w-[20%] text-white flex flex-col items-center justify-center gap-0.5 xl:gap-1">
               <PackagePercentIcon className="size-6 xl:size-10 2xl:size-12" />
               <div className="text-center text-[9px] xl:text-xs">
-                % commission from Referrer/ Reviewer/Seller
+                {t('commission')}
               </div>
             </div>
 
@@ -163,9 +210,16 @@ const ModalSection = () => {
                 <div className="flex items-center justify-center gap-1">
                   <UsersFourIcon className="size-6 xl:size-10 2xl:size-12" />
                 </div>
-                Direct donations
-                <br />
-                from the community
+                {t('directDonations')
+                  .split('\n')
+                  .map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < t('directDonations').split('\n').length - 1 && (
+                        <br />
+                      )}
+                    </React.Fragment>
+                  ))}
               </div>
             </div>
           </div>
@@ -174,7 +228,9 @@ const ModalSection = () => {
             <span className="absolute z-[-1] inset-0 m-8 rounded-full bg-orange-600 opacity-20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <span className="absolute z-[-1] inset-0 m-11 rounded-full bg-orange-600 opacity-60 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" />
             <WomanIcon className="size-9 xl:size-[72px]" />
-            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">Funding Sources</p>
+            <p className="text-xs xl:text-lg 2xl:text-xl font-semibold text-white text-center">
+              {t('fundingSources')}
+            </p>
           </div>
         </div>
         <LineHorizontal className="h-8 lg:h-16 xl:h-auto flex-shrink-0 my-4 xl:my-0" />
@@ -183,24 +239,23 @@ const ModalSection = () => {
             <div className="w-24 lg:w-32 flex flex-col gap-1 items-center justify-center">
               <BankIcon className="size-8 2xl:size-12 text-pink-600" />
               <p className="text-xs xl:text-sm 2xl:text-base text-greyscale-800">
-                Government
+                {t('government')}
               </p>
             </div>
             <div className="w-24 lg:w-32 flex flex-col gap-1 items-center justify-center">
               <SuitcaseSimpleIcon className="size-8 2xl:size-12 text-pink-600" />
               <p className="text-xs xl:text-sm 2xl:text-base text-greyscale-800">
-                Organizations
+                {t('organizations')}
               </p>
             </div>
             <div className="w-24 lg:w-32 flex flex-col gap-1 items-center justify-center">
               <UserIcon className="size-8 2xl:size-12 text-pink-600" />
               <p className="text-xs xl:text-sm 2xl:text-base text-greyscale-800">
-                Individuals
+                {t('individuals')}
               </p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )
