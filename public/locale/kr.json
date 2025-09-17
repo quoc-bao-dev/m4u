@@ -13,10 +13,96 @@
     "contact": "연락처"
   },
   "hero": {
-    "viewNow": "지금 보기"
+    "viewNow": "지금 보기",
+    "liveStream": {
+      "membersOnline": "온라인 회원",
+      "singleMoms": "한부모 가정",
+      "participatingInGroup": "체험 그룹에 참여 중"
+    }
+  },
+  "donation": {
+    "donated": "기부 완료!"
+  },
+  "footer": {
+    "sitemap": "사이트맵",
+    "home": "홈",
+    "joinTrial": "체험 신청",
+    "newsfeed": "뉴스피드",
+    "newsEvents": "뉴스 & 이벤트",
+    "account": "계정",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "곧 출시 예정!",
+    "underDevelopment": "이 페이지는 개발 중입니다. 나중에 다시 확인해 주세요!",
+    "backToHome": "홈으로 돌아가기"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "리뷰 작성하고 즉시 혜택 받기",
+    "singleMomsJoined": "명 이상의 한부모 가정이 참여했습니다",
+    "joinTitle": "참여",
+    "experienceTitle": "체험"
+  },
+  "topProduct": {
+    "top3Products": "상위 3개 제품",
+    "mostCared": "가장 많이 관심받는",
+    "reviews": "리뷰"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "혜택 & 약관",
+    "benefits": "혜택",
+    "terms": "약관",
+    "memberBenefits": "리뷰어 회원 혜택",
+    "benefit1": "가장 인기 있는 뷰티 제품을 무료로 체험하세요.",
+    "benefit2": "추천 링크를 통한 매력적인 수익을 얻으세요.",
+    "benefit3": "새로운 제품과 한정 제품을 우선적으로 체험하세요.",
+    "benefit4": "전문가의 리뷰 품질 향상을 위한 지원과 가이드를 받으세요.",
+    "benefit5": "커뮤니티와 연결되어 경험을 공유하고 서로 배우세요.",
+    "placeholder1": "샘플 콘텐츠: 데이터가 있을 때 실제 콘텐츠로 교체할 수 있습니다.",
+    "placeholder2": "샘플 콘텐츠: 활동 참여 시 회원이 추가 혜택을 받습니다."
   },
   "filter": {
-    "title": "필터"
+    "title": "필터",
+    "without": "포함하지 않음",
+    "usage": "용도",
+    "skinType": "피부 타입",
+    "ingredients": "성분",
+    "price": "가격",
+    "brand": "브랜드",
+    "artificialFragrance": "인공 향료",
+    "alcohol": "알코올",
+    "sulphates": "설페이트",
+    "animalDerived": "동물 유래",
+    "silicone": "실리콘",
+    "deepMoisturizing": "깊은 보습",
+    "oilControl": "유분 조절 & 균형",
+    "acneTreatment": "여드름 치료 & 진정",
+    "antiAging": "안티에이징 & 회복",
+    "whitening": "미백 & 브라이트닝",
+    "drySkin": "건성 피부",
+    "oilySkin": "지성 피부",
+    "sensitiveSkin": "민감성 피부",
+    "combinationSkin": "복합성 피부",
+    "normalSkin": "정상 피부",
+    "acneSkin": "여드름성 피부",
+    "clearAll": "모두 지우기",
+    "apply": "적용",
+    "aloeVera": "알로에 베라",
+    "collagen": "콜라겐",
+    "hyaluronicAcid": "히알루론산",
+    "teaTree": "티트리",
+    "gotuKola": "센타엘라",
+    "reviews": "리뷰"
+  },
+  "reviewCTA": {
+    "title": "더 이상 기다릴 이유가 있나요?",
+    "become": "지금 바로",
+    "reviewerNow": "리뷰어가 되세요!",
+    "registerTrial": "체험 신청",
+    "participation": "참여"
+  },
+  "reviewHub": {
+    "title": "리뷰 허브"
   },
   "product": {
     "register": "체험 신청",
@@ -113,16 +199,21 @@
       },
       "logout": "로그아웃"
     }
-  }
-  ,
+  },
   "trial": {
     "form": {
       "headerTitle": "제품 샘플 신청",
       "headerSubtitle": "정보를 남겨주시면 연락드리겠습니다.",
       "fields": {
         "fullName": { "label": "성명", "placeholder": "성명을 입력하세요" },
-        "phoneNumber": { "label": "전화번호", "placeholder": "전화번호를 입력하세요" },
-        "dateOfBirth": { "label": "생년월일", "placeholder": "생년월일을 선택하세요" },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
         "address": { "label": "주소", "placeholder": "주소를 입력하세요" },
         "gender": {
           "label": "성별",
@@ -138,9 +229,11 @@
         "dobRequired": "생년월일을 선택하세요",
         "addressMin": "올바른 주소를 입력하세요"
       },
-      "api": { "registerFailed": "신청 실패", "registerError": "신청 중 오류가 발생했습니다" }
-    }
-    ,
+      "api": {
+        "registerFailed": "신청 실패",
+        "registerError": "신청 중 오류가 발생했습니다"
+      }
+    },
     "otp": {
       "title": "인증 코드 입력",
       "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",
@@ -150,8 +243,7 @@
         "verifyFailed": "OTP 인증에 실패했습니다",
         "verifyError": "OTP 인증 중 오류가 발생했습니다"
       }
-    }
-    ,
+    },
     "success": {
       "title": "신청이 완료되었습니다!",
       "message": "신청이 접수되었습니다. 체험 제품은 며칠 내에 귀하의 주소로 발송됩니다."

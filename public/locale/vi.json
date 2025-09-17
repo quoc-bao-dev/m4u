@@ -13,10 +13,96 @@
     "contact": "Liên hệ"
   },
   "hero": {
-    "viewNow": "Xem ngay"
+    "viewNow": "Xem ngay",
+    "liveStream": {
+      "membersOnline": "Thành viên online",
+      "singleMoms": "mẹ đơn thân",
+      "participatingInGroup": "đang tham gia nhóm trải nghiệm"
+    }
+  },
+  "donation": {
+    "donated": "Đã được quyên góp!"
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Trang chủ",
+    "joinTrial": "Tham gia dùng thử",
+    "newsfeed": "Newsfeed",
+    "newsEvents": "Tin tức & Sự kiện",
+    "account": "Tài khoản",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "Sắp ra mắt!",
+    "underDevelopment": "Trang này đang được phát triển, vui lòng quay lại sau!",
+    "backToHome": "Về trang chủ"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "viết review nhận ngay ưu đãi",
+    "singleMomsJoined": " mẹ đơn thân đã tham gia",
+    "joinTitle": "Tham gia",
+    "experienceTitle": "trải nghiệm"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 sản phẩm",
+    "mostCared": "được quan tâm nhiều nhất",
+    "reviews": "reviews"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "Quyền lợi & Điều khoản",
+    "benefits": "Quyền lợi",
+    "terms": "Điều khoản",
+    "memberBenefits": "Quyền Lợi Thành Viên Reviewer",
+    "benefit1": "Trải nghiệm sản phẩm miễn phí các sản phẩm làm đẹp hot nhất.",
+    "benefit2": "Thu nhập hấp dẫn từ đường link giới thiệu của bạn.",
+    "benefit3": "Được ưu tiên trải nghiệm các sản phẩm mới và giới hạn.",
+    "benefit4": "Hỗ trợ và định hướng nâng cao chất lượng review từ chuyên gia.",
+    "benefit5": "Kết nối cộng đồng để chia sẻ kinh nghiệm và học hỏi lẫn nhau.",
+    "placeholder1": "Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ liệu.",
+    "placeholder2": "Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các hoạt động."
   },
   "filter": {
-    "title": "Bộ lọc"
+    "title": "Bộ lọc",
+    "without": "Không chứa",
+    "usage": "Công dụng",
+    "skinType": "Loại da",
+    "ingredients": "Thành phần",
+    "price": "Giá",
+    "brand": "Thương hiệu",
+    "artificialFragrance": "Hương liệu nhân tạo",
+    "alcohol": "Cồn",
+    "sulphates": "Sulphates",
+    "animalDerived": "Gốc động vật",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Dưỡng ẩm sâu",
+    "oilControl": "Kiểm dầu & cân bằng",
+    "acneTreatment": "Trị mụn & làm dịu da",
+    "antiAging": "Chống lão hóa & phục hồi",
+    "whitening": "Dưỡng trắng & làm sáng da",
+    "drySkin": "Da khô",
+    "oilySkin": "Da dầu",
+    "sensitiveSkin": "Da nhạy cảm",
+    "combinationSkin": "Da hỗn hợp",
+    "normalSkin": "Da thường",
+    "acneSkin": "Da mụn",
+    "clearAll": "Xóa tất cả",
+    "apply": "Áp dụng",
+    "aloeVera": "Nha đam",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tràm trà",
+    "gotuKola": "Rau má",
+    "reviews": "đánh giá"
+  },
+  "reviewCTA": {
+    "title": "Còn chần chờ gì nữa mà không",
+    "become": "trở thành",
+    "reviewerNow": "reviewer ngay?",
+    "registerTrial": "Đăng ký dùng thử",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub"
   },
   "product": {
     "register": "Đăng ký dùng thử",
@@ -113,16 +199,21 @@
       },
       "logout": "Đăng xuất"
     }
-  }
-  ,
+  },
   "trial": {
     "form": {
       "headerTitle": "Đăng ký dùng thử sản phẩm",
       "headerSubtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn.",
       "fields": {
         "fullName": { "label": "Họ và tên", "placeholder": "Nhập họ và tên" },
-        "phoneNumber": { "label": "Số điện thoại", "placeholder": "Nhập số điện thoại" },
-        "dateOfBirth": { "label": "Ngày sinh", "placeholder": "Chọn ngày sinh" },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại"
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh"
+        },
         "address": { "label": "Địa chỉ", "placeholder": "Nhập địa chỉ" },
         "gender": {
           "label": "Giới tính",
@@ -138,9 +229,11 @@
         "dobRequired": "Vui lòng chọn ngày sinh",
         "addressMin": "Vui lòng nhập địa chỉ hợp lệ"
       },
-      "api": { "registerFailed": "Đăng ký thất bại", "registerError": "Có lỗi xảy ra khi đăng ký" }
-    }
-    ,
+      "api": {
+        "registerFailed": "Đăng ký thất bại",
+        "registerError": "Có lỗi xảy ra khi đăng ký"
+      }
+    },
     "otp": {
       "title": "Nhập mã xác thực",
       "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
@@ -150,8 +243,7 @@
         "verifyFailed": "Xác thực OTP thất bại",
         "verifyError": "Có lỗi xảy ra khi xác thực OTP"
       }
-    }
-    ,
+    },
     "success": {
       "title": "Đăng ký thành công!",
       "message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Sản phẩm dùng thử sẽ được gửi đến địa chỉ của bạn trong vài ngày tới."

@@ -13,10 +13,96 @@
     "contact": "Contact"
   },
   "hero": {
-    "viewNow": "View Now"
+    "viewNow": "View Now",
+    "liveStream": {
+      "membersOnline": "Members online",
+      "singleMoms": "single moms",
+      "participatingInGroup": "participating in experience group"
+    }
+  },
+  "donation": {
+    "donated": "Donated!"
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Home",
+    "joinTrial": "Join Trial",
+    "newsfeed": "Newsfeed",
+    "newsEvents": "News & Events",
+    "account": "Account",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "Coming Soon!",
+    "underDevelopment": "This page is under development, please check back later!",
+    "backToHome": "Back to Home"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "write review get instant offers",
+    "singleMomsJoined": " single moms have joined",
+    "joinTitle": "Join",
+    "experienceTitle": "experience"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 products",
+    "mostCared": "most cared about",
+    "reviews": "reviews"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "Benefits & Terms",
+    "benefits": "Benefits",
+    "terms": "Terms",
+    "memberBenefits": "Reviewer Member Benefits",
+    "benefit1": "Free experience of the hottest beauty products.",
+    "benefit2": "Attractive income from your referral links.",
+    "benefit3": "Priority access to new and limited products.",
+    "benefit4": "Support and guidance to improve review quality from experts.",
+    "benefit5": "Connect with community to share experiences and learn from each other.",
+    "placeholder1": "Sample content: You can replace with real content when data is available.",
+    "placeholder2": "Sample content: Members receive additional benefits when participating in activities."
   },
   "filter": {
-    "title": "Filter"
+    "title": "Filter",
+    "without": "Without",
+    "usage": "Usage",
+    "skinType": "Skin Type",
+    "ingredients": "Ingredients",
+    "price": "Price",
+    "brand": "Brand",
+    "artificialFragrance": "Artificial Fragrance",
+    "alcohol": "Alcohol",
+    "sulphates": "Sulphates",
+    "animalDerived": "Animal Derived",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Deep Moisturizing",
+    "oilControl": "Oil Control & Balance",
+    "acneTreatment": "Acne Treatment & Soothing",
+    "antiAging": "Anti-aging & Recovery",
+    "whitening": "Whitening & Brightening",
+    "drySkin": "Dry Skin",
+    "oilySkin": "Oily Skin",
+    "sensitiveSkin": "Sensitive Skin",
+    "combinationSkin": "Combination Skin",
+    "normalSkin": "Normal Skin",
+    "acneSkin": "Acne-prone Skin",
+    "clearAll": "Clear All",
+    "apply": "Apply",
+    "aloeVera": "Aloe Vera",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tea Tree",
+    "gotuKola": "Gotu Kola",
+    "reviews": "reviews"
+  },
+  "reviewCTA": {
+    "title": "What are you waiting for?",
+    "become": "Become a",
+    "reviewerNow": "reviewer now!",
+    "registerTrial": "Join the trial",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub"
   },
   "product": {
     "register": "Join the trial",
@@ -113,16 +199,24 @@
       },
       "logout": "Log out"
     }
-  }
-  ,
+  },
   "trial": {
     "form": {
       "headerTitle": "Register for a Product Sample",
       "headerSubtitle": "Leave your details and we'll contact you.",
       "fields": {
-        "fullName": { "label": "Full Name", "placeholder": "Enter your full name" },
-        "phoneNumber": { "label": "Phone Number", "placeholder": "Enter your phone number" },
-        "dateOfBirth": { "label": "Date of Birth" , "placeholder": "Select your date of birth" },
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "dateOfBirth": {
+          "label": "Date of Birth",
+          "placeholder": "Select your date of birth"
+        },
         "address": { "label": "Address", "placeholder": "Enter your address" },
         "gender": {
           "label": "Gender",
@@ -138,9 +232,11 @@
         "dobRequired": "Please select your date of birth",
         "addressMin": "Please enter a valid address"
       },
-      "api": { "registerFailed": "Registration failed", "registerError": "An error occurred during registration" }
-    }
-    ,
+      "api": {
+        "registerFailed": "Registration failed",
+        "registerError": "An error occurred during registration"
+      }
+    },
     "otp": {
       "title": "Enter verification code",
       "desc": "Enter the {length}-digit OTP sent to phone {phone}",
@@ -150,8 +246,7 @@
         "verifyFailed": "OTP verification failed",
         "verifyError": "An error occurred during OTP verification"
       }
-    }
-    ,
+    },
     "success": {
       "title": "Successfully registered!",
       "message": "We’ve received your application. Your trial product will be shipped to your address within the next few days."
