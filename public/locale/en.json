@@ -13,7 +13,40 @@
     "contact": "Contact"
   },
   "hero": {
-    "viewNow": "View Now"
+    "viewNow": "View Now",
+    "liveStream": {
+      "membersOnline": "Members online",
+      "singleMoms": "single moms",
+      "participatingInGroup": "participating in experience group"
+    }
+  },
+  "donation": {
+    "donated": "Donated!"
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Home",
+    "joinTrial": "Join Trial",
+    "newsfeed": "Newsfeed",
+    "newsEvents": "News & Events",
+    "account": "Account",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "Coming Soon!",
+    "underDevelopment": "This page is under development, please check back later!",
+    "backToHome": "Back to Home"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "write review get instant offers",
+    "singleMomsJoined": " single moms have joined",
+    "joinTitle": "Join",
+    "experienceTitle": "experience"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 products",
+    "mostCared": "most cared about",
+    "reviews": "reviews"
   },
   "filter": {
     "title": "Filter"
@@ -104,15 +137,20 @@
       },
       "logout": "Log out"
     }
-  }
-  ,
+  },
   "trial": {
     "form": {
       "headerTitle": "Register for a Product Sample",
       "headerSubtitle": "Leave your details and we'll contact you.",
       "fields": {
-        "fullName": { "label": "Full Name", "placeholder": "Enter your full name" },
-        "phoneNumber": { "label": "Phone Number", "placeholder": "Enter your phone number" },
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
         "dateOfBirth": { "label": "Date of Birth" },
         "address": { "label": "Address", "placeholder": "Enter your address" },
         "gender": {
@@ -129,9 +167,11 @@
         "dobRequired": "Please select your date of birth",
         "addressMin": "Please enter a valid address"
       },
-      "api": { "registerFailed": "Registration failed", "registerError": "An error occurred during registration" }
-    }
-    ,
+      "api": {
+        "registerFailed": "Registration failed",
+        "registerError": "An error occurred during registration"
+      }
+    },
     "otp": {
       "title": "Enter verification code",
       "desc": "Enter the {length}-digit OTP sent to phone {phone}",
@@ -141,8 +181,7 @@
         "verifyFailed": "OTP verification failed",
         "verifyError": "An error occurred during OTP verification"
       }
-    }
-    ,
+    },
     "success": {
       "title": "Successfully registered!",
       "message": "We’ve received your application. Your trial product will be shipped to your address within the next few days."

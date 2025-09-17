@@ -1,10 +1,12 @@
 import { useCallback } from 'react'
+import { useTranslation } from '@/locale/hooks'
 
 interface AvatarStackProps {
   className?: string
 }
 
 const AvatarStack = ({ className = '' }: AvatarStackProps) => {
+  const { t } = useTranslation()
   const Avatar = useCallback(({ src }: { src: string }) => {
     return (
       <div className="size-[40px] lg:size-[64px] rounded-full bg-white border-2 border-white shadow-sm flex items-center justify-center">
@@ -30,7 +32,7 @@ const AvatarStack = ({ className = '' }: AvatarStackProps) => {
 
       {/* Social Proof Text */}
       <p className="text-sm lg:text-[16px] font-medium text-gray-700">
-        1,000+ mẹ đơn thân đã tham gia
+        +1,000{t('trialHero.singleMomsJoined')}
       </p>
     </div>
   )

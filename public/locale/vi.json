@@ -13,7 +13,40 @@
     "contact": "Liên hệ"
   },
   "hero": {
-    "viewNow": "Xem ngay"
+    "viewNow": "Xem ngay",
+    "liveStream": {
+      "membersOnline": "Thành viên online",
+      "singleMoms": "mẹ đơn thân",
+      "participatingInGroup": "đang tham gia nhóm trải nghiệm"
+    }
+  },
+  "donation": {
+    "donated": "Đã được quyên góp!"
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Trang chủ",
+    "joinTrial": "Tham gia dùng thử",
+    "newsfeed": "Newsfeed",
+    "newsEvents": "Tin tức & Sự kiện",
+    "account": "Tài khoản",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "Sắp ra mắt!",
+    "underDevelopment": "Trang này đang được phát triển, vui lòng quay lại sau!",
+    "backToHome": "Về trang chủ"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "viết review nhận ngay ưu đãi",
+    "singleMomsJoined": " mẹ đơn thân đã tham gia",
+    "joinTitle": "Tham gia",
+    "experienceTitle": "trải nghiệm"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 sản phẩm",
+    "mostCared": "được quan tâm nhiều nhất",
+    "reviews": "reviews"
   },
   "filter": {
     "title": "Bộ lọc"
@@ -104,15 +137,17 @@
       },
       "logout": "Đăng xuất"
     }
-  }
-  ,
+  },
   "trial": {
     "form": {
       "headerTitle": "Đăng ký dùng thử sản phẩm",
       "headerSubtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn.",
       "fields": {
         "fullName": { "label": "Họ và tên", "placeholder": "Nhập họ và tên" },
-        "phoneNumber": { "label": "Số điện thoại", "placeholder": "Nhập số điện thoại" },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại"
+        },
         "dateOfBirth": { "label": "Ngày sinh" },
         "address": { "label": "Địa chỉ", "placeholder": "Nhập địa chỉ" },
         "gender": {
@@ -129,9 +164,11 @@
         "dobRequired": "Vui lòng chọn ngày sinh",
         "addressMin": "Vui lòng nhập địa chỉ hợp lệ"
       },
-      "api": { "registerFailed": "Đăng ký thất bại", "registerError": "Có lỗi xảy ra khi đăng ký" }
-    }
-    ,
+      "api": {
+        "registerFailed": "Đăng ký thất bại",
+        "registerError": "Có lỗi xảy ra khi đăng ký"
+      }
+    },
     "otp": {
       "title": "Nhập mã xác thực",
       "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
@@ -141,8 +178,7 @@
         "verifyFailed": "Xác thực OTP thất bại",
         "verifyError": "Có lỗi xảy ra khi xác thực OTP"
       }
-    }
-    ,
+    },
     "success": {
       "title": "Đăng ký thành công!",
       "message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Sản phẩm dùng thử sẽ được gửi đến địa chỉ của bạn trong vài ngày tới."
