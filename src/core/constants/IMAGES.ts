@@ -26,6 +26,7 @@ export const IMAGES = {
   kol3: '/image/review-hub/kol3.jpg',
   topGradient: '/blur/blur-menu-01.png',
   topGradient1: '/blur/top-gradient.png',
+  topGradient2: '/blur/blur-hero-01.png',
   kr: '/image/flag/kr.png',
   us: '/image/flag/us.png',
   vi: '/image/flag/vi.png',

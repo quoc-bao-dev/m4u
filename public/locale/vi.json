@@ -316,6 +316,11 @@
     "honestReviews": "Đánh giá chân thực",
     "fromRealUsers": "Từ người dùng thực"
   },
+  "review": {
+    "rating": {
+      "excellent": "Xuất sắc"
+    }
+  },
   "cart": {
     "title": "Giỏ đăng ký thử ({count} sản phẩm)",
     "empty": "Giỏ trống",

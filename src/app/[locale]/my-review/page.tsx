@@ -1,7 +1,11 @@
-import React from 'react'
+import { MyReviewSection } from '@/modules/my-reviews'
 
 const Page = () => {
-  return <div>Page</div>
+  return (
+    <main>
+      <MyReviewSection />
+    </main>
+  )
 }
 
 export default Page
