@@ -1,9 +1,11 @@
 'use client'
+import { useTranslations } from 'next-intl'
 
 const Share = () => {
+  const t = useTranslations()
   return (
     <div className="pt-4 flex items-end gap-3">
-      <p>Share:</p>
+      <p>{t('common.share')}</p>
       <div className="flex gap-6 md:gap-2">
         <FbIcon />
         <XIcon />

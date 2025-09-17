@@ -6,7 +6,8 @@
     "language": "언어",
     "welcome": "우리 애플리케이션에 오신 것을 환영합니다",
     "reviewer": "리뷰어",
-    "product": "제품"
+    "product": "제품",
+    "share": "공유:"
   },
   "navigation": {
     "home": "홈",
@@ -229,6 +230,30 @@
       "mobileDesc": "마스크를 좋아하나요? 추천 마스크 3개를 무료로 체험하고 솔직한 리뷰를 공유하세요 ...",
       "totalProducts": "총 제품",
       "totalFundsConverted": "총 기금 환산"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "이벤트 규정",
+        "eligibility": "참여 자격",
+        "newUserTask": "신규 사용자 미션"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "기여 상세",
+      "sponsor": "스폰서",
+      "product": "제품",
+      "totalPrizes": "총 상금 수",
+      "totalPrizePool": "총 상금 풀",
+      "comingSoon": "곧 진행",
+      "registrationDate": "등록일",
+      "endDate": "종료일",
+      "joinNow": "지금 참여하기"
+    },
+    "badge": {
+      "status": {
+        "happening": "진행 중",
+        "coming": "곧 진행"
+      }
     },
     "filter": {
       "tabs": { "all": "전체", "event": "이벤트", "challenge": "챌린지" },

@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 type CountdownProps = {
   targetDate: string
 }
 
 export default function Countdown({ targetDate }: CountdownProps) {
+  const t = useTranslations('timer')
   const target = useMemo(() => new Date(targetDate).getTime(), [targetDate])
   const [now, setNow] = useState(() => Date.now())
 
@@ -32,11 +34,11 @@ export default function Countdown({ targetDate }: CountdownProps) {
 
   return (
     <div className="flex items-center justify-center gap-4 mt-0">
-      <NumberBox value={days} label="day" />
+      <NumberBox value={days} label={t('days')} />
       <span className="text-3xl -mt-8 text-red-500">:</span>
-      <NumberBox value={hours} label="hour" />
+      <NumberBox value={hours} label={t('hours')} />
       <span className="text-3xl -mt-8 text-red-500">:</span>
-      <NumberBox value={minutes} label="minute" />
+      <NumberBox value={minutes} label={t('minutes')} />
     </div>
   )
 }

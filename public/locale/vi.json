@@ -6,7 +6,8 @@
     "language": "Ngôn ngữ",
     "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi",
     "reviewer": "reviewer",
-    "product": "sản phẩm"
+    "product": "sản phẩm",
+    "share": "Chia sẻ:"
   },
   "navigation": {
     "home": "Trang chủ",
@@ -229,6 +230,30 @@
       "mobileDesc": "Thích mặt nạ? Review 3 sản phẩm mặt nạ nổi bật của chúng tôi MIỄN PHÍ và chia sẻ cảm nhận chân thực ...",
       "totalProducts": "Tổng sản phẩm",
       "totalFundsConverted": "Tổng quỹ quy đổi"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "Thể lệ",
+        "eligibility": "Điều kiện",
+        "newUserTask": "Nhiệm vụ người mới"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "Chi tiết đóng góp",
+      "sponsor": "Nhà tài trợ",
+      "product": "Sản phẩm",
+      "totalPrizes": "Tổng giải thưởng",
+      "totalPrizePool": "Tổng quỹ giải thưởng",
+      "comingSoon": "SẮP DIỄN RA",
+      "registrationDate": "Ngày đăng ký",
+      "endDate": "Ngày kết thúc",
+      "joinNow": "THAM GIA NGAY"
+    },
+    "badge": {
+      "status": {
+        "happening": "Đang diễn ra",
+        "coming": "Sắp diễn ra"
+      }
     },
     "filter": {
       "tabs": { "all": "Tất cả", "event": "Sự kiện", "challenge": "Thử thách" },

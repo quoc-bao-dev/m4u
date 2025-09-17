@@ -15,7 +15,7 @@ const DetailTabs = ({
   onChange,
   className,
 }: DetailTabsProps) => {
-  const [active, setActive] = useState<string>(defaultActive ?? tabs[0] ?? '')
+  const [active, setActive] = useState<string>(defaultActive ?? tabs[0])
 
   const handleClick = (tab: string) => {
     setActive(tab)

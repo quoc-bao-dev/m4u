@@ -6,7 +6,8 @@
     "language": "Language",
     "welcome": "Welcome to our application",
     "reviewer": "reviewer",
-    "product": "product"
+    "product": "product",
+    "share": "Share:"
   },
   "navigation": {
     "home": "Home",
@@ -229,6 +230,30 @@
       "mobileDesc": "Love sheet masks? Review any 3 of our featured mask products for FREE and share your honest ...",
       "totalProducts": "Total products",
       "totalFundsConverted": "Total funds converted"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "Event Rules",
+        "eligibility": "Eligibility",
+        "newUserTask": "New User Task"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "Contribution Details",
+      "sponsor": "Sponsor",
+      "product": "Product",
+      "totalPrizes": "Total Prizes",
+      "totalPrizePool": "Total Prize Pool",
+      "comingSoon": "COMING SOON",
+      "registrationDate": "Registration date",
+      "endDate": "End date",
+      "joinNow": "JOIN NOW"
+    },
+    "badge": {
+      "status": {
+        "happening": "Happening",
+        "coming": "Coming soon"
+      }
     },
     "filter": {
       "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },

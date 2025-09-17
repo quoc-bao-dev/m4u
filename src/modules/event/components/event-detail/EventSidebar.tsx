@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import SidebarAnnouncementCountdown from './SidebarAnnouncementCountdown'
+import { useTranslations } from 'next-intl'
 
 type ProductItem = {
   image: string
@@ -44,16 +45,17 @@ const EventSidebar = ({
   registrationDate = '2025-09-06',
   endDate = '2025-09-09',
 }: EventSidebarProps) => {
+  const t = useTranslations('event.sidebar')
   return (
     <aside className="rounded-2xl bg-gray-100">
       <div className="p-6 flex flex-col gap-4">
         <h3 className="text-lg font-semibold text-greyscale-900">
-          Contribution Details
+          {t('contributionDetails')}
         </h3>
 
         {/* Sponsor */}
         <div>
-          <p className="text-sm text-greyscale-700">Sponsor</p>
+          <p className="text-sm text-greyscale-700">{t('sponsor')}</p>
           <div className="mt-3 flex items-center gap-3">
             <div className="size-14 rounded-full overflow-hidden bg-greyscale-100 flex items-center justify-center">
               <Image
@@ -74,7 +76,7 @@ const EventSidebar = ({
 
         {/* Products */}
         <div>
-          <p className="text-sm text-greyscale-700">Product</p>
+          <p className="text-sm text-greyscale-700">{t('product')}</p>
           <div className="mt-3 flex flex-col gap-3">
             {products.map((p) => (
               <div key={p.image} className="flex items-center gap-3">
@@ -98,13 +100,13 @@ const EventSidebar = ({
         {/* Stats */}
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <p className="text-xs text-greyscale-700">Total Prizes</p>
+            <p className="text-xs text-greyscale-700">{t('totalPrizes')}</p>
             <p className="mt-1 text-xl font-semibold text-[16px] lg:text-xl text-orange-500">
               {status === 'coming_soon' ? '-' : totalPrizes}
             </p>
           </div>
           <div>
-            <p className="text-xs text-greyscale-700">Total Prize Pool</p>
+            <p className="text-xs text-greyscale-700">{t('totalPrizePool')}</p>
             <p className="mt-1 text-[16px] lg:text-xl font-semibold text-orange-500">
               {status === 'coming_soon' ? (
                 <>
@@ -128,7 +130,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText="COMING SOON"
+              buttonText={t('comingSoon')}
               variant="green"
             />
           </div>
@@ -136,7 +138,9 @@ const EventSidebar = ({
           <div className="flex flex-col gap-4">
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="text-xs text-greyscale-700">Registration date</p>
+                <p className="text-xs text-greyscale-700">
+                  {t('registrationDate')}
+                </p>
                 <p className="mt-1 text-sm text-greyscale-900">
                   {new Date(registrationDate).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -146,7 +150,7 @@ const EventSidebar = ({
                 </p>
               </div>
               <div>
-                <p className="text-xs text-greyscale-700">End date</p>
+                <p className="text-xs text-greyscale-700">{t('endDate')}</p>
                 <p className="mt-1 text-sm text-greyscale-900">
                   {new Date(endDate).toLocaleDateString('en-GB', {
                     day: '2-digit',
@@ -160,7 +164,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText="JOIN NOW"
+              buttonText={t('joinNow')}
               variant="gray"
             />
           </div>
@@ -170,7 +174,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText="JOIN NOW"
+              buttonText={t('joinNow')}
               variant="pink"
             />
           </div>
