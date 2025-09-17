@@ -2,6 +2,7 @@ import { cn } from '@/core/utils/cn'
 import React from 'react'
 import RatingRing from './RatingRing'
 import { Rating } from '@/core/components'
+import { useTranslations } from 'next-intl'
 
 interface StarDistribution {
   stars: number
@@ -84,6 +85,7 @@ const Review: React.FC<ReviewSectionProps> = ({
   featureRatings,
   className,
 }) => {
+  const t = useTranslations('review.rating')
   const maxCount = Math.max(...starDistribution.map((item) => item.count))
 
   return (
@@ -91,7 +93,7 @@ const Review: React.FC<ReviewSectionProps> = ({
       <div className="flex flex-col md:flex-row justify-between">
         <div className="md:w-[60%] flex gap-8 items-center">
           {/* Overall Rating */}
-          <RatingRing value={4} label="Excellent" reviews={69} />
+          <RatingRing value={4} label={t('excellent')} reviews={69} />
 
           {/* Star Distribution */}
           <div className="flex-1 h-fit">

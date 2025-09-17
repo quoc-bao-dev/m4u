@@ -316,6 +316,11 @@
     "honestReviews": "Honest Reviews",
     "fromRealUsers": "From Real Users"
   },
+  "review": {
+    "rating": {
+      "excellent": "Excellent"
+    }
+  },
   "cart": {
     "title": "Trial Cart ({count} items)",
     "empty": "Cart is empty",
