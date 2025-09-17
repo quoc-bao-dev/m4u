@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { useCartIconStore } from '../../stores/useCartIconStore'
 import { useCartStore } from '../../stores/useCartStore'
 import { IMAGES } from '@/core/constants/IMAGES'
+import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
 
 interface CartIconProps {
   className?: string

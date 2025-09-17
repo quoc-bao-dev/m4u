@@ -1,15 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { trialRegistrationApi } from './api'
 import { useToast } from '@/core/hooks'
+import useRegisterSuccessModal from '@/modules/trial-registration/stores/useRegisterSuccessModal'
 
 export const useAppendReviewProduct = () => {
-  const { showSuccess, showError } = useToast()
+  const { showError } = useToast()
+  const registerSuccessModal = useRegisterSuccessModal()
+
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: trialRegistrationApi.appendReviewProduct,
     onSuccess: (data) => {
       if (data.data.result) {
-        showSuccess(data.data.message)
+        registerSuccessModal.open()
         queryClient.invalidateQueries({ queryKey: ['product-list'] })
       } else {
         showError(data.data.message)

@@ -245,6 +245,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </button>
               :
               <div className='pt-2 flex gap-3 items-center'>
+                {video_review && (
                 <div className='relative cursor-pointer group' onClick={togglePlay}>
                   <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
                     {isPlaying ? (
@@ -255,6 +256,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   </div>
                   <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-16 aspect-[65/83] rounded-lg object-cover' />
                 </div>
+                )}
                 <div className='flex flex-col gap-1'>
                   <Rating value={evaluate || 0} maxWidth={96} readOnly />
                   <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
