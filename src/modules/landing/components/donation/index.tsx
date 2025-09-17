@@ -7,6 +7,7 @@ import { useDevice } from '@/core/hooks'
 import { Link } from '@/locale'
 import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 import CountUp from 'react-countup'
 // Dữ liệu KOLs - có thể dễ dàng thay đổi
@@ -24,6 +25,7 @@ const kols = [
 
 // Component KOLs Display
 const KOLsDisplay = () => {
+  const t = useTranslations('donation')
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="flex -space-x-2 lg:-space-x-4 z-10">
@@ -47,24 +49,24 @@ const KOLsDisplay = () => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
             <p className="text-white text-[32px] font-semibold">04</p>
-            <p className="text-white text-sm">month</p>
+            <p className="text-white text-sm">{t('month')}</p>
           </div>
           <div className="flex items-center gap-1">
             <p className="text-white text-[32px] font-semibold">20</p>
-            <p className="text-white text-sm">day</p>
+            <p className="text-white text-sm">{t('day')}</p>
           </div>
           <div className="flex items-center gap-1">
             <p className="text-white text-[32px] font-semibold">13</p>
-            <p className="text-white text-sm">hour</p>
+            <p className="text-white text-sm">{t('hour')}</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-1">
           <p className="text-white text-sm xl:text-base">
-            <span className="font-bold">69K+ individuals</span>
-            just donated our community!
+            <span className="font-bold">69K+ {t('individuals')}</span>{' '}
+            {t('justDonated')}
           </p>
           <span className="text-pink-100 text-xs">
-            *Financial statements are made public every month.
+            {t('financialPublicNote')}
           </span>
         </div>
       </div>
@@ -128,6 +130,7 @@ interface DonationProps {
 }
 
 const Donation = ({ isHero = false, className }: DonationProps) => {
+  const t = useTranslations('donation')
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section8
   const { isMobile, isTablet } = useDevice()
@@ -275,7 +278,7 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
         <div className="flex flex-col items-center gap-1 lg:gap-3">
           {renderCountUp(Number(data?.subtitle ?? 0))}
           <p className="text-sm lg:text-base text-greyscale-700">
-            Đã được quyên góp!
+            {t('donated')}
           </p>
         </div>
       </div>
@@ -310,7 +313,7 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
           <div className="flex flex-col items-center gap-1 lg:gap-3">
             {renderCountUp(Number(data?.subtitle ?? 0))}
             <p className="text-sm lg:text-base text-greyscale-700">
-              Đã được quyên góp!
+              {t('donated')}
             </p>
 
             {!isHero ? (

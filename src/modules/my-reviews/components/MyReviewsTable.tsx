@@ -107,9 +107,9 @@ const statusChip = (status: ReviewItem['status']) => {
 
 const MyReviewsTable = () => {
   return (
-    <div className="mt-6  overflow-hidden ">
+    <div className="mt-6 h-full min-h-0 flex flex-col">
       {/* Table header */}
-      <div className="hidden md:grid grid-cols-12 items-center bg-greyscale-50 ptext-xs font-medium text-greyscale-500 py-2 rounded-lg bg-gray-100 px-3">
+      <div className="hidden md:grid grid-cols-12 items-center bg-greyscale-50 text-xs font-medium text-greyscale-500 py-2 rounded-lg bg-gray-100 px-3 flex-shrink-0">
         <div className="col-span-5">Product info</div>
         <div className="col-span-3">Review</div>
         <div className="col-span-2">Reward</div>
@@ -118,7 +118,7 @@ const MyReviewsTable = () => {
       </div>
 
       {/* Rows placeholder - easy to swap later */}
-      <div>
+      <div className="flex-1 min-h-0 overflow-y-auto">
         {MOCK_REVIEWS.map((item) => (
           <div
             key={item.id}
