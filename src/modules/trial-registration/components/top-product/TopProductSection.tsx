@@ -63,7 +63,7 @@ const TopProductSection = () => {
                   <div className="absolute left-[16.43%] translate-x-[-50%]  bottom-[5.54%] ">
                     <div className="w-[200px] text-center">
                       <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        Panthetoin Deep Moisture Mask
+                        {t('topProduct.productName')}
                       </p>
                     </div>
                   </div>
@@ -71,7 +71,7 @@ const TopProductSection = () => {
                   <div className="absolute left-[50.71%] translate-x-[-50%] bottom-[5.93%] translate-y-[-50%]">
                     <div className="w-[200px] text-center">
                       <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        Panthetoin Deep Moisture Mask
+                        {t('topProduct.productName')}
                       </p>
                     </div>
                   </div>
@@ -79,7 +79,7 @@ const TopProductSection = () => {
                   <div className="absolute right-[16.43%]  translate-x-[50%] bottom-[5.54%]">
                     <div className="w-[200px] text-center">
                       <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        Panthetoin Deep Moisture Mask
+                        {t('topProduct.productName')}
                       </p>
                     </div>
                   </div>

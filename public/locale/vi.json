@@ -4,7 +4,10 @@
     "about": "Giới thiệu",
     "contact": "Liên hệ",
     "language": "Ngôn ngữ",
-    "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi"
+    "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi",
+    "reviewer": "reviewer",
+    "product": "sản phẩm",
+    "share": "Chia sẻ:"
   },
   "navigation": {
     "home": "Trang chủ",
@@ -21,7 +24,54 @@
     }
   },
   "donation": {
-    "donated": "Đã được quyên góp!"
+    "donated": "Đã được quyên góp!",
+    "month": "tháng",
+    "day": "ngày",
+    "hour": "giờ",
+    "individuals": "người",
+    "justDonated": "vừa quyên góp cho cộng đồng!",
+    "financialPublicNote": "*Báo cáo tài chính được công khai hàng tháng."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "Quyên góp & Từ thiện",
+      "description": "Cùng M4U hỗ trợ mẹ đơn thân qua sản phẩm và đóng góp cộng đồng."
+    },
+    "giveToday": {
+      "titleLead": "Trao hôm nay,",
+      "titleEnd": "đổi ngày mai",
+      "subtitle": "Tham gia quỹ M4U hỗ trợ mẹ đơn thân với nhu yếu phẩm và kỹ năng."
+    },
+    "eventCampaign": {
+      "titleLead": "Your Glow,",
+      "titleEnd": "Her Growth",
+      "desc": "Mỗi sản phẩm đóng góp 5% cho các chiến dịch thiện nguyện nâng đỡ mẹ đơn thân—tài trợ nhu yếu phẩm và chương trình kỹ năng. Bạn dùng thử & review là đã giúp đỡ gấp đôi."
+    },
+    "modalSection": {
+      "titleLead": "Mô hình Quỹ từ thiện của chúng tôi:",
+      "titleEnd": "Vẻ đẹp vì cộng đồng",
+      "desc": "Một phần doanh thu và đóng góp từ cộng đồng được chuyển trực tiếp vào Quỹ M4U vì Cộng Đồng, dành cho các mẹ đơn thân tại Việt Nam.",
+      "fundingSources": "Nguồn tài trợ",
+      "charityFund": "Quỹ từ thiện",
+      "discountOnProduct": "% giảm giá trên mỗi\nsản phẩm bán ra",
+      "commission": "% hoa hồng từ Người giới thiệu/ Reviewer/ Seller",
+      "directDonations": "Quyên góp trực tiếp\ntừ cộng đồng",
+      "government": "Chính phủ",
+      "organizations": "Tổ chức",
+      "individuals": "Cá nhân"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "Đang diễn ra",
+        "coming": "Sắp diễn ra"
+      },
+      "fundName": "Quỹ từ thiện M4U",
+      "totalProducts": "Tổng sản phẩm",
+      "totalFundsConverted": "Tổng quỹ quy đổi"
+    },
+    "productCard": {
+      "contribution": "đóng góp"
+    }
   },
   "footer": {
     "sitemap": "Sitemap",
@@ -46,7 +96,8 @@
   "topProduct": {
     "top3Products": "Top 3 sản phẩm",
     "mostCared": "được quan tâm nhiều nhất",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "productName": "Panthetoin Deep Moisture Mask"
   },
   "termBenefit": {
     "benefitsAndTerms": "Quyền lợi & Điều khoản",
@@ -102,7 +153,151 @@
     "participation": "participation"
   },
   "reviewHub": {
-    "title": "Review Hub"
+    "title": "Review Hub",
+    "description": "Khám phá reviewer hàng đầu và sản phẩm nổi bật",
+    "endorsedByTopReviewers": "Được các reviewer hàng đầu đề xuất",
+    "filters": {
+      "freeFrom": "Không chứa",
+      "parabens": "Parabens",
+      "sulfates": "Sulfates",
+      "phthalates": "Phthalates",
+      "fragrance": "Hương liệu",
+      "alcohol": "Cồn",
+      "benefits": "Công dụng",
+      "hydrating": "Dưỡng ẩm",
+      "antiAging": "Chống lão hóa",
+      "brightening": "Làm sáng",
+      "acneFighting": "Hỗ trợ trị mụn",
+      "soothing": "Làm dịu",
+      "skinType": "Loại da",
+      "oily": "Da dầu",
+      "dry": "Da khô",
+      "combination": "Da hỗn hợp",
+      "sensitive": "Da nhạy cảm",
+      "normal": "Da thường",
+      "keyIngredients": "Thành phần chính",
+      "retinol": "Retinol",
+      "vitaminC": "Vitamin C",
+      "hyaluronicAcid": "Hyaluronic Acid",
+      "niacinamide": "Niacinamide",
+      "salicylicAcid": "Salicylic Acid",
+      "rating": "Đánh giá",
+      "fiveStars": "5 sao",
+      "fourStarsUp": "4 sao trở lên",
+      "threeStarsUp": "3 sao trở lên",
+      "twoStarsUp": "2 sao trở lên"
+    },
+    "searchPlaceholder": "Tìm kiếm ...",
+    "influencer": {
+      "titleLead": "Biến đam mê làm đẹp",
+      "titleEnd": "thành thu nhập!",
+      "subtitle": "Đăng ký để dùng sản phẩm miễn phí và kiếm tiền từ review của bạn.",
+      "cta": "Đăng ký trải nghiệm ngay"
+    },
+    "kols": {
+      "sortBy": "Sắp xếp theo",
+      "mostViewed": "Xem nhiều nhất",
+      "filterBy": "Lọc theo:",
+      "options": {
+        "latest": "Mới nhất",
+        "oldest": "Cũ nhất",
+        "mostViewed": "Xem nhiều nhất",
+        "highestRated": "Đánh giá cao nhất",
+        "mostLiked": "Thích nhiều nhất"
+      },
+      "period": {
+        "all": "Tất cả",
+        "today": "Hôm nay",
+        "week": "Tuần này",
+        "month": "Tháng này",
+        "year": "Năm nay",
+        "allTime": "Mọi thời gian"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "Review bất kỳ 3 mặt nạ giấy",
+      "ribbonBottom": "cơ hội trúng iPhone 16",
+      "dateLabel": "01 Tháng 10 2025",
+      "headline": "SẼ CÔNG BỐ NGƯỜI CHIẾN THẮNG",
+      "joinNow": "THAM GIA NGAY"
+    },
+    "card": {
+      "fundName": "Quỹ từ thiện M4U",
+      "mobileDesc": "Thích mặt nạ? Review 3 sản phẩm mặt nạ nổi bật của chúng tôi MIỄN PHÍ và chia sẻ cảm nhận chân thực ...",
+      "totalProducts": "Tổng sản phẩm",
+      "totalFundsConverted": "Tổng quỹ quy đổi"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "Thể lệ",
+        "eligibility": "Điều kiện",
+        "newUserTask": "Nhiệm vụ người mới"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "Chi tiết đóng góp",
+      "sponsor": "Nhà tài trợ",
+      "product": "Sản phẩm",
+      "totalPrizes": "Tổng giải thưởng",
+      "totalPrizePool": "Tổng quỹ giải thưởng",
+      "comingSoon": "SẮP DIỄN RA",
+      "registrationDate": "Ngày đăng ký",
+      "endDate": "Ngày kết thúc",
+      "joinNow": "THAM GIA NGAY"
+    },
+    "badge": {
+      "status": {
+        "happening": "Đang diễn ra",
+        "coming": "Sắp diễn ra"
+      }
+    },
+    "filter": {
+      "tabs": { "all": "Tất cả", "event": "Sự kiện", "challenge": "Thử thách" },
+      "filters": {
+        "all": "Tất cả",
+        "upcoming": "Sắp diễn ra",
+        "ongoing": "Đang diễn ra",
+        "ended": "Đã kết thúc"
+      },
+      "filterBy": "Lọc theo:",
+      "searchPlaceholder": "Tìm kiếm..."
+    },
+    "questions": {
+      "titleLead": "Câu hỏi thường gặp ",
+      "titleTail": "& Giải đáp",
+      "perksTitle": "Quyền lợi của reviewer",
+      "intro": "Khi tham gia, bạn sẽ nhận được những quyền lợi hấp dẫn:",
+      "bullets": {
+        "freeTrials": {
+          "label": "Dùng thử miễn phí:",
+          "desc": "Trải nghiệm các sản phẩm làm đẹp hot nhất hoàn toàn miễn phí."
+        },
+        "earnings": {
+          "label": "Thu nhập hấp dẫn:",
+          "desc": "Nhận hoa hồng cho mỗi đơn hàng hợp lệ qua link giới thiệu."
+        },
+        "earlyAccess": {
+          "label": "Trải nghiệm sớm:",
+          "desc": "Ưu tiên dùng thử sản phẩm mới và phiên bản giới hạn từ các thương hiệu."
+        },
+        "support": {
+          "label": "Hỗ trợ & hướng dẫn:",
+          "desc": "Nhận playbook từng bước và mẹo nâng cao chất lượng review, xây dựng uy tín."
+        },
+        "community": {
+          "label": "Cộng đồng:",
+          "desc": "Kết nối người yêu làm đẹp, chia sẻ trải nghiệm và học hỏi cùng nhau."
+        }
+      },
+      "placeholder1Title": "Quyền lợi của reviewer",
+      "placeholder1": "Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ liệu.",
+      "placeholder2Title": "Quyền lợi của reviewer",
+      "placeholder2": "Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các hoạt động."
+    }
   },
   "product": {
     "register": "Đăng ký dùng thử",
@@ -151,7 +346,11 @@
     "phoneNumber": "Số điện thoại",
     "enterPhoneNumber": "Nhập số điện thoại",
     "password": "Mật khẩu",
-    "forgotPassword": "Quên mật khẩu?"
+    "forgotPassword": "Quên mật khẩu?",
+    "confirmLogoutTitle": "Xác nhận đăng xuất",
+    "confirmLogoutDesc": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+    "cancel": "Huỷ",
+    "logout": "Đăng xuất"
   },
   "menu": {
     "reviewerQuestion": "Bạn có phải reviewer của M4U không?",

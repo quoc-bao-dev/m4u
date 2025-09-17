@@ -2,6 +2,7 @@
 
 import { Select } from '@/core/components'
 import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 const TABS = ['All', 'Event', 'Challenge'] as const
 type TabKey = (typeof TABS)[number]
@@ -11,11 +12,12 @@ type FilterKey = (typeof FILTERS)[number]
 const FILTER_OPTIONS = FILTERS.map((f) => ({ label: f, value: f }))
 
 const FilterBar = () => {
+  const t = useTranslations('event.filter')
   const [activeTab, setActiveTab] = useState<TabKey>('All')
   const [search, setSearch] = useState('')
   const [filterBy, setFilterBy] = useState<FilterKey>('All')
 
-  const placeholder = useMemo(() => 'Search...', [])
+  const placeholder = useMemo(() => t('searchPlaceholder'), [t])
 
   return (
     <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-300 pb-0.5">
@@ -34,7 +36,11 @@ const FilterBar = () => {
               }
               onClick={() => setActiveTab(tab)}
             >
-              {tab}
+              {tab === 'All'
+                ? t('tabs.all')
+                : tab === 'Event'
+                ? t('tabs.event')
+                : t('tabs.challenge')}
               {activeTab === tab && (
                 <span className="absolute -bottom-[2px] left-0 right-0 h-[3px] rounded-t-full bg-pink-600" />
               )}
@@ -44,9 +50,21 @@ const FilterBar = () => {
 
         {/* Filter (mobile). Hidden on md+ because it's rendered alongside search there */}
         <div className="flex gap-4 items-center md:hidden">
-          <p className="text-gray-800 truncate hidden md:block">Filter by:</p>
+          <p className="text-gray-800 truncate hidden md:block">
+            {t('filterBy')}
+          </p>
           <Select
-            options={FILTER_OPTIONS}
+            options={FILTER_OPTIONS.map((o) => ({
+              ...o,
+              label:
+                o.label === 'All'
+                  ? t('filters.all')
+                  : o.label === 'Upcoming'
+                  ? t('filters.upcoming')
+                  : o.label === 'Ongoing'
+                  ? t('filters.ongoing')
+                  : t('filters.ended'),
+            }))}
             value={filterBy}
             onChange={(v) => setFilterBy((v as FilterKey) ?? 'All')}
             buttonClassName="min-w-[130px]"
@@ -76,9 +94,19 @@ const FilterBar = () => {
           </div>
         </div>
         <div className="flex gap-4 items-center">
-          <p className="text-gray-800 truncate">Filter by:</p>
+          <p className="text-gray-800 truncate">{t('filterBy')}</p>
           <Select
-            options={FILTER_OPTIONS}
+            options={FILTER_OPTIONS.map((o) => ({
+              ...o,
+              label:
+                o.label === 'All'
+                  ? t('filters.all')
+                  : o.label === 'Upcoming'
+                  ? t('filters.upcoming')
+                  : o.label === 'Ongoing'
+                  ? t('filters.ongoing')
+                  : t('filters.ended'),
+            }))}
             value={filterBy}
             onChange={(v) => setFilterBy((v as FilterKey) ?? 'All')}
             buttonClassName="min-w-[130px]"

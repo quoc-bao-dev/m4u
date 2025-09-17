@@ -4,7 +4,10 @@
     "about": "소개",
     "contact": "연락처",
     "language": "언어",
-    "welcome": "우리 애플리케이션에 오신 것을 환영합니다"
+    "welcome": "우리 애플리케이션에 오신 것을 환영합니다",
+    "reviewer": "리뷰어",
+    "product": "제품",
+    "share": "공유:"
   },
   "navigation": {
     "home": "홈",
@@ -21,7 +24,54 @@
     }
   },
   "donation": {
-    "donated": "기부 완료!"
+    "donated": "기부 완료!",
+    "month": "개월",
+    "day": "일",
+    "hour": "시간",
+    "individuals": "명",
+    "justDonated": "이(가) 우리 커뮤니티에 기부했습니다!",
+    "financialPublicNote": "*재무제표는 매월 공개됩니다."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "기부 & 자선",
+      "description": "M4U와 함께 제품과 커뮤니티 기여를 통해 한부모 가정을 지원하세요."
+    },
+    "giveToday": {
+      "titleLead": "오늘 기부하고,",
+      "titleEnd": "내일을 바꾸세요",
+      "subtitle": "한부모 가정을 위한 필수품과 기술을 지원하는 M4U 기금에 참여하세요."
+    },
+    "eventCampaign": {
+      "titleLead": "당신의 빛이,",
+      "titleEnd": "그녀의 성장",
+      "desc": "각 제품은 한부모 가정을 돕는 자선 캠페인에 5%가 기부됩니다 — 생필품과 기술 프로그램을 지원합니다. 당신의 체험 & 리뷰는 두 번의 도움입니다."
+    },
+    "modalSection": {
+      "titleLead": "우리의 자선 기금 모델:",
+      "titleEnd": "목적을 위한 아름다움",
+      "desc": "수익의 일부와 커뮤니티의 기부는 베트남의 한부모 가정을 지원하는 M4U 커뮤니티 기금으로 직접 전달됩니다.",
+      "fundingSources": "재원 출처",
+      "charityFund": "자선 기금",
+      "discountOnProduct": "% 각 제품 할인",
+      "commission": "% 추천인/리뷰어/판매자 수수료",
+      "directDonations": "커뮤니티의\n직접 기부",
+      "government": "정부",
+      "organizations": "기관",
+      "individuals": "개인"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "진행 중",
+        "coming": "곧 진행"
+      },
+      "fundName": "M4U 자선 기금",
+      "totalProducts": "총 제품",
+      "totalFundsConverted": "총 기금 환산"
+    },
+    "productCard": {
+      "contribution": "기부"
+    }
   },
   "footer": {
     "sitemap": "사이트맵",
@@ -46,7 +96,8 @@
   "topProduct": {
     "top3Products": "상위 3개 제품",
     "mostCared": "가장 많이 관심받는",
-    "reviews": "리뷰"
+    "reviews": "리뷰",
+    "productName": "판테토인 딥 모이스처 마스크"
   },
   "termBenefit": {
     "benefitsAndTerms": "혜택 & 약관",
@@ -102,7 +153,151 @@
     "participation": "참여"
   },
   "reviewHub": {
-    "title": "리뷰 허브"
+    "title": "리뷰 허브",
+    "description": "최고의 리뷰어와 추천 제품을 만나보세요",
+    "endorsedByTopReviewers": "탑 리뷰어 추천",
+    "filters": {
+      "freeFrom": "무첨가",
+      "parabens": "파라벤",
+      "sulfates": "설페이트",
+      "phthalates": "프탈레이트",
+      "fragrance": "향료",
+      "alcohol": "알코올",
+      "benefits": "효능",
+      "hydrating": "보습",
+      "antiAging": "안티에이징",
+      "brightening": "브라이트닝",
+      "acneFighting": "여드름 개선",
+      "soothing": "진정",
+      "skinType": "피부 타입",
+      "oily": "지성",
+      "dry": "건성",
+      "combination": "복합성",
+      "sensitive": "민감성",
+      "normal": "정상",
+      "keyIngredients": "주요 성분",
+      "retinol": "레티놀",
+      "vitaminC": "비타민 C",
+      "hyaluronicAcid": "히알루론산",
+      "niacinamide": "니아신아마이드",
+      "salicylicAcid": "살리실산",
+      "rating": "평점",
+      "fiveStars": "5점",
+      "fourStarsUp": "4점 이상",
+      "threeStarsUp": "3점 이상",
+      "twoStarsUp": "2점 이상"
+    },
+    "searchPlaceholder": "검색 ...",
+    "influencer": {
+      "titleLead": "뷰티에 대한 열정을",
+      "titleEnd": "수입으로!",
+      "subtitle": "무료로 제품을 사용해 보고 리뷰로 수익을 창출하세요.",
+      "cta": "지금 바로 체험 신청"
+    },
+    "kols": {
+      "sortBy": "정렬 기준",
+      "mostViewed": "가장 많이 본",
+      "filterBy": "필터:",
+      "options": {
+        "latest": "최신",
+        "oldest": "오래된",
+        "mostViewed": "가장 많이 본",
+        "highestRated": "평점 높은 순",
+        "mostLiked": "좋아요 많은 순"
+      },
+      "period": {
+        "all": "전체",
+        "today": "오늘",
+        "week": "이번 주",
+        "month": "이번 달",
+        "year": "올해",
+        "allTime": "전체 기간"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "마스크-어-톤",
+      "titleEnd": "챌린지",
+      "ribbonTop": "시트 마스크 3개 리뷰",
+      "ribbonBottom": "아이폰 16 당첨 기회",
+      "dateLabel": "2025년 10월 01일",
+      "headline": "당첨자 발표 예정",
+      "joinNow": "지금 참여하기"
+    },
+    "card": {
+      "fundName": "M4U 자선 기금",
+      "mobileDesc": "마스크를 좋아하나요? 추천 마스크 3개를 무료로 체험하고 솔직한 리뷰를 공유하세요 ...",
+      "totalProducts": "총 제품",
+      "totalFundsConverted": "총 기금 환산"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "이벤트 규정",
+        "eligibility": "참여 자격",
+        "newUserTask": "신규 사용자 미션"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "기여 상세",
+      "sponsor": "스폰서",
+      "product": "제품",
+      "totalPrizes": "총 상금 수",
+      "totalPrizePool": "총 상금 풀",
+      "comingSoon": "곧 진행",
+      "registrationDate": "등록일",
+      "endDate": "종료일",
+      "joinNow": "지금 참여하기"
+    },
+    "badge": {
+      "status": {
+        "happening": "진행 중",
+        "coming": "곧 진행"
+      }
+    },
+    "filter": {
+      "tabs": { "all": "전체", "event": "이벤트", "challenge": "챌린지" },
+      "filters": {
+        "all": "전체",
+        "upcoming": "예정",
+        "ongoing": "진행 중",
+        "ended": "종료"
+      },
+      "filterBy": "필터:",
+      "searchPlaceholder": "검색..."
+    },
+    "questions": {
+      "titleLead": "자주 묻는 질문 ",
+      "titleTail": "& 답변",
+      "perksTitle": "리뷰어 회원 혜택",
+      "intro": "가입하면 다양한 혜택을 누릴 수 있습니다:",
+      "bullets": {
+        "freeTrials": {
+          "label": "무료 제품 체험:",
+          "desc": "가장 인기 있는 뷰티 제품을 무료로 사용해 보세요."
+        },
+        "earnings": {
+          "label": "매력적인 수익:",
+          "desc": "추천 링크를 통한 유효 주문마다 커미션을 받습니다."
+        },
+        "earlyAccess": {
+          "label": "얼리 액세스:",
+          "desc": "주요 브랜드의 신제품과 한정판을 가장 먼저 체험하세요."
+        },
+        "support": {
+          "label": "지원 및 가이드:",
+          "desc": "단계별 가이드와 전문가 팁으로 리뷰 퀄리티와 신뢰도를 높이세요."
+        },
+        "community": {
+          "label": "커뮤니티:",
+          "desc": "뷰티 러버들과 교류하고 경험을 공유하며 함께 배워요."
+        }
+      },
+      "placeholder1Title": "리뷰어 회원 혜택",
+      "placeholder1": "샘플 콘텐츠: 데이터가 있을 때 실제 내용으로 교체할 수 있습니다.",
+      "placeholder2Title": "리뷰어 회원 혜택",
+      "placeholder2": "샘플 콘텐츠: 활동 참여 시 회원이 추가 혜택을 받습니다."
+    }
   },
   "product": {
     "register": "체험 신청",
@@ -151,7 +346,11 @@
     "phoneNumber": "전화번호",
     "enterPhoneNumber": "전화번호를 입력하세요",
     "password": "비밀번호",
-    "forgotPassword": "비밀번호를 잊으셨나요?"
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "confirmLogoutTitle": "로그아웃 확인",
+    "confirmLogoutDesc": "계정에서 로그아웃하시겠습니까?",
+    "cancel": "취소",
+    "logout": "로그아웃"
   },
   "menu": {
     "reviewerQuestion": "M4U 리뷰어이신가요?",

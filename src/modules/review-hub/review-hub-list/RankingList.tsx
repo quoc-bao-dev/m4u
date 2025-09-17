@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/select'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
+import { useTranslations } from 'next-intl'
 import TopReviewerCard from './components/TopReviewerCard'
 
 interface Kol {
@@ -32,41 +33,42 @@ const kols = [
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-      rating: 4.9,
+      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
+    rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
-      rating: 4.9,
+      'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
+    rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
-        rating: 4.9,
+      'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
+    rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
-        rating: 4.9,
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+    rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
     image:
-    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
-        rating: 4.9,
+      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
+    rating: 4.9,
     reviews: 69,
   },
   {
     name: 'MANYO',
-    image: 'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
+    image:
+      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
     rating: 4.9,
     reviews: 69,
   },
@@ -136,45 +138,46 @@ const products: Product[] = [
 ]
 
 const RankingList = () => {
+  const t = useTranslations('reviewHub')
   const filterOptions = {
     freeFrom: [
-      { value: 'all', label: 'Free From' },
-      { value: 'parabens', label: 'Parabens' },
-      { value: 'sulfates', label: 'Sulfates' },
-      { value: 'phthalates', label: 'Phthalates' },
-      { value: 'fragrance', label: 'Fragrance' },
-      { value: 'alcohol', label: 'Alcohol' },
+      { value: 'all', label: t('filters.freeFrom') },
+      { value: 'parabens', label: t('filters.parabens') },
+      { value: 'sulfates', label: t('filters.sulfates') },
+      { value: 'phthalates', label: t('filters.phthalates') },
+      { value: 'fragrance', label: t('filters.fragrance') },
+      { value: 'alcohol', label: t('filters.alcohol') },
     ],
     benefits: [
-      { value: 'all', label: 'Benefits' },
-      { value: 'hydrating', label: 'Hydrating' },
-      { value: 'anti-aging', label: 'Anti-aging' },
-      { value: 'brightening', label: 'Brightening' },
-      { value: 'acne-fighting', label: 'Acne Fighting' },
-      { value: 'soothing', label: 'Soothing' },
+      { value: 'all', label: t('filters.benefits') },
+      { value: 'hydrating', label: t('filters.hydrating') },
+      { value: 'anti-aging', label: t('filters.antiAging') },
+      { value: 'brightening', label: t('filters.brightening') },
+      { value: 'acne-fighting', label: t('filters.acneFighting') },
+      { value: 'soothing', label: t('filters.soothing') },
     ],
     skinType: [
-      { value: 'all', label: 'Skin Type' },
-      { value: 'oily', label: 'Oily' },
-      { value: 'dry', label: 'Dry' },
-      { value: 'combination', label: 'Combination' },
-      { value: 'sensitive', label: 'Sensitive' },
-      { value: 'normal', label: 'Normal' },
+      { value: 'all', label: t('filters.skinType') },
+      { value: 'oily', label: t('filters.oily') },
+      { value: 'dry', label: t('filters.dry') },
+      { value: 'combination', label: t('filters.combination') },
+      { value: 'sensitive', label: t('filters.sensitive') },
+      { value: 'normal', label: t('filters.normal') },
     ],
     keyIngredients: [
-      { value: 'all', label: 'Key Ingredients' },
-      { value: 'retinol', label: 'Retinol' },
-      { value: 'vitamin-c', label: 'Vitamin C' },
-      { value: 'hyaluronic-acid', label: 'Hyaluronic Acid' },
-      { value: 'niacinamide', label: 'Niacinamide' },
-      { value: 'salicylic-acid', label: 'Salicylic Acid' },
+      { value: 'all', label: t('filters.keyIngredients') },
+      { value: 'retinol', label: t('filters.retinol') },
+      { value: 'vitamin-c', label: t('filters.vitaminC') },
+      { value: 'hyaluronic-acid', label: t('filters.hyaluronicAcid') },
+      { value: 'niacinamide', label: t('filters.niacinamide') },
+      { value: 'salicylic-acid', label: t('filters.salicylicAcid') },
     ],
     rating: [
-      { value: 'all', label: 'Rating' },
-      { value: '5', label: '5 sao' },
-      { value: '4', label: '4 sao trở lên' },
-      { value: '3', label: '3 sao trở lên' },
-      { value: '2', label: '2 sao trở lên' },
+      { value: 'all', label: t('filters.rating') },
+      { value: '5', label: t('filters.fiveStars') },
+      { value: '4', label: t('filters.fourStarsUp') },
+      { value: '3', label: t('filters.threeStarsUp') },
+      { value: '2', label: t('filters.twoStarsUp') },
     ],
   }
 
@@ -186,7 +189,7 @@ const RankingList = () => {
           {/* Free From Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[140px] bg-white">
-              <SelectValue placeholder="Free From" />
+              <SelectValue placeholder={t('filters.freeFrom')} />
             </SelectTrigger>
             <SelectContent>
               {filterOptions.freeFrom.map((option) => (
@@ -200,7 +203,7 @@ const RankingList = () => {
           {/* Benefits Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[120px] bg-white">
-              <SelectValue placeholder="Benefits" />
+              <SelectValue placeholder={t('filters.benefits')} />
             </SelectTrigger>
             <SelectContent>
               {filterOptions.benefits.map((option) => (
@@ -214,7 +217,7 @@ const RankingList = () => {
           {/* Skin Type Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[120px] bg-white">
-              <SelectValue placeholder="Skin Type" />
+              <SelectValue placeholder={t('filters.skinType')} />
             </SelectTrigger>
             <SelectContent>
               {filterOptions.skinType.map((option) => (
@@ -228,7 +231,7 @@ const RankingList = () => {
           {/* Key Ingredients Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[150px] bg-white">
-              <SelectValue placeholder="Key Ingredients" />
+              <SelectValue placeholder={t('filters.keyIngredients')} />
             </SelectTrigger>
             <SelectContent>
               {filterOptions.keyIngredients.map((option) => (
@@ -242,7 +245,7 @@ const RankingList = () => {
           {/* Rating Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[100px] bg-white">
-              <SelectValue placeholder="Rating" />
+              <SelectValue placeholder={t('filters.rating')} />
             </SelectTrigger>
             <SelectContent>
               {filterOptions.rating.map((option) => (
@@ -262,7 +265,7 @@ const RankingList = () => {
               //   value={inputValue}
               //   onChange={handleChange}
               type="text"
-              placeholder="Tìm kiếm ..."
+              placeholder={t('searchPlaceholder')}
               className="h-11 w-full border-b border-greyscale-200 py-2.5 pl-10 pr-4 text-responsive-sm text-gray-800 placeholder:text-gray-400 focus:border-greyscale-600 focus:outline-hidden "
             />
           </div>

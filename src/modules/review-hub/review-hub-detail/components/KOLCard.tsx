@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import Image, { type StaticImageData } from 'next/image'
 import { CaretRightIcon, StarIcon } from '@phosphor-icons/react'
 import { Loading } from '@/core/components/common/loading'
@@ -23,6 +24,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
 }) => {
   // const [isLoading, setIsLoading] = React.useState(true)
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
+  const tProduct = useTranslations('product')
 
   const handleMouseEnter = () => {
     void videoRef.current?.play()
@@ -51,16 +53,16 @@ export const KOLCard: React.FC<KOLCardProps> = ({
         {/* {isLoading ? (
           <Loading className="w-full object-cover aspect-[410/342]" />
         ) : ( */}
-          <video
-            src={image as string}
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            width={1000}
-            height={1000}
-            className="w-full object-cover aspect-[410/342]"
-          />
+        <video
+          src={image as string}
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          width={1000}
+          height={1000}
+          className="w-full object-cover aspect-[410/342]"
+        />
         {/* )} */}
 
         <div className="2xl:p-5 p-4 bg-orange-100 flex gap-3 items-center justify-between">
@@ -76,7 +78,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
               {name}
             </h3>
             <p className="2xl:text-sm text-sm font-normal text-greyscale-900">
-              {reviews} views
+              {reviews} {tProduct('views')}
             </p>
           </div>
           <div className="py-0.5 px-1 lg:p-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">

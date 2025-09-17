@@ -6,6 +6,7 @@ import { useDevice } from '@/core/hooks'
 import { Link } from '@/locale'
 import { MedalIcon, PlayIcon, PauseIcon, StarIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const kols = [
@@ -140,6 +141,9 @@ const TopReviewer = () => {
   //   setIsLoading(false)
   // }, 3000)
 
+  const t = useTranslations('reviewHub')
+  const tProduct = useTranslations('product')
+
   return (
     <div className="relative px-3 p-6 lg:p-8 2xl:p-12 flex flex-col lg:flex-row gap-4 lg:gap-8 lg:rounded-3xl bg-yellow-100 w-full overflow-hidden">
       <MedalIcon
@@ -147,19 +151,19 @@ const TopReviewer = () => {
         className="hidden lg:block size-[350px] z-1 absolute top-0 right-0 translate-x-[40%] -translate-y-1/3 text-yellow-300"
       />
       <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[100%] tracking-tight">
-        Endorsed by top reviewers
+        {t('endorsedByTopReviewers')}
       </h2>
       <Link href="/review-hub/detail" className="flex-shrink-0">
         {/* {isLoading ? (
           <Loading className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
         ) : ( */}
-          <Image
-            src={IMAGES.topProduct}
-            alt="top-reviewer"
-            width={1000}
-            height={1000}
-            className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
-          />
+        <Image
+          src={IMAGES.topProduct}
+          alt="top-reviewer"
+          width={1000}
+          height={1000}
+          className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
+        />
         {/* )} */}
       </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
@@ -168,7 +172,7 @@ const TopReviewer = () => {
           className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer"
         >
           <h2 className="hidden lg:block text-black group-hover:text-yellow-600 transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
-            Endorsed by top reviewers
+            {t('endorsedByTopReviewers')}
           </h2>
           <div className="flex gap-3">
             <span className="text-5xl lg:text-7xl xl:text-[96px]/[110%] font-semibold">
@@ -189,7 +193,7 @@ const TopReviewer = () => {
                 />
                 <p className="text-sm lg:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
                   <span className="text-greyscale-900 font-medium">4.0 </span>
-                  (69 reviews)
+                  (69 {tProduct('reviews')})
                 </p>
               </div>
             </div>
@@ -231,19 +235,19 @@ const TopReviewer = () => {
                 {/* {isLoading ? (
                   <Loading className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]" />
                 ) : ( */}
-                  <video
-                    ref={(el) => {
-                      if (el) videoRefs.current[index] = el
-                    }}
-                    src={kol.image}
-                    autoPlay={index === 0}
-                    muted
-                    loop
-                    playsInline
-                    width={1000}
-                    height={1000}
-                    className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]"
-                  />
+                <video
+                  ref={(el) => {
+                    if (el) videoRefs.current[index] = el
+                  }}
+                  src={kol.image}
+                  autoPlay={index === 0}
+                  muted
+                  loop
+                  playsInline
+                  width={1000}
+                  height={1000}
+                  className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]"
+                />
                 {/* )} */}
               </div>
             ))}
