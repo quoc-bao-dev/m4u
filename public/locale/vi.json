@@ -48,8 +48,61 @@
     "mostCared": "được quan tâm nhiều nhất",
     "reviews": "reviews"
   },
+  "termBenefit": {
+    "benefitsAndTerms": "Quyền lợi & Điều khoản",
+    "benefits": "Quyền lợi",
+    "terms": "Điều khoản",
+    "memberBenefits": "Quyền Lợi Thành Viên Reviewer",
+    "benefit1": "Trải nghiệm sản phẩm miễn phí các sản phẩm làm đẹp hot nhất.",
+    "benefit2": "Thu nhập hấp dẫn từ đường link giới thiệu của bạn.",
+    "benefit3": "Được ưu tiên trải nghiệm các sản phẩm mới và giới hạn.",
+    "benefit4": "Hỗ trợ và định hướng nâng cao chất lượng review từ chuyên gia.",
+    "benefit5": "Kết nối cộng đồng để chia sẻ kinh nghiệm và học hỏi lẫn nhau.",
+    "placeholder1": "Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ liệu.",
+    "placeholder2": "Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các hoạt động."
+  },
   "filter": {
-    "title": "Bộ lọc"
+    "title": "Bộ lọc",
+    "without": "Không chứa",
+    "usage": "Công dụng",
+    "skinType": "Loại da",
+    "ingredients": "Thành phần",
+    "price": "Giá",
+    "brand": "Thương hiệu",
+    "artificialFragrance": "Hương liệu nhân tạo",
+    "alcohol": "Cồn",
+    "sulphates": "Sulphates",
+    "animalDerived": "Gốc động vật",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Dưỡng ẩm sâu",
+    "oilControl": "Kiểm dầu & cân bằng",
+    "acneTreatment": "Trị mụn & làm dịu da",
+    "antiAging": "Chống lão hóa & phục hồi",
+    "whitening": "Dưỡng trắng & làm sáng da",
+    "drySkin": "Da khô",
+    "oilySkin": "Da dầu",
+    "sensitiveSkin": "Da nhạy cảm",
+    "combinationSkin": "Da hỗn hợp",
+    "normalSkin": "Da thường",
+    "acneSkin": "Da mụn",
+    "clearAll": "Xóa tất cả",
+    "apply": "Áp dụng",
+    "aloeVera": "Nha đam",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tràm trà",
+    "gotuKola": "Rau má",
+    "reviews": "đánh giá"
+  },
+  "reviewCTA": {
+    "title": "Còn chần chờ gì nữa mà không",
+    "become": "trở thành",
+    "reviewerNow": "reviewer ngay?",
+    "registerTrial": "Đăng ký dùng thử",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub"
   },
   "product": {
     "register": "Đăng ký dùng thử",

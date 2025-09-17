@@ -48,8 +48,61 @@
     "mostCared": "most cared about",
     "reviews": "reviews"
   },
+  "termBenefit": {
+    "benefitsAndTerms": "Benefits & Terms",
+    "benefits": "Benefits",
+    "terms": "Terms",
+    "memberBenefits": "Reviewer Member Benefits",
+    "benefit1": "Free experience of the hottest beauty products.",
+    "benefit2": "Attractive income from your referral links.",
+    "benefit3": "Priority access to new and limited products.",
+    "benefit4": "Support and guidance to improve review quality from experts.",
+    "benefit5": "Connect with community to share experiences and learn from each other.",
+    "placeholder1": "Sample content: You can replace with real content when data is available.",
+    "placeholder2": "Sample content: Members receive additional benefits when participating in activities."
+  },
   "filter": {
-    "title": "Filter"
+    "title": "Filter",
+    "without": "Without",
+    "usage": "Usage",
+    "skinType": "Skin Type",
+    "ingredients": "Ingredients",
+    "price": "Price",
+    "brand": "Brand",
+    "artificialFragrance": "Artificial Fragrance",
+    "alcohol": "Alcohol",
+    "sulphates": "Sulphates",
+    "animalDerived": "Animal Derived",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Deep Moisturizing",
+    "oilControl": "Oil Control & Balance",
+    "acneTreatment": "Acne Treatment & Soothing",
+    "antiAging": "Anti-aging & Recovery",
+    "whitening": "Whitening & Brightening",
+    "drySkin": "Dry Skin",
+    "oilySkin": "Oily Skin",
+    "sensitiveSkin": "Sensitive Skin",
+    "combinationSkin": "Combination Skin",
+    "normalSkin": "Normal Skin",
+    "acneSkin": "Acne-prone Skin",
+    "clearAll": "Clear All",
+    "apply": "Apply",
+    "aloeVera": "Aloe Vera",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tea Tree",
+    "gotuKola": "Gotu Kola",
+    "reviews": "reviews"
+  },
+  "reviewCTA": {
+    "title": "What are you waiting for?",
+    "become": "Become a",
+    "reviewerNow": "reviewer now!",
+    "registerTrial": "Join the trial",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub"
   },
   "product": {
     "register": "Join the trial",
