@@ -5,6 +5,7 @@ import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
 import Confetti from 'react-confetti'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { sMenuSignal } from '@/core/components/layout/menu/sMenuSignal'
 
 const RegisterSuccessModal = () => {
   const t = useTranslations()
@@ -12,7 +13,11 @@ const RegisterSuccessModal = () => {
   const isOpen = store.isOpen
   const effectiveTitle = t('trial.success.title')
   const effectiveMessage = t('trial.success.message')
-  const handleClose = store.close
+  
+  const handleClose = () => {
+    store.close()
+    sMenuSignal.set('open')
+  }
 
   // đo kích thước modal để gắn confetti vào mép trên
   const boxRef = useRef<HTMLDivElement>(null)
