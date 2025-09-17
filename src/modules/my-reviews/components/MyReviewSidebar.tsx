@@ -94,7 +94,7 @@ const MyReviewSidebar = () => {
   )
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-greyscale-200 bg-white shadow-[0px_4px_24px_0px_#0000000F]">
+    <div className="rounded-2xl overflow-hidden  bg-white shadow-[0px_4px_24px_0px_#0000000F]">
       {/* Header */}
       <div className="relative pt-6 pb-4 px-6">
         <Image
