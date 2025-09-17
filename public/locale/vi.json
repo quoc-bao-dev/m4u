@@ -301,6 +301,7 @@
   },
   "product": {
     "register": "Đăng ký dùng thử",
+    "writeYourReview": "Viết đánh giá",
     "registerBtn": "Đăng ký dùng thử",
     "participation": "người tham gia",
     "reviews": "đánh giá",
@@ -314,6 +315,14 @@
     "exploreSimilarProducts": "Khám phá sản phẩm tương tự",
     "honestReviews": "Đánh giá chân thực",
     "fromRealUsers": "Từ người dùng thực"
+  },
+  "cart": {
+    "title": "Giỏ đăng ký thử ({count} sản phẩm)",
+    "empty": "Giỏ trống",
+    "clearAll": "Xóa tất cả",
+    "viewDetails": "Xem chi tiết",
+    "addedToCart": "Đã thêm vào giỏ hàng",
+    "alreadyInCart": "Đã có trong giỏ hàng"
   },
   "timer": {
     "days": "ngày",
@@ -400,7 +409,10 @@
           "label": "Số điện thoại",
           "placeholder": "Nhập số điện thoại"
         },
-        "dateOfBirth": { "label": "Ngày sinh" },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh"
+        },
         "address": { "label": "Địa chỉ", "placeholder": "Nhập địa chỉ" },
         "gender": {
           "label": "Giới tính",

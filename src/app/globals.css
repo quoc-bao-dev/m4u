@@ -309,7 +309,106 @@ body {
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+
+  .border-gradient-button {
+    --border-radius: 9999px;
+    --border-width: 1.8px;
+    --border-width-hover: 2px;
+    --border-color: white;
+    --border-inset-hover: 0px;
+
+    position: relative;
+    border: none; /* Đảm bảo không có border mặc định */
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    z-index: 0;
+
+    /* Viền gradient chạy quanh */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: inherit;
+      padding: var(--border-width);
+      background: conic-gradient(
+        from var(--angle),
+        #0254c5 0%,
+        transparent 25%,
+        rgba(3, 110, 234, 0.2) 50%,
+        transparent 75%,
+        #0254c5 100%
+      );
+      
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor; /* hoặc destination-out */
+      z-index: -1;
+      /* // animation: moveGradient 2s linear infinite; */
+      animation: borderMove 2s linear infinite;
+    }
+  }
   
+  /* Property declaration for angle animation */
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  /* Animation for border gradient */
+  @keyframes borderMove {
+    0% {
+      --angle: 0deg;
+    }
+    100% {
+      --angle: 360deg;
+    }
+  }
+
+  /* Dynamic border gradient button */
+  .border-gradient-button-dynamic {
+    --border-radius: 9999px;
+    --border-width: 1.8px;
+    --border-width-hover: 2px;
+    --border-color: white;
+    --border-inset-hover: 0px;
+    --accent-color: #FF8500;
+    --angle: 0deg;
+
+    position: relative;
+    border: none;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    z-index: 0;
+
+    /* Viền gradient chạy quanh */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: inherit;
+      padding: var(--border-width);
+      background: conic-gradient(
+        from var(--angle),
+        var(--accent-color) 0%,
+        transparent 25%,
+        color-mix(in srgb, var(--accent-color) 20%, transparent) 50%,
+        transparent 75%,
+        var(--accent-color) 100%
+      );
+      
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor;
+      z-index: -1;
+      animation: borderMove 2s linear infinite;
+    }
+  }
+
   /* Krona One Font Utility */
   .font-krona {
     font-family: var(--font-krona);

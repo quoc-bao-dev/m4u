@@ -301,6 +301,7 @@
   },
   "product": {
     "register": "Join the trial",
+    "writeYourReview": "Write your review",
     "registerBtn": "Register now",
     "participation": "participation",
     "reviews": "reviews",
@@ -314,6 +315,14 @@
     "exploreSimilarProducts": "Explore Similar Products",
     "honestReviews": "Honest Reviews",
     "fromRealUsers": "From Real Users"
+  },
+  "cart": {
+    "title": "Trial Cart ({count} items)",
+    "empty": "Cart is empty",
+    "clearAll": "Clear All",
+    "viewDetails": "View Details",
+    "addedToCart": "Added to cart",
+    "alreadyInCart": "Already in cart"
   },
   "timer": {
     "days": "day",
@@ -403,7 +412,10 @@
           "label": "Phone Number",
           "placeholder": "Enter your phone number"
         },
-        "dateOfBirth": { "label": "Date of Birth" },
+        "dateOfBirth": {
+          "label": "Date of Birth",
+          "placeholder": "Select your date of birth"
+        },
         "address": { "label": "Address", "placeholder": "Enter your address" },
         "gender": {
           "label": "Gender",
