@@ -7,9 +7,9 @@ import { useDevice } from '@/core/hooks'
 import { Link } from '@/locale'
 import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 import CountUp from 'react-countup'
-import { useTranslations } from 'next-intl'
 // Dữ liệu KOLs - có thể dễ dàng thay đổi
 const kols = [
   { id: 1, image: IMAGES.kol1 },
@@ -130,10 +130,10 @@ interface DonationProps {
 }
 
 const Donation = ({ isHero = false, className }: DonationProps) => {
+  const t = useTranslations('donation')
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section8
   const { isMobile, isTablet } = useDevice()
-  const t = useTranslations('donation')
 
   // quan sát khi component vào viewport
   const containerRef = useRef<HTMLDivElement | null>(null)

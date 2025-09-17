@@ -94,7 +94,7 @@ const MyReviewSidebar = () => {
   )
 
   return (
-    <div className="rounded-2xl overflow-hidden  bg-white shadow-[0px_4px_24px_0px_#0000000F]">
+    <div className="rounded-2xl overflow-hidden  bg-white shadow-[0px_4px_24px_0px_#0000000F] h-full flex flex-col min-h-0">
       {/* Header */}
       <div className="relative pt-6 pb-4 px-6">
         <Image
@@ -174,7 +174,7 @@ const MyReviewSidebar = () => {
       </div>
 
       {/* Body */}
-      <div className="px-6 pb-6">
+      <div className="px-6 pb-6 overflow-y-auto min-h-0 flex-1">
         {/* My Activity */}
         <div className="pt-2">
           <div className="text-base font-bold text-greyscale-700 tracking-wide">

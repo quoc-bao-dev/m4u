@@ -21,26 +21,28 @@ const MyReviewSection = () => {
     []
   )
   return (
-    <div className="py-[96px] relative  overflow-hidden ">
+    <div className="py-[96px] relative  overflow-hidden min-h-screen">
       <img
         src={IMAGES.topGradient2}
         alt="top-gradient"
         className="absolute -z-10 top-0  w-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3] opacity-60"
       />
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
-          <aside className="lg:col-span-3">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-[calc(100vh-192px)] items-stretch min-h-0">
+          <aside className="lg:col-span-3 h-full min-h-0">
             <MyReviewSidebar />
           </aside>
-          <section className="lg:col-span-9">
-            <div className="p-5 bg-white rounded-2xl shadow-[0px_4px_24px_0px_#0000000F]">
+          <section className="lg:col-span-9 h-full min-h-0">
+            <div className="p-5 bg-white rounded-2xl shadow-[0px_4px_24px_0px_#0000000F] h-full flex flex-col min-h-0">
               <MyReviewsHeader />
               <MyReviewsTabs
                 tabs={tabs}
                 // onChange={(key) => setActiveTab(key)}
                 className="mt-4"
               />
-              <MyReviewsTable />
+              <div className="mt-2 flex-1 min-h-0">
+                <MyReviewsTable />
+              </div>
             </div>
           </section>
         </div>
