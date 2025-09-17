@@ -2,11 +2,18 @@
 
 import { Rating, Timer } from '@/core/components'
 import Button from '@/core/components/ui/button'
-import { useTranslation } from '@/locale'
+import { useRouter, useTranslation } from '@/locale'
 import { AccordionItem } from '@/modules/trial-registration'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { Ingredient } from '@/services/product'
 import AvatarStack from './AvatarStack'
+import { useAuth } from '@/modules/auth'
+import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
+import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
+import { useToast } from '@/core/hooks'
+import { PauseIcon, PenIcon, PlayIcon } from '@phosphor-icons/react'
+import React from 'react'
+import { getRatingI18nKey } from '@/core/utils'
 
 type RightContentProps = {
   id: string | number
@@ -20,9 +27,12 @@ type RightContentProps = {
   quantityReviews: number
   limitPeople: number
   participation: number
+  isSig?: number
+  video_review?: string | null
+  evaluate: number
 }
 
-const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, rate, quantityReviews, limitPeople, participation
+const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, rate, quantityReviews, limitPeople, participation, isSig, video_review, evaluate,
 }: RightContentProps) => {
   const { t } = useTranslation()
   return (
@@ -56,6 +66,9 @@ const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, r
             productName={name}
             productCode={code}
             productColor={colorHeader || undefined}
+            isSig={isSig}
+            video_review={video_review || undefined}
+            evaluate={evaluate}
           />
         </div>
       </div>
@@ -84,29 +97,119 @@ type ButtonRegisterProps = {
   productName: string
   productCode: string
   productColor?: string
+  isSig?: number
+  video_review?: string
+  evaluate: number
 }
 
-const ButtonRegister = ({ productId, productImage, productName, productCode, productColor }: ButtonRegisterProps) => {
+const ButtonRegister = ({ productId, productImage, productName, productCode, productColor, isSig, video_review, evaluate }: ButtonRegisterProps) => {
   const { open: onpen } = useModalRegistration()
   const { t } = useTranslation()
-  return (
-    <Button
-      size="md"
-      variant="primary"
-      onClick={() =>
-        onpen({
-          productId,
-          productImage,
-          productName,
-          // Map code vào productBrand để hiển thị trong form
-          productBrand: productCode,
-          productColor,
-        })
-      }
-    >
-      <span className="truncate"> {t('product.registerBtn')}</span>
-    </Button>
-  )
+  const { isAuthenticated } = useAuth()
+  const { addItem, isItemInCart } = useCartStore()
+  const { openCart } = useCartIconStore()
+  const { showSuccess, showError } = useToast()
+  const router = useRouter()
+  const videoRef = React.useRef<HTMLVideoElement | null>(null)
+  const [isPlaying, setIsPlaying] = React.useState(false)
+  const togglePlay = (e: any) => {
+    if (e && typeof e.stopPropagation === 'function') {
+      e.stopPropagation()
+      e.preventDefault()
+    }
+    const el = videoRef.current
+    if (!el) return
+    if (isPlaying) {
+      el.pause()
+      setIsPlaying(false)
+    } else {
+      el.play()
+      setIsPlaying(true)
+    }
+  }
+
+  if (isSig === 0) {
+    return (
+      <button
+        type="button"
+        onClick={() => router.push('/submit-review')}
+        className="transform-gpu border-gradient-button-dynamic bg-white w-fit py-3 px-5 md:py-3 md:px-6 rounded-full cursor-pointer text-sm md:text-base flex items-center gap-3"
+        style={{
+          color: '#FF8500',
+          transition: 'all 300ms ease',
+          boxShadow:
+            "0px 2px 4px rgba(255, 133, 0, 0.15), -2px -2px 8px rgba(255, 133, 0, 0.48) inset, 2px 2px 8px -5px rgba(255, 133, 0, 0.48) inset",
+          ['--accent-color' as any]: '#FF8500',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#FF8500'
+          e.currentTarget.style.color = '#fff'
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = '#ffffff'
+          e.currentTarget.style.color = '#FF8500'
+        }}
+      >
+        <span className="truncate">{t('product.writeYourReview')}</span>
+        <PenIcon />
+      </button>
+    )
+  }
+  if (isSig === 1) {
+    return (
+      <div className='flex flex-col gap-3 items-center'>
+        {video_review ? (
+          <div className='relative cursor-pointer group' onClick={togglePlay}>
+            <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+              {isPlaying ? (
+                <PauseIcon weight="fill" className="size-5 text-white" />
+              ) : (
+                <PlayIcon weight="fill" className="size-5 text-white" />
+              )}
+            </div>
+            <video ref={videoRef} muted loop playsInline src={video_review} className='w-16 aspect-[65/83] rounded-lg object-cover' />
+          </div>
+        ) : null}
+        <div className='flex flex-col items-center'>
+          <Rating rate={evaluate || 0} className='w-24' />
+          <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (isSig === null) {
+    return (
+      <Button
+        size="md"
+        variant="primary"
+        onClick={() => {
+          if (!isAuthenticated) {
+            onpen({
+              productId,
+              productImage,
+              productName,
+              productBrand: productCode,
+              productColor,
+            })
+            return
+          }
+
+          if (!isItemInCart(Number(productId))) {
+            addItem(Number(productId))
+            showSuccess(t('cart.addedToCart'))
+            openCart()
+          } else {
+            showError(t('cart.alreadyInCart'))
+          }
+        }}
+      >
+        <span className="truncate"> {t('product.registerBtn')}</span>
+      </Button>
+    )
+  }
+
+  return null
 }
 
 const LeafIcon = () => {

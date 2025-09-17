@@ -39,6 +39,7 @@ const ProductInfo = () => {
   }, [productDetail])
 
   const detail = productDetail?.data
+  console.log(detail)
   const images = (() => {
     const merged = [
       ...(detail?.image ? [detail.image] : []),
@@ -179,6 +180,9 @@ const ProductInfo = () => {
                   quantityReviews={detail?.quantity_reviews || 0}
                   limitPeople={detail?.limit_people || 0}
                   participation={detail?.count_join || 0}
+                  isSig={detail?.isSig}
+                  video_review={detail?.video_review || undefined}
+                  evaluate={detail?.evaluate || 0}
                 />
               </RevertContainer>
             </div>
