@@ -1,11 +1,15 @@
+'use client'
+
 import { Container } from '@/core/components'
 import { HeaderEvent } from '../head'
 import DetailTabs from './DetailTabs'
 import EventBlog from './EventBlog'
 import EventContent from './EventContent'
 import EventSidebar from './EventSidebar'
+import { useTranslations } from 'next-intl'
 
 const EventDetailSection = () => {
+  const t = useTranslations('event.detail.tabs')
   return (
     <Container className="max-w-[1440px] pt-[100px]">
       <HeaderEvent />
@@ -16,10 +20,10 @@ const EventDetailSection = () => {
             <EventSidebar status={'active'} />
           </div>
           <div className="pt-5">
-            {/* làm phần Tab ở đây */}
+            {/* Tabs */}
             <DetailTabs
-              tabs={['Event Rules', 'Eligibility', 'New User Task']}
-              defaultActive="Event Rules"
+              tabs={[t('eventRules'), t('eligibility'), t('newUserTask')]}
+              defaultActive={t('eventRules')}
             />
             {/* gắn blog vào đây */}
             <div className="pt-6">

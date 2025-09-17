@@ -168,10 +168,14 @@ const ProductInfo = () => {
                   name={detail?.name || ''}
                   code={detail?.code || ''}
                   image={detail?.image || ''}
-                  colorHeader={detail?.color_header || detail?.background_color || undefined}
+                  colorHeader={
+                    detail?.color_header ||
+                    detail?.background_color ||
+                    undefined
+                  }
                   time={detail?.time_left_dd_hh_mm_ss || undefined}
                   ingredients={detail?.ingredients || []}
-                  rate={detail?.average_star || 0}
+                  rate={detail?.average_star || 5}
                   quantityReviews={detail?.quantity_reviews || 0}
                   limitPeople={detail?.limit_people || 0}
                   participation={detail?.count_join || 0}

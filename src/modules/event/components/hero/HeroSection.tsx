@@ -5,8 +5,10 @@ import Image from 'next/image'
 import AnnouncementCountdownCard from './AnnouncementCountdownCard'
 import PromoRibbons from './PromoRibbons'
 import { Link } from '@/locale'
+import { useTranslations } from 'next-intl'
 
 const HeroSection = () => {
+  const t = useTranslations('event.hero')
   return (
     <>
       <section className="relative md:h-[100svh] pt-[100px] lg:pt-0">
@@ -21,11 +23,12 @@ const HeroSection = () => {
           <div className="flex flex-col md:flex-row mt-auto  justify-between  md:pt-[100px]  h-full">
             <div className=" md:relative -top-12 lg:top-0 left-0 md:-left-10 lg:-left-0 flex-1 flex flex-col items-center justify-center h-full">
               <p className="font-krona text-[#FF8092] text-[28px] md:text-[32px] lg:text-[38px]  2xl:text-[52px] text-center leading-[120%]">
-                <span className="truncate"> Mask-a-thon</span> <br /> Challenge
+                <span className="truncate"> {t('titleLead')}</span> <br />{' '}
+                {t('titleEnd')}
               </p>
               <PromoRibbons
-                text1="Review any 3 sheet masks"
-                text2="chance to win an iPhone 16"
+                text1={t('ribbonTop')}
+                text2={t('ribbonBottom')}
                 className="pt-4 scale-[80%] md:scale-[80%] lg:scale-[80%] 2xl:scale-[100%] w-fit"
               />
             </div>
@@ -47,9 +50,9 @@ const HeroSection = () => {
                     imageUrl="/image/event/image-02.png"
                     imageAlt="Megaphone"
                     targetDate="2025-10-01T00:00:00+07:00"
-                    dateLabel="01 October 2025"
-                    headline="WINNERS WILL BE ANNOUNCED"
-                    buttonText="JOIN NOW"
+                    dateLabel={t('dateLabel')}
+                    headline={t('headline')}
+                    buttonText={t('joinNow')}
                     onJoin={() => alert('Joined!')}
                   />
                 </Link>

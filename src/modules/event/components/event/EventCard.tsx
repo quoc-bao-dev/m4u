@@ -4,6 +4,7 @@ import { BroadcastIcon } from '@phosphor-icons/react'
 import { IMAGES } from '@/core/constants/IMAGES'
 import EventBadge from './EventBadge'
 import EventFrame from './EventFrame'
+import { useTranslations } from 'next-intl'
 
 type EventCardProps = {
   status: 'happening' | 'coming'
@@ -30,6 +31,7 @@ const EventCard = ({
   fundAmount,
   imageSrc,
 }: EventCardProps) => {
+  const t = useTranslations('event.card')
   const cfg = statusConfig[status]
   return (
     <div className="flex flex-col gap-4 shadow-lg/5 rounded-xl pb-4 hover:shadow-xl/5 transition-all duration-300">
@@ -60,20 +62,19 @@ const EventCard = ({
             />
           </div>
           <p className="text-base font-medium text-greyscale-700">
-            M4U charity fund
+            {t('fundName')}
           </p>
         </div>
 
         <div className="md:hidden">
           <p className="text-sm text-greyscale-700 line-clamp-2">
-            Love sheet masks? Review any 3 of our featured mask products for
-            FREE and share your honest ...
+            {t('mobileDesc')}
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <p className="text-xs xl:text-sm font-normal text-greyscale-700 truncate">
-              Total products
+              {t('totalProducts')}
             </p>
             <p className="text-base lg:text-lg 2xl:text-2xl font-semibold text-orange-500">
               {productCount}
@@ -81,7 +82,7 @@ const EventCard = ({
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-xs xl:text-sm font-normal text-greyscale-700 truncate">
-              Total funds converted
+              {t('totalFundsConverted')}
             </p>
             <p className="text-base lg:text-lg 2xl:text-2xl font-semibold text-orange-500">
               {fundAmount}

@@ -4,6 +4,7 @@ import Button from '@/core/components/ui/button'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { useRef, useState } from 'react'
 
 const kols = [
@@ -58,6 +59,7 @@ const Info = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const itemRefs = useRef<(HTMLImageElement | null)[]>([])
 
+  const tProduct = useTranslations('product')
   return (
     <div className="p-3 py-6 lg:p-6 xl:p-12 bg-yellow-100 flex flex-col lg:flex-row gap-4 lg:gap-6 xl:gap-8 md:rounded-3xl w-full">
       <div className="flex flex-col-reverse lg:flex-row gap-3 lg:h-[300px] xl:h-[350px] flex-shrink-0">
@@ -138,7 +140,7 @@ const Info = () => {
               />
               <p className="text-sm lg:text-xl xl:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
                 <span className="text-greyscale-900 font-medium">4.0 </span>
-                (69 reviews)
+                (69 {tProduct('reviews')})
               </p>
             </div>
             <div className="hidden xl:flex items-center gap-1.5">
@@ -159,11 +161,13 @@ const Info = () => {
         <div className="flex flex-col-reverse xl:flex-row gap-3 justify-between xl:items-center w-full">
           <div className="flex flex-col gap-1">
             <h4 className="text-lg lg:text-xl xl:text-2xl font-bold text-[#F5222D]">
-              ⚡ Only 88 slots left
+              ⚡ {tProduct('slotsLeft', { count: 88 })}
             </h4>
             <p className="text-sm lg:text-base xl:text-xl text-greyscale-600">
-              <span className="text-greyscale-900 font-bold">69 users</span>{' '}
-              enrolled in the product&apos;s trial program
+              <span className="text-greyscale-900 font-bold">
+                69 {tProduct('users')}
+              </span>{' '}
+              {tProduct('enrolledTrial')}
             </p>
           </div>
           <div className="flex -space-x-2 lg:-space-x-4">
@@ -184,7 +188,7 @@ const Info = () => {
             )}
           </div>
         </div>
-        <Button>Đăng ký ngay</Button>
+        <Button>{tProduct('registerBtn')}</Button>
       </div>
     </div>
   )
