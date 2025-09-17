@@ -1,5 +1,6 @@
 'use client'
 
+import { Link } from '@/locale'
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { UserResponse } from '@/services/auth/type'
 import {
@@ -8,14 +9,14 @@ import {
   QrCodeIcon,
   SignOutIcon,
   UserCircleIcon,
-  UsersThreeIcon
+  UsersThreeIcon,
 } from '@phosphor-icons/react'
-import React from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { sMenuSignal } from './sMenuSignal'
 import moment from 'moment'
-import 'moment/locale/vi'
 import 'moment/locale/ko'
+import 'moment/locale/vi'
+import { useLocale, useTranslations } from 'next-intl'
+import React from 'react'
+import { sMenuSignal } from './sMenuSignal'
 
 type UserType = UserResponse['info']
 
@@ -92,7 +93,9 @@ const Header = ({ user }: HeaderProps) => {
             <h3 className="text-[18px] font-bold text-greyscale-900 mb-1">
               {user.fullname || t('menu.auth.unknownUser')}
             </h3>
-            <p className="text-[12px] text-greyscale-500">{formatJoinDate(user.created_at)}</p>
+            <p className="text-[12px] text-greyscale-500">
+              {formatJoinDate(user.created_at)}
+            </p>
           </div>
         </div>
 
@@ -112,7 +115,9 @@ const Header = ({ user }: HeaderProps) => {
           <div className="text-base font-bold text-greyscale-900 mb-1">
             {user.referral_code ? t('menu.auth.stats.active') : '0'}
           </div>
-          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.referrals')}</div>
+          <div className="text-[12px] text-greyscale-500">
+            {t('menu.auth.stats.referrals')}
+          </div>
         </div>
 
         {/* Account Balance */}
@@ -120,7 +125,9 @@ const Header = ({ user }: HeaderProps) => {
           <div className="text-base font-bold text-greyscale-900 mb-1">
             {formatBalance(user.account_balance)}
           </div>
-          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.accountBalance')}</div>
+          <div className="text-[12px] text-greyscale-500">
+            {t('menu.auth.stats.accountBalance')}
+          </div>
         </div>
 
         {/* Points */}
@@ -128,7 +135,9 @@ const Header = ({ user }: HeaderProps) => {
           <div className="text-base font-bold text-greyscale-900 mb-1">
             {user.point || '0'}
           </div>
-          <div className="text-[12px] text-greyscale-500">{t('menu.auth.stats.points')}</div>
+          <div className="text-[12px] text-greyscale-500">
+            {t('menu.auth.stats.points')}
+          </div>
         </div>
       </div>
     </div>
@@ -142,25 +151,25 @@ const Top = ({ user }: TopProps) => {
       id: 'trial-history',
       label: 'menu.auth.activity.trialHistory',
       icon: CheckCircleIcon,
-      href: '/vi/developing',
+      href: '/trial-history',
     },
     {
       id: 'my-reviews',
       label: 'menu.auth.activity.myReviews',
       icon: PencilSimpleLineIcon,
-      href: '/vi/developing',
+      href: '/developing',
     },
     {
       id: 'referral-list',
       label: 'menu.auth.activity.referralList',
       icon: UsersThreeIcon,
-      href: '/vi/developing',
+      href: '/developing',
     },
     {
       id: 'referral-code',
       label: 'menu.auth.activity.referralCode',
       icon: QrCodeIcon,
-      href: '/vi/developing',
+      href: '/developing',
     },
   ]
 
@@ -173,10 +182,11 @@ const Top = ({ user }: TopProps) => {
         {activityItems.map((item) => {
           const IconComponent = item.icon
           return (
-            <a
+            <Link
               key={item.id}
               href={item.href}
               className="flex flex-col items-center gap-2 cursor-pointer group"
+              onClick={() => sMenuSignal.set('close')}
             >
               <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
                 <IconComponent
@@ -188,7 +198,7 @@ const Top = ({ user }: TopProps) => {
               <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500 text-center">
                 {t(item.label)}
               </span>
-            </a>
+            </Link>
           )
         })}
       </div>

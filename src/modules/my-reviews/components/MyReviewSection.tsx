@@ -1,14 +1,15 @@
 'use client'
 
 import { Container } from '@/core/components'
+import { useMemo } from 'react'
 import MyReviewSidebar from './MyReviewSidebar'
 import MyReviewsHeader from './MyReviewsHeader'
-import MyReviewsTabs, { type ReviewTab } from './MyReviewsTabs'
 import MyReviewsTable from './MyReviewsTable'
-import { useMemo, useState } from 'react'
+import MyReviewsTabs, { type ReviewTab } from './MyReviewsTabs'
+import { IMAGES } from '@/core/constants/IMAGES'
 
 const MyReviewSection = () => {
-  const [activeTab, setActiveTab] = useState<string>('all')
+  //   const [activeTab, setActiveTab] = useState<string>('all')
   const tabs: ReviewTab[] = useMemo(
     () => [
       { key: 'all', label: 'All', count: 132, color: 'pink' },
@@ -20,7 +21,12 @@ const MyReviewSection = () => {
     []
   )
   return (
-    <div className="py-[96px]">
+    <div className="py-[96px] relative  overflow-hidden ">
+      <img
+        src={IMAGES.topGradient2}
+        alt="top-gradient"
+        className="absolute -z-10 top-0  w-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3] opacity-60"
+      />
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           <aside className="lg:col-span-3">
@@ -31,7 +37,7 @@ const MyReviewSection = () => {
               <MyReviewsHeader />
               <MyReviewsTabs
                 tabs={tabs}
-                onChange={(key) => setActiveTab(key)}
+                // onChange={(key) => setActiveTab(key)}
                 className="mt-4"
               />
               <MyReviewsTable />
