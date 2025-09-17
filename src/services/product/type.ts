@@ -13,6 +13,9 @@ export interface Product {
   limit_people: number
   count_join: number
   quantity_reviews: number
+  isSig: number
+  evaluate: number
+  video_review: string
 }
 
 export interface ProductListLink {
@@ -68,6 +71,9 @@ export interface ProductDetailData {
   limit_people: number
   count_join: number
   quantity_reviews: number
+  isSig: number
+  evaluate: number
+  video_review: string
 }
 
 export interface ProductDetailResponse {

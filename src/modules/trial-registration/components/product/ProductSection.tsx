@@ -29,6 +29,9 @@ const ProductSection = () => {
       // Lấy key màu từ API tại đây (ví dụ: p.color_hex) → gán vào hex/bgColor
       bgColor: p.color_header,
       hex: p.background_color,
+      isSig: p.isSig,
+      evaluate: p.evaluate,
+      video_review: p.video_review,
       time:
         p.time_left_dd_hh_mm_ss === '0:00:00:00'
           ? undefined
@@ -95,6 +98,9 @@ const ProductSection = () => {
                           bgColor={p.bgColor!}
                           hex={p.hex!}
                           time={p.time!}
+                          isSig={p.isSig}
+                          evaluate={p.evaluate}
+                          video_review={p.video_review}
                         />
                       </Link>
                     </ScrollRevealCard>

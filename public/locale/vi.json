@@ -129,6 +129,13 @@
     "addedToCart": "Đã thêm vào giỏ hàng",
     "alreadyInCart": "Đã có trong giỏ hàng"
   },
+  "rating": {
+    "excellent": "Xuất sắc",
+    "good": "Tốt",
+    "average": "Trung bình",
+    "bad": "Kém",
+    "veryBad": "Rất kém"
+  },
   "timer": {
     "days": "ngày",
     "hours": "giờ",

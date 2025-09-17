@@ -129,6 +129,13 @@
     "addedToCart": "Added to cart",
     "alreadyInCart": "Already in cart"
   },
+  "rating": {
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "bad": "Bad",
+    "veryBad": "Very Bad"
+  },
   "timer": {
     "days": "day",
     "hours": "hr",
