@@ -153,7 +153,7 @@ const SubmitReview = ({ id }: { id: number }) => {
   }
 
   return (
-    <div className='pt-[72px] relative'>
+    <div className='pt-[72px] relative overflow-hidden'>
       <Image src={IMAGES.topGradient2} width={1000} height={600} alt='top-gradient' className='absolute z-[-1] top-0 left-0 w-full object-cover -translate-y-1/3 scale-x-[-1.3] opacity-60' />
       <div className='px-3 lg:px-6 xl:px-40 2xl:px-[240px] lg:py-4 xl:py-16 flex flex-col lg:flex-row gap-6 lg:gap-10 xl:gap-20 2xl:gap-32 w-full h-full'>
         {/* Cột trái - tỷ lệ 397/1312 ≈ 30.3% */}
