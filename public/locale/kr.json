@@ -459,5 +459,24 @@
       "title": "신청이 완료되었습니다!",
       "message": "신청이 접수되었습니다. 체험 제품은 며칠 내에 귀하의 주소로 발송됩니다."
     }
+  },
+  "submitReview": {
+    "back": "뒤로",
+    "title": "리뷰하고 수익을 창출할 준비가 되셨나요?",
+    "shareReview": "솔직한 리뷰를 공유하세요",
+    "addVideo": "비디오 추가 (필수)",
+    "addPhotos": "사진 추가 (선택사항)",
+    "dropFiles": "파일을 여기에 드롭하거나 클릭하여 업로드하세요",
+    "rating": "평점",
+    "productQuality": "제품 품질",
+    "overallExperience": "전체 경험",
+    "absorbability": "흡수력",
+    "moisturization": "보습",
+    "skinBrightening": "피부 밝기",
+    "excellent": "우수함",
+    "tellUsWhatYouThink": "생각을 알려주세요",
+    "reviewTips": "리뷰 팁",
+    "placeholder": "이 제품의 어떤 점을 좋아하셨나요?",
+    "submitReview": "리뷰 제출"
   }
 }

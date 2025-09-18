@@ -31,4 +31,6 @@ export const IMAGES = {
   us: '/image/flag/us.png',
   vi: '/image/flag/vi.png',
   speaker: '/image/donation/speaker.png',
+  review2: '/image/review/review2.png',
+  review3: '/image/review/review3.png',
 }

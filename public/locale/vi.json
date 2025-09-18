@@ -459,5 +459,24 @@
       "title": "Đăng ký thành công!",
       "message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Sản phẩm dùng thử sẽ được gửi đến địa chỉ của bạn trong vài ngày tới."
     }
+  },
+  "submitReview": {
+    "back": "Quay lại",
+    "title": "Sẵn sàng review và kiếm tiền?",
+    "shareReview": "Chia sẻ đánh giá của bạn",
+    "addVideo": "Thêm video của bạn (bắt buộc)",
+    "addPhotos": "Thêm ảnh của bạn (tùy chọn)",
+    "dropFiles": "Thả file vào đây, hoặc click để tải lên",
+    "rating": "Đánh giá",
+    "productQuality": "Chất lượng sản phẩm",
+    "overallExperience": "Trải nghiệm tổng thể",
+    "absorbability": "Khả năng thẩm thấu",
+    "moisturization": "Dưỡng ẩm",
+    "skinBrightening": "Làm sáng da",
+    "excellent": "Xuất sắc",
+    "tellUsWhatYouThink": "Hãy cho chúng tôi biết suy nghĩ của bạn",
+    "reviewTips": "Mẹo review",
+    "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
+    "submitReview": "Gửi đánh giá"
   }
 }
