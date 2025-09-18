@@ -6,11 +6,14 @@ import { CornerTag } from '@/icons'
 import { useTranslations } from 'next-intl'
 import { CaretLeftIcon, CheckIcon, FilmStripIcon, ImageIcon, LightbulbIcon, XIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import { useState, useRef } from 'react'
-import { useGetProductReview, useGetTypeEvaluate, useListReview } from '@/services/review/queries'
+import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { useGetListProductReview, useGetTypeEvaluate } from '@/services/review/queries'
 import { useSubmitReview } from '@/services/review/mutations'
+import { withAlpha } from '@/core/utils'
 
-const SubmitReview = () => {
+const SubmitReview = ({ id }: { id: number }) => {
+  const router = useRouter()
   const t = useTranslations('submitReview')
   const [videoPreview, setVideoPreview] = useState<string | null>(null)
   const [videoFile, setVideoFile] = useState<File | null>(null)
@@ -18,15 +21,21 @@ const SubmitReview = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [ratings, setRatings] = useState<Record<number, number>>({})
   const [content, setContent] = useState('')
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
   const videoInputRef = useRef<HTMLInputElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
 
   const { data: typeEvaluate } = useGetTypeEvaluate()
-  const { data: listReview } = useListReview()
-  const { data: productReview } = useGetProductReview()
-  console.log(listReview)
+  const { data: listProductReview } = useGetListProductReview(id)
+  console.log(listProductReview)
 
   const { mutateAsync: submitReview, isPending } = useSubmitReview()
+
+  useEffect(() => {
+    if (Array.isArray(listProductReview) && listProductReview.length && selectedProductId === null) {
+      setSelectedProductId(listProductReview[0].id)
+    }
+  }, [listProductReview, selectedProductId])
 
   const handleVideoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -91,8 +100,29 @@ const SubmitReview = () => {
     ? typeEvaluate.filter((item) => item.type === 2)
     : []
 
+  const activeColor = (listProductReview || []).find((p: any) => p.id === selectedProductId)?.background_color || '#FE6BBA'
+
   const handleChangeRating = (id: number, value: number) => {
     setRatings(prev => ({ ...prev, [id]: value }))
+  }
+
+  const resetForm = () => {
+    // Revoke video preview
+    if (videoPreview) {
+      URL.revokeObjectURL(videoPreview)
+    }
+    // Revoke image previews
+    selectedImages.forEach((url) => {
+      try { URL.revokeObjectURL(url) } catch {}
+    })
+    setVideoPreview(null)
+    setVideoFile(null)
+    setSelectedImages([])
+    setImageFiles([])
+    setRatings({})
+    setContent('')
+    if (videoInputRef.current) videoInputRef.current.value = ''
+    if (imageInputRef.current) imageInputRef.current.value = ''
   }
 
   const handleSubmit = async () => {
@@ -113,7 +143,9 @@ const SubmitReview = () => {
         form.append(`media_other[${idx}]`, file)
       })
 
-      await submitReview(form)
+      if (!selectedProductId) return
+      await submitReview({ id: selectedProductId, data: form })
+      resetForm()
       // TODO: Có thể reset form hoặc điều hướng nếu cần
     } catch (error) {
       console.error(error)
@@ -126,45 +158,56 @@ const SubmitReview = () => {
       <div className='px-3 lg:px-6 xl:px-40 2xl:px-[240px] lg:py-4 xl:py-16 flex flex-col lg:flex-row gap-6 lg:gap-10 xl:gap-20 2xl:gap-32 w-full h-full'>
         {/* Cột trái - tỷ lệ 397/1312 ≈ 30.3% */}
         <div className='lg:flex-[300] xl::flex-[397] flex flex-col gap-2 xl:gap-8'>
-          <div className='flex items-center gap-2 group cursor-pointer'>
+          <div className='flex items-center gap-2 group cursor-pointer' onClick={() => router.back()}>
             <CaretLeftIcon className='size-5 text-greyscale-600 group-hover:text-pink-600 transition-all duration-300' />
             <p className='text-base font-normal text-greyscale-600 group-hover:text-pink-600 group-hover:font-medium transition-all duration-300'>{t('back')}</p>
           </div>
           <h2 className='pb-6 lg:pb-0 text-2xl xl:text-5xl font-semibold text-greyscale-700'>{t('title')}</h2>
-          <div className='flex lg:flex-col gap-2 lg:gap-5 xl:gap-8'>
-            <div className='w-[134px] lg:w-full shrink-0 relative rounded-md xl:rounded-xl overflow-hidden'>
-              <CornerTag className='absolute top-0 right-0 w-[25px] lg:w-[50px] text-pink-500' />
-              <CheckIcon className='absolute top-0.5 right-0.5 size-2.5 lg:size-5 xl:size-6 text-white' />
-              <div className='p-1.5 lg:p-3 flex flex-col gap-1.5 lg:gap-3 rounded-md xl:rounded-xl bg-pink-100 border-[1.5px] lg:border-3 border-pink-500'>
-                <div className='p-0.5 lg:p-1 px-7 lg:px-10 2xl:px-20 rounded-md xl:rounded-xl bg-white w-full aspect-[209/221] flex items-center justify-center'>
-                  <Image src={productReview?.image || IMAGES.imageNoData} alt='review' width={1000} height={1000} className='w-full object-cover' />
+          <div className='flex lg:flex-col gap-2 lg:gap-5 xl:gap-8 w-full overflow-x-auto pb-2'>
+            {listProductReview?.map((item: any) => {
+              const isActive = item.id === selectedProductId
+              return (
+                <div
+                  key={item.id}
+                  className='w-[134px] lg:w-full shrink-0 relative rounded-md xl:rounded-xl overflow-hidden cursor-pointer'
+                  onClick={() => {
+                    if (selectedProductId !== item.id) {
+                      resetForm()
+                      setSelectedProductId(item.id)
+                    }
+                  }}
+                >
+                  {isActive && (
+                    <>
+                      <CornerTag className='absolute top-0 right-0 w-[25px] lg:w-[50px]' style={{ color: item.background_color || '#FE6BBA' }} />
+                      <CheckIcon className='absolute top-0.5 right-0.5 size-2.5 lg:size-5 xl:size-6 text-white' />
+                    </>
+                  )}
+                  <div
+                    className='p-1.5 lg:p-3 flex flex-col gap-1.5 lg:gap-3 rounded-md xl:rounded-xl border-[1.5px] lg:border-3 transition-colors duration-200'
+                    style={{
+                      borderColor: isActive ? withAlpha(item.background_color || '#FE6BBA', 0.9) : 'transparent',
+                      backgroundColor: withAlpha(item.background_color || '#FE6BBA', 0.2),
+                    }}
+                  >
+                    <div className='p-0.5 lg:p-1 px-7 lg:px-10 2xl:px-20 rounded-md xl:rounded-xl bg-white w-full aspect-[209/221] flex items-center justify-center'>
+                      <Image src={item?.image || IMAGES.imageNoData} alt='review' width={1000} height={1000} className='w-full object-cover' />
+                    </div>
+                    <div className='flex flex-col gap-0.5 lg:gap-1'>
+                      <h3 className='text-[6px] lg:text-[10px] font-bold text-greyscale-900'>{item?.code}</h3>
+                      <p className='text-[8px] lg:text-sm font-normal text-greyscale-900'>{item?.name}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className='flex flex-col gap-0.5 lg:gap-1'>
-                  <h3 className='text-[6px] lg:text-[10px] font-bold text-greyscale-900'>{productReview?.code}</h3>
-                  <p className='text-[8px] lg:text-sm font-normal text-greyscale-900'>{productReview?.name}</p>
-                </div>
-              </div>
-            </div>
-            <div className='w-[134px] lg:w-full shrink-0 relative rounded-md xl:rounded-xl overflow-hidden'>
-              {/* <CornerTag className='absolute top-0 right-0 w-[25px] lg:w-[50px] text-green-500' />
-              <CheckIcon className='absolute top-0.5 right-0.5 size-2.5 lg:size-5 xl:size-6 text-white' /> */}
-              <div className='p-1.5 lg:p-3 flex flex-col gap-1.5 lg:gap-3 rounded-md xl:rounded-xl bg-green-100 border-[1.5px] lg:border-3 border-green-100'>
-                <div className='p-0.5 lg:p-1 px-7 lg:px-10 2xl:px-20 rounded-md xl:rounded-xl bg-white w-full aspect-[209/221] flex items-center justify-center'>
-                  <Image src={IMAGES.review3} alt='review' width={1000} height={1000} className='w-full object-cover' />
-                </div>
-                <div className='flex flex-col gap-0.5 lg:gap-1'>
-                  <h3 className='text-[6px] lg:text-[10px] font-bold text-greyscale-900'>MANYO</h3>
-                  <p className='text-[8px] lg:text-sm font-normal text-greyscale-900'>Panthetoin Deep Moisture Mask</p>
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </div>
         </div>
 
         {/* Cột phải - tỷ lệ 915/1312 ≈ 69.7% */}
-        <div className='lg:flex-[915] p-0 lg:p-4 xl:p-10 rounded-none lg:rounded-3xl flex flex-col gap-4 xl:gap-6 bg-transparent lg:bg-white shadow-none lg:shadow-[0px_0px_60px_0px_rgba(0,0,0,0.1)]'>
+        <div className='lg:flex-[915] h-fit p-0 lg:p-4 xl:p-10 rounded-none lg:rounded-3xl flex flex-col gap-4 xl:gap-6 bg-transparent lg:bg-white shadow-none lg:shadow-[0px_0px_60px_0px_rgba(0,0,0,0.1)]'>
           <div className='flex items-center gap-3'>
-            <span className='w-3 h-8 rounded bg-pink-500'></span>
+            <span className='w-3 h-8 rounded' style={{ backgroundColor: activeColor }}></span>
             <h2 className='text-xl font-semibold text-greyscale-900'>{t('shareReview')}</h2>
           </div>
           <hr className='border-greyscale-200 -mt-3 xl:mt-0' />
@@ -238,7 +281,7 @@ const SubmitReview = () => {
             </div>
           </div>
           <div className='flex items-center gap-3 pt-6'>
-            <span className='w-3 h-8 rounded bg-pink-500'></span>
+            <span className='w-3 h-8 rounded' style={{ backgroundColor: activeColor }}></span>
             <h2 className='text-xl font-semibold text-greyscale-900'>{t('rating')}</h2>
           </div>
           <hr className='border-greyscale-200' />

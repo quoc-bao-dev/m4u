@@ -5,8 +5,8 @@ import { apiReview } from "./api"
 export const useSubmitReview = () => {
   const { showError, showSuccess } = useToast()
 
-  const queryFn = async (data: FormData) => {
-    const response = await apiReview.submitReview(data)
+  const queryFn = async ({ id, data }: { id: number, data: FormData }) => {
+    const response = await apiReview.submitReview(id, data)
     return response.data
   }
   return useMutation({
