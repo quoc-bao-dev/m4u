@@ -1,10 +1,10 @@
 'use client'
 
 import { NoData } from '@/modules/trial-registration'
-import { useGetListReviewHistory } from '@/services/review/queries'
+import { useInfiniteListReviewHistory } from '@/services/review/queries'
 import { ReviewHistoryItem } from '@/services/review/type'
 import moment from 'moment'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTableFilter } from '../../stores/useTableFilter'
 
@@ -90,12 +90,16 @@ const HistoryTable = () => {
 
   console.log('dateRange.from?.toISOString()', dateRange.from?.toISOString())
 
-  // Call API hook
+  // Infinite query with default perPage = 5
   const {
-    data: reviewHistoryData,
+    data,
     isLoading,
     error,
-  } = useGetListReviewHistory({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteListReviewHistory({
     activeTab,
     searchQuery,
     dateStart: dateRange.from
@@ -104,13 +108,15 @@ const HistoryTable = () => {
     dateEnd: dateRange.to
       ? moment(dateRange.to).format('DD/MM/YYYY')
       : undefined,
+    perPage: 5,
   })
 
   // Process data with useMemo
   const processedReviews = useMemo(() => {
-    if (!reviewHistoryData?.data) return []
+    const allItems = data?.pages?.flatMap((page) => page?.data ?? []) ?? []
+    if (allItems.length === 0) return []
 
-    return reviewHistoryData.data.map((item: ReviewHistoryItem) => ({
+    return allItems.map((item: ReviewHistoryItem) => ({
       id: item.id.toString(),
       orderId: item.code_review,
       products: item.clients_review.map((clientReview) => ({
@@ -129,7 +135,41 @@ const HistoryTable = () => {
       }),
       status: getStatusFromNumber(item.status),
     }))
-  }, [reviewHistoryData])
+  }, [data])
+
+  // Infinite scroll sentinel
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const rootEl = scrollContainerRef.current
+    const sentinelEl = sentinelRef.current
+    if (!rootEl || !sentinelEl) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        root: rootEl,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinelEl)
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  // Refetch when filters change (react-query will handle via key, but ensure UX)
+  useEffect(() => {
+    refetch()
+  }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   // Helper function to convert status number to string
 
@@ -281,14 +321,12 @@ const HistoryTable = () => {
 
   return (
     <div className="mt-6 h-full min-h-0 flex flex-col">
-      <div className="flex-1 min-h-0 overflow-y-auto">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto">
         {/* Desktop Table */}
         <div className="hidden md:block">
           <table className="w-full">
             {/* Table header */}
             <thead className="sticky top-0">
-              {/* TODO: fix đa ngôn ngữ */}
-
               <tr className=" text-xs font-medium text-greyscale-500 bg-[#F2F3F5] ">
                 <th className="w-20 px-3 py-3 text-left rounded-l-lg ">
                   {t('myReviews.history.table.headers.orderId')}
@@ -356,7 +394,7 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="space-y-3">
+                      <div className="space-y-3 max-h-[160px] overflow-y-scroll">
                         {item.products.map((product, index) => (
                           <div key={index} className="flex items-start gap-3">
                             <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
@@ -405,6 +443,23 @@ const HistoryTable = () => {
                   </tr>
                 ))
               )}
+              {/* Loading more indicator */}
+              {isFetchingNextPage && (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="px-3 py-4 text-center text-sm text-greyscale-500"
+                  >
+                    {t('loading')}
+                  </td>
+                </tr>
+              )}
+              {/* Sentinel for intersection observer */}
+              <tr>
+                <td colSpan={5}>
+                  <div ref={sentinelRef} />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -464,6 +519,14 @@ const HistoryTable = () => {
               <MobileCard key={item.id} item={item} />
             ))
           )}
+          {/* Loading more indicator */}
+          {isFetchingNextPage && (
+            <div className="px-4 py-4 text-center text-sm text-greyscale-500">
+              {t('loading')}
+            </div>
+          )}
+          {/* Sentinel for intersection observer */}
+          <div ref={sentinelRef} />
         </div>
       </div>
     </div>

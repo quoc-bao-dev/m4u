@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { apiReview } from './api'
 
 export const useGetTypeEvaluate = () => {
@@ -46,5 +46,47 @@ export const useGetListReviewHistory = ({
   return useQuery({
     queryKey: ['listReviewHistory', activeTab, searchQuery, dateStart, dateEnd],
     queryFn: queryFn,
+  })
+}
+
+export const useInfiniteListReviewHistory = ({
+  activeTab,
+  searchQuery,
+  dateStart,
+  dateEnd,
+  perPage = 5,
+}: {
+  activeTab?: string
+  searchQuery?: string
+  dateStart?: string
+  dateEnd?: string
+  perPage?: number
+}) => {
+  return useInfiniteQuery({
+    queryKey: [
+      'infiniteListReviewHistory',
+      activeTab,
+      searchQuery,
+      dateStart,
+      dateEnd,
+      perPage,
+    ],
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await apiReview.getListReviewHistory({
+        activeTab,
+        searchQuery,
+        dateStart,
+        dateEnd,
+        per_page: perPage,
+        current_page: pageParam as number,
+      })
+      return response.data
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage) return undefined
+      const next = lastPage.current_page + 1
+      return next <= lastPage.last_page ? next : undefined
+    },
   })
 }

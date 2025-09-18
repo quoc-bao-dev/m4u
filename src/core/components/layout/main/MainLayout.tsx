@@ -1,10 +1,10 @@
 'use client'
 
+import CartIcon from '@/modules/trial-registration/components/cart/CartIcon'
 import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
-import CartIcon from '@/modules/trial-registration/components/cart/CartIcon'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -61,20 +61,24 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     <div className="relative min-h-screen">
       {/* Header */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${SCROLL_CONFIG.headerTransitionClass
-          } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
+        className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
+          SCROLL_CONFIG.headerTransitionClass
+        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
       >
         <div
-          className={`absolute inset-0 ${SCROLL_CONFIG.backgroundOverlayClass
-            } transition-opacity duration-200 ease-in-out ${isScrolled ? 'opacity-100' : 'opacity-0'
-            }`}
+          className={`absolute inset-0 ${
+            SCROLL_CONFIG.backgroundOverlayClass
+          } transition-opacity duration-200 ease-in-out ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
         />
         <div className="relative z-50">
           <Header />
         </div>
         <div
-          className={`w-full transition-opacity duration-200 ease-in-out ${isScrolled ? 'opacity-100' : 'opacity-0'
-            }`}
+          className={`w-full transition-opacity duration-200 ease-in-out ${
+            isScrolled ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <Concave />
         </div>
