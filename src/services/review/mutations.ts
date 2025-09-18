@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query"
-import { reviewApi } from "./api"
 import { useToast } from "@/core/hooks"
+import { apiReview } from "./api"
 
 export const useSubmitReview = () => {
   const { showError, showSuccess } = useToast()
 
   const queryFn = async (data: FormData) => {
-    const response = await reviewApi.submitReview(data)
+    const response = await apiReview.submitReview(data)
     return response.data
   }
   return useMutation({

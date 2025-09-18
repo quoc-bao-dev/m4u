@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { reviewApi } from './api'
+import { apiReview } from './api'
 
 export const useGetTypeEvaluate = () => {
   const queryFn = async () => {
-    const response = await reviewApi.getTypeEvaluate()
+    const response = await apiReview.getTypeEvaluate()
     return response.data
   }
   return useQuery({
@@ -12,24 +12,25 @@ export const useGetTypeEvaluate = () => {
   })
 }
 
-export const useListReview = () => {
-  const queryFn = async () => {
-    const response = await reviewApi.listReview()
-    return response.data
-  }
-  return useQuery({
-    queryKey: ['list-review'],
-    queryFn: queryFn,
-  })
-}
 
 export const useGetProductReview = () => {
   const queryFn = async () => {
-    const response = await reviewApi.getProductReview()
+    const response = await apiReview.getProductReview()
     return response.data.data
   }
   return useQuery({
     queryKey: ['get-product-review'],
+    queryFn: queryFn,
+  })
+}
+
+export const useGetListReviewHistory = () => {
+  const queryFn = async () => {
+    const response = await apiReview.getListReviewHistory()
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['listReviewHistory'],
     queryFn: queryFn,
   })
 }

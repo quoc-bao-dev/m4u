@@ -6,6 +6,10 @@ import { useEffect, useState } from 'react'
 // Domain configuration
 const DOMAIN_CONFIG = {
   default: '', // Will use axiosInstance default baseURL
+  local: 'http://localhost:3000',
+  development: 'https://dev-api.example.com',
+  staging: 'https://staging-api.example.com',
+  production: 'https://api.example.com',
   custom: '',
 }
 
@@ -261,45 +265,41 @@ export default function ApiTestPage() {
           : undefined
         : convertToObject(bodyFields)
 
-      // Use axios instance directly if default (uses its configured baseURL)
-      // Otherwise create temporary instance with custom baseURL
-      let tempAxios = axiosInstance
-      if (selectedDomain !== 'default') {
-        const baseURL = getCurrentBaseURL()
-        tempAxios = axiosInstance.create
-          ? axiosInstance.create()
-          : axiosInstance
-        if (tempAxios.defaults) {
-          tempAxios.defaults.baseURL = baseURL
-        }
+      // Create request config with custom baseURL if needed
+      const requestConfig = {
+        params: queryParams,
+        ...(selectedDomain !== 'default' && {
+          baseURL: getCurrentBaseURL(),
+        }),
       }
-      // For 'default' option, tempAxios = axiosInstance (no baseURL override)
 
       switch (method) {
         case 'GET':
-          axiosResponse = await tempAxios.get(apiPath, {
-            params: queryParams,
-          })
+          axiosResponse = await axiosInstance.get(apiPath, requestConfig)
           break
         case 'POST':
-          axiosResponse = await tempAxios.post(apiPath, bodyData, {
-            params: queryParams,
-          })
+          axiosResponse = await axiosInstance.post(
+            apiPath,
+            bodyData,
+            requestConfig
+          )
           break
         case 'PUT':
-          axiosResponse = await tempAxios.put(apiPath, bodyData, {
-            params: queryParams,
-          })
+          axiosResponse = await axiosInstance.put(
+            apiPath,
+            bodyData,
+            requestConfig
+          )
           break
         case 'PATCH':
-          axiosResponse = await tempAxios.patch(apiPath, bodyData, {
-            params: queryParams,
-          })
+          axiosResponse = await axiosInstance.patch(
+            apiPath,
+            bodyData,
+            requestConfig
+          )
           break
         case 'DELETE':
-          axiosResponse = await tempAxios.delete(apiPath, {
-            params: queryParams,
-          })
+          axiosResponse = await axiosInstance.delete(apiPath, requestConfig)
           break
         default:
           throw new Error('Method không được hỗ trợ')
