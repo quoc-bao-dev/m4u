@@ -1,9 +1,9 @@
-import { MyReviewSection } from '@/modules/my-reviews'
+import { HistoryReviewSection } from '@/modules/my-reviews'
 
 const Page = () => {
   return (
     <main>
-      <MyReviewSection />
+      <HistoryReviewSection />
     </main>
   )
 }

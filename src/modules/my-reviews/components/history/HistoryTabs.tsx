@@ -1,0 +1,150 @@
+'use client'
+
+import { useReviewStatus } from '@/services/review-status/queries'
+import { useTableFilter } from '../../stores/useTableFilter'
+import { useEffect, useMemo, useState } from 'react'
+
+export type ReviewTab = {
+  key: string
+  label: string
+  count?: number
+  color?: 'pink' | 'violet' | 'sky' | 'emerald' | 'orange'
+}
+
+const HistoryTabs = ({
+  onChange,
+  className,
+  defaultActiveKey,
+}: {
+  onChange?: (key: string) => void
+  className?: string
+  defaultActiveKey?: string
+}) => {
+  // Gọi hook table status và đồng bộ với bộ lọc tabs
+  const { data: reviewStatusData, isLoading } = useReviewStatus()
+  const { activeTab, setActiveTab } = useTableFilter()
+
+  const tabs: ReviewTab[] = useMemo(() => {
+    if (!reviewStatusData || !Array.isArray(reviewStatusData)) {
+      return []
+    }
+
+    // Map API data to ReviewTab format
+    return reviewStatusData.map((item, index) => ({
+      key: item.id.toString(),
+      label: item.name,
+      count: 0, // You may need to get actual counts from another API
+      color: (['pink', 'violet', 'sky', 'emerald', 'orange'] as const)[
+        index % 5
+      ],
+    }))
+  }, [reviewStatusData])
+
+  const [localActiveKey, setLocalActiveKey] = useState<string>('')
+
+  // Set first tab as active when tabs are loaded
+  useEffect(() => {
+    console.log('tabs loaded:', tabs)
+    console.log('current activeKey:', localActiveKey)
+    if (tabs.length > 0 && !localActiveKey) {
+      console.log('Setting first tab as active:', tabs[0].key)
+      setLocalActiveKey(tabs[0].key)
+      setActiveTab(tabs[0].key) // Đồng bộ với global state
+    }
+  }, [tabs, localActiveKey, setActiveTab])
+
+  // Handle defaultActiveKey prop
+  useEffect(() => {
+    if (defaultActiveKey) {
+      setLocalActiveKey(defaultActiveKey)
+      setActiveTab(defaultActiveKey) // Đồng bộ với global state
+    }
+  }, [defaultActiveKey, setActiveTab])
+
+  // Sync local state with global state
+  useEffect(() => {
+    if (activeTab && activeTab !== localActiveKey) {
+      setLocalActiveKey(activeTab)
+    }
+  }, [activeTab, localActiveKey])
+
+  const handleClick = (key: string) => {
+    setLocalActiveKey(key)
+    setActiveTab(key) // Cập nhật global state
+    onChange?.(key)
+  }
+
+  // Skeleton loading state
+  if (isLoading) {
+    return (
+      <div className={`w-full border-b border-gray-300 ${className ?? ''}`}>
+        <div className="flex items-center gap-6 relative pt-4 overflow-x-auto custom-scrollbar">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="relative pb-3 animate-pulse">
+              <div className="flex items-center gap-2">
+                <div className="h-6 bg-gray-200 rounded w-20"></div>
+                <div className="h-6 w-8 bg-gray-200 rounded-md"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`w-full border-b border-gray-300 ${className ?? ''}`}>
+      <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar">
+        {tabs.map((tab) => {
+          const isActive = localActiveKey === tab.key
+          const colorClass = (() => {
+            switch (tab.color) {
+              case 'violet':
+                return 'bg-violet-50 text-violet-600'
+              case 'sky':
+                return 'bg-sky-50 text-sky-600'
+              case 'emerald':
+                return 'bg-emerald-50 text-emerald-600'
+              case 'orange':
+                return 'bg-orange-50 text-orange-600'
+              case 'pink':
+              default:
+                return 'bg-pink-50 text-pink-600'
+            }
+          })()
+          return (
+            <button
+              key={tab.key}
+              className={
+                'relative pb-3 text-[16px] transition-colors ' +
+                (isActive
+                  ? 'text-gray-900 font-semibold'
+                  : 'text-gray-400 hover:text-gray-600')
+              }
+              onClick={() => handleClick(tab.key)}
+            >
+              <span className="inline-flex items-center gap-2">
+                <span className="truncate">{tab.label}</span>
+                {typeof tab.count === 'number' && (
+                  <span
+                    className={
+                      'inline-flex py-0.5 min-w-5 items-center justify-center rounded-md px-2 text-sm font-semibold ' +
+                      colorClass
+                    }
+                  >
+                    {tab.count}
+                  </span>
+                )}
+              </span>
+              {isActive && (
+                <span className="absolute -bottom-[2px] left-0 right-0 h-[4px] rounded-t-full bg-pink-600" />
+              )}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default HistoryTabs

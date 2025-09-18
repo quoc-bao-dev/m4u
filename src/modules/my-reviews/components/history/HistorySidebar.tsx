@@ -18,11 +18,14 @@ import 'moment/locale/vi'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import React, { useMemo, useState } from 'react'
+import { Link } from '@/locale'
+import { useLogoutConfirmModal } from '@/modules/auth'
 
-const MyReviewSidebar = () => {
+const HistorySidebar = () => {
   const t = useTranslations()
   const locale = useLocale()
   const { user, isAuthenticated } = useAuth()
+  const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
 
   const formatJoinDate = (dateString: string) => {
     try {
@@ -53,9 +56,20 @@ const MyReviewSidebar = () => {
         id: 'trial' as const,
         label: 'Trial registration history',
         Icon: ClockCounterClockwise,
+        href: '/trial-history',
       },
-      { id: 'reviews' as const, label: 'My reviews', Icon: PencilSimpleLine },
-      { id: 'donation' as const, label: 'Referral program', Icon: QrCode },
+      {
+        id: 'reviews' as const,
+        label: 'My reviews',
+        Icon: PencilSimpleLine,
+        href: '/my-review',
+      },
+      {
+        id: 'donation' as const,
+        label: 'Referral program',
+        Icon: QrCode,
+        href: '/developing',
+      },
     ],
     []
   )
@@ -71,6 +85,7 @@ const MyReviewSidebar = () => {
         id: 'account' as const,
         label: 'Account preferences',
         Icon: UserCircle,
+        href: '/developing',
       },
     ],
     [t]
@@ -82,11 +97,13 @@ const MyReviewSidebar = () => {
         id: 'help' as const,
         label: t('menu.settings.support.help-centre'),
         Icon: HeadsetIcon,
+        href: '/developing',
       },
       {
         id: 'feedback' as const,
         label: t('menu.settings.support.feedback-submission'),
         Icon: NotePencilIcon,
+        href: '/developing',
       },
       { id: 'logout' as const, label: 'Log out', Icon: SignOut },
     ],
@@ -94,15 +111,15 @@ const MyReviewSidebar = () => {
   )
 
   return (
-    <div className="rounded-2xl overflow-hidden  bg-white shadow-[0px_4px_24px_0px_#0000000F] h-full flex flex-col min-h-0">
+    <div className="lg:rounded-2xl overflow-hidden  lg:bg-white lg:shadow-[0px_4px_24px_0px_#0000000F] h-full flex flex-col min-h-0">
       {/* Header */}
-      <div className="relative pt-6 pb-4 px-6">
+      <div className="relative pt-6 pb-4 lg:px-6">
         <Image
           src={IMAGES.topGradient2}
           alt="top-gradient"
           width={1000}
           height={600}
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3]"
+          className="hidden lg:block absolute inset-0 w-full h-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3]"
         />
         <div className="relative z-[1] flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
@@ -138,7 +155,7 @@ const MyReviewSidebar = () => {
               </div>
               <div className="mt-2 inline-flex items-center gap-1 bg-[#FFD4001A] px-3 py-1 rounded-full">
                 <GoldIcon />
-                <span className="text-xs font-medium text-[#FF9900]">
+                <span className="text-xs font-medium text-[#FF9900] truncate">
                   {t('menu.auth.membership.gold')}
                 </span>
               </div>
@@ -181,7 +198,7 @@ const MyReviewSidebar = () => {
             MY ACTIVITY
           </div>
           <div className="mt-3 flex flex-col gap-2">
-            {activityItems.map(({ id, label, Icon }) => (
+            {activityItems.map(({ id, label, Icon, href }) => (
               <SidebarItem
                 key={id}
                 icon={
@@ -190,6 +207,7 @@ const MyReviewSidebar = () => {
                 label={label}
                 active={activeItem === id}
                 onClick={() => setActiveItem(id)}
+                href={href}
               />
             ))}
           </div>
@@ -207,7 +225,7 @@ const MyReviewSidebar = () => {
               General
             </div>
             <div className="mt-2 flex flex-col gap-2">
-              {settingsGeneral.map(({ id, label, Icon }) => (
+              {settingsGeneral.map(({ id, label, Icon, href }) => (
                 <SidebarItem
                   key={id}
                   icon={
@@ -216,6 +234,7 @@ const MyReviewSidebar = () => {
                   label={label}
                   active={activeItem === id}
                   onClick={() => setActiveItem(id)}
+                  href={href}
                 />
               ))}
             </div>
@@ -224,7 +243,7 @@ const MyReviewSidebar = () => {
               Support
             </div>
             <div className="mt-2 flex flex-col gap-2">
-              {settingsSupport.map(({ id, label, Icon }) => (
+              {settingsSupport.map(({ id, label, Icon, href }) => (
                 <SidebarItem
                   key={id}
                   icon={
@@ -238,7 +257,12 @@ const MyReviewSidebar = () => {
                   }
                   label={label}
                   active={activeItem === id}
-                  onClick={() => setActiveItem(id)}
+                  onClick={() =>
+                    id === 'logout'
+                      ? openLogoutConfirmModal()
+                      : setActiveItem(id)
+                  }
+                  href={id === 'logout' ? undefined : href}
                 />
               ))}
             </div>
@@ -254,13 +278,15 @@ const SidebarItem = ({
   label,
   active = false,
   onClick,
+  href,
 }: {
   icon: React.ReactNode
   label: string
   active?: boolean
   onClick?: () => void
+  href?: string
 }) => {
-  return (
+  const content = (
     <div
       onClick={onClick}
       className={`flex items-center gap-3 rounded-xl  px-3 py-2 cursor-pointer transition-colors ${
@@ -273,9 +299,15 @@ const SidebarItem = ({
       <span className="text-sm text-greyscale-700">{label}</span>
     </div>
   )
+
+  if (href) {
+    return <Link href={href}>{content}</Link>
+  }
+
+  return content
 }
 
-export default MyReviewSidebar
+export default HistorySidebar
 
 const GoldIcon = () => {
   return (
