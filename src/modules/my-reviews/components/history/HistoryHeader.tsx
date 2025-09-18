@@ -29,14 +29,6 @@ const HistoryHeader = () => {
     setDateRange(from, to)
   }
 
-  // Convert date range to string format for DateRangePicker
-  const dateRangeValue = {
-    from: dateRange.from?.toISOString().split('T')[0],
-    to: dateRange.to?.toISOString().split('T')[0],
-  }
-
-  console.log(dateRangeValue)
-
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
       <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900 ">
@@ -79,7 +71,7 @@ const HistoryHeader = () => {
 
         {/* Date picker */}
         <div className="w-full lg:w-[260px] items-center gap-2 px-1">
-          <DateRangePicker />
+          <DateRangePicker onChange={handleDateRangeChange} />
         </div>
       </div>
     </div>

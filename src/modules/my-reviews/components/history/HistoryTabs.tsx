@@ -8,7 +8,7 @@ export type ReviewTab = {
   key: string
   label: string
   count?: number
-  color?: 'pink' | 'violet' | 'sky' | 'emerald' | 'orange'
+  color?: string
 }
 
 const HistoryTabs = ({
@@ -34,9 +34,7 @@ const HistoryTabs = ({
       key: item.id.toString(),
       label: item.name,
       count: item.countReview, // You may need to get actual counts from another API
-      color: (['pink', 'violet', 'sky', 'emerald', 'orange'] as const)[
-        index % 5
-      ],
+      color: item.color,
     }))
   }, [reviewStatusData])
 
@@ -95,21 +93,6 @@ const HistoryTabs = ({
       <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar ">
         {tabs.map((tab) => {
           const isActive = localActiveKey === tab.key
-          const colorClass = (() => {
-            switch (tab.color) {
-              case 'violet':
-                return 'bg-violet-50 text-violet-600'
-              case 'sky':
-                return 'bg-sky-50 text-sky-600'
-              case 'emerald':
-                return 'bg-emerald-50 text-emerald-600'
-              case 'orange':
-                return 'bg-orange-50 text-orange-600'
-              case 'pink':
-              default:
-                return 'bg-pink-50 text-pink-600'
-            }
-          })()
           return (
             <button
               key={tab.key}
@@ -126,16 +109,19 @@ const HistoryTabs = ({
                 {typeof tab.count === 'number' && (
                   <span
                     className={
-                      'inline-flex py-0.5 min-w-5 items-center justify-center rounded-md px-2 text-sm font-semibold ' +
-                      colorClass
+                      'inline-flex py-0.5 min-w-5 items-center justify-center rounded-md px-2 text-sm font-semibold text-white'
                     }
+                    style={{ backgroundColor: tab.color || '#ea4b8b' }}
                   >
                     {tab.count}
                   </span>
                 )}
               </span>
               {isActive && (
-                <span className="absolute z-10 -bottom-[2px] left-0 right-0 h-[6px] rounded-t-full bg-pink-600" />
+                <span
+                  className="absolute z-10 -bottom-[2px] left-0 right-0 h-[6px] rounded-t-full"
+                  style={{ backgroundColor: tab.color || '#ea4b8b' }}
+                />
               )}
             </button>
           )

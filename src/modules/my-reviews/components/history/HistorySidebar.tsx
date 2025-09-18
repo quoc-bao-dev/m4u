@@ -174,7 +174,7 @@ const HistorySidebar = () => {
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
               {isAuthenticated && user && user.referral_code ? 69 : '0'}
             </div>
-            <div className="text-[12px] text-greyscale-500">
+            <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.referrals')}
             </div>
           </div>
@@ -294,7 +294,7 @@ const HistorySidebar = () => {
                               className="rounded-full object-cover size-5"
                             />
                             <span
-                              className={`text-xs font-medium ${
+                              className={`text-xs font-medium hidden 2xl:block ${
                                 getCurrentLanguage() === lang.id
                                   ? 'text-greyscale-900'
                                   : 'text-greyscale-600'

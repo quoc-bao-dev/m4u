@@ -27,6 +27,8 @@ export type ReviewHistoryItem = {
   status: number
   date_status: string | null
   staff_status: number
+  name_status: string
+  status_color: string
   clients_review: ClientReview[]
 }
 

@@ -18,57 +18,20 @@ type ReviewItem = {
   }[]
   date: string
   time: string
-  status: 'completed' | 'pending' | 'cancelled' | 'processing'
+  status: string
+  statusColor: string
 }
 
-const statusChip = (
-  status: ReviewItem['status'],
-  t: ReturnType<typeof useTranslations>
-) => {
-  switch (status) {
-    case 'completed':
-      return (
-        <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-green-500" />{' '}
-          {t('myReviews.history.table.statuses.completed')}
-        </span>
-      )
-    case 'pending':
-      return (
-        <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-yellow-500" />{' '}
-          {t('myReviews.history.table.statuses.pending')}
-        </span>
-      )
-    case 'cancelled':
-      return (
-        <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-red-500" />{' '}
-          {t('myReviews.history.table.statuses.cancelled')}
-        </span>
-      )
-    case 'processing':
-      return (
-        <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-blue-500" />{' '}
-          {t('myReviews.history.table.statuses.processing')}
-        </span>
-      )
-  }
-}
-const getStatusFromNumber = (status: number): ReviewItem['status'] => {
-  switch (status) {
-    case 1:
-      return 'completed'
-    case 2:
-      return 'pending'
-    case 3:
-      return 'cancelled'
-    case 4:
-      return 'processing'
-    default:
-      return 'pending'
-  }
+const renderStatusChip = (label: string, color: string) => {
+  return (
+    <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
+      <span
+        className="size-1.5 rounded-full"
+        style={{ backgroundColor: color }}
+      />{' '}
+      {label}
+    </span>
+  )
 }
 
 const HistoryTable = () => {
@@ -82,13 +45,15 @@ const HistoryTable = () => {
       activeTab,
       searchQuery,
       dateRange: {
-        from: dateRange.from?.toISOString(),
-        to: dateRange.to?.toISOString(),
+        from: dateRange.from
+          ? moment(dateRange.from).format('DD/MM/YYYY')
+          : undefined,
+        to: dateRange.to
+          ? moment(dateRange.to).format('DD/MM/YYYY')
+          : undefined,
       },
     })
   }, [activeTab, searchQuery, dateRange])
-
-  console.log('dateRange.from?.toISOString()', dateRange.from?.toISOString())
 
   // Infinite query with default perPage = 5
   const {
@@ -133,7 +98,8 @@ const HistoryTable = () => {
         minute: '2-digit',
         hour12: true,
       }),
-      status: getStatusFromNumber(item.status),
+      status: item.name_status,
+      statusColor: item.status_color,
     }))
   }, [data])
 
@@ -218,7 +184,7 @@ const HistoryTable = () => {
             <div className="text-sm text-greyscale-900">{item.date}</div>
             <div className="text-xs text-greyscale-400">{item.time}</div>
           </div>
-          <div>{statusChip(item.status, t)}</div>
+          <div>{renderStatusChip(item.status, item.statusColor)}</div>
         </div>
 
         {/* Divider */}
@@ -394,7 +360,7 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="space-y-3 max-h-[160px] overflow-y-scroll">
+                      <div className="space-y-3 max-h-[160px] overflow-y-auto">
                         {item.products.map((product, index) => (
                           <div key={index} className="flex items-start gap-3">
                             <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
@@ -431,7 +397,7 @@ const HistoryTable = () => {
 
                     {/* Order Status */}
                     <td className="px-3 py-5 truncate">
-                      {statusChip(item.status, t)}
+                      {renderStatusChip(item.status, item.statusColor)}
                     </td>
 
                     {/* Action */}
