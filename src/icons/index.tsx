@@ -8,6 +8,7 @@ import WomanIcon from './woman.svg'
 import TagPercentIcon from './tag-percent.svg'
 import PackagePercentIcon from './package-percent.svg'
 import PolygonBg from './polygon.svg'
+import CornerTag from './CornerTag.svg'
 
 export {
   CurrencyCircleDollar,
@@ -20,4 +21,5 @@ export {
   TagPercentIcon,
   PackagePercentIcon,
   PolygonBg,
+  CornerTag,
 }

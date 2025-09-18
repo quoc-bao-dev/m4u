@@ -460,7 +460,26 @@
     },
     "success": {
       "title": "Successfully registered!",
-      "message": "We’ve received your application. Your trial product will be shipped to your address within the next few days."
+      "message": "We've received your application. Your trial product will be shipped to your address within the next few days."
     }
+  },
+  "submitReview": {
+    "back": "Back",
+    "title": "Ready to review and earn?",
+    "shareReview": "Share your honest review",
+    "addVideo": "Add your video (required)",
+    "addPhotos": "Add your photos (optional)",
+    "dropFiles": "Drop your files here, or click to upload",
+    "rating": "Rating",
+    "productQuality": "Product quality",
+    "overallExperience": "Overall experience",
+    "absorbability": "Absorbability",
+    "moisturization": "Moisturization",
+    "skinBrightening": "Skin brightening",
+    "excellent": "Excellent",
+    "tellUsWhatYouThink": "Tell us what you think",
+    "reviewTips": "Review tips",
+    "placeholder": "What did you love about this product?",
+    "submitReview": "Submit review"
   }
 }
