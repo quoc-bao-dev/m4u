@@ -22,12 +22,13 @@ const SubmitReview = ({ id }: { id: number }) => {
   const [ratings, setRatings] = useState<Record<number, number>>({})
   const [content, setContent] = useState('')
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
+  const [isVideoDragOver, setIsVideoDragOver] = useState(false)
+  const [isImagesDragOver, setIsImagesDragOver] = useState(false)
   const videoInputRef = useRef<HTMLInputElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
 
   const { data: typeEvaluate } = useGetTypeEvaluate()
   const { data: listProductReview } = useGetListProductReview(id)
-  console.log(listProductReview)
 
   const { mutateAsync: submitReview, isPending } = useSubmitReview()
 
@@ -106,6 +107,47 @@ const SubmitReview = ({ id }: { id: number }) => {
     setRatings(prev => ({ ...prev, [id]: value }))
   }
 
+  const buildDefaultRatings = (): Record<number, number> => {
+    if (!Array.isArray(typeEvaluate)) return {}
+    const defaults: Record<number, number> = {}
+    typeEvaluate.forEach((item: any) => {
+      defaults[item.id] = 5
+    })
+    return defaults
+  }
+
+  const handleVideoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setIsVideoDragOver(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file && file.type.startsWith('video/')) {
+      const previewUrl = URL.createObjectURL(file)
+      setVideoPreview(previewUrl)
+      setVideoFile(file)
+    }
+  }
+
+  const handleImagesDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setIsImagesDragOver(false)
+    const files = e.dataTransfer.files
+    if (files && files.length) {
+      const newImageUrls: string[] = []
+      const newImageFiles: File[] = []
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        if (file.type.startsWith('image/')) {
+          newImageUrls.push(URL.createObjectURL(file))
+          newImageFiles.push(file)
+        }
+      }
+      if (newImageUrls.length) {
+        setSelectedImages(prev => [...prev, ...newImageUrls].slice(0, 8))
+        setImageFiles(prev => [...prev, ...newImageFiles].slice(0, 8))
+      }
+    }
+  }
+
   const resetForm = () => {
     // Revoke video preview
     if (videoPreview) {
@@ -119,11 +161,18 @@ const SubmitReview = ({ id }: { id: number }) => {
     setVideoFile(null)
     setSelectedImages([])
     setImageFiles([])
-    setRatings({})
+    setRatings(buildDefaultRatings())
     setContent('')
     if (videoInputRef.current) videoInputRef.current.value = ''
     if (imageInputRef.current) imageInputRef.current.value = ''
   }
+
+  useEffect(() => {
+    // Khi có typeEvaluate, set mặc định 5 sao cho tất cả tiêu chí
+    if (Array.isArray(typeEvaluate)) {
+      setRatings(buildDefaultRatings())
+    }
+  }, [typeEvaluate])
 
   const handleSubmit = async () => {
     try {
@@ -146,7 +195,6 @@ const SubmitReview = ({ id }: { id: number }) => {
       if (!selectedProductId) return
       await submitReview({ id: selectedProductId, data: form })
       resetForm()
-      // TODO: Có thể reset form hoặc điều hướng nếu cần
     } catch (error) {
       console.error(error)
     }
@@ -228,7 +276,7 @@ const SubmitReview = ({ id }: { id: number }) => {
                 <video
                   src={videoPreview}
                   controls
-                  className='w-full h-[200px] lg:h-[300px] rounded-3xl object-cover'
+                  className=' h-[200px] lg:h-[400px] mx-auto rounded-xl object-cover'
                 />
                 <button
                   onClick={handleVideoRemove}
@@ -239,8 +287,11 @@ const SubmitReview = ({ id }: { id: number }) => {
               </div>
             ) : (
               <div
-                className='flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl bg-greyscale-50 border border-greyscale-200 cursor-pointer hover:bg-greyscale-100 transition-all duration-300'
+                className={`flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl border cursor-pointer transition-all duration-300 ${isVideoDragOver ? 'bg-greyscale-100 border-greyscale-300' : 'bg-greyscale-50 border-greyscale-200 hover:bg-greyscale-100'}`}
                 onClick={openVideoPicker}
+                onDragOver={(e) => { e.preventDefault(); setIsVideoDragOver(true) }}
+                onDragLeave={() => setIsVideoDragOver(false)}
+                onDrop={handleVideoDrop}
               >
                 <div className='p-3 rounded-full bg-white w-fit'>
                   <FilmStripIcon className='size-6 text-greyscale-500' />
@@ -259,7 +310,12 @@ const SubmitReview = ({ id }: { id: number }) => {
               onChange={handleImageSelect}
               className="hidden"
             />
-            <div className='flex gap-1 flex-wrap'>
+            <div
+              className={`flex gap-1 flex-wrap rounded-xl ${isImagesDragOver ? 'ring-2 ring-greyscale-300 bg-greyscale-50' : ''}`}
+              onDragOver={(e) => { e.preventDefault(); setIsImagesDragOver(true) }}
+              onDragLeave={() => setIsImagesDragOver(false)}
+              onDrop={handleImagesDrop}
+            >
               <div
                 className='size-[72px] rounded-lg border border-greyscale-200 bg-greyscale-100 flex flex-col justify-center items-center gap-1 cursor-pointer hover:bg-greyscale-200 transition-all duration-300'
                 onClick={openImagePicker}
