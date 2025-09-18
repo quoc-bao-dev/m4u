@@ -15,7 +15,8 @@
   --font-krona: 'Krona One', ui-sans-serif, system-ui, sans-serif;
 
   --camaron: #FF8092;
-
+  
+  --color-greyscale-50: #F6F7F9;
   --color-greyscale-100: #f3f4f6;
   --color-greyscale-200: #E5E7EB;
   --color-greyscale-300: #d1d5db;
@@ -34,7 +35,7 @@
   --color-pink-200: #FFE1F1;
   --color-pink-300: #FFC4E3;
   --color-pink-400: #FEA6D6;
-  --color-pink-500: #EC4899;
+  --color-pink-500: #FE89C8;
   --color-pink-600: #FE6BBA;
 
   --color-green-100: #E8FBF5;
