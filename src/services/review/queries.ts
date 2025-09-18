@@ -34,3 +34,15 @@ export const useGetListReviewHistory = () => {
     queryFn: queryFn,
   })
 }
+
+export const useGetListProductReview = (id_review: number) => {
+  const queryFn = async () => {
+    const response = await apiReview.getListProductReview(id_review)
+    return response.data.data
+  }
+  return useQuery({
+    queryKey: ['listProductReview', id_review],
+    queryFn: queryFn,
+    enabled: !!id_review,
+  })
+}

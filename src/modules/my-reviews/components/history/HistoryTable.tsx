@@ -5,6 +5,7 @@ import { ReviewHistoryItem } from '@/services/review/type'
 import { useEffect, useMemo, useState } from 'react'
 import { useTableFilter } from '../../stores/useTableFilter'
 import NoData from '../../../trial-registration/components/product/NoData'
+import { Link } from '@/locale'
 
 type ReviewItem = {
   id: string
@@ -367,9 +368,11 @@ const HistoryTable = () => {
 
                     {/* Action */}
                     <td className="px-3 py-5 w-[160px]">
-                      <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-                        Review
-                      </button>
+                      <Link href={`/submit-review/${item.id}`} className='w-full h-full'>
+                        <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+                          Review
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))

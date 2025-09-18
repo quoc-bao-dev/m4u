@@ -32,6 +32,7 @@ const ProductSection = () => {
       isSig: p.isSig,
       evaluate: p.evaluate,
       video_review: p.video_review,
+      id_review: p.id_review,
       time:
         p.time_left_dd_hh_mm_ss === '0:00:00:00'
           ? undefined
@@ -81,7 +82,7 @@ const ProductSection = () => {
                 <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-5">
                   {products.map((p, index) => (
                     <ScrollRevealCard
-                      key={p.id}
+                      key={index}
                       delay={index * 0.1}
                       duration={0.6}
                     >
@@ -101,6 +102,7 @@ const ProductSection = () => {
                           isSig={p.isSig}
                           evaluate={p.evaluate}
                           video_review={p.video_review}
+                          id_review={p.id_review}
                         />
                       </Link>
                     </ScrollRevealCard>

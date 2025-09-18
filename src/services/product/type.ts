@@ -16,6 +16,7 @@ export interface Product {
   isSig: number
   evaluate: number
   video_review: string
+  id_review: number
 }
 
 export interface ProductListLink {
