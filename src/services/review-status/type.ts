@@ -4,4 +4,5 @@ export interface ReviewStatusResponse {
   name: string
   language: string
   countReview: number
+  color: string
 }

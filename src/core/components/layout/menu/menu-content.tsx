@@ -174,6 +174,7 @@ const MenuContent = ({
                   openLoginModal()
                 } else {
                   setIsReviewer(option.value)
+                  onClose()
                   nav('/review-hub')
                 }
               }}
@@ -333,7 +334,7 @@ const MenuContent = ({
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <Link key={item.id} href={'/developing'}>
+                  <Link key={item.id} href={'/developing'} onClick={onClose}>
                     <div className="flex items-center gap-3 cursor-pointer group">
                       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
                         <IconComponent
