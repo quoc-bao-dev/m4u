@@ -64,7 +64,7 @@ const HistorySidebar = () => {
         id: 'reviews' as const,
         label: t('menu.auth.activity.myReviews'),
         Icon: PencilSimpleLine,
-        href: '/my-review',
+        href: '/developing',
       },
       {
         id: 'donation' as const,
