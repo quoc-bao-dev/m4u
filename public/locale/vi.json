@@ -396,7 +396,9 @@
         "referrals": "Giới thiệu",
         "active": "Kích hoạt",
         "accountBalance": "Số dư tài khoản",
-        "points": "Điểm"
+        "points": "Điểm",
+        "commissionRevenue": "Doanh thu hoa hồng",
+        "reviews": "Đánh giá"
       },
       "activity": {
         "title": "Hoạt động của tôi",
@@ -478,5 +480,43 @@
     "reviewTips": "Mẹo review",
     "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
     "submitReview": "Gửi đánh giá"
+  },
+  "myReviews": {
+    "history": {
+      "header": {
+        "title": "Đánh giá của tôi",
+        "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
+      },
+      "table": {
+        "headers": {
+          "orderId": "Mã đơn",
+          "productInfo": "Thông tin sản phẩm",
+          "timeCreated": "Thời gian tạo",
+          "orderStatus": "Trạng thái",
+          "action": "Thao tác"
+        },
+        "statuses": {
+          "completed": "Hoàn thành",
+          "pending": "Đang chờ",
+          "cancelled": "Đã hủy",
+          "processing": "Đang xử lý"
+        },
+        "actions": {
+          "review": "Đánh giá"
+        },
+        "error": {
+          "loadFailed": "Lỗi khi tải lịch sử đánh giá",
+          "tryLater": "Vui lòng thử lại sau"
+        },
+        "empty": {
+          "title": "Chưa có lịch sử đánh giá",
+          "desc": "Khi bạn hoàn thành đánh giá, lịch sử sẽ hiển thị tại đây."
+        },
+        "mobile": {
+          "moreProducts": "+{count} sản phẩm",
+          "daysLeftToSubmit": "Còn {count} ngày để gửi đánh giá"
+        }
+      }
+    }
   }
 }
