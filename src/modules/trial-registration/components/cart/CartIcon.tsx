@@ -4,6 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { IMAGES } from '@/core/constants/IMAGES'
 import { cn } from '@/core/utils'
 import { Link, useTranslation } from '@/locale'
 import { useGetProductListDetail } from '@/services/product'
@@ -13,8 +14,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useCartIconStore } from '../../stores/useCartIconStore'
 import { useCartStore } from '../../stores/useCartStore'
-import { IMAGES } from '@/core/constants/IMAGES'
-import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
+import { useAuth } from '@/modules/auth'
 
 interface CartIconProps {
   className?: string
@@ -26,6 +26,7 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
 
   const { getItemCount, getIds, removeItem, clearCart } = useCartStore()
   const { isOpen, openCart, closeCart } = useCartIconStore()
+  const { isAuthenticated } = useAuth()
   const itemCount = getItemCount()
   const ids = getIds()
 
@@ -79,6 +80,8 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
     )
     closeCart()
   }
+
+  if (!isAuthenticated) return null
 
   return (
     <div className="fixed bottom-6 right-6 z-50 rounded-full shadow-[-6px_6px_20px_0px_#0000000D,8px_-8px_20px_0px_#00000005]">
