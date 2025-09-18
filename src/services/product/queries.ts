@@ -48,3 +48,15 @@ export const useGetProductDetail = ({ slug }: { slug: string }) => {
     enabled: !!slug,
   })
 }
+
+export const useGetProductListDetail = ({ ids }: { ids: string[] }) => {
+  const queryFn = async () => {
+    const response = await productApi.getProductListDetail({ id_product: ids })
+    return response.data.data
+  }
+  return useQuery({
+    queryKey: ['product-list-detail', { ids }],
+    queryFn: queryFn,
+    enabled: Array.isArray(ids) && ids.length > 0,
+  })
+}

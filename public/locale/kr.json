@@ -329,6 +329,13 @@
     "addedToCart": "장바구니에 추가됨",
     "alreadyInCart": "이미 장바구니에 있음"
   },
+  "rating": {
+    "excellent": "최고",
+    "good": "좋음",
+    "average": "보통",
+    "bad": "나쁨",
+    "veryBad": "매우 나쁨"
+  },
   "timer": {
     "days": "일",
     "hours": "시간",
