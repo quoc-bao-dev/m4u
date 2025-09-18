@@ -1,11 +1,9 @@
-import React from 'react'
+import SubmitReview from '@/modules/submit-review'
 
-const page = () => {
+const SubmitReviewPage = () => {
     return (
-        <div className='w-full h-full min-h-screen flex items-center justify-center text-4xl'>
-            Trang đánh giá sản phẩm
-        </div>
+        <SubmitReview />
     )
 }
 
-export default page
+export default SubmitReviewPage
