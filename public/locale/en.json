@@ -396,14 +396,16 @@
         "referrals": "Referrals",
         "active": "Active",
         "accountBalance": "Account Balance",
-        "points": "Points"
+        "points": "Points",
+        "commissionRevenue": "Commission Revenue",
+        "reviews": "Reviews"
       },
       "activity": {
         "title": "My activity",
         "trialHistory": "Trial registration history",
         "myReviews": "My reviews",
         "referralList": "Referral List",
-        "referralCode": "Referral Code"
+        "referralCode": "Referral Program"
       },
       "account": {
         "preferences": "Account Preferences"
@@ -481,5 +483,43 @@
     "reviewTips": "Review tips",
     "placeholder": "What did you love about this product?",
     "submitReview": "Submit review"
+  },
+  "myReviews": {
+    "history": {
+      "header": {
+        "title": "My reviews",
+        "searchPlaceholder": "Search product, review, date, etc"
+      },
+      "table": {
+        "headers": {
+          "orderId": "Order ID",
+          "productInfo": "Product Info",
+          "timeCreated": "Time created",
+          "orderStatus": "Order Status",
+          "action": "Action"
+        },
+        "statuses": {
+          "completed": "Completed",
+          "pending": "Pending",
+          "cancelled": "Cancelled",
+          "processing": "Processing"
+        },
+        "actions": {
+          "review": "Review"
+        },
+        "error": {
+          "loadFailed": "Error loading review history",
+          "tryLater": "Please try again later"
+        },
+        "empty": {
+          "title": "No review history found",
+          "desc": "Your review history will appear here when you complete reviews."
+        },
+        "mobile": {
+          "moreProducts": "+{count} products",
+          "daysLeftToSubmit": "{count} days left to submit your review"
+        }
+      }
+    }
   }
 }
