@@ -93,7 +93,7 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
           >
             <div className="relative">
               <ShoppingCartSimpleIcon
-                className="size-6 xl:size-8 2xl:size-12 text-pink-600"
+                className="size-6 xl:size-8 2xl:size-10 text-pink-600"
               />
               {itemCount > 0 && (
                 <div className="absolute z-[2] -top-4 -right-4 2xl:-top-6 2xl:-right-6 size-5 xl:size-5.5 2xl:size-8 bg-pink-600 text-white text-sm 2xl:text-base font-bold rounded-full flex items-center justify-center">
