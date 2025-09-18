@@ -204,7 +204,10 @@ const Top = ({ user }: TopProps) => {
 export const AccountButton = () => {
   const t = useTranslations()
   return (
-    <button className="flex items-center gap-2 cursor-pointer group">
+    <button
+      className="flex items-center gap-2 cursor-pointer group"
+      onClick={() => sMenuSignal.set('close')}
+    >
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
         <UserCircleIcon
           weight="fill"
