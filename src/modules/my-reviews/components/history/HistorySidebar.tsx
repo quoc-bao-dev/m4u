@@ -6,6 +6,7 @@ import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { useAuth } from '@/modules/auth/stores/useAuth'
 import {
+  CameraIcon,
   ClockCounterClockwise,
   HeadsetIcon,
   NotePencilIcon,
@@ -64,7 +65,7 @@ const HistorySidebar = () => {
         id: 'reviews' as const,
         label: t('menu.auth.activity.myReviews'),
         Icon: PencilSimpleLine,
-        href: '/my-review',
+        href: '/developing',
       },
       {
         id: 'donation' as const,
@@ -125,24 +126,26 @@ const HistorySidebar = () => {
         />
         <div className="relative z-[1] flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
-              {isAuthenticated && user ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.avatar || '/placeholder-avatar.jpg'}
-                  alt={user.fullname || t('menu.auth.unknownUser')}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.src = '/image/avatar/image-01.png'
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full bg-greyscale-100" />
-              )}
-              {/* <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-white shadow-xs border border-greyscale-200 flex items-center justify-center">
-                <CameraIcon size={12} weight="fill" className="text-pink-500" />
-              </div> */}
+            <div className="relative w-fit">
+              <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
+                {isAuthenticated && user ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.avatar || '/placeholder-avatar.jpg'}
+                    alt={user.fullname || t('menu.auth.unknownUser')}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = '/image/avatar/image-01.png'
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-greyscale-100" />
+                )}
+              </div>
+              <div className="absolute bottom-0 -right-1 size-6 rounded-full bg-gray-50 shadow-xs flex items-center justify-center">
+                <CameraIcon size={18} className="text-pink-500" />
+              </div>
             </div>
             <div className="flex-1">
               <div className="text-base font-semibold text-greyscale-900">

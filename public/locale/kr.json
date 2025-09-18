@@ -481,10 +481,16 @@
     "placeholder": "이 제품의 어떤 점을 좋아하셨나요?",
     "submitReview": "리뷰 제출"
   },
+  "dateRangePicker": {
+    "from": "시작",
+    "to": "종료",
+    "cancel": "취소",
+    "apply": "적용"
+  },
   "myReviews": {
     "history": {
       "header": {
-        "title": "내 리뷰",
+        "title": "체험 신청 내역",
         "searchPlaceholder": "제품, 리뷰, 날짜 등 검색"
       },
       "table": {

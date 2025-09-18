@@ -481,10 +481,16 @@
     "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
     "submitReview": "Gửi đánh giá"
   },
+  "dateRangePicker": {
+    "from": "Từ ngày",
+    "to": "Đến ngày",
+    "cancel": "Hủy",
+    "apply": "Áp dụng"
+  },
   "myReviews": {
     "history": {
       "header": {
-        "title": "Đánh giá của tôi",
+        "title": "Lịch sử đánh giá",
         "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
       },
       "table": {

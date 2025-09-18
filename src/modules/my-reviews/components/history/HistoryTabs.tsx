@@ -114,7 +114,7 @@ const HistoryTabs = ({
             <button
               key={tab.key}
               className={
-                'relative pb-3 text-[16px] transition-colors' +
+                'relative pb-3 text-[16px] transition-colors cursor-pointer' +
                 (isActive
                   ? 'text-gray-900 font-semibold'
                   : 'text-gray-400 hover:text-gray-600')

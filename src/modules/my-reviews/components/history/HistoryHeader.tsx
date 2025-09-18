@@ -1,6 +1,7 @@
 'use client'
 
 import { DateRangePicker } from '@/core/components/ui/date-range-picker/DateRangePicker'
+import { useDebouncedCallback } from '@/core/hooks/useDebounce'
 import { MagnifyingGlass, XCircle } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
@@ -15,8 +16,11 @@ const HistoryHeader = () => {
 
   const handleSearchChange = (value: string) => {
     setLocalSearchQuery(value)
-    setSearchQuery(value)
   }
+
+  const debouncedSetSearchQuery = useDebouncedCallback((value: string) => {
+    setSearchQuery(value)
+  }, 400)
 
   const handleDateRangeChange = (value: { from?: string; to?: string }) => {
     const from = value.from ? new Date(value.from) : undefined
@@ -35,13 +39,13 @@ const HistoryHeader = () => {
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900">
+      <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900 ">
         {t('myReviews.history.header.title')}
       </h2>
 
       <div className="flex flex-col lg:flex-row items-center gap-2 ">
         {/* Search placeholder */}
-        <div className=" w-full md:w-[340px] flex-1  relative">
+        <div className=" w-full lg:w-[260px] xl:w-[340px] flex-1  relative">
           <MagnifyingGlass
             size={18}
             weight="bold"
@@ -51,14 +55,21 @@ const HistoryHeader = () => {
             type="text"
             placeholder={t('myReviews.history.header.searchPlaceholder')}
             value={localSearchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value
+              handleSearchChange(v)
+              debouncedSetSearchQuery(v)
+            }}
             className="w-full pl-9 pr-9 h-10 border-b border-greyscale-200 placeholder:italic focus:outline-none focus:border-b-[2px] focus:border-greyscale-300"
           />
           {localSearchQuery && localSearchQuery.length > 0 && (
             <button
               type="button"
               aria-label="Clear search"
-              onClick={() => handleSearchChange('')}
+              onClick={() => {
+                handleSearchChange('')
+                debouncedSetSearchQuery('')
+              }}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-greyscale-300 hover:text-greyscale-500"
             >
               <XCircle size={16} weight="bold" />
@@ -67,7 +78,7 @@ const HistoryHeader = () => {
         </div>
 
         {/* Date picker */}
-        <div className="w-full lg:w-auto items-center gap-2 px-1">
+        <div className="w-full lg:w-[260px] items-center gap-2 px-1">
           <DateRangePicker />
         </div>
       </div>

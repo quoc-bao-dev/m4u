@@ -1,20 +1,23 @@
 'use client'
 
-import * as React from 'react'
-import moment from 'moment'
+import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
+import { CalendarBlank } from '@phosphor-icons/react'
+import moment from 'moment'
+import { useTranslations } from 'next-intl'
+import * as React from 'react'
 
 export function DateRangePicker({
   onChange,
 }: {
   onChange?: (range: { from: string; to: string }) => void
 }) {
+  const t = useTranslations()
   const [date, setDate] = React.useState<{ from?: Date; to?: Date }>({})
   const [hoverDay, setHoverDay] = React.useState<Date | null>(null)
   const [open, setOpen] = React.useState(false)
@@ -24,10 +27,10 @@ export function DateRangePicker({
       setDate({ from: day, to: undefined }) // reset chọn lại
       setHoverDay(null)
     } else if (day < date.from) {
-      setDate({ from: day, to: date.from }) // nếu chọn trước from
+      setDate({ from: day, to: date.from })
       setHoverDay(null)
     } else {
-      setDate({ ...date, to: day }) // chọn ngày kết thúc
+      setDate({ ...date, to: day })
       setHoverDay(null)
     }
   }
@@ -48,7 +51,6 @@ export function DateRangePicker({
     setOpen(false)
   }
 
-  // ✅ dùng useCallback để tránh re-render không cần thiết
   const inRange = React.useCallback(
     (day: Date) => {
       if (date.from && !date.to && hoverDay) {
@@ -62,7 +64,6 @@ export function DateRangePicker({
     [date.from, date.to, hoverDay]
   )
 
-  // ✅ chỉ update hoverDay khi giá trị thay đổi
   const handleMouseEnter = (day: Date) => {
     if (!hoverDay || hoverDay.getTime() !== day.getTime()) {
       setHoverDay(day)
@@ -74,19 +75,21 @@ export function DateRangePicker({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <button className="flex w-full items-center justify-between border rounded-lg px-3 py-2 text-sm text-gray-700">
-            <span>
-              {date.from ? moment(date.from).format('DD/MM/YYYY') : 'From'} →{' '}
-              {date.to ? moment(date.to).format('DD/MM/YYYY') : 'To'}
+            <span className="w-full flex items-center justify-between pr-4">
+              <div>
+                {' '}
+                {date.from
+                  ? moment(date.from).format('DD/MM/YYYY')
+                  : t('dateRangePicker.from')}
+              </div>{' '}
+              →{' '}
+              <div className="">
+                {date.to
+                  ? moment(date.to).format('DD/MM/YYYY')
+                  : t('dateRangePicker.to')}
+              </div>
             </span>
-            <svg
-              className="h-4 w-4 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2h-2V3m-10 2H5a2 2 0 00-2 2v12a2 2 0 002 2h2" />
-            </svg>
+            <CalendarBlank size={24} className="text-greyscale-500" />
           </button>
         </PopoverTrigger>
 
@@ -101,26 +104,45 @@ export function DateRangePicker({
               modifiers={{
                 range: inRange,
                 start: (day) =>
-                  date.from && day.getTime() === date.from.getTime(),
-                end: (day) => date.to && day.getTime() === date.to.getTime(),
+                  !!(date.from && day.getTime() === date.from.getTime()),
+                end: (day) =>
+                  !!(date.to && day.getTime() === date.to.getTime()),
+                onlyStart: (day) =>
+                  !!(
+                    date.from &&
+                    !date.to &&
+                    day.getTime() === date.from.getTime()
+                  ),
               }}
               modifiersClassNames={{
+                // dải liền mạch cho mọi ngày nằm trong khoảng
                 range: 'bg-pink-100 text-pink-700',
-                start: 'bg-pink-500 text-white rounded-l-full',
-                end: 'bg-pink-500 text-white rounded-r-full',
+
+                // ngày bắt đầu: tròn full, overlay hồng đậm
+                start: 'bg-pink-500 text-white rounded-full',
+
+                // ngày kết thúc: tròn full, overlay hồng đậm
+                end: 'bg-pink-500 text-white rounded-full',
+
+                // chỉ chọn from: tròn full
+                onlyStart: 'bg-pink-500 text-white rounded-full',
               }}
             />
 
             <div className="flex justify-end gap-2 border-t px-4 py-2">
-              <Button variant="ghost" onClick={handleCancel}>
-                Cancel
+              <Button
+                variant="ghost"
+                onClick={handleCancel}
+                className="rounded-full"
+              >
+                {t('dateRangePicker.cancel')}
               </Button>
               <Button
-                className="bg-pink-500 hover:bg-pink-600 text-white"
+                className="bg-pink-500 hover:bg-pink-600 text-white rounded-full"
                 onClick={handleApply}
                 disabled={!date.from || !date.to}
               >
-                Apply
+                {t('dateRangePicker.apply')}
               </Button>
             </div>
           </div>

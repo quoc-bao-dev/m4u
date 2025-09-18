@@ -33,4 +33,5 @@ export const IMAGES = {
   speaker: '/image/donation/speaker.png',
   review2: '/image/review/review2.png',
   review3: '/image/review/review3.png',
+  imageNoData: '/image/product/image-nodata.png',
 }
