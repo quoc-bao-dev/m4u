@@ -3,10 +3,31 @@ import axiosInstance from '@/core/http/axiosInstance'
 import { ReviewHistoryListResponse } from './type'
 
 export const apiReview = {
-  getListReviewHistory: () =>
+  getListReviewHistory: ({
+    activeTab,
+    searchQuery,
+    dateStart,
+    dateEnd,
+    per_page,
+    current_page,
+  }: {
+    activeTab?: string
+    searchQuery?: string
+    dateStart?: string
+    dateEnd?: string
+    per_page?: number
+    current_page?: number
+  }) =>
     axiosInstance.post<ReviewHistoryListResponse>(
       '/list_review',
-      {},
+      {
+        search: searchQuery,
+        status: activeTab,
+        date_start_sign_up: dateStart,
+        date_end_sign_up: dateEnd,
+        per_page,
+        current_page,
+      },
       {
         baseURL: envConfig.adminUrl,
       }

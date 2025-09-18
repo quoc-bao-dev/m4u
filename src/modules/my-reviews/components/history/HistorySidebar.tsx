@@ -1,8 +1,12 @@
 'use client'
 
 import { IMAGES } from '@/core/constants/IMAGES'
+import { Link } from '@/locale'
+import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useLogoutConfirmModal } from '@/modules/auth'
 import { useAuth } from '@/modules/auth/stores/useAuth'
 import {
+  CameraIcon,
   ClockCounterClockwise,
   HeadsetIcon,
   NotePencilIcon,
@@ -18,11 +22,10 @@ import 'moment/locale/vi'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import React, { useMemo, useState } from 'react'
-import { Link } from '@/locale'
-import { useLogoutConfirmModal } from '@/modules/auth'
 
 const HistorySidebar = () => {
   const t = useTranslations()
+  const { switchLanguage, currentLocale } = useLanguageSwitch()
   const locale = useLocale()
   const { user, isAuthenticated } = useAuth()
   const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
@@ -48,30 +51,30 @@ const HistorySidebar = () => {
     | 'help'
     | 'feedback'
     | 'logout'
-  >('reviews')
+  >('trial')
 
   const activityItems = useMemo(
     () => [
       {
         id: 'trial' as const,
-        label: 'Trial registration history',
+        label: t('menu.auth.activity.trialHistory'),
         Icon: ClockCounterClockwise,
         href: '/trial-history',
       },
       {
         id: 'reviews' as const,
-        label: 'My reviews',
+        label: t('menu.auth.activity.myReviews'),
         Icon: PencilSimpleLine,
-        href: '/my-review',
+        href: '/developing',
       },
       {
         id: 'donation' as const,
-        label: 'Referral program',
+        label: t('menu.auth.activity.referralCode'),
         Icon: QrCode,
         href: '/developing',
       },
     ],
-    []
+    [t]
   )
 
   const settingsGeneral = useMemo(
@@ -83,7 +86,7 @@ const HistorySidebar = () => {
       },
       {
         id: 'account' as const,
-        label: 'Account preferences',
+        label: t('menu.auth.account.preferences'),
         Icon: UserCircle,
         href: '/developing',
       },
@@ -105,7 +108,7 @@ const HistorySidebar = () => {
         Icon: NotePencilIcon,
         href: '/developing',
       },
-      { id: 'logout' as const, label: 'Log out', Icon: SignOut },
+      { id: 'logout' as const, label: t('menu.auth.logout'), Icon: SignOut },
     ],
     [t]
   )
@@ -119,28 +122,30 @@ const HistorySidebar = () => {
           alt="top-gradient"
           width={1000}
           height={600}
-          className="hidden lg:block absolute inset-0 w-full h-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3]"
+          className="hidden lg:block absolute -top-6 w-full h-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.8]"
         />
         <div className="relative z-[1] flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
-              {isAuthenticated && user ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.avatar || '/placeholder-avatar.jpg'}
-                  alt={user.fullname || t('menu.auth.unknownUser')}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.src = '/image/avatar/image-01.png'
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full bg-greyscale-100" />
-              )}
-              {/* <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-white shadow-xs border border-greyscale-200 flex items-center justify-center">
-                <CameraIcon size={12} weight="fill" className="text-pink-500" />
-              </div> */}
+            <div className="relative w-fit">
+              <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
+                {isAuthenticated && user ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.avatar || '/placeholder-avatar.jpg'}
+                    alt={user.fullname || t('menu.auth.unknownUser')}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = '/image/avatar/image-01.png'
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-greyscale-100" />
+                )}
+              </div>
+              <div className="absolute bottom-0 -right-1 size-6 rounded-full bg-gray-50 shadow-xs flex items-center justify-center">
+                <CameraIcon size={18} className="text-pink-500" />
+              </div>
             </div>
             <div className="flex-1">
               <div className="text-base font-semibold text-greyscale-900">
@@ -169,14 +174,16 @@ const HistorySidebar = () => {
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
               {isAuthenticated && user && user.referral_code ? 69 : '0'}
             </div>
-            <div className="text-[12px] text-greyscale-500">Referrals</div>
+            <div className="text-[12px] text-greyscale-500">
+              {t('menu.auth.stats.referrals')}
+            </div>
           </div>
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
               {'12,345,678 đ'}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
-              Commission Revenue
+              {t('menu.auth.stats.commissionRevenue')}
             </div>
           </div>
           <div className="text-center">
@@ -184,7 +191,7 @@ const HistorySidebar = () => {
               {isAuthenticated && user ? user.point || '0' : '0'}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
-              Reviews
+              {t('menu.auth.stats.reviews')}
             </div>
           </div>
         </div>
@@ -195,7 +202,7 @@ const HistorySidebar = () => {
         {/* My Activity */}
         <div className="pt-2">
           <div className="text-base font-bold text-greyscale-700 tracking-wide">
-            MY ACTIVITY
+            {t('menu.auth.activity.title')}
           </div>
           <div className="mt-3 flex flex-col gap-2">
             {activityItems.map(({ id, label, Icon, href }) => (
@@ -218,29 +225,111 @@ const HistorySidebar = () => {
         {/* Settings */}
         <div>
           <div className="text-base font-bold text-greyscale-700 tracking-wide">
-            SETTINGS
+            {t('menu.section.settings')}
           </div>
           <div className="mt-3">
             <div className="text-sm font-medium text-greyscale-500">
-              General
+              {t('menu.section.general')}
             </div>
             <div className="mt-2 flex flex-col gap-2">
-              {settingsGeneral.map(({ id, label, Icon, href }) => (
-                <SidebarItem
-                  key={id}
-                  icon={
-                    <Icon size={16} weight="fill" className="text-[#3B82F6]" />
+              {settingsGeneral.map(({ id, label, Icon, href }) => {
+                if (id === 'language') {
+                  const languageOptions = [
+                    {
+                      id: 'vi',
+                      label: 'VN',
+                      flag: IMAGES.vi,
+                      name: 'Tiếng Việt',
+                    },
+                    { id: 'en', label: 'US', flag: IMAGES.us, name: 'English' },
+                    { id: 'kr', label: 'KR', flag: IMAGES.kr, name: '한국어' },
+                  ]
+
+                  const getCurrentLanguage = () => {
+                    switch (currentLocale) {
+                      case 'vi':
+                        return 'vi'
+                      case 'en':
+                        return 'en'
+                      case 'kr':
+                        return 'kr'
+                      default:
+                        return 'vi'
+                    }
                   }
-                  label={label}
-                  active={activeItem === id}
-                  onClick={() => setActiveItem(id)}
-                  href={href}
-                />
-              ))}
+
+                  return (
+                    <div
+                      key={id}
+                      className="flex items-center justify-between gap-2"
+                    >
+                      <div className="flex items-center gap-3 rounded-xl px-3 py-2">
+                        <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200 bg-white">
+                          <Icon
+                            size={16}
+                            weight="fill"
+                            className="text-[#3B82F6]"
+                          />
+                        </div>
+                        <span className="text-sm text-greyscale-700 truncate">
+                          {label}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 bg-greyscale-50 rounded-xl p-1">
+                        {languageOptions.map((lang) => (
+                          <button
+                            key={lang.id}
+                            onClick={() => switchLanguage(lang.id as Language)}
+                            className={`flex items-center border gap-1.5 px-1.5 py-1 rounded-lg transition-all duration-200 cursor-pointer ${
+                              getCurrentLanguage() === lang.id
+                                ? 'bg-white shadow-xs border-greyscale-200'
+                                : 'hover:bg-white/50 border-transparent'
+                            }`}
+                          >
+                            <Image
+                              src={lang.flag}
+                              alt={lang.name}
+                              width={100}
+                              height={100}
+                              className="rounded-full object-cover size-5"
+                            />
+                            <span
+                              className={`text-xs font-medium ${
+                                getCurrentLanguage() === lang.id
+                                  ? 'text-greyscale-900'
+                                  : 'text-greyscale-600'
+                              }`}
+                            >
+                              {lang.label}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
+
+                return (
+                  <SidebarItem
+                    key={id}
+                    icon={
+                      <Icon
+                        size={16}
+                        weight="fill"
+                        className="text-[#3B82F6]"
+                      />
+                    }
+                    label={label}
+                    active={activeItem === id}
+                    onClick={() => setActiveItem(id)}
+                    href={href}
+                  />
+                )
+              })}
             </div>
 
             <div className="mt-4 text-xs font-medium text-greyscale-500">
-              Support
+              {t('menu.section.support')}
             </div>
             <div className="mt-2 flex flex-col gap-2">
               {settingsSupport.map(({ id, label, Icon, href }) => (
@@ -296,7 +385,7 @@ const SidebarItem = ({
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200 bg-white">
         {icon}
       </div>
-      <span className="text-sm text-greyscale-700">{label}</span>
+      <span className="text-sm text-greyscale-700 truncate">{label}</span>
     </div>
   )
 

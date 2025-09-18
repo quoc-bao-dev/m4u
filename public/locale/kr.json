@@ -396,7 +396,9 @@
         "referrals": "추천",
         "active": "활성",
         "accountBalance": "계정 잔액",
-        "points": "포인트"
+        "points": "포인트",
+        "commissionRevenue": "커미션 수익",
+        "reviews": "리뷰"
       },
       "activity": {
         "title": "나의 활동",
@@ -478,5 +480,49 @@
     "reviewTips": "리뷰 팁",
     "placeholder": "이 제품의 어떤 점을 좋아하셨나요?",
     "submitReview": "리뷰 제출"
+  },
+  "dateRangePicker": {
+    "from": "시작",
+    "to": "종료",
+    "cancel": "취소",
+    "apply": "적용"
+  },
+  "myReviews": {
+    "history": {
+      "header": {
+        "title": "체험 신청 내역",
+        "searchPlaceholder": "제품, 리뷰, 날짜 등 검색"
+      },
+      "table": {
+        "headers": {
+          "orderId": "주문 번호",
+          "productInfo": "제품 정보",
+          "timeCreated": "생성 시간",
+          "orderStatus": "주문 상태",
+          "action": "동작"
+        },
+        "statuses": {
+          "completed": "완료",
+          "pending": "대기 중",
+          "cancelled": "취소됨",
+          "processing": "처리 중"
+        },
+        "actions": {
+          "review": "리뷰"
+        },
+        "error": {
+          "loadFailed": "리뷰 내역을 불러오는 중 오류가 발생했습니다",
+          "tryLater": "나중에 다시 시도해 주세요"
+        },
+        "empty": {
+          "title": "리뷰 내역이 없습니다",
+          "desc": "리뷰를 완료하면 이곳에 내역이 표시됩니다."
+        },
+        "mobile": {
+          "moreProducts": "+{count}개 제품",
+          "daysLeftToSubmit": "리뷰 제출까지 {count}일 남음"
+        }
+      }
+    }
   }
 }

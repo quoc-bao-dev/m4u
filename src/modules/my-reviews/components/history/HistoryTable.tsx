@@ -1,11 +1,12 @@
 'use client'
 
-import { useGetListReviewHistory } from '@/services/review/queries'
+import { NoData } from '@/modules/trial-registration'
+import { useInfiniteListReviewHistory } from '@/services/review/queries'
 import { ReviewHistoryItem } from '@/services/review/type'
-import { useEffect, useMemo, useState } from 'react'
+import moment from 'moment'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { useTableFilter } from '../../stores/useTableFilter'
-import NoData from '../../../trial-registration/components/product/NoData'
-import { Link } from '@/locale'
 
 type ReviewItem = {
   id: string
@@ -20,30 +21,37 @@ type ReviewItem = {
   status: 'completed' | 'pending' | 'cancelled' | 'processing'
 }
 
-const statusChip = (status: ReviewItem['status']) => {
+const statusChip = (
+  status: ReviewItem['status'],
+  t: ReturnType<typeof useTranslations>
+) => {
   switch (status) {
     case 'completed':
       return (
         <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-green-500" /> Completed
+          <span className="size-1.5 rounded-full bg-green-500" />{' '}
+          {t('myReviews.history.table.statuses.completed')}
         </span>
       )
     case 'pending':
       return (
         <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-yellow-500" /> Pending
+          <span className="size-1.5 rounded-full bg-yellow-500" />{' '}
+          {t('myReviews.history.table.statuses.pending')}
         </span>
       )
     case 'cancelled':
       return (
         <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-red-500" /> Cancelled
+          <span className="size-1.5 rounded-full bg-red-500" />{' '}
+          {t('myReviews.history.table.statuses.cancelled')}
         </span>
       )
     case 'processing':
       return (
         <span className="inline-flex items-center gap-2 text-xs text-greyscale-600">
-          <span className="size-1.5 rounded-full bg-blue-500" /> Processing
+          <span className="size-1.5 rounded-full bg-blue-500" />{' '}
+          {t('myReviews.history.table.statuses.processing')}
         </span>
       )
   }
@@ -64,6 +72,7 @@ const getStatusFromNumber = (status: number): ReviewItem['status'] => {
 }
 
 const HistoryTable = () => {
+  const t = useTranslations()
   // Lấy bộ lọc từ global state
   const { activeTab, searchQuery, dateRange } = useTableFilter()
 
@@ -79,18 +88,35 @@ const HistoryTable = () => {
     })
   }, [activeTab, searchQuery, dateRange])
 
-  // Call API hook
+  console.log('dateRange.from?.toISOString()', dateRange.from?.toISOString())
+
+  // Infinite query with default perPage = 5
   const {
-    data: reviewHistoryData,
+    data,
     isLoading,
     error,
-  } = useGetListReviewHistory()
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteListReviewHistory({
+    activeTab,
+    searchQuery,
+    dateStart: dateRange.from
+      ? moment(dateRange.from).format('DD/MM/YYYY')
+      : undefined,
+    dateEnd: dateRange.to
+      ? moment(dateRange.to).format('DD/MM/YYYY')
+      : undefined,
+    perPage: 5,
+  })
 
   // Process data with useMemo
   const processedReviews = useMemo(() => {
-    if (!reviewHistoryData?.data) return []
+    const allItems = data?.pages?.flatMap((page) => page?.data ?? []) ?? []
+    if (allItems.length === 0) return []
 
-    return reviewHistoryData.data.map((item: ReviewHistoryItem) => ({
+    return allItems.map((item: ReviewHistoryItem) => ({
       id: item.id.toString(),
       orderId: item.code_review,
       products: item.clients_review.map((clientReview) => ({
@@ -101,11 +127,7 @@ const HistoryTable = () => {
           clientReview.products?.[0]?.image ||
           '/image/product/image-nodata.png',
       })),
-      date: new Date(item.created_at).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      }),
+      date: moment(item.created_at).format('DD/MM/YYYY'),
       time: new Date(item.created_at).toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
@@ -113,7 +135,41 @@ const HistoryTable = () => {
       }),
       status: getStatusFromNumber(item.status),
     }))
-  }, [reviewHistoryData])
+  }, [data])
+
+  // Infinite scroll sentinel
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const rootEl = scrollContainerRef.current
+    const sentinelEl = sentinelRef.current
+    if (!rootEl || !sentinelEl) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        root: rootEl,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinelEl)
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  // Refetch when filters change (react-query will handle via key, but ensure UX)
+  useEffect(() => {
+    refetch()
+  }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   // Helper function to convert status number to string
 
@@ -162,7 +218,7 @@ const HistoryTable = () => {
             <div className="text-sm text-greyscale-900">{item.date}</div>
             <div className="text-xs text-greyscale-400">{item.time}</div>
           </div>
-          <div>{statusChip(item.status)}</div>
+          <div>{statusChip(item.status, t)}</div>
         </div>
 
         {/* Divider */}
@@ -218,7 +274,11 @@ const HistoryTable = () => {
                 ))
               ) : (
                 <div className="flex items-center gap-2 text-sm text-greyscale-500">
-                  <span>+{remainingProducts.length} products</span>
+                  <span>
+                    {t('myReviews.history.table.mobile.moreProducts', {
+                      count: remainingProducts.length,
+                    })}
+                  </span>
                   <button
                     onClick={() => setShowAllProducts(true)}
                     className="text-greyscale-400 hover:text-greyscale-600"
@@ -249,10 +309,10 @@ const HistoryTable = () => {
         {/* Footer: Time left, Action button */}
         <div className="flex justify-between items-center">
           <div className="text-sm text-orange-600">
-            3 days left to submit your review
+            {t('myReviews.history.table.mobile.daysLeftToSubmit', { count: 3 })}
           </div>
           <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-            Review
+            {t('myReviews.history.table.actions.review')}
           </button>
         </div>
       </div>
@@ -261,25 +321,27 @@ const HistoryTable = () => {
 
   return (
     <div className="mt-6 h-full min-h-0 flex flex-col">
-      <div className="flex-1 min-h-0 overflow-y-auto">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 overflow-y-auto">
         {/* Desktop Table */}
         <div className="hidden md:block">
           <table className="w-full">
             {/* Table header */}
             <thead className="sticky top-0">
-              <tr className="bg-greyscale-50 text-xs font-medium text-greyscale-500 bg-[#F2F3F5] ">
+              <tr className=" text-xs font-medium text-greyscale-500 bg-[#F2F3F5] ">
                 <th className="w-20 px-3 py-3 text-left rounded-l-lg ">
-                  Order ID
+                  {t('myReviews.history.table.headers.orderId')}
                 </th>
-                <th className="px-3 py-3 text-left truncate">Product Info</th>
+                <th className="px-3 py-3 text-left truncate">
+                  {t('myReviews.history.table.headers.productInfo')}
+                </th>
                 <th className="w-32 px-3 py-3 text-left truncate">
-                  Time created
+                  {t('myReviews.history.table.headers.timeCreated')}
                 </th>
                 <th className="w-24 px-3 py-3 text-left truncate">
-                  Order Status
+                  {t('myReviews.history.table.headers.orderStatus')}
                 </th>
                 <th className="w-24 px-3 py-3 text-center rounded-r-lg">
-                  Action
+                  {t('myReviews.history.table.headers.action')}
                 </th>
               </tr>
             </thead>
@@ -296,8 +358,12 @@ const HistoryTable = () => {
                 <tr>
                   <td colSpan={5} className="px-3 py-8 text-center">
                     <div className="text-greyscale-500">
-                      <p className="text-sm">Error loading review history</p>
-                      <p className="text-xs mt-1">Please try again later</p>
+                      <p className="text-sm">
+                        {t('myReviews.history.table.error.loadFailed')}
+                      </p>
+                      <p className="text-xs mt-1">
+                        {t('myReviews.history.table.error.tryLater')}
+                      </p>
                     </div>
                   </td>
                 </tr>
@@ -306,8 +372,8 @@ const HistoryTable = () => {
                 <tr>
                   <td colSpan={5} className="px-3 py-8">
                     <NoData
-                      title="No review history found"
-                      description="Your review history will appear here when you complete reviews."
+                      title={t('myReviews.history.table.empty.title')}
+                      description={t('myReviews.history.table.empty.desc')}
                       className="h-[400px]"
                     />
                   </td>
@@ -328,7 +394,7 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="space-y-3">
+                      <div className="space-y-3 max-h-[160px] overflow-y-scroll">
                         {item.products.map((product, index) => (
                           <div key={index} className="flex items-start gap-3">
                             <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
@@ -364,19 +430,36 @@ const HistoryTable = () => {
                     </td>
 
                     {/* Order Status */}
-                    <td className="px-3 py-5">{statusChip(item.status)}</td>
+                    <td className="px-3 py-5 truncate">
+                      {statusChip(item.status, t)}
+                    </td>
 
                     {/* Action */}
                     <td className="px-3 py-5 w-[160px]">
-                      <Link href={`/submit-review/${item.id}`} className='w-full h-full'>
-                        <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-                          Review
-                        </button>
-                      </Link>
+                      <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+                        {t('myReviews.history.table.actions.review')}
+                      </button>
                     </td>
                   </tr>
                 ))
               )}
+              {/* Loading more indicator */}
+              {isFetchingNextPage && (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="px-3 py-4 text-center text-sm text-greyscale-500"
+                  >
+                    {t('loading')}
+                  </td>
+                </tr>
+              )}
+              {/* Sentinel for intersection observer */}
+              <tr>
+                <td colSpan={5}>
+                  <div ref={sentinelRef} />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -413,16 +496,20 @@ const HistoryTable = () => {
             // Show error state for mobile
             <div className="px-4 py-8 text-center">
               <div className="text-greyscale-500">
-                <p className="text-sm">Error loading review history</p>
-                <p className="text-xs mt-1">Please try again later</p>
+                <p className="text-sm">
+                  {t('myReviews.history.table.error.loadFailed')}
+                </p>
+                <p className="text-xs mt-1">
+                  {t('myReviews.history.table.error.tryLater')}
+                </p>
               </div>
             </div>
           ) : processedReviews.length === 0 ? (
             // Show empty state for mobile
             <div className="px-4 py-8">
               <NoData
-                title="No review history found"
-                description="Your review history will appear here when you complete reviews."
+                title={t('myReviews.history.table.empty.title')}
+                description={t('myReviews.history.table.empty.desc')}
                 className="h-[400px]"
               />
             </div>
@@ -432,6 +519,14 @@ const HistoryTable = () => {
               <MobileCard key={item.id} item={item} />
             ))
           )}
+          {/* Loading more indicator */}
+          {isFetchingNextPage && (
+            <div className="px-4 py-4 text-center text-sm text-greyscale-500">
+              {t('loading')}
+            </div>
+          )}
+          {/* Sentinel for intersection observer */}
+          <div ref={sentinelRef} />
         </div>
       </div>
     </div>

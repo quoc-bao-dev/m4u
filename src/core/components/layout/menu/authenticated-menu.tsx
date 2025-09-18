@@ -159,12 +159,7 @@ const Top = ({ user }: TopProps) => {
       icon: PencilSimpleLineIcon,
       href: '/developing',
     },
-    {
-      id: 'referral-list',
-      label: 'menu.auth.activity.referralList',
-      icon: UsersThreeIcon,
-      href: '/developing',
-    },
+
     {
       id: 'referral-code',
       label: 'menu.auth.activity.referralCode',
@@ -178,7 +173,7 @@ const Top = ({ user }: TopProps) => {
       <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
         {t('menu.auth.activity.title')}
       </h3>
-      <div className="grid grid-cols-4 gap-4 px-3">
+      <div className="grid grid-cols-3 gap-4 px-3">
         {activityItems.map((item) => {
           const IconComponent = item.icon
           return (

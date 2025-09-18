@@ -33,7 +33,7 @@ const HistoryTabs = ({
     return reviewStatusData.map((item, index) => ({
       key: item.id.toString(),
       label: item.name,
-      count: 0, // You may need to get actual counts from another API
+      count: item.countReview, // You may need to get actual counts from another API
       color: (['pink', 'violet', 'sky', 'emerald', 'orange'] as const)[
         index % 5
       ],
@@ -44,10 +44,7 @@ const HistoryTabs = ({
 
   // Set first tab as active when tabs are loaded
   useEffect(() => {
-    console.log('tabs loaded:', tabs)
-    console.log('current activeKey:', localActiveKey)
     if (tabs.length > 0 && !localActiveKey) {
-      console.log('Setting first tab as active:', tabs[0].key)
       setLocalActiveKey(tabs[0].key)
       setActiveTab(tabs[0].key) // Đồng bộ với global state
     }
@@ -93,8 +90,9 @@ const HistoryTabs = ({
   }
 
   return (
-    <div className={`w-full border-b border-gray-300 ${className ?? ''}`}>
-      <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar">
+    <div className={`w-full relative  ${className ?? ''}`}>
+      <div className="absolute bottom-0 h-[1.5px] bg-gray-200 w-full"></div>
+      <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar ">
         {tabs.map((tab) => {
           const isActive = localActiveKey === tab.key
           const colorClass = (() => {
@@ -116,7 +114,7 @@ const HistoryTabs = ({
             <button
               key={tab.key}
               className={
-                'relative pb-3 text-[16px] transition-colors ' +
+                'relative pb-3 text-[16px] transition-colors cursor-pointer' +
                 (isActive
                   ? 'text-gray-900 font-semibold'
                   : 'text-gray-400 hover:text-gray-600')
@@ -137,7 +135,7 @@ const HistoryTabs = ({
                 )}
               </span>
               {isActive && (
-                <span className="absolute -bottom-[2px] left-0 right-0 h-[4px] rounded-t-full bg-pink-600" />
+                <span className="absolute z-10 -bottom-[2px] left-0 right-0 h-[6px] rounded-t-full bg-pink-600" />
               )}
             </button>
           )
