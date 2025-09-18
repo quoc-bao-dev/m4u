@@ -484,10 +484,16 @@
     "placeholder": "What did you love about this product?",
     "submitReview": "Submit review"
   },
+  "dateRangePicker": {
+    "from": "From",
+    "to": "To",
+    "cancel": "Cancel",
+    "apply": "Apply"
+  },
   "myReviews": {
     "history": {
       "header": {
-        "title": "My reviews",
+        "title": "Trial registration history",
         "searchPlaceholder": "Search product, review, date, etc"
       },
       "table": {

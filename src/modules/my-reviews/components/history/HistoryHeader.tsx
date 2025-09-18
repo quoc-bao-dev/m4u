@@ -1,11 +1,11 @@
 'use client'
 
 import { DateRangePicker } from '@/core/components/ui/date-range-picker/DateRangePicker'
+import { useDebouncedCallback } from '@/core/hooks/useDebounce'
 import { MagnifyingGlass, XCircle } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useTableFilter } from '../../stores/useTableFilter'
-import { useDebouncedCallback } from '@/core/hooks/useDebounce'
 
 const HistoryHeader = () => {
   const t = useTranslations()
@@ -39,13 +39,13 @@ const HistoryHeader = () => {
 
   return (
     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-      <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900">
+      <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900 ">
         {t('myReviews.history.header.title')}
       </h2>
 
       <div className="flex flex-col lg:flex-row items-center gap-2 ">
         {/* Search placeholder */}
-        <div className=" w-full md:w-[340px] flex-1  relative">
+        <div className=" w-full lg:w-[260px] xl:w-[340px] flex-1  relative">
           <MagnifyingGlass
             size={18}
             weight="bold"
@@ -78,7 +78,7 @@ const HistoryHeader = () => {
         </div>
 
         {/* Date picker */}
-        <div className="w-full lg:w-auto items-center gap-2 px-1">
+        <div className="w-full lg:w-[260px] items-center gap-2 px-1">
           <DateRangePicker />
         </div>
       </div>

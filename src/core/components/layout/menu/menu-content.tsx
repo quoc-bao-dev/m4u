@@ -13,9 +13,9 @@ import {
   StarIcon,
   TranslateIcon,
 } from '@phosphor-icons/react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useCallback } from 'react'
-import { useTranslations } from 'next-intl'
 import AuthenticatedMenu, {
   AccountButton,
   LogoutButton,
@@ -261,7 +261,9 @@ const MenuContent = ({
           </h3>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">{t('menu.section.general')}</h4>
+            <h4 className="text-sm font-medium text-greyscale-500">
+              {t('menu.section.general')}
+            </h4>
             <div className="flex items-center justify-between gap-3">
               {settingsItems.general.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
@@ -324,7 +326,9 @@ const MenuContent = ({
           </div>
 
           <div className="px-3 flex flex-col gap-3">
-            <h4 className="text-sm font-medium text-greyscale-500">{t('menu.section.support')}</h4>
+            <h4 className="text-sm font-medium text-greyscale-500">
+              {t('menu.section.support')}
+            </h4>
             <div className="flex flex-col gap-2">
               {settingsItems.support.map((item) => {
                 const IconComponent = getIconComponent(item.icon)
