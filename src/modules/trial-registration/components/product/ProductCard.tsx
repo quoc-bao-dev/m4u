@@ -32,6 +32,7 @@ interface ProductCardProps {
   isSig?: number
   video_review?: string
   evaluate?: number
+  id_review?: number
 }
 
 const clampRate = (value: number) => {
@@ -65,6 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isSig,
   video_review,
   evaluate,
+  id_review
 }) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -193,14 +195,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
               )}`}</p>
             </>
           )}
-
+          
+          {/* isSig === 0 nhảy qua đánh giá  */}
           {isSig === 0 ?
             <button
               type="button"
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
-                router.push('/submit-review')
+                router.push(`/submit-review/${id_review}`)
               }}
               className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-3 px-4 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px] flex items-center gap-3"
               style={{
@@ -222,7 +225,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <PenIcon />
             </button>
             :
-            isSig === null ?
+            isSig === null ? 
               <button
                 onClick={handleRegistration}
                 className="bg-white w-fit mt-2 py-3 px-4 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px]"
@@ -246,16 +249,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
               :
               <div className='pt-2 flex gap-3 items-center'>
                 {video_review && (
-                <div className='relative cursor-pointer group' onClick={togglePlay}>
-                  <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                    {isPlaying ? (
-                      <PauseIcon weight="fill" className="size-5 text-white" />
-                    ) : (
-                      <PlayIcon weight="fill" className="size-5 text-white" />
-                    )}
+                  <div className='relative cursor-pointer group' onClick={togglePlay}>
+                    <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+                      {isPlaying ? (
+                        <PauseIcon weight="fill" className="size-5 text-white" />
+                      ) : (
+                        <PlayIcon weight="fill" className="size-5 text-white" />
+                      )}
+                    </div>
+                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-16 aspect-[65/83] rounded-lg object-cover' />
                   </div>
-                  <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-16 aspect-[65/83] rounded-lg object-cover' />
-                </div>
                 )}
                 <div className='flex flex-col gap-1'>
                   <Rating value={evaluate || 0} maxWidth={96} readOnly />
