@@ -1,1 +1,1 @@
-export { default as MyReviewSection } from './MyReviewSection'
+export { default as HistoryReviewSection } from './history/HistoryReviewSection'

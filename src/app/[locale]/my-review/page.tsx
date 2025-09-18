@@ -1,11 +1,5 @@
-import { MyReviewSection } from '@/modules/my-reviews'
-
 const Page = () => {
-  return (
-    <main>
-      <MyReviewSection />
-    </main>
-  )
+  return <main>{/* <MyReviewSection /> */} History Page</main>
 }
 
 export default Page
