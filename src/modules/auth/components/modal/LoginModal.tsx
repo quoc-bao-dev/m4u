@@ -6,18 +6,21 @@ import Button from '@/core/components/ui/button'
 import Input from '@/core/components/ui/input'
 import PasswordInput from '@/core/components/ui/password-input'
 import { useToast } from '@/core/hooks'
-import { useLogin } from '@/services/auth/mutations'
+import { useLogin, useSendOTPForgotPassword } from '@/services/auth/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { Controller, useForm } from 'react-hook-form'
 import { LoginFormData, loginSchema } from '../../schemas'
 import useLoginModal from '../../stores/useLoginModal'
-import { useTranslations } from 'next-intl'
+import { useForgotPass } from '../../stores/useForgotPass'
 
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
   const loginMutation = useLogin()
+  const sendOTPMutation = useSendOTPForgotPassword()
   const { showError, showSuccess } = useToast()
   const t = useTranslations('auth')
+  const { open } = useForgotPass()
 
   const {
     control,
@@ -59,6 +62,43 @@ const LoginModal = () => {
     }
   }
 
+  const handleForgotPassword = async () => {
+    const phoneValue = control._formValues?.phone || ''
+
+    if (!phoneValue) {
+      showError('Vui lòng nhập số điện thoại trước khi quên mật khẩu')
+      return
+    }
+
+    try {
+      const response = await sendOTPMutation.mutateAsync({ phone: phoneValue })
+
+      // Log dữ liệu từ BE để debug
+      console.log('Send OTP response:', response)
+
+      // Check if result is false (API returned error)
+      if (response && response.result === false) {
+        showError(response.message || 'Không thể gửi OTP. Vui lòng thử lại.')
+        return
+      }
+
+      // Nếu thành công, mở modal OTP và set phone vào store
+      open(phoneValue)
+      close()
+      showSuccess('OTP đã được gửi đến số điện thoại của bạn')
+    } catch (error: any) {
+      // Log chi tiết lỗi từ BE
+      console.error('Send OTP error:', error)
+      console.error('Error response:', error?.response?.data)
+
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        'Không thể gửi OTP. Vui lòng thử lại.'
+      showError(errorMessage)
+    }
+  }
+
   return (
     <ModalClient
       open={isOpen}
@@ -75,9 +115,7 @@ const LoginModal = () => {
           <h2 className="text-[28px] md:text-[40px] font-bold text-gray-900 mb-2">
             {t('signIn')}
           </h2>
-          <p className="text-sm text-gray-600 mb-8">
-            {t('welcomeBack')}
-          </p>
+          <p className="text-sm text-gray-600 mb-8">{t('welcomeBack')}</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
@@ -113,8 +151,12 @@ const LoginModal = () => {
                 <button
                   type="button"
                   className="text-sm font-medium text-[#3B82F6] hover:underline"
+                  onClick={handleForgotPassword}
+                  disabled={sendOTPMutation.isPending}
                 >
-                  {t('forgotPassword')}
+                  {sendOTPMutation.isPending
+                    ? 'Đang gửi...'
+                    : t('forgotPassword')}
                 </button>
               </div>
             </div>
