@@ -2,6 +2,7 @@ import {
   LoginModal,
   LogoutConfirmModal,
   OTPForgotPassModal,
+  ForgotPassModal,
 } from '@/modules/auth'
 import {
   OTPModal,
@@ -20,6 +21,7 @@ const ModalProvider = ({ children }: PropsWithChildren) => {
       <LoginModal />
       <LogoutConfirmModal />
       <OTPForgotPassModal />
+      <ForgotPassModal />
     </>
   )
 }
