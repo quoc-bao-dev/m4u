@@ -294,7 +294,7 @@ const HistoryTable = () => {
           <div className="text-sm text-orange-600">
             {t('myReviews.history.table.mobile.daysLeftToSubmit', { count: 3 })}
           </div>
-          <Link href={`/submit-review/${item.id}`} className='w-fit h-full'>
+          <Link href={`/submit-review/${item.id}`} className="w-fit h-full">
             <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
               {t('myReviews.history.table.actions.review')}
             </button>
@@ -379,7 +379,7 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="max-h-[160px] overflow-y-scroll">
+                      <div className="max-h-[190px] overflow-y-scroll">
                         <div className="space-y-2">
                           {item.products.map((product, index) => (
                             <Link
@@ -387,7 +387,7 @@ const HistoryTable = () => {
                               href={`/product/${product.slug}`}
                               className="block"
                             >
-                              <div className="flex items-start gap-3 rounded-lg p-2 transition-colors cursor-pointer">
+                              <div className="flex items-start gap-3 rounded-lg p-2 transition-colors cursor-pointer hover:bg-greyscale-50">
                                 <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
                                   <img
                                     src={product.productImage}
