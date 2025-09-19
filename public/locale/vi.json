@@ -507,7 +507,10 @@
     "tellUsWhatYouThink": "Hãy cho chúng tôi biết suy nghĩ của bạn",
     "reviewTips": "Mẹo review",
     "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
-    "submitReview": "Gửi đánh giá"
+    "submitReview": "Gửi đánh giá",
+    "uploadSuccessfully": "Tải lên thành công",
+    "hasVideoReview": "Đã có video review",
+    "reviewImage": "Ảnh đánh giá {number}"
   },
   "dateRangePicker": {
     "from": "Từ ngày",

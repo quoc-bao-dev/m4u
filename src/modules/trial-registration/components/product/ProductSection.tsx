@@ -42,19 +42,17 @@ const ProductSection = () => {
 
   return (
     <>
-      <section className="py-[96px] relative z-40">
-        <Container>
+      <section className="py-12 xl:py-[96px] relative z-40">
+        <Container className='px-3'>
           {/* Mobile Filter */}
           <FilterMobile />
-          <div className="pt-5"></div>
-
           <div className="flex gap-5">
             <div className="md:block hidden">
               <FilterSidebar />
             </div>
             <div className="flex-1">
               {isLoading ? (
-                <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-5">
                   {Array.from({ length: 8 }).map((_, index) => (
                     <div key={index} className="bg-gray-50 rounded-3xl">
                       <div className="relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit select-none w-full">
@@ -79,7 +77,7 @@ const ProductSection = () => {
                   ))}
                 </div>
               ) : products.length > 0 ? (
-                <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-5">
                   {products.map((p, index) => (
                     <ScrollRevealCard
                       key={index}
