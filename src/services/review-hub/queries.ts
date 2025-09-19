@@ -7,7 +7,7 @@ export const useGetDataReviewHub = () => {
       per_page: 10,
       current_page: 1,
     })
-    return response.data
+    return response.data.data.data
   }
   return useQuery({
     queryKey: ['getDataReviewHub'],

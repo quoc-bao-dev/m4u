@@ -179,7 +179,7 @@ const MenuContent = ({
                 }
               }}
               className={`${
-                isMobile ? 'flex-1' : 'w-[184px]'
+                isMobile ? 'flex-1' : 'min-w-[184px]'
               } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                 option.id === 'yes'
                   ? 'bg-pink-600 text-white'

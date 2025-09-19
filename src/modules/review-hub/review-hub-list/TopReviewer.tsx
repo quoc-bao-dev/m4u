@@ -54,7 +54,13 @@ const kols = [
   },
 ]
 
-const TopReviewer = () => {
+interface TopReviewerProps {
+  isLoading: boolean
+  data: any
+}
+
+const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
+  console.log(data)
   const { isMobile } = useDevice()
   const videoRefs = useRef<HTMLVideoElement[]>([])
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
@@ -74,7 +80,7 @@ const TopReviewer = () => {
         try {
           target.pause()
           setPlayingIndex(null)
-        } catch {}
+        } catch { }
         return
       }
 
@@ -83,14 +89,14 @@ const TopReviewer = () => {
         if (video && i !== index) {
           try {
             video.pause()
-          } catch {}
+          } catch { }
         }
       })
 
       try {
         target.play()
         setPlayingIndex(index)
-      } catch {}
+      } catch { }
     },
     [playingIndex]
   )
@@ -104,13 +110,13 @@ const TopReviewer = () => {
       if (video && i !== 0) {
         try {
           video.pause()
-        } catch {}
+        } catch { }
       }
     })
     try {
       first.play()
       setPlayingIndex(0)
-    } catch {}
+    } catch { }
   }, [])
 
   // Horizontal drag-to-scroll handlers
@@ -157,13 +163,13 @@ const TopReviewer = () => {
         {/* {isLoading ? (
           <Loading className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
         ) : ( */}
-        <Image
-          src={IMAGES.topProduct}
-          alt="top-reviewer"
-          width={1000}
-          height={1000}
-          className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
-        />
+          <Image
+            src={data?.image || IMAGES.topProduct}
+            alt="top-reviewer"
+            width={1000}
+            height={1000}
+            className="size-full lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl"
+          />
         {/* )} */}
       </Link>
       <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
@@ -171,7 +177,7 @@ const TopReviewer = () => {
           href="/review-hub/detail"
           className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer"
         >
-          <h2 className="hidden lg:block text-black group-hover:text-yellow-600 transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
+          <h2 className="hidden lg:block text-gradient-blue-black transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[100%] tracking-tight">
             {t('endorsedByTopReviewers')}
           </h2>
           <div className="flex gap-3">
@@ -180,20 +186,20 @@ const TopReviewer = () => {
             </span>
             <div className="flex flex-col gap-2 2xl:gap-3">
               <h3 className="text-xs md:text-xl font-bold text-greyscale-900">
-                MANYO
+                {data?.code}
               </h3>
               <p className="group-hover:text-yellow-600 transition-colors duration-300 text-sm lg:text-3xl 2xl:text-[32px] lg:leading-[100%] text-greyscale-900">
-                Panthetoin Deep Moisture Mask
-              </p>
+                  {data?.name}
+                </p>
               <div className="flex items-center gap-3 xl:pt-2 2xl:pt-4">
                 <Rating
-                  value={Number(4.0)}
+                  value={Number(data?.average_star)}
                   readOnly
                   maxWidth={isMobile ? 116 : 136}
                 />
                 <p className="text-sm lg:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
-                  <span className="text-greyscale-900 font-medium">4.0 </span>
-                  (69 {tProduct('reviews')})
+                  <span className="text-greyscale-900 font-medium">{data?.average_star} </span>
+                  ({data?.quantity_reviews} {tProduct('reviews')})
                 </p>
               </div>
             </div>
@@ -204,9 +210,8 @@ const TopReviewer = () => {
           <div className="absolute z-[2] top-0 right-0 w-20 h-full bg-gradient-to-l from-yellow-100 to-transparent"></div>
           <div
             ref={scrollContainerRef}
-            className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
-              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
-            }`}
+            className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+              }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={endDrag}

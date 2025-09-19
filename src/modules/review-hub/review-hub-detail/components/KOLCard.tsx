@@ -3,7 +3,6 @@ import * as React from 'react'
 import { useTranslations } from 'next-intl'
 import Image, { type StaticImageData } from 'next/image'
 import { CaretRightIcon, StarIcon } from '@phosphor-icons/react'
-import { Loading } from '@/core/components/common/loading'
 
 export type KOLCardProps = {
   image: StaticImageData | string
@@ -39,13 +38,13 @@ export const KOLCard: React.FC<KOLCardProps> = ({
   // }, 3000)
 
   return (
-    <div className="shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl">
+    <div className="shadow-[0px_4px_24px_0px_#0000000F] rounded-2xl xl:rounded-3xl">
       <button
         type="button"
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="overflow-hidden rounded-3xl relative w-full text-left focus:outline-none cursor-pointer group"
+        className="overflow-hidden rounded-2xl xl:rounded-3xl relative w-full text-left focus:outline-none cursor-pointer group"
       >
         <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
           <CaretRightIcon weight="fill" className="size-5 text-white" />
@@ -80,8 +79,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
             <p className="2xl:text-sm text-sm font-normal text-greyscale-900">
               {reviews} {tProduct('views')}
             </p>
-          </div>
-          <div className="py-0.5 px-1 lg:p-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
+          <div className="py-0.5 px-1 lg:p-2 h-fit w-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
             <StarIcon
               weight="fill"
               className="size-4 xl:size-5 text-yellow-600"
@@ -89,6 +87,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
             <span className="text-sm xl:text-base 2xl:text-lg font-medium text-greyscale-900">
               {rating}
             </span>
+          </div>
           </div>
         </div>
       </button>
