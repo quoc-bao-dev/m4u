@@ -48,6 +48,25 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
     setPreviousCount(itemCount)
   }, [itemCount, previousCount, openCart])
 
+  // Đóng dropdown khi cuộn bên ngoài
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isOpen) {
+        closeCart()
+      }
+    }
+
+    if (isOpen) {
+      window.addEventListener('scroll', handleScroll, { passive: true })
+      document.addEventListener('scroll', handleScroll, { passive: true })
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [isOpen, closeCart])
+
   const handleOpenChange = (open: boolean) => {
     if (open) {
       openCart()
@@ -85,7 +104,7 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 rounded-full shadow-[-6px_6px_20px_0px_#0000000D,8px_-8px_20px_0px_#00000005]">
-      <DropdownMenu open={isOpen} onOpenChange={handleOpenChange}>
+      <DropdownMenu open={isOpen} onOpenChange={handleOpenChange} modal={false}>
         <DropdownMenuTrigger asChild>
           <button
             className={cn(
