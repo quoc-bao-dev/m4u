@@ -7,7 +7,7 @@ import moment from 'moment'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTableFilter } from '../../stores/useTableFilter'
-import { Link } from '@/locale'
+import { Link, useNavigate } from '@/locale'
 
 type ReviewItem = {
   id: string
@@ -40,6 +40,8 @@ const HistoryTable = () => {
   const t = useTranslations()
   // Lấy bộ lọc từ global state
   const { activeTab, searchQuery, dateRange } = useTableFilter()
+
+  const nav = useNavigate()
 
   // Log bộ lọc ra console
   useEffect(() => {
@@ -141,14 +143,17 @@ const HistoryTable = () => {
   }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   // Helper function to convert status number to string
+  const handleClick = (id: string) => {
+    nav(`/submit-review/${id}`)
+  }
 
   // Loading skeleton component
   const SkeletonRow = () => (
     <tr className="border-t border-dashed border-greyscale-100 first:border-t-0">
-      <td className="px-3 py-5">
+      <td className="px-3 py-5 align-middle">
         <div className="h-4 bg-greyscale-200 rounded animate-pulse w-20"></div>
       </td>
-      <td className="px-3 py-5">
+      <td className="px-3 py-5 align-middle">
         <div className="flex items-start gap-3">
           <div className="size-14 bg-greyscale-200 rounded-lg animate-pulse"></div>
           <div className="min-w-0 flex-1">
@@ -157,14 +162,14 @@ const HistoryTable = () => {
           </div>
         </div>
       </td>
-      <td className="px-3 py-5">
+      <td className="px-3 py-5 align-middle">
         <div className="h-4 bg-greyscale-200 rounded animate-pulse w-24 mb-1"></div>
         <div className="h-3 bg-greyscale-200 rounded animate-pulse w-16"></div>
       </td>
-      <td className="px-3 py-5">
+      <td className="px-3 py-5 align-middle">
         <div className="h-4 bg-greyscale-200 rounded animate-pulse w-20"></div>
       </td>
-      <td className="px-3 py-5">
+      <td className="px-3 py-5 align-middle">
         <div className="h-8 bg-greyscale-200 rounded-full animate-pulse w-20 mx-auto"></div>
       </td>
     </tr>
@@ -313,20 +318,20 @@ const HistoryTable = () => {
           <table className="w-full">
             {/* Table header */}
             <thead className="sticky top-0">
-              <tr className=" text-xs font-medium text-greyscale-500 bg-[#F2F3F5] ">
-                <th className="w-20 px-3 py-3 text-left rounded-l-lg ">
+              <tr className=" text-xs font-medium text-greyscale-500 bg-[#F2F3F5] border-b- border-greyscale-200 ">
+                <th className="w-20 px-3 py-3 text-left rounded-l-lg align-middle ">
                   {t('myReviews.history.table.headers.orderId')}
                 </th>
-                <th className="px-3 py-3 text-left truncate">
+                <th className="px-3 py-3 text-left truncate align-middle">
                   {t('myReviews.history.table.headers.productInfo')}
                 </th>
-                <th className="w-32 px-3 py-3 text-left truncate">
+                <th className="w-32 px-3 py-3 text-left truncate align-middle">
                   {t('myReviews.history.table.headers.timeCreated')}
                 </th>
-                <th className="w-24 px-3 py-3 text-left truncate">
+                <th className="w-24 px-3 py-3 text-left truncate align-middle">
                   {t('myReviews.history.table.headers.orderStatus')}
                 </th>
-                <th className="w-24 px-3 py-3 text-center rounded-r-lg">
+                <th className="w-24 px-3 py-3 text-center rounded-r-lg align-middle">
                   {t('myReviews.history.table.headers.action')}
                 </th>
               </tr>
@@ -342,7 +347,10 @@ const HistoryTable = () => {
               ) : error ? (
                 // Show error state
                 <tr>
-                  <td colSpan={5} className="px-3 py-8 text-center">
+                  <td
+                    colSpan={5}
+                    className="px-3 py-8 text-center align-middle"
+                  >
                     <div className="text-greyscale-500">
                       <p className="text-sm">
                         {t('myReviews.history.table.error.loadFailed')}
@@ -356,7 +364,7 @@ const HistoryTable = () => {
               ) : processedReviews.length === 0 ? (
                 // Show empty state with NoData component
                 <tr>
-                  <td colSpan={5} className="px-3 py-8">
+                  <td colSpan={5} className="px-3 py-8 align-middle">
                     <NoData
                       title={t('myReviews.history.table.empty.title')}
                       description={t('myReviews.history.table.empty.desc')}
@@ -367,86 +375,84 @@ const HistoryTable = () => {
               ) : (
                 // Show actual data
                 processedReviews.map((item) => (
-                  <Link
+                  <tr
+                    className="border-t border-dashed border-greyscale-200  first:border-t-0 hover:bg-greyscale-50/50 cursor-pointer"
                     key={item.id}
-                    href={`/submit-review/${item.id}`}
-                    className="contents"
+                    onClick={() => handleClick(item.id)}
                   >
-                    <tr className="border-t border-dashed border-greyscale-100 first:border-t-0 hover:bg-greyscale-50/50 cursor-pointer">
-                      {/* Order ID */}
-                      <td className="px-3 py-5">
-                        <div className="text-sm text-greyscale-900 font-medium truncate">
-                          {item.orderId}
-                        </div>
-                      </td>
+                    {/* Order ID */}
+                    <td className="px-3 py-5 align-middle ">
+                      <div className="text-sm text-greyscale-900 font-medium truncate flex items-center justify-center h-full">
+                        {item.orderId}
+                      </div>
+                    </td>
 
-                      {/* Product Info */}
-                      <td className="px-3 py-5">
-                        <div className="max-h-[190px] overflow-y-scroll">
-                          <div className="space-y-2">
-                            {item.products.slice(0, 2).map((product, index) => (
-                              <div
-                                key={index}
-                                className="flex items-start gap-3 rounded-lg p-2"
-                              >
-                                <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
-                                  <img
-                                    src={product.productImage}
-                                    alt={product.productName}
-                                    width={56}
-                                    height={56}
-                                    className="w-full h-full object-cover"
-                                  />
+                    {/* Product Info */}
+                    <td className="px-3 py-5 align-middle">
+                      <div className="">
+                        <div className="space-y-1">
+                          {item.products.slice(0, 2).map((product, index) => (
+                            <div
+                              key={index}
+                              className="flex items-start gap-3 rounded-lg p-1"
+                            >
+                              <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
+                                <img
+                                  src={product.productImage}
+                                  alt={product.productName}
+                                  width={56}
+                                  height={56}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div className="min-w-0">
+                                <div className="text-xs text-greyscale-500">
+                                  {product.brand}
                                 </div>
-                                <div className="min-w-0">
-                                  <div className="text-xs text-greyscale-500">
-                                    {product.brand}
-                                  </div>
-                                  <div className="text-sm font-medium text-greyscale-900 truncate">
-                                    {product.productName}
-                                  </div>
+                                <div className="text-sm font-medium text-greyscale-900 truncate">
+                                  {product.productName}
                                 </div>
                               </div>
-                            ))}
-                            {item.products.length > 2 && (
-                              <div className="flex items-center gap-2 text-sm text-greyscale-500 p-2">
-                                <span>
-                                  {t(
-                                    'myReviews.history.table.mobile.moreProducts',
-                                    {
-                                      count: item.products.length - 2,
-                                    }
-                                  )}
-                                </span>
-                              </div>
-                            )}
-                          </div>
+                            </div>
+                          ))}
+                          {item.products.length > 2 && (
+                            <div className="flex items-center gap-2 text-sm text-greyscale-500 p-1">
+                              <span>
+                                {t(
+                                  'myReviews.history.table.mobile.moreProducts',
+                                  {
+                                    count: item.products.length - 2,
+                                  }
+                                )}
+                              </span>
+                            </div>
+                          )}
                         </div>
-                      </td>
+                      </div>
+                    </td>
 
-                      {/* Time created */}
-                      <td className="px-3 py-5">
-                        <div className="text-sm text-greyscale-900">
-                          {item.date}
-                        </div>
-                        <div className="text-xs text-greyscale-400">
-                          {item.time}
-                        </div>
-                      </td>
+                    {/* Time created */}
+                    <td className="px-3 py-5 align-middle">
+                      <div className="text-sm text-greyscale-900">
+                        {item.date}
+                      </div>
+                      <div className="text-xs text-greyscale-400">
+                        {item.time}
+                      </div>
+                    </td>
 
-                      {/* Order Status */}
-                      <td className="px-3 py-5 truncate">
-                        {renderStatusChip(item.status, item.statusColor)}
-                      </td>
+                    {/* Order Status */}
+                    <td className="px-3 py-5 truncate align-middle">
+                      {renderStatusChip(item.status, item.statusColor)}
+                    </td>
 
-                      {/* Action */}
-                      <td className="px-3 py-5 w-[160px]">
-                        <button className="truncate w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-                          {t('myReviews.history.table.actions.review')}
-                        </button>
-                      </td>
-                    </tr>
-                  </Link>
+                    {/* Action */}
+                    <td className="px-3 py-5 w-[160px] align-middle">
+                      <button className="truncate w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+                        {t('myReviews.history.table.actions.review')}
+                      </button>
+                    </td>
+                  </tr>
                 ))
               )}
               {/* Loading more indicator */}
@@ -454,7 +460,7 @@ const HistoryTable = () => {
                 <tr>
                   <td
                     colSpan={5}
-                    className="px-3 py-4 text-center text-sm text-greyscale-500"
+                    className="px-3 py-4 text-center text-sm text-greyscale-500 align-middle"
                   >
                     {t('loading')}
                   </td>
