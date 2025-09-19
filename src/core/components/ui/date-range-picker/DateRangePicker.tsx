@@ -43,9 +43,13 @@ export function DateRangePicker({
 
   const handleApply = () => {
     if (date.from && date.to) {
+      // Ensure from is always before to
+      const startDate = date.from <= date.to ? date.from : date.to
+      const endDate = date.from <= date.to ? date.to : date.from
+
       onChange?.({
-        from: moment(date.from).format('DD/MM/YYYY'),
-        to: moment(date.to).format('DD/MM/YYYY'),
+        from: moment(startDate).format('YYYY-MM-DD'),
+        to: moment(endDate).format('YYYY-MM-DD'),
       })
     }
     setOpen(false)
@@ -54,7 +58,9 @@ export function DateRangePicker({
   const inRange = React.useCallback(
     (day: Date) => {
       if (date.from && !date.to && hoverDay) {
-        return day >= date.from && day <= hoverDay
+        const start = date.from <= hoverDay ? date.from : hoverDay
+        const end = date.from <= hoverDay ? hoverDay : date.from
+        return day >= start && day <= end
       }
       if (date.from && date.to) {
         return day >= date.from && day <= date.to
