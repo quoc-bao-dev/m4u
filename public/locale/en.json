@@ -361,6 +361,14 @@
     "logout": "Logout",
     "forgot": {
       "enterPhoneFirst": "Please enter your phone number before resetting password",
+      "phone": {
+        "title": "Forgot Password",
+        "desc": "Please enter your phone number to receive verification code",
+        "submit": "Send OTP",
+        "validation": {
+          "phoneRequired": "Phone number is required"
+        }
+      },
       "otp": {
         "title": "Enter verification code",
         "desc": "Enter the {length}-digit OTP sent to phone {phone}",

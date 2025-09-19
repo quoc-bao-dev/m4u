@@ -361,6 +361,14 @@
     "logout": "로그아웃",
     "forgot": {
       "enterPhoneFirst": "비밀번호 재설정 전에 전화번호를 입력하세요",
+      "phone": {
+        "title": "비밀번호 찾기",
+        "desc": "인증 코드를 받을 전화번호를 입력하세요",
+        "submit": "OTP 전송",
+        "validation": {
+          "phoneRequired": "전화번호는 필수입니다"
+        }
+      },
       "otp": {
         "title": "인증 코드 입력",
         "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",

@@ -361,6 +361,14 @@
     "logout": "Đăng xuất",
     "forgot": {
       "enterPhoneFirst": "Vui lòng nhập số điện thoại trước khi quên mật khẩu",
+      "phone": {
+        "title": "Quên Mật Khẩu",
+        "desc": "Vui lòng nhập số điện thoại để nhận mã xác thực",
+        "submit": "Gửi OTP",
+        "validation": {
+          "phoneRequired": "Số điện thoại là bắt buộc"
+        }
+      },
       "otp": {
         "title": "Nhập mã xác thực",
         "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
