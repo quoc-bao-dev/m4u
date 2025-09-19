@@ -5,6 +5,7 @@ import useRegisterSuccessModal from '../../stores/useRegisterSuccessModal'
 import Confetti from 'react-confetti'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from '@/locale'
 
 const RegisterSuccessModal = () => {
   const t = useTranslations()
@@ -13,8 +14,11 @@ const RegisterSuccessModal = () => {
   const effectiveTitle = t('trial.success.title')
   const effectiveMessage = t('trial.success.message')
   
+  const router = useRouter()
+  
   const handleClose = () => {
     store.close()
+    router.push('/trial-history')
   }
 
   // đo kích thước modal để gắn confetti vào mép trên

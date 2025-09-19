@@ -4,7 +4,7 @@ import Button from '@/core/components/ui/button'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { CornerTag } from '@/icons'
 import { useTranslations } from 'next-intl'
-import { CaretLeftIcon, CheckIcon, FilmStripIcon, ImageIcon, LightbulbIcon, XIcon } from '@phosphor-icons/react'
+import { CaretLeftIcon, CheckIcon, FilmStripIcon, ImageIcon, LightbulbIcon, PauseIcon, PlayIcon, TrashIcon, XIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
@@ -17,6 +17,8 @@ const SubmitReview = ({ id }: { id: number }) => {
   const t = useTranslations('submitReview')
   const [videoPreview, setVideoPreview] = useState<string | null>(null)
   const [videoFile, setVideoFile] = useState<File | null>(null)
+  const [videoFileName, setVideoFileName] = useState<string>('')
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
   const [selectedImages, setSelectedImages] = useState<string[]>([])
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [ratings, setRatings] = useState<Record<number, number>>({})
@@ -44,6 +46,7 @@ const SubmitReview = ({ id }: { id: number }) => {
       const previewUrl = URL.createObjectURL(file)
       setVideoPreview(previewUrl)
       setVideoFile(file)
+      setVideoFileName(file.name)
     }
   }
 
@@ -53,6 +56,8 @@ const SubmitReview = ({ id }: { id: number }) => {
     }
     setVideoPreview(null)
     setVideoFile(null)
+    setVideoFileName('')
+    setIsVideoPlaying(false)
     if (videoInputRef.current) {
       videoInputRef.current.value = ''
     }
@@ -124,6 +129,7 @@ const SubmitReview = ({ id }: { id: number }) => {
       const previewUrl = URL.createObjectURL(file)
       setVideoPreview(previewUrl)
       setVideoFile(file)
+      setVideoFileName(file.name)
     }
   }
 
@@ -155,10 +161,12 @@ const SubmitReview = ({ id }: { id: number }) => {
     }
     // Revoke image previews
     selectedImages.forEach((url) => {
-      try { URL.revokeObjectURL(url) } catch {}
+      try { URL.revokeObjectURL(url) } catch { }
     })
     setVideoPreview(null)
     setVideoFile(null)
+    setVideoFileName('')
+    setIsVideoPlaying(false)
     setSelectedImages([])
     setImageFiles([])
     setRatings(buildDefaultRatings())
@@ -199,6 +207,9 @@ const SubmitReview = ({ id }: { id: number }) => {
       console.error(error)
     }
   }
+
+  // Lấy thông tin review hiện tại của sản phẩm được chọn
+  const currentProductReview = listProductReview?.find((item: any) => item.id === selectedProductId)
 
   return (
     <div className='pt-[72px] relative overflow-hidden'>
@@ -271,19 +282,57 @@ const SubmitReview = ({ id }: { id: number }) => {
               onChange={handleVideoSelect}
               className="hidden"
             />
-            {videoPreview ? (
-              <div className='relative w-full'>
-                <video
-                  src={videoPreview}
-                  controls
-                  className=' h-[200px] lg:h-[400px] mx-auto rounded-xl object-cover'
-                />
-                <button
-                  onClick={handleVideoRemove}
-                  className='absolute top-3 right-3 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 flex justify-center items-center'
-                >
-                  <XIcon className='size-4 text-white' />
-                </button>
+            {(videoPreview || currentProductReview?.video_review) ? (
+              <div className='flex justify-between items-center gap-2.5 py-3 xl:py-10 px-3 xl:px-6 rounded-3xl border relative w-full'>
+                <div className='flex items-center gap-4'>
+                  <div className='relative group flex-shrink-0'>
+                    <video
+                      src={videoPreview || currentProductReview?.video_review}
+                      className='size-24 rounded-2xl object-cover flex-shrink-0'
+                      onPlay={() => setIsVideoPlaying(true)}
+                      onPause={() => setIsVideoPlaying(false)}
+                    />
+                    <div className={`transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-9 flex items-center justify-center bg-black/50 rounded-full cursor-pointer ${isVideoPlaying
+                      ? 'opacity-0 group-hover:opacity-100'
+                      : 'opacity-100'
+                      }`}
+                      onClick={() => {
+                        const video = document.querySelector('video') as HTMLVideoElement
+                        if (video) {
+                          if (isVideoPlaying) {
+                            video.pause()
+                          } else {
+                            video.play()
+                          }
+                        }
+                      }}>
+                      {isVideoPlaying ? (
+                        <PauseIcon weight="fill" className="size-5 text-white" />
+                      ) : (
+                        <PlayIcon weight="fill" className="size-5 text-white" />
+                      )}
+                    </div>
+                  </div>
+                  <div className='flex flex-col gap-1'>
+                    <p className='text-base font-medium text-[#27272A]'>
+                      {videoFileName || (currentProductReview?.video_review ? 'Video đã upload' : '')}
+                    </p>
+                    <div className='flex items-center gap-2'>
+                      <CheckIcon className='size-4 text-green-700' />
+                      <p className='text-xs font-normal text-green-700'>
+                        {videoPreview ? 'Upload successfully' : 'Đã có video review'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {videoPreview && (
+                  <button
+                    onClick={handleVideoRemove}
+                    className='cursor-pointer p-1 rounded-md group hover:bg-red-500 transition-all duration-500 flex justify-center items-center'
+                  >
+                    <TrashIcon className='size-6 xl:size-9 text-[#F3654A] group-hover:text-white transition-all duration-500' />
+                  </button>
+                )}
               </div>
             ) : (
               <div
@@ -323,8 +372,15 @@ const SubmitReview = ({ id }: { id: number }) => {
                 <ImageIcon className='size-6 text-greyscale-500' />
                 <p className='text-xs font-normal text-greyscale-900'>{selectedImages.length}/8</p>
               </div>
+              {/* Hiển thị hình ảnh đã có từ API */}
+              {currentProductReview?.media_other?.map((media: any) => (
+                <div key={`existing-${media.id}`} className='relative size-[72px] rounded-lg overflow-hidden'>
+                  <Image src={media.media} alt={media.name_file} width={72} height={72} className='w-full h-full object-cover' />
+                </div>
+              ))}
+              {/* Hiển thị hình ảnh mới upload */}
               {selectedImages.map((imageUrl, index) => (
-                <div key={index} className='relative size-[72px] rounded-lg overflow-hidden'>
+                <div key={`new-${index}`} className='relative size-[72px] rounded-lg overflow-hidden'>
                   <div
                     className='absolute top-1 right-1 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 cursor-pointer flex justify-center items-center'
                     onClick={() => handleImageRemove(index)}
@@ -344,21 +400,37 @@ const SubmitReview = ({ id }: { id: number }) => {
           <div className='flex flex-col lg:flex-row justify-between gap-6'>
             <div className='flex flex-col gap-4'>
               <h3 className='text-sm font-medium text-greyscale-900'>{t('productQuality')}</h3>
-              {(productQualityItems.length ? productQualityItems : []).map((item) => (
-                <div key={item.id} className='flex items-center gap-2'>
-                  <Rating value={ratings[item.id] ?? 0} onChange={(v) => handleChangeRating(item.id, v)} maxWidth={136} />
-                  <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
-                </div>
-              ))}
+              {(productQualityItems.length ? productQualityItems : []).map((item) => {
+                // Tìm rating đã có từ API
+                const existingRating = currentProductReview?.list_evaluate?.find((evaluation: any) => evaluation.id_evaluate === item.id)?.star
+                return (
+                  <div key={item.id} className='flex items-center gap-2'>
+                    <Rating
+                      value={ratings[item.id] ?? existingRating ?? 0}
+                      onChange={(v) => handleChangeRating(item.id, v)}
+                      maxWidth={136}
+                    />
+                    <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
+                  </div>
+                )
+              })}
             </div>
             <div className='flex flex-col gap-4'>
               <h3 className='text-sm font-medium text-greyscale-900'>{t('overallExperience')}</h3>
-              {(overallExperienceItems.length ? overallExperienceItems : []).map((item) => (
-                <div key={item.id} className='flex items-center gap-2'>
-                  <Rating value={ratings[item.id] ?? 0} onChange={(v) => handleChangeRating(item.id, v)} maxWidth={136} />
-                  <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
-                </div>
-              ))}
+              {(overallExperienceItems.length ? overallExperienceItems : []).map((item) => {
+                // Tìm rating đã có từ API
+                const existingRating = currentProductReview?.list_evaluate?.find((evaluation: any) => evaluation.id_evaluate === item.id)?.star
+                return (
+                  <div key={item.id} className='flex items-center gap-2'>
+                    <Rating
+                      value={ratings[item.id] ?? existingRating ?? 0}
+                      onChange={(v) => handleChangeRating(item.id, v)}
+                      maxWidth={136}
+                    />
+                    <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
           <div className='flex flex-col gap-3'>
@@ -372,7 +444,7 @@ const SubmitReview = ({ id }: { id: number }) => {
             <textarea
               placeholder={t('placeholder')}
               className='w-full h-[160px] rounded-xl border border-black/10 bg-white p-3 placeholder:text-greyscale-400 placeholder:text-base placeholder:font-normal focus:outline-pink-500'
-              value={content}
+              value={content || currentProductReview?.content_evaluate || ''}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>

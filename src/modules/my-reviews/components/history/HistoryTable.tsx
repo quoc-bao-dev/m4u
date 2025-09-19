@@ -294,9 +294,11 @@ const HistoryTable = () => {
           <div className="text-sm text-orange-600">
             {t('myReviews.history.table.mobile.daysLeftToSubmit', { count: 3 })}
           </div>
-          <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-            {t('myReviews.history.table.actions.review')}
-          </button>
+          <Link href={`/submit-review/${item.id}`} className='w-fit h-full'>
+            <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+              {t('myReviews.history.table.actions.review')}
+            </button>
+          </Link>
         </div>
       </div>
     )
