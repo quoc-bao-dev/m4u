@@ -26,6 +26,10 @@ const SubmitReview = ({ id }: { id: number }) => {
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null)
   const [isVideoDragOver, setIsVideoDragOver] = useState(false)
   const [isImagesDragOver, setIsImagesDragOver] = useState(false)
+  const [imagesToDelete, setImagesToDelete] = useState<number[]>([])
+  const [existingVideoUrl, setExistingVideoUrl] = useState<string | null>(null)
+  const [existingImages, setExistingImages] = useState<any[]>([])
+  const [videoToDelete, setVideoToDelete] = useState(false)
   const videoInputRef = useRef<HTMLInputElement>(null)
   const imageInputRef = useRef<HTMLInputElement>(null)
 
@@ -34,11 +38,41 @@ const SubmitReview = ({ id }: { id: number }) => {
 
   const { mutateAsync: submitReview, isPending } = useSubmitReview()
 
+  // Lấy thông tin review hiện tại của sản phẩm được chọn
+  const currentProductReview = listProductReview?.find((item: any) => item.id === selectedProductId)
+
   useEffect(() => {
     if (Array.isArray(listProductReview) && listProductReview.length && selectedProductId === null) {
       setSelectedProductId(listProductReview[0].id)
     }
   }, [listProductReview, selectedProductId])
+
+  // Lưu dữ liệu từ API vào state khi có dữ liệu
+  useEffect(() => {
+    if (currentProductReview) {
+      // Lưu video từ API
+      if (currentProductReview.video_review && !videoToDelete) {
+        setExistingVideoUrl(currentProductReview.video_review)
+      } else {
+        setExistingVideoUrl(null)
+      }
+
+      // Lưu hình ảnh từ API
+      if (currentProductReview.media_other && currentProductReview.media_other.length > 0) {
+        const filteredImages = currentProductReview.media_other.filter((media: any) => !imagesToDelete.includes(media.id))
+        setExistingImages(filteredImages)
+      } else {
+        setExistingImages([])
+      }
+
+      // Lưu content từ API
+      if (currentProductReview.content_evaluate) {
+        setContent(currentProductReview.content_evaluate)
+      } else {
+        setContent('')
+      }
+    }
+  }, [currentProductReview, imagesToDelete, videoToDelete])
 
   const handleVideoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -61,6 +95,10 @@ const SubmitReview = ({ id }: { id: number }) => {
     if (videoInputRef.current) {
       videoInputRef.current.value = ''
     }
+    // Nếu có video từ API và active = 0, đánh dấu để xóa
+    if (currentProductReview?.video_review && currentProductReview?.active === 0) {
+      setVideoToDelete(true)
+    }
   }
 
   const openVideoPicker = () => {
@@ -80,9 +118,14 @@ const SubmitReview = ({ id }: { id: number }) => {
           newFiles.push(file)
         }
       }
-      // Giới hạn tối đa 8 ảnh
-      setSelectedImages(prev => [...prev, ...newImages].slice(0, 8))
-      setImageFiles(prev => [...prev, ...newFiles].slice(0, 8))
+      // Giới hạn tối đa 8 ảnh (tính cả hình ảnh từ API)
+      const currentTotalImages = selectedImages.length + existingImages.length
+      const remainingSlots = Math.max(0, 8 - currentTotalImages)
+      const imagesToAdd = newImages.slice(0, remainingSlots)
+      const filesToAdd = newFiles.slice(0, remainingSlots)
+
+      setSelectedImages(prev => [...prev, ...imagesToAdd])
+      setImageFiles(prev => [...prev, ...filesToAdd])
     }
   }
 
@@ -95,6 +138,13 @@ const SubmitReview = ({ id }: { id: number }) => {
     setImageFiles(prev => prev.filter((_, i) => i !== index))
   }
 
+  const handleExistingImageRemove = (mediaId: number) => {
+    if (currentProductReview?.active === 0) {
+      setImagesToDelete(prev => [...prev, mediaId])
+    }
+  }
+
+
   const openImagePicker = () => {
     imageInputRef.current?.click()
   }
@@ -105,7 +155,6 @@ const SubmitReview = ({ id }: { id: number }) => {
   const overallExperienceItems = Array.isArray(typeEvaluate)
     ? typeEvaluate.filter((item) => item.type === 2)
     : []
-
   const activeColor = (listProductReview || []).find((p: any) => p.id === selectedProductId)?.background_color || '#FE6BBA'
 
   const handleChangeRating = (id: number, value: number) => {
@@ -116,7 +165,9 @@ const SubmitReview = ({ id }: { id: number }) => {
     if (!Array.isArray(typeEvaluate)) return {}
     const defaults: Record<number, number> = {}
     typeEvaluate.forEach((item: any) => {
-      defaults[item.id] = 5
+      // Nếu đã có đánh giá từ API, sử dụng giá trị đó, ngược lại mặc định 5 sao
+      const existingRating = currentProductReview?.list_evaluate?.find((evaluation: any) => evaluation.id_evaluate === item.id)?.star
+      defaults[item.id] = existingRating || 5
     })
     return defaults
   }
@@ -148,8 +199,14 @@ const SubmitReview = ({ id }: { id: number }) => {
         }
       }
       if (newImageUrls.length) {
-        setSelectedImages(prev => [...prev, ...newImageUrls].slice(0, 8))
-        setImageFiles(prev => [...prev, ...newImageFiles].slice(0, 8))
+        // Giới hạn tối đa 8 ảnh (tính cả hình ảnh từ API)
+        const currentTotalImages = selectedImages.length + existingImages.length
+        const remainingSlots = Math.max(0, 8 - currentTotalImages)
+        const imagesToAdd = newImageUrls.slice(0, remainingSlots)
+        const filesToAdd = newImageFiles.slice(0, remainingSlots)
+
+        setSelectedImages(prev => [...prev, ...imagesToAdd])
+        setImageFiles(prev => [...prev, ...filesToAdd])
       }
     }
   }
@@ -169,6 +226,10 @@ const SubmitReview = ({ id }: { id: number }) => {
     setIsVideoPlaying(false)
     setSelectedImages([])
     setImageFiles([])
+    setImagesToDelete([])
+    setVideoToDelete(false)
+    setExistingVideoUrl(null)
+    setExistingImages([])
     setRatings(buildDefaultRatings())
     setContent('')
     if (videoInputRef.current) videoInputRef.current.value = ''
@@ -176,11 +237,11 @@ const SubmitReview = ({ id }: { id: number }) => {
   }
 
   useEffect(() => {
-    // Khi có typeEvaluate, set mặc định 5 sao cho tất cả tiêu chí
+    // Khi có typeEvaluate hoặc currentProductReview thay đổi, cập nhật ratings
     if (Array.isArray(typeEvaluate)) {
       setRatings(buildDefaultRatings())
     }
-  }, [typeEvaluate])
+  }, [typeEvaluate, currentProductReview])
 
   const handleSubmit = async () => {
     try {
@@ -196,6 +257,13 @@ const SubmitReview = ({ id }: { id: number }) => {
       if (videoFile) {
         form.append('video_review', videoFile)
       }
+
+      // Nếu đánh dấu xóa hình ảnh cũ
+      if (imagesToDelete.length > 0) {
+        imagesToDelete.forEach((imageId, index) => {
+          form.append(`media_other_delete[${index}]`, String(imageId))
+        })
+      }
       imageFiles.forEach((file, idx) => {
         form.append(`media_other[${idx}]`, file)
       })
@@ -208,9 +276,6 @@ const SubmitReview = ({ id }: { id: number }) => {
     }
   }
 
-  // Lấy thông tin review hiện tại của sản phẩm được chọn
-  const currentProductReview = listProductReview?.find((item: any) => item.id === selectedProductId)
-console.log(currentProductReview)
   return (
     <div className='pt-[72px] relative overflow-hidden'>
       <Image src={IMAGES.topGradient2} width={1000} height={600} alt='top-gradient' className='absolute z-[-1] top-0 left-0 w-full object-cover -translate-y-1/3 scale-x-[-1.3] opacity-60' />
@@ -265,9 +330,11 @@ console.log(currentProductReview)
 
         {/* Cột phải - tỷ lệ 915/1312 ≈ 69.7% */}
         <div className='lg:flex-[915] h-fit p-0 lg:p-4 xl:p-10 rounded-none lg:rounded-3xl flex flex-col gap-4 xl:gap-6 bg-transparent lg:bg-white shadow-none lg:shadow-[0px_0px_60px_0px_rgba(0,0,0,0.1)]'>
-          <div className='flex items-center gap-3'>
-            <span className='w-3 h-8 rounded' style={{ backgroundColor: activeColor }}></span>
-            <h2 className='text-xl font-semibold text-greyscale-900'>{t('shareReview')}</h2>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center gap-3'>
+              <span className='w-3 h-8 rounded' style={{ backgroundColor: activeColor }}></span>
+              <h2 className='text-xl font-semibold text-greyscale-900'>{t('shareReview')}</h2>
+            </div>
           </div>
           <hr className='border-greyscale-200 -mt-3 xl:mt-0' />
           <div className='flex flex-col gap-3'>
@@ -282,12 +349,12 @@ console.log(currentProductReview)
               onChange={handleVideoSelect}
               className="hidden"
             />
-            {(videoPreview || currentProductReview?.video_review) ? (
+            {(videoPreview || existingVideoUrl) ? (
               <div className='flex justify-between items-center gap-2.5 py-3 xl:py-10 px-3 xl:px-6 rounded-3xl border relative w-full'>
                 <div className='flex items-center gap-4'>
                   <div className='relative group flex-shrink-0'>
                     <video
-                      src={videoPreview || currentProductReview?.video_review}
+                      src={videoPreview || existingVideoUrl || ''}
                       className='size-24 rounded-2xl object-cover flex-shrink-0'
                       onPlay={() => setIsVideoPlaying(true)}
                       onPause={() => setIsVideoPlaying(false)}
@@ -315,17 +382,17 @@ console.log(currentProductReview)
                   </div>
                   <div className='flex flex-col gap-1'>
                     <p className='text-base font-medium text-[#27272A]'>
-                      {videoFileName || (currentProductReview?.video_review ? 'Video đã upload' : '')}
+                      {videoFileName || (currentProductReview?.video_review ? '' : '')}
                     </p>
                     <div className='flex items-center gap-2'>
                       <CheckIcon className='size-4 text-green-700' />
                       <p className='text-xs font-normal text-green-700'>
-                        {videoPreview ? 'Upload successfully' : 'Đã có video review'}
+                        {videoPreview ? t('uploadSuccessfully') : t('hasVideoReview')}
                       </p>
                     </div>
                   </div>
                 </div>
-                {videoPreview && (
+                {(videoPreview || currentProductReview?.active === 0) && (
                   <button
                     onClick={handleVideoRemove}
                     className='cursor-pointer p-1 rounded-md group hover:bg-red-500 transition-all duration-500 flex justify-center items-center'
@@ -336,11 +403,11 @@ console.log(currentProductReview)
               </div>
             ) : (
               <div
-                className={`flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl border cursor-pointer transition-all duration-300 ${isVideoDragOver ? 'bg-greyscale-100 border-greyscale-300' : 'bg-greyscale-50 border-greyscale-200 hover:bg-greyscale-100'}`}
-                onClick={openVideoPicker}
-                onDragOver={(e) => { e.preventDefault(); setIsVideoDragOver(true) }}
-                onDragLeave={() => setIsVideoDragOver(false)}
-                onDrop={handleVideoDrop}
+                className={`flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl border transition-all duration-300 ${currentProductReview?.active === 0 ? 'cursor-pointer hover:bg-greyscale-100' : 'cursor-not-allowed opacity-50'} ${isVideoDragOver ? 'bg-greyscale-100 border-greyscale-300' : 'bg-greyscale-50 border-greyscale-200'}`}
+                onClick={currentProductReview?.active === 0 ? openVideoPicker : undefined}
+                onDragOver={currentProductReview?.active === 0 ? (e) => { e.preventDefault(); setIsVideoDragOver(true) } : undefined}
+                onDragLeave={currentProductReview?.active === 0 ? () => setIsVideoDragOver(false) : undefined}
+                onDrop={currentProductReview?.active === 0 ? handleVideoDrop : undefined}
               >
                 <div className='p-3 rounded-full bg-white w-fit'>
                   <FilmStripIcon className='size-6 text-greyscale-500' />
@@ -361,33 +428,49 @@ console.log(currentProductReview)
             />
             <div
               className={`flex gap-1 flex-wrap rounded-xl ${isImagesDragOver ? 'ring-2 ring-greyscale-300 bg-greyscale-50' : ''}`}
-              onDragOver={(e) => { e.preventDefault(); setIsImagesDragOver(true) }}
-              onDragLeave={() => setIsImagesDragOver(false)}
-              onDrop={handleImagesDrop}
+              onDragOver={currentProductReview?.active === 0 ? (e) => { e.preventDefault(); setIsImagesDragOver(true) } : undefined}
+              onDragLeave={currentProductReview?.active === 0 ? () => setIsImagesDragOver(false) : undefined}
+              onDrop={currentProductReview?.active === 0 ? handleImagesDrop : undefined}
             >
               <div
-                className='size-[72px] rounded-lg border border-greyscale-200 bg-greyscale-100 flex flex-col justify-center items-center gap-1 cursor-pointer hover:bg-greyscale-200 transition-all duration-300'
-                onClick={openImagePicker}
+                className={`size-[72px] rounded-lg border border-greyscale-200 bg-greyscale-100 flex flex-col justify-center items-center gap-1 transition-all duration-300 ${currentProductReview?.active === 0 ? 'cursor-pointer hover:bg-greyscale-200' : 'cursor-not-allowed opacity-50'}`}
+                onClick={currentProductReview?.active === 0 ? openImagePicker : undefined}
               >
                 <ImageIcon className='size-6 text-greyscale-500' />
-                <p className='text-xs font-normal text-greyscale-900'>{selectedImages.length}/8</p>
+                <p className='text-xs font-normal text-greyscale-900'>{(selectedImages.length + existingImages.length)}/8</p>
               </div>
               {/* Hiển thị hình ảnh đã có từ API */}
-              {currentProductReview?.media_other?.map((media: any) => (
+              {existingImages.map((media: any) => (
                 <div key={`existing-${media.id}`} className='relative size-[72px] rounded-lg overflow-hidden'>
-                  <Image src={media.media} alt={media.name_file} width={72} height={72} className='w-full h-full object-cover' />
+                  {currentProductReview?.active === 0 && (
+                    <div
+                      className='absolute top-1 right-1 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 cursor-pointer flex justify-center items-center'
+                      onClick={() => handleExistingImageRemove(media.id)}
+                    >
+                      <XIcon className='size-4 text-white' />
+                    </div>
+                  )}
+                  <Image
+                    src={media.media}
+                    alt={media.name_file}
+                    width={72}
+                    height={72}
+                    className='w-full h-full object-cover'
+                  />
                 </div>
               ))}
               {/* Hiển thị hình ảnh mới upload */}
               {selectedImages.map((imageUrl, index) => (
                 <div key={`new-${index}`} className='relative size-[72px] rounded-lg overflow-hidden'>
-                  <div
-                    className='absolute top-1 right-1 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 cursor-pointer flex justify-center items-center'
-                    onClick={() => handleImageRemove(index)}
-                  >
-                    <XIcon className='size-4 text-white' />
-                  </div>
-                  <Image src={imageUrl} alt={`review ${index + 1}`} width={72} height={72} className='w-full h-full object-cover' />
+                  {currentProductReview?.active === 0 && (
+                    <div
+                      className='absolute top-1 right-1 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 cursor-pointer flex justify-center items-center'
+                      onClick={() => handleImageRemove(index)}
+                    >
+                      <XIcon className='size-4 text-white' />
+                    </div>
+                  )}
+                  <Image src={imageUrl} alt={t('reviewImage', { number: index + 1 })} width={72} height={72} className='w-full h-full object-cover' />
                 </div>
               ))}
             </div>
@@ -401,13 +484,16 @@ console.log(currentProductReview)
             <div className='flex flex-col gap-4'>
               <h3 className='text-sm font-medium text-greyscale-900'>{t('productQuality')}</h3>
               {(productQualityItems.length ? productQualityItems : []).map((item) => {
-                // Tìm rating đã có từ API
+                // Nếu active = 0, cho phép chỉnh sửa, ngược lại hiển thị từ API
                 const existingRating = currentProductReview?.list_evaluate?.find((evaluation: any) => evaluation.id_evaluate === item.id)?.star
+                const currentRating = currentProductReview?.active === 0
+                  ? (ratings[item.id] || existingRating || 5)
+                  : (existingRating || 5)
                 return (
                   <div key={item.id} className='flex items-center gap-2'>
                     <Rating
-                      value={ratings[item.id] ?? existingRating ?? 0}
-                      onChange={(v) => handleChangeRating(item.id, v)}
+                      value={currentRating}
+                      onChange={currentProductReview?.active === 0 ? (v) => handleChangeRating(item.id, v) : undefined}
                       maxWidth={136}
                     />
                     <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
@@ -418,13 +504,16 @@ console.log(currentProductReview)
             <div className='flex flex-col gap-4'>
               <h3 className='text-sm font-medium text-greyscale-900'>{t('overallExperience')}</h3>
               {(overallExperienceItems.length ? overallExperienceItems : []).map((item) => {
-                // Tìm rating đã có từ API
+                // Nếu active = 0, cho phép chỉnh sửa, ngược lại hiển thị từ API
                 const existingRating = currentProductReview?.list_evaluate?.find((evaluation: any) => evaluation.id_evaluate === item.id)?.star
+                const currentRating = currentProductReview?.active === 0
+                  ? (ratings[item.id] || existingRating || 5)
+                  : (existingRating || 5)
                 return (
                   <div key={item.id} className='flex items-center gap-2'>
                     <Rating
-                      value={ratings[item.id] ?? existingRating ?? 0}
-                      onChange={(v) => handleChangeRating(item.id, v)}
+                      value={currentRating}
+                      onChange={currentProductReview?.active === 0 ? (v) => handleChangeRating(item.id, v) : undefined}
                       maxWidth={136}
                     />
                     <p className='text-sm font-normal text-[#4E5969]'>{item.name}</p>
@@ -443,13 +532,22 @@ console.log(currentProductReview)
             </div>
             <textarea
               placeholder={t('placeholder')}
-              className='w-full h-[160px] rounded-xl border border-black/10 bg-white p-3 placeholder:text-greyscale-400 placeholder:text-base placeholder:font-normal focus:outline-pink-500'
-              value={content || currentProductReview?.content_evaluate || ''}
-              onChange={(e) => setContent(e.target.value)}
+              className={`w-full h-[160px] rounded-xl border border-black/10 p-3 placeholder:text-greyscale-400 placeholder:text-base placeholder:font-normal focus:outline-pink-500 ${currentProductReview?.active === 0 ? 'bg-white' : 'bg-greyscale-100 cursor-not-allowed'}`}
+              value={currentProductReview?.active === 0
+                ? content
+                : (currentProductReview?.content_evaluate || '')
+              }
+              onChange={currentProductReview?.active === 0 ? (e) => setContent(e.target.value) : undefined}
+              disabled={currentProductReview?.active !== 0}
             />
           </div>
           <div className='flex justify-center xl:justify-start pb-6 xl:pb-0'>
-            <Button onClick={handleSubmit} disabled={isPending || currentProductReview?.is_review === 1}>{t('submitReview')}</Button>
+            <Button
+              onClick={handleSubmit}
+              disabled={isPending}
+            >
+              {t('submitReview')}
+            </Button>
           </div>
         </div>
       </div>
