@@ -25,9 +25,11 @@ interface TopReviewerCardProps {
   className?: string
   topReview?: number
   isRightColumn?: boolean
+  data?: any
 }
 
 const TopReviewerCard = ({
+  data,
   productName = 'Panthetoin Deep Moisture Mask',
   brandName = 'MANYO',
   rating = 4.0,
@@ -38,6 +40,7 @@ const TopReviewerCard = ({
   topReview = 1,
   isRightColumn = false,
 }: TopReviewerCardProps) => {
+  console.log(data)
   const { isMobile, isTablet } = useDevice()
   // Left column should start earlier; right column should start a bit later
   const { ref: cardRef, isInView } = useInView<HTMLDivElement>({
@@ -83,7 +86,7 @@ const TopReviewerCard = ({
         try {
           target.pause()
           setPlayingIndex(null)
-        } catch {}
+        } catch { }
         return
       }
 
@@ -92,14 +95,14 @@ const TopReviewerCard = ({
         if (video && i !== index) {
           try {
             video.pause()
-          } catch {}
+          } catch { }
         }
       })
 
       try {
         target.play()
         setPlayingIndex(index)
-      } catch {}
+      } catch { }
     },
     [playingIndex]
   )
@@ -114,13 +117,13 @@ const TopReviewerCard = ({
       if (video && i !== index) {
         try {
           video.pause()
-        } catch {}
+        } catch { }
       }
     })
     try {
       target.play()
       setPlayingIndex(index)
-    } catch {}
+    } catch { }
   }, [])
 
 
@@ -137,20 +140,20 @@ const TopReviewerCard = ({
         if (video && i !== firstVideoIndex) {
           try {
             video.pause()
-          } catch {}
+          } catch { }
         }
       })
       try {
         first.play()
         setPlayingIndex(firstVideoIndex)
-      } catch {}
+      } catch { }
     } else {
       // Pause all when out of view
       videoRefs.current.forEach((video) => {
         if (video) {
           try {
             video.pause()
-          } catch {}
+          } catch { }
         }
       })
       setPlayingIndex(null)
@@ -184,17 +187,13 @@ const TopReviewerCard = ({
       href="/review-hub/detail"
       className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full  border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
-      {/* {isLoading ? (
-        <Loading className="flex-shrink-0 hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl" />
-      ) : ( */}
-        <Image
-          src={productImage}
-          alt="top-reviewer"
-          width={1000}
-          height={1000}
-          className="hidden xl:block lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
-        />
-      {/* )} */}
+      <Image
+        src={data?.image || IMAGES.topProduct}
+        alt="top-reviewer"
+        width={1000}
+        height={1000}
+        className="hidden xl:block flex-shrink-0 lg:size-[160px] xl:size-[250px] 2xl:size-[300px] object-cover rounded-3xl"
+      />
       <div className="py-2 px-2 xl:px-0 flex flex-col justify-center gap-3 2xl:gap-5 w-full min-w-0 z-10">
         <div className="flex gap-3 lg:gap-2 justify-between items-end">
           <div className="flex flex-col xl:flex-row gap-2">
@@ -212,28 +211,28 @@ const TopReviewerCard = ({
             )}
             <div className="flex flex-col gap-2 2xl:gap-3">
               <h3 className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900 transition-colors duration-300 group-hover:text-yellow-600">
-                {brandName}
+                {data?.code || brandName}
               </h3>
               <p className="text-sm lg:text-base xl:text-xl 2xl:text-2xl leading-[100%] text-greyscale-900 transition-colors duration-300 group-hover:text-yellow-600">
-                {productName}
+                {data?.name || productName}
               </p>
               <div className="flex items-center gap-3 pt-0 xl:pt-1 2xl:pt-2">
                 <Rating
-                  value={Number(rating)}
+                  value={Number(data?.average_star || rating)}
                   readOnly
                   maxWidth={isMobile ? 96 : isTablet ? 116 : 136}
                 />
                 <p className="text-sm lg:text-base xl:text-lg 2xl:text-xl xl:leading-[80%] text-greyscale-500">
                   <span className="text-greyscale-900 font-medium">
-                    {rating}{' '}
+                    {data?.average_star || rating}{' '}
                   </span>
-                  ({reviewCount} reviews)
+                  ({data?.quantity_reviews || reviewCount} reviews)
                 </p>
               </div>
             </div>
           </div>
           <Image
-            src={productImage}
+            src={data?.image || IMAGES.topProduct}
             alt="top-reviewer"
             width={1000}
             height={1000}
@@ -245,9 +244,8 @@ const TopReviewerCard = ({
           <div className="absolute z-[2] top-0 right-0 w-10 h-full bg-gradient-to-l from-white to-transparent"></div>
           <div
             ref={scrollContainerRef}
-            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
-              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
-            }`}
+            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+              }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={endDrag}
@@ -259,7 +257,7 @@ const TopReviewerCard = ({
                 key={index}
                 onClick={() => handlePlayVideo(index)}
                 onMouseEnter={() => handleHoverStart(index)}
-                // onMouseLeave={() => handleHoverEnd(index)}
+              // onMouseLeave={() => handleHoverEnd(index)}
               >
                 <div className="absolute top-1 right-1 flex items-center gap-0.5 bg-white rounded-full py-0.5 px-1">
                   <StarIcon

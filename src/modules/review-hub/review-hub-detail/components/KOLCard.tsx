@@ -64,7 +64,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
         />
         {/* )} */}
 
-        <div className="2xl:p-5 p-4 bg-orange-100 flex gap-3 items-center justify-between">
+        <div className="2xl:p-5 p-3 bg-orange-100 flex gap-3 items-center justify-between">
           <Image
             src={avatar}
             alt="avatar"
@@ -79,7 +79,8 @@ export const KOLCard: React.FC<KOLCardProps> = ({
             <p className="2xl:text-sm text-sm font-normal text-greyscale-900">
               {reviews} {tProduct('views')}
             </p>
-          <div className="py-0.5 px-1 lg:p-2 h-fit w-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
+          </div>
+          <div className="absolute top-2 right-2 md:static py-0.5 px-1 lg:p-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
             <StarIcon
               weight="fill"
               className="size-4 xl:size-5 text-yellow-600"
@@ -87,7 +88,6 @@ export const KOLCard: React.FC<KOLCardProps> = ({
             <span className="text-sm xl:text-base 2xl:text-lg font-medium text-greyscale-900">
               {rating}
             </span>
-          </div>
           </div>
         </div>
       </button>
