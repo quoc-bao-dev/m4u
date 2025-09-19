@@ -210,7 +210,7 @@ const SubmitReview = ({ id }: { id: number }) => {
 
   // Lấy thông tin review hiện tại của sản phẩm được chọn
   const currentProductReview = listProductReview?.find((item: any) => item.id === selectedProductId)
-
+console.log(currentProductReview)
   return (
     <div className='pt-[72px] relative overflow-hidden'>
       <Image src={IMAGES.topGradient2} width={1000} height={600} alt='top-gradient' className='absolute z-[-1] top-0 left-0 w-full object-cover -translate-y-1/3 scale-x-[-1.3] opacity-60' />
@@ -449,7 +449,7 @@ const SubmitReview = ({ id }: { id: number }) => {
             />
           </div>
           <div className='flex justify-center xl:justify-start pb-6 xl:pb-0'>
-            <Button onClick={handleSubmit} disabled={isPending}>{t('submitReview')}</Button>
+            <Button onClick={handleSubmit} disabled={isPending || currentProductReview?.is_review === 1}>{t('submitReview')}</Button>
           </div>
         </div>
       </div>
