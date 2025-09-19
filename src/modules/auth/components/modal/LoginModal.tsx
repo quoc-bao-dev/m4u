@@ -7,7 +7,7 @@ import Checkbox from '@/core/components/ui/checkbox'
 import Input from '@/core/components/ui/input'
 import PasswordInput from '@/core/components/ui/password-input'
 import { useToast } from '@/core/hooks'
-import { useLogin, useSendOTPForgotPassword } from '@/services/auth/mutations'
+import { useLogin } from '@/services/auth/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
@@ -19,10 +19,9 @@ import useLoginModal from '../../stores/useLoginModal'
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
   const loginMutation = useLogin()
-  const sendOTPMutation = useSendOTPForgotPassword()
   const { showError, showSuccess } = useToast()
   const t = useTranslations('auth')
-  const { open } = useForgotPass()
+  const { openPhoneInput } = useForgotPass()
   const [rememberAccount, setRememberAccount] = useState(true)
 
   const {
@@ -115,39 +114,10 @@ const LoginModal = () => {
     }
   }
 
-  const handleForgotPassword = async () => {
-    const phoneValue = control._formValues?.phone || ''
-
-    if (!phoneValue) {
-      showError(t('forgot.enterPhoneFirst'))
-      return
-    }
-
-    try {
-      const response = await sendOTPMutation.mutateAsync({ phone: phoneValue })
-
-      // Check if result is false (API returned error)
-      if (response && response.result === false) {
-        showError(response.message || t('forgot.otp.sendFailed'))
-        return
-      }
-
-      // Nếu thành công, mở modal OTP và set phone vào store
-      open(phoneValue)
-      close()
-      reset()
-      showSuccess(t('forgot.otp.sendSuccess'))
-    } catch (error: any) {
-      // Log chi tiết lỗi từ BE
-      console.error('Send OTP error:', error)
-      console.error('Error response:', error?.response?.data)
-
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        t('forgot.otp.sendFailed')
-      showError(errorMessage)
-    }
+  const handleForgotPassword = () => {
+    // Mở modal nhập số điện thoại
+    openPhoneInput()
+    close()
   }
 
   const handleClose = () => {
@@ -214,11 +184,8 @@ const LoginModal = () => {
                   type="button"
                   className="text-sm font-medium text-[#3B82F6] hover:underline"
                   onClick={handleForgotPassword}
-                  disabled={sendOTPMutation.isPending}
                 >
-                  {sendOTPMutation.isPending
-                    ? t('forgot.otp.sending')
-                    : t('forgotPassword')}
+                  {t('forgotPassword')}
                 </button>
               </div>
             </div>
