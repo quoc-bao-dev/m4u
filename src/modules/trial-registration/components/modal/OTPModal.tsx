@@ -51,7 +51,6 @@ const OTPModal = () => {
     [effectivePhone]
   )
 
-
   const handelOpenSuccessModal = async () => {
     if (!formData) {
       console.error('Không có dữ liệu form')
@@ -68,12 +67,12 @@ const OTPModal = () => {
         gender: getGenderNumber(formData.gender),
         id_product: String(productId || ''),
         event: 'register',
-        key_code: otp
+        key_code: otp,
       }
 
       // Gọi API đăng ký với OTP
       const response = await signUpMutation.mutateAsync(apiData)
-      
+
       if (response?.result === true) {
         // Nếu thành công, đóng modal OTP và mở modal thành công
         store.close()
@@ -110,7 +109,10 @@ const OTPModal = () => {
             {t('trial.otp.title')}
           </h2>
           <p className="text-sm text-gray-600 mb-6">
-            {t('trial.otp.desc', { length: effectiveLength, phone: maskedPhone })}
+            {t('trial.otp.desc', {
+              length: effectiveLength,
+              phone: maskedPhone,
+            })}
           </p>
 
           <div className="mb-8">
@@ -128,10 +130,14 @@ const OTPModal = () => {
             <Button
               size="xs"
               className="w-fit"
-              disabled={otp.length !== effectiveLength || signUpMutation.isPending}
+              disabled={
+                otp.length !== effectiveLength || signUpMutation.isPending
+              }
               onClick={handelOpenSuccessModal}
             >
-              {signUpMutation.isPending ? t('trial.otp.processing') : t('trial.otp.confirm')}
+              {signUpMutation.isPending
+                ? t('trial.otp.processing')
+                : t('trial.otp.confirm')}
             </Button>
           </div>
         </div>

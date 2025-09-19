@@ -352,10 +352,38 @@
     "enterPhoneNumber": "Nhập số điện thoại",
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
+    "rememberAccount": "Ghi nhớ tài khoản",
     "confirmLogoutTitle": "Xác nhận đăng xuất",
     "confirmLogoutDesc": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
     "cancel": "Huỷ",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "forgot": {
+      "enterPhoneFirst": "Vui lòng nhập số điện thoại trước khi quên mật khẩu",
+      "otp": {
+        "title": "Nhập mã xác thực",
+        "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
+        "sending": "Đang gửi...",
+        "sendSuccess": "OTP đã được gửi đến số điện thoại của bạn",
+        "sendFailed": "Không thể gửi OTP. Vui lòng thử lại.",
+        "inputError": "Vui lòng nhập đầy đủ mã OTP",
+        "confirm": "Xác nhận",
+        "checking": "Đang kiểm tra...",
+        "invalid": "Mã OTP không hợp lệ",
+        "verifyError": "Xác thực OTP thất bại. Thử lại."
+      },
+      "reset": {
+        "title": "Đổi mật khẩu",
+        "desc": "Vui lòng nhập mật khẩu mới của bạn",
+        "newPassword": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu",
+        "submitting": "Đang xử lý...",
+        "submit": "Xác nhận thay đổi",
+        "success": "Đổi mật khẩu và đăng nhập thành công",
+        "saveFailed": "Đổi mật khẩu thất bại",
+        "loginFailed": "Đăng nhập lại thất bại",
+        "passwordsNotMatch": "Mật khẩu xác nhận không khớp"
+      }
+    }
   },
   "menu": {
     "reviewerQuestion": "Bạn có phải reviewer của M4U không?",

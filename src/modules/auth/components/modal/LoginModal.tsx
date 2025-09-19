@@ -3,16 +3,18 @@
 import { ModalClient } from '@/core/components'
 import { sMenuSignal } from '@/core/components/layout/menu/sMenuSignal'
 import Button from '@/core/components/ui/button'
+import Checkbox from '@/core/components/ui/checkbox'
 import Input from '@/core/components/ui/input'
 import PasswordInput from '@/core/components/ui/password-input'
 import { useToast } from '@/core/hooks'
 import { useLogin, useSendOTPForgotPassword } from '@/services/auth/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { LoginFormData, loginSchema } from '../../schemas'
-import useLoginModal from '../../stores/useLoginModal'
 import { useForgotPass } from '../../stores/useForgotPass'
+import useLoginModal from '../../stores/useLoginModal'
 
 const LoginModal = () => {
   const { isOpen, close } = useLoginModal()
@@ -21,12 +23,14 @@ const LoginModal = () => {
   const { showError, showSuccess } = useToast()
   const t = useTranslations('auth')
   const { open } = useForgotPass()
+  const [rememberAccount, setRememberAccount] = useState(false)
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -35,6 +39,35 @@ const LoginModal = () => {
       type_login: 'password',
     },
   })
+
+  // Load saved account and checkbox state from localStorage on mount
+  useEffect(() => {
+    const savedPhone = localStorage.getItem('m4u_saved_phone')
+    const savedPassword = localStorage.getItem('m4u_saved_password')
+    const rememberState =
+      localStorage.getItem('m4u_remember_account') === 'true'
+
+    // Always restore checkbox state from localStorage
+    setRememberAccount(rememberState)
+
+    // Only fill form if remember is enabled and data exists
+    if (rememberState && savedPhone && savedPassword) {
+      setValue('phone', savedPhone)
+      setValue('password', savedPassword)
+    }
+  }, [setValue])
+
+  // Handle checkbox change and immediately save state to localStorage
+  const handleRememberAccountChange = (checked: boolean) => {
+    setRememberAccount(checked)
+    localStorage.setItem('m4u_remember_account', checked.toString())
+
+    // If unchecked, immediately remove saved credentials
+    if (!checked) {
+      localStorage.removeItem('m4u_saved_phone')
+      localStorage.removeItem('m4u_saved_password')
+    }
+  }
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -46,7 +79,12 @@ const LoginModal = () => {
         return
       }
 
-      // Login thành công, reset form và đóng modal
+      // Login thành công, cập nhật credentials nếu remember account được tích
+      if (rememberAccount) {
+        localStorage.setItem('m4u_saved_phone', data.phone)
+        localStorage.setItem('m4u_saved_password', data.password)
+      }
+
       showSuccess(t('loginSuccess'))
       reset()
       close()
@@ -66,7 +104,7 @@ const LoginModal = () => {
     const phoneValue = control._formValues?.phone || ''
 
     if (!phoneValue) {
-      showError('Vui lòng nhập số điện thoại trước khi quên mật khẩu')
+      showError(t('forgot.enterPhoneFirst'))
       return
     }
 
@@ -78,14 +116,15 @@ const LoginModal = () => {
 
       // Check if result is false (API returned error)
       if (response && response.result === false) {
-        showError(response.message || 'Không thể gửi OTP. Vui lòng thử lại.')
+        showError(response.message || t('forgot.otp.sendFailed'))
         return
       }
 
       // Nếu thành công, mở modal OTP và set phone vào store
       open(phoneValue)
       close()
-      showSuccess('OTP đã được gửi đến số điện thoại của bạn')
+      reset()
+      showSuccess(t('forgot.otp.sendSuccess'))
     } catch (error: any) {
       // Log chi tiết lỗi từ BE
       console.error('Send OTP error:', error)
@@ -94,7 +133,7 @@ const LoginModal = () => {
       const errorMessage =
         error?.response?.data?.message ||
         error?.message ||
-        'Không thể gửi OTP. Vui lòng thử lại.'
+        t('forgot.otp.sendFailed')
       showError(errorMessage)
     }
   }
@@ -147,7 +186,12 @@ const LoginModal = () => {
                   />
                 )}
               />
-              <div className="mt-2 text-right">
+              <div className="mt-2 flex justify-between items-center">
+                <Checkbox
+                  checked={rememberAccount}
+                  onChange={handleRememberAccountChange}
+                  label={t('rememberAccount')}
+                />
                 <button
                   type="button"
                   className="text-sm font-medium text-[#3B82F6] hover:underline"
@@ -155,7 +199,7 @@ const LoginModal = () => {
                   disabled={sendOTPMutation.isPending}
                 >
                   {sendOTPMutation.isPending
-                    ? 'Đang gửi...'
+                    ? t('forgot.otp.sending')
                     : t('forgotPassword')}
                 </button>
               </div>
