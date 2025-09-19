@@ -23,7 +23,7 @@ const LoginModal = () => {
   const { showError, showSuccess } = useToast()
   const t = useTranslations('auth')
   const { open } = useForgotPass()
-  const [rememberAccount, setRememberAccount] = useState(false)
+  const [rememberAccount, setRememberAccount] = useState(true)
 
   const {
     control,
@@ -125,9 +125,6 @@ const LoginModal = () => {
 
     try {
       const response = await sendOTPMutation.mutateAsync({ phone: phoneValue })
-
-      // Log dữ liệu từ BE để debug
-      console.log('Send OTP response:', response)
 
       // Check if result is false (API returned error)
       if (response && response.result === false) {
