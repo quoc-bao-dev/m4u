@@ -8,7 +8,6 @@ import HistoryTable from './HistoryTable'
 import HistoryTabs from './HistoryTabs'
 
 const HistoryReviewSection = () => {
-  //   const [activeTab, setActiveTab] = useState<string>('all')
   return (
     <div className="py-[96px] relative  overflow-hidden min-h-screen">
       <img
