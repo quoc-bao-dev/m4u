@@ -12,14 +12,18 @@ import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useForgotPass } from '../../stores/useForgotPass'
 
-const createSchema = (mismatchMessage: string) =>
+const createSchema = (t: (key: string) => string) =>
   z
     .object({
-      password: z.string(),
-      confirmPassword: z.string(),
+      password: z
+        .string()
+        .min(1, t('forgot.reset.validation.passwordRequired')),
+      confirmPassword: z
+        .string()
+        .min(1, t('forgot.reset.validation.confirmPasswordRequired')),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: mismatchMessage,
+      message: t('forgot.reset.passwordsNotMatch'),
       path: ['confirmPassword'],
     })
 
@@ -38,7 +42,7 @@ const ForgotPassModal = () => {
     formState: { errors },
     reset,
   } = useForm<FormData>({
-    resolver: zodResolver(createSchema(t('forgot.reset.passwordsNotMatch'))),
+    resolver: zodResolver(createSchema(t)),
     defaultValues: { password: '', confirmPassword: '' },
   })
 
@@ -72,9 +76,7 @@ const ForgotPassModal = () => {
       showSuccess(t('forgot.reset.success'))
       resetAll()
     } catch (error: any) {
-      showError(
-        error?.response?.data?.message || 'Đổi mật khẩu thất bại. Thử lại.'
-      )
+      showError(error?.response?.data?.message || t('forgot.reset.saveFailed'))
     }
   }
 

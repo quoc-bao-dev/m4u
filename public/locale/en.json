@@ -353,6 +353,8 @@
     "password": "Password",
     "forgotPassword": "Forgot Password?",
     "rememberAccount": "Remember Account",
+    "phoneRequired": "Phone number is required",
+    "passwordRequired": "Password is required",
     "confirmLogoutTitle": "Confirm Logout",
     "confirmLogoutDesc": "Are you sure you want to log out of your account?",
     "cancel": "Cancel",
@@ -381,7 +383,11 @@
         "success": "Password changed and logged in successfully",
         "saveFailed": "Password change failed",
         "loginFailed": "Re-login failed",
-        "passwordsNotMatch": "Passwords do not match"
+        "passwordsNotMatch": "Passwords do not match",
+        "validation": {
+          "passwordRequired": "New password is required",
+          "confirmPasswordRequired": "Confirm password is required"
+        }
       }
     }
   },

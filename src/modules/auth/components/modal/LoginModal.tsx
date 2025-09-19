@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { LoginFormData, loginSchema } from '../../schemas'
+import { LoginFormData, createLoginSchema } from '../../schemas'
 import { useForgotPass } from '../../stores/useForgotPass'
 import useLoginModal from '../../stores/useLoginModal'
 
@@ -23,7 +23,7 @@ const LoginModal = () => {
   const { showError, showSuccess } = useToast()
   const t = useTranslations('auth')
   const { open } = useForgotPass()
-  const [rememberAccount, setRememberAccount] = useState(false)
+  const [rememberAccount, setRememberAccount] = useState(true)
 
   const {
     control,
@@ -32,7 +32,7 @@ const LoginModal = () => {
     reset,
     setValue,
   } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(createLoginSchema(t)),
     defaultValues: {
       phone: '',
       password: '',
@@ -40,8 +40,10 @@ const LoginModal = () => {
     },
   })
 
-  // Load saved account and checkbox state from localStorage on mount
+  // Load saved account and checkbox state from localStorage on mount and when modal opens
   useEffect(() => {
+    if (!isOpen) return // Only run when modal is open
+
     const savedPhone = localStorage.getItem('m4u_saved_phone')
     const savedPassword = localStorage.getItem('m4u_saved_password')
     const rememberState =
@@ -54,16 +56,29 @@ const LoginModal = () => {
     if (rememberState && savedPhone && savedPassword) {
       setValue('phone', savedPhone)
       setValue('password', savedPassword)
+    } else {
+      // Reset form if remember is disabled or no saved data
+      setValue('phone', '')
+      setValue('password', '')
     }
-  }, [setValue])
+  }, [setValue, isOpen])
 
   // Handle checkbox change and immediately save state to localStorage
   const handleRememberAccountChange = (checked: boolean) => {
     setRememberAccount(checked)
     localStorage.setItem('m4u_remember_account', checked.toString())
 
-    // If unchecked, immediately remove saved credentials
-    if (!checked) {
+    if (checked) {
+      // If checked, try to fill form with saved data if available
+      const savedPhone = localStorage.getItem('m4u_saved_phone')
+      const savedPassword = localStorage.getItem('m4u_saved_password')
+
+      if (savedPhone && savedPassword) {
+        setValue('phone', savedPhone)
+        setValue('password', savedPassword)
+      }
+    } else {
+      // If unchecked, immediately remove saved credentials and clear form
       localStorage.removeItem('m4u_saved_phone')
       localStorage.removeItem('m4u_saved_password')
     }
@@ -111,9 +126,6 @@ const LoginModal = () => {
     try {
       const response = await sendOTPMutation.mutateAsync({ phone: phoneValue })
 
-      // Log dữ liệu từ BE để debug
-      console.log('Send OTP response:', response)
-
       // Check if result is false (API returned error)
       if (response && response.result === false) {
         showError(response.message || t('forgot.otp.sendFailed'))
@@ -138,10 +150,16 @@ const LoginModal = () => {
     }
   }
 
+  const handleClose = () => {
+    // Reset form when closing modal to ensure clean state next time
+    reset()
+    close()
+  }
+
   return (
     <ModalClient
       open={isOpen}
-      onClose={close}
+      onClose={handleClose}
       showCloseButton={true}
       className="w-full mx-3 md:mx-0 md:w-[530px] h-fit md:h-auto rounded-4xl"
     >

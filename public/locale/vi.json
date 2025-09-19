@@ -353,6 +353,8 @@
     "password": "Mật khẩu",
     "forgotPassword": "Quên mật khẩu?",
     "rememberAccount": "Ghi nhớ tài khoản",
+    "phoneRequired": "Số điện thoại là bắt buộc",
+    "passwordRequired": "Mật khẩu là bắt buộc",
     "confirmLogoutTitle": "Xác nhận đăng xuất",
     "confirmLogoutDesc": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
     "cancel": "Huỷ",
@@ -381,7 +383,11 @@
         "success": "Đổi mật khẩu và đăng nhập thành công",
         "saveFailed": "Đổi mật khẩu thất bại",
         "loginFailed": "Đăng nhập lại thất bại",
-        "passwordsNotMatch": "Mật khẩu xác nhận không khớp"
+        "passwordsNotMatch": "Mật khẩu xác nhận không khớp",
+        "validation": {
+          "passwordRequired": "Mật khẩu mới là bắt buộc",
+          "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc"
+        }
       }
     }
   },
