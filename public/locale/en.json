@@ -572,5 +572,71 @@
         }
       }
     }
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "Full name must be at least 2 characters",
+        "phoneInvalid": "Please enter a valid phone number",
+        "genderRequired": "Please select your gender",
+        "dobRequired": "Date of birth is required",
+        "addressMin": "Address must be at least 5 characters",
+        "oldPasswordRequired": "Current password is required",
+        "newPasswordMin": "New password must be at least 8 characters",
+        "confirmPasswordRequired": "Please confirm your new password",
+        "passwordsDoNotMatch": "Passwords do not match"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "gender": {
+          "label": "Gender",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "dateOfBirth": {
+          "label": "D.O.B",
+          "placeholder": "Select your date of birth"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "oldPassword": {
+          "label": "Old password",
+          "placeholder": "Enter your current password"
+        },
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "buttons": {
+        "saveChanges": "Save changes",
+        "updatePhoto": "Update photo"
+      },
+      "sections": {
+        "general": "General",
+        "security": "Security",
+        "accountPreferences": "Account preferences"
+      },
+      "helpers": {
+        "passwordRequirement": "Password must be minimum 8+ characters",
+        "photoRequirement": "Allowed *.jpeg, *.jpg, *.png, *.gif\nMax size of 3.1 MB"
+      }
+    }
   }
 }
