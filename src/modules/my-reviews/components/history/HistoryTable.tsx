@@ -377,34 +377,36 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="space-y-3 max-h-[160px] overflow-y-auto">
-                        {item.products.map((product, index) => (
-                          <Link
-                            key={index}
-                            href={`/product/${product.slug}`}
-                            className="block"
-                          >
-                            <div className="flex items-start gap-3 rounded-lg p-2 -m-2 transition-colors cursor-pointer">
-                              <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
-                                <img
-                                  src={product.productImage}
-                                  alt={product.productName}
-                                  width={56}
-                                  height={56}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="min-w-0">
-                                <div className="text-xs text-greyscale-500">
-                                  {product.brand}
+                      <div className="max-h-[160px] overflow-y-scroll">
+                        <div className="space-y-2">
+                          {item.products.map((product, index) => (
+                            <Link
+                              key={index}
+                              href={`/product/${product.slug}`}
+                              className="block"
+                            >
+                              <div className="flex items-start gap-3 rounded-lg p-2 transition-colors cursor-pointer">
+                                <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
+                                  <img
+                                    src={product.productImage}
+                                    alt={product.productName}
+                                    width={56}
+                                    height={56}
+                                    className="w-full h-full object-cover"
+                                  />
                                 </div>
-                                <div className="text-sm font-medium text-greyscale-900 truncate">
-                                  {product.productName}
+                                <div className="min-w-0">
+                                  <div className="text-xs text-greyscale-500">
+                                    {product.brand}
+                                  </div>
+                                  <div className="text-sm font-medium text-greyscale-900 truncate">
+                                    {product.productName}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </Link>
-                        ))}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </td>
 
@@ -429,7 +431,7 @@ const HistoryTable = () => {
                         href={`/submit-review/${item.id}`}
                         className="w-full h-full"
                       >
-                        <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+                        <button className="truncate w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
                           {t('myReviews.history.table.actions.review')}
                         </button>
                       </Link>
