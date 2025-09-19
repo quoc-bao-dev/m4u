@@ -1,10 +1,10 @@
 'use client'
 
-import Image from 'next/image'
-import { Container, Section } from '@/core/components/common/group'
-import { RegisterCTA } from '../cta'
-import { useGetHomePage } from '@/services/home/queries'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Container, Section } from '@/core/components/common/group'
+import { useGetHomePage } from '@/services/home/queries'
+import Image from 'next/image'
+import { RegisterCTA } from '../cta'
 
 const InfluencerSection = () => {
   const { isLoading, data: homePage } = useGetHomePage()
@@ -19,7 +19,7 @@ const InfluencerSection = () => {
             style={{ aspectRatio: '845/600' }}
           >
             <Image
-              src="/image/influencer/image-01.png"
+              src="/image/influencer/image-02.png"
               alt="influencer"
               fill
               className="object-cover"

@@ -361,6 +361,14 @@
     "logout": "Đăng xuất",
     "forgot": {
       "enterPhoneFirst": "Vui lòng nhập số điện thoại trước khi quên mật khẩu",
+      "phone": {
+        "title": "Quên Mật Khẩu",
+        "desc": "Vui lòng nhập số điện thoại để nhận mã xác thực",
+        "submit": "Gửi OTP",
+        "validation": {
+          "phoneRequired": "Số điện thoại là bắt buộc"
+        }
+      },
       "otp": {
         "title": "Nhập mã xác thực",
         "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
@@ -559,6 +567,72 @@
           "moreProducts": "+{count} sản phẩm",
           "daysLeftToSubmit": "Còn {count} ngày để gửi đánh giá"
         }
+      }
+    }
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "Họ và tên phải có ít nhất 2 ký tự",
+        "phoneInvalid": "Vui lòng nhập số điện thoại hợp lệ",
+        "genderRequired": "Vui lòng chọn giới tính",
+        "dobRequired": "Ngày sinh là bắt buộc",
+        "addressMin": "Địa chỉ phải có ít nhất 5 ký tự",
+        "oldPasswordRequired": "Mật khẩu hiện tại là bắt buộc",
+        "newPasswordMin": "Mật khẩu mới phải có ít nhất 8 ký tự",
+        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu mới",
+        "passwordsDoNotMatch": "Mật khẩu không khớp"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên của bạn"
+        },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại của bạn"
+        },
+        "gender": {
+          "label": "Giới tính",
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh của bạn"
+        },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ của bạn"
+        },
+        "oldPassword": {
+          "label": "Mật khẩu cũ",
+          "placeholder": "Nhập mật khẩu hiện tại"
+        },
+        "newPassword": {
+          "label": "Mật khẩu mới",
+          "placeholder": "Nhập mật khẩu mới"
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu mới",
+          "placeholder": "Xác nhận mật khẩu mới"
+        }
+      },
+      "buttons": {
+        "saveChanges": "Lưu thay đổi",
+        "updatePhoto": "Cập nhật ảnh"
+      },
+      "sections": {
+        "general": "Chung",
+        "security": "Bảo mật",
+        "accountPreferences": "Tùy chọn tài khoản"
+      },
+      "helpers": {
+        "passwordRequirement": "Mật khẩu phải có tối thiểu 8+ ký tự",
+        "photoRequirement": "Cho phép *.jpeg, *.jpg, *.png, *.gif\nKích thước tối đa 3.1 MB"
       }
     }
   }

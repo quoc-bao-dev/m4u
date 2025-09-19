@@ -7,6 +7,7 @@ interface ForgotPassState {
   isOpen: boolean
   otp: string
   isResetOpen: boolean
+  isPhoneInputOpen: boolean
   setPhone: (phone: string) => void
   clearPhone: () => void
   open: (phone?: string) => void
@@ -14,6 +15,8 @@ interface ForgotPassState {
   setOtp: (otp: string) => void
   openReset: () => void
   closeReset: () => void
+  openPhoneInput: () => void
+  closePhoneInput: () => void
   resetAll: () => void
 }
 
@@ -22,6 +25,7 @@ export const useForgotPass = create<ForgotPassState>((set) => ({
   isOpen: false,
   otp: '',
   isResetOpen: false,
+  isPhoneInputOpen: false,
   setPhone: (phone: string) => set({ phone }),
   clearPhone: () => set({ phone: '' }),
   open: (phone?: string) =>
@@ -30,6 +34,14 @@ export const useForgotPass = create<ForgotPassState>((set) => ({
   setOtp: (otp: string) => set({ otp }),
   openReset: () => set({ isResetOpen: true }),
   closeReset: () => set({ isResetOpen: false }),
+  openPhoneInput: () => set({ isPhoneInputOpen: true }),
+  closePhoneInput: () => set({ isPhoneInputOpen: false }),
   resetAll: () =>
-    set({ phone: '', otp: '', isOpen: false, isResetOpen: false }),
+    set({
+      phone: '',
+      otp: '',
+      isOpen: false,
+      isResetOpen: false,
+      isPhoneInputOpen: false,
+    }),
 }))
