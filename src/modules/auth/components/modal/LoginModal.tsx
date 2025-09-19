@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { LoginFormData, loginSchema } from '../../schemas'
+import { LoginFormData, createLoginSchema } from '../../schemas'
 import { useForgotPass } from '../../stores/useForgotPass'
 import useLoginModal from '../../stores/useLoginModal'
 
@@ -32,7 +32,7 @@ const LoginModal = () => {
     reset,
     setValue,
   } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(createLoginSchema(t)),
     defaultValues: {
       phone: '',
       password: '',
