@@ -177,24 +177,24 @@ const HistoryTable = () => {
     const remainingProducts = item.products.slice(2)
 
     return (
-      <Link href={`/submit-review/${item.id}`} className="block">
-        <div className="px-4 py-3 bg-white rounded-3xl mb-3 cursor-pointer hover:shadow-md transition-shadow">
-          {/* Header: Order ID, Time, Status */}
-          <div className="flex justify-between items-end mb-3">
-            <div className="text-base text-greyscale-900 font-medium">
-              {item.orderId}
-            </div>
-            <div className="text-right">
-              <div className="text-sm text-greyscale-900">{item.date}</div>
-              <div className="text-xs text-greyscale-400">{item.time}</div>
-            </div>
-            <div>{renderStatusChip(item.status, item.statusColor)}</div>
+      <div className="px-4 py-3 bg-white rounded-3xl mb-3 cursor-pointer hover:shadow-md transition-shadow">
+        {/* Header: Order ID, Time, Status */}
+        <div className="flex justify-between items-end mb-3">
+          <div className="text-base text-greyscale-900 font-medium">
+            {item.orderId}
           </div>
+          <div className="text-right">
+            <div className="text-sm text-greyscale-900">{item.date}</div>
+            <div className="text-xs text-greyscale-400">{item.time}</div>
+          </div>
+          <div>{renderStatusChip(item.status, item.statusColor)}</div>
+        </div>
 
-          {/* Divider */}
-          <div className="border-t border-[#E5E7EB] mb-3"></div>
+        {/* Divider */}
+        <div className="border-t border-[#E5E7EB] mb-3"></div>
 
-          {/* Product List */}
+        {/* Product List */}
+        <Link href={`/submit-review/${item.id}`} className="block">
           <div className="space-y-3">
             {/* First two products */}
             {firstTwoProducts.map((product, index) => (
@@ -252,7 +252,7 @@ const HistoryTable = () => {
                   ))
                 ) : (
                   <div
-                    className="flex items-center gap-2 text-sm text-greyscale-500 cursor-pointer"
+                    className="flex w-full justify-between mt-2 items-center gap-2 text-sm text-greyscale-500 cursor-pointer"
                     // onClick={(e) => {
                     //   e.preventDefault()
                     //   e.stopPropagation()
@@ -284,23 +284,23 @@ const HistoryTable = () => {
               </>
             )}
           </div>
+        </Link>
 
-          {/* Divider */}
-          <div className="border-t border-[#E5E7EB] mt-3 mb-3"></div>
+        {/* Divider */}
+        <div className="border-t border-[#E5E7EB] mt-3 mb-3"></div>
 
-          {/* Footer: Time left, Action button */}
-          <div className="flex justify-between items-center">
-            <div className="text-sm text-orange-600">
-              {t('myReviews.history.table.mobile.daysLeftToSubmit', {
-                count: 3,
-              })}
-            </div>
-            <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-              {t('myReviews.history.table.actions.review')}
-            </button>
+        {/* Footer: Time left, Action button */}
+        <div className="flex justify-between items-center">
+          <div className="text-sm text-orange-600">
+            {t('myReviews.history.table.mobile.daysLeftToSubmit', {
+              count: 3,
+            })}
           </div>
+          <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+            {t('myReviews.history.table.actions.review')}
+          </button>
         </div>
-      </Link>
+      </div>
     )
   }
 
