@@ -352,10 +352,38 @@
     "enterPhoneNumber": "전화번호를 입력하세요",
     "password": "비밀번호",
     "forgotPassword": "비밀번호를 잊으셨나요?",
+    "rememberAccount": "계정 기억하기",
     "confirmLogoutTitle": "로그아웃 확인",
     "confirmLogoutDesc": "계정에서 로그아웃하시겠습니까?",
     "cancel": "취소",
-    "logout": "로그아웃"
+    "logout": "로그아웃",
+    "forgot": {
+      "enterPhoneFirst": "비밀번호 재설정 전에 전화번호를 입력하세요",
+      "otp": {
+        "title": "인증 코드 입력",
+        "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",
+        "sending": "전송 중...",
+        "sendSuccess": "OTP가 전화번호로 전송되었습니다",
+        "sendFailed": "OTP를 전송할 수 없습니다. 다시 시도하세요.",
+        "inputError": "OTP 코드를 모두 입력하세요",
+        "confirm": "확인",
+        "checking": "확인 중...",
+        "invalid": "유효하지 않은 OTP 코드",
+        "verifyError": "OTP 인증에 실패했습니다. 다시 시도하세요."
+      },
+      "reset": {
+        "title": "비밀번호 변경",
+        "desc": "새 비밀번호를 입력하세요",
+        "newPassword": "새 비밀번호",
+        "confirmPassword": "비밀번호 확인",
+        "submitting": "처리 중...",
+        "submit": "변경 확인",
+        "success": "비밀번호 변경 및 로그인 성공",
+        "saveFailed": "비밀번호 변경 실패",
+        "loginFailed": "재로그인 실패",
+        "passwordsNotMatch": "비밀번호가 일치하지 않습니다"
+      }
+    }
   },
   "menu": {
     "reviewerQuestion": "M4U 리뷰어이신가요?",

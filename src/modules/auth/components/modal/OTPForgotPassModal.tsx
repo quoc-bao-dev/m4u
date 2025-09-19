@@ -4,8 +4,8 @@ import { ModalClient } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import { PINInput } from '@/core/components/ui/pin-input'
 import { useToast } from '@/core/hooks'
+import { useCheckOTPForgotPassword } from '@/services/auth/mutations'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
 import { useForgotPass } from '../../stores/useForgotPass'
 
 const maskPhoneNumber = (phone?: string) => {
@@ -18,28 +18,39 @@ const maskPhoneNumber = (phone?: string) => {
 
 const OTPForgotPassModal = () => {
   const t = useTranslations('auth')
-  const { phone, isOpen, close } = useForgotPass()
-  const [otp, setOtp] = useState('')
+  const { otp, phone, isOpen, close, setOtp, openReset } = useForgotPass()
   const { showError } = useToast()
+  const checkOtpMutation = useCheckOTPForgotPassword()
 
   const maskedPhone = maskPhoneNumber(phone)
-  const otpLength = 6 // Độ dài OTP mặc định
+  const otpLength = 6
 
-  const handleOTPSubmit = () => {
+  const handleOTPSubmit = async () => {
     if (otp.length !== otpLength) {
-      showError('Vui lòng nhập đầy đủ mã OTP')
+      showError(t('forgot.otp.inputError'))
       return
     }
 
-    // Log OTP để debug
-    console.log('OTP entered:', otp)
-    console.log('Phone number:', phone)
-    console.log('Đã nhập OTP thành công, chờ hướng dẫn tiếp theo...')
+    try {
+      const response = await checkOtpMutation.mutateAsync({
+        phone,
+        key_code: otp,
+      })
 
-    // TODO: Xử lý verify OTP ở bước tiếp theo
-    showError(
-      'Chức năng này đang được phát triển, vui lòng chờ hướng dẫn tiếp theo'
-    )
+      if (!response?.result) {
+        showError(response?.message || t('forgot.otp.invalid'))
+        return
+      }
+
+      // Lưu OTP vào store và mở modal đổi mật khẩu
+      setOtp(otp)
+      close()
+      openReset()
+    } catch (error: any) {
+      console.error('Check OTP error:', error)
+      console.error('Error response:', error?.response?.data)
+      showError(error?.response?.data?.message || t('forgot.otp.verifyError'))
+    }
   }
 
   const handleClose = () => {
@@ -52,7 +63,7 @@ const OTPForgotPassModal = () => {
       open={isOpen}
       onClose={handleClose}
       showCloseButton={true}
-      className="w-full mx-3 md:mx-0 md:w-[720px] h-fit md:h-auto rounded-4xl"
+      className="w-full mx-3 md:mx-0 md:w-[530px] h-fit md:h-auto rounded-4xl"
     >
       <div className="relative p-8 rounded-4xl overflow-hidden">
         <div className="absolute top-0 right-0">
@@ -61,11 +72,10 @@ const OTPForgotPassModal = () => {
 
         <div className="relative z-10">
           <h2 className="text-[24px] md:text-[32px] font-bold text-gray-900 mb-2">
-            Nhập mã OTP
+            {t('forgot.otp.title')}
           </h2>
           <p className="text-sm text-gray-600 mb-6">
-            Vui lòng nhập mã OTP 6 số đã được gửi đến số điện thoại{' '}
-            {maskedPhone}
+            {t('forgot.otp.desc', { length: otpLength, phone: maskedPhone })}
           </p>
 
           <div className="mb-8">
@@ -74,7 +84,7 @@ const OTPForgotPassModal = () => {
               value={otp}
               onChange={setOtp}
               onComplete={setOtp}
-              className="gap-6"
+              className="gap-5"
               inputClassName="size-8 md:w-16 md:h-16 text-2xl md:text-4xl"
             />
           </div>
@@ -83,10 +93,12 @@ const OTPForgotPassModal = () => {
             <Button
               size="xs"
               className="w-fit"
-              disabled={otp.length !== otpLength}
+              disabled={otp.length !== otpLength || checkOtpMutation.isPending}
               onClick={handleOTPSubmit}
             >
-              Xác nhận
+              {checkOtpMutation.isPending
+                ? t('forgot.otp.checking')
+                : t('forgot.otp.confirm')}
             </Button>
           </div>
         </div>

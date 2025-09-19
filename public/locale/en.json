@@ -352,10 +352,38 @@
     "enterPhoneNumber": "Enter your phone number",
     "password": "Password",
     "forgotPassword": "Forgot Password?",
+    "rememberAccount": "Remember Account",
     "confirmLogoutTitle": "Confirm Logout",
     "confirmLogoutDesc": "Are you sure you want to log out of your account?",
     "cancel": "Cancel",
-    "logout": "Logout"
+    "logout": "Logout",
+    "forgot": {
+      "enterPhoneFirst": "Please enter your phone number before resetting password",
+      "otp": {
+        "title": "Enter verification code",
+        "desc": "Enter the {length}-digit OTP sent to phone {phone}",
+        "sending": "Sending...",
+        "sendSuccess": "OTP has been sent to your phone number",
+        "sendFailed": "Unable to send OTP. Please try again.",
+        "inputError": "Please enter the full OTP code",
+        "confirm": "Confirm",
+        "checking": "Verifying...",
+        "invalid": "Invalid OTP code",
+        "verifyError": "OTP verification failed. Please try again."
+      },
+      "reset": {
+        "title": "Change Password",
+        "desc": "Please enter your new password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm password",
+        "submitting": "Processing...",
+        "submit": "Confirm change",
+        "success": "Password changed and logged in successfully",
+        "saveFailed": "Password change failed",
+        "loginFailed": "Re-login failed",
+        "passwordsNotMatch": "Passwords do not match"
+      }
+    }
   },
   "menu": {
     "reviewerQuestion": "Are you an M4U's reviewer?",
