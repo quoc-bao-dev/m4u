@@ -353,6 +353,8 @@
     "password": "비밀번호",
     "forgotPassword": "비밀번호를 잊으셨나요?",
     "rememberAccount": "계정 기억하기",
+    "phoneRequired": "전화번호는 필수입니다",
+    "passwordRequired": "비밀번호는 필수입니다",
     "confirmLogoutTitle": "로그아웃 확인",
     "confirmLogoutDesc": "계정에서 로그아웃하시겠습니까?",
     "cancel": "취소",
@@ -381,7 +383,11 @@
         "success": "비밀번호 변경 및 로그인 성공",
         "saveFailed": "비밀번호 변경 실패",
         "loginFailed": "재로그인 실패",
-        "passwordsNotMatch": "비밀번호가 일치하지 않습니다"
+        "passwordsNotMatch": "비밀번호가 일치하지 않습니다",
+        "validation": {
+          "passwordRequired": "새 비밀번호는 필수입니다",
+          "confirmPasswordRequired": "비밀번호 확인은 필수입니다"
+        }
       }
     }
   },
