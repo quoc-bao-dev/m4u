@@ -15,9 +15,13 @@ export const authApi = {
     }),
 
   logout: (token: string) =>
-    axiosInstance.post('/logout', { token }, {
-      baseURL: envConfig.accountUrl,
-    }),
+    axiosInstance.post(
+      '/logout',
+      { token },
+      {
+        baseURL: envConfig.accountUrl,
+      }
+    ),
 
   userInfo: (data: UserRequest) =>
     axiosInstance.post<UserResponse>('/get_info_account', data, {
@@ -31,6 +35,23 @@ export const authApi = {
 
   sign_up: (data: any) =>
     axiosInstance.post<any>('/sign_up', data, {
+      baseURL: envConfig.accountUrl,
+    }),
+
+  senOTPForgotPassword: (data: { phone: string }) =>
+    axiosInstance.post('/send_otp_forgot_password', data, {
+      baseURL: envConfig.accountUrl,
+    }),
+  checkOTPForgotPassword: (data: { phone: string; key_code: string }) =>
+    axiosInstance.post('/check_otp_forgot_password', data, {
+      baseURL: envConfig.accountUrl,
+    }),
+  saveNewPassword: (data: {
+    phone: string
+    key_code: string
+    password: string
+  }) =>
+    axiosInstance.post('/forgot_password', data, {
       baseURL: envConfig.accountUrl,
     }),
 }

@@ -177,7 +177,7 @@ const HistoryTable = () => {
     const remainingProducts = item.products.slice(2)
 
     return (
-      <div className="px-4 py-3 bg-white rounded-3xl mb-3">
+      <div className="px-4 py-3 bg-white rounded-3xl mb-3 cursor-pointer hover:shadow-md transition-shadow">
         {/* Header: Order ID, Time, Status */}
         <div className="flex justify-between items-end mb-3">
           <div className="text-base text-greyscale-900 font-medium">
@@ -194,15 +194,14 @@ const HistoryTable = () => {
         <div className="border-t border-[#E5E7EB] mb-3"></div>
 
         {/* Product List */}
-        <div className="space-y-3">
-          {/* First two products */}
-          {firstTwoProducts.map((product, index) => (
-            <Link
-              key={index}
-              href={`/product/${product.slug}`}
-              className="block"
-            >
-              <div className="flex items-start gap-3 hover:bg-greyscale-50 rounded-lg p-2 -m-2 transition-colors cursor-pointer">
+        <Link href={`/submit-review/${item.id}`} className="block">
+          <div className="space-y-3">
+            {/* First two products */}
+            {firstTwoProducts.map((product, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 rounded-lg p-2 -m-2"
+              >
                 <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
                   <img
                     src={product.productImage}
@@ -221,20 +220,17 @@ const HistoryTable = () => {
                   </div>
                 </div>
               </div>
-            </Link>
-          ))}
+            ))}
 
-          {/* Show more products if there are any */}
-          {remainingProducts.length > 0 && (
-            <>
-              {showAllProducts ? (
-                remainingProducts.map((product, index) => (
-                  <Link
-                    key={index}
-                    href={`/product/${product.slug}`}
-                    className="block"
-                  >
-                    <div className="flex items-start gap-3 hover:bg-greyscale-50 rounded-lg p-2 -m-2 transition-colors cursor-pointer">
+            {/* Show more products if there are any */}
+            {remainingProducts.length > 0 && (
+              <>
+                {showAllProducts ? (
+                  remainingProducts.map((product, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 rounded-lg p-2 -m-2"
+                    >
                       <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
                         <img
                           src={product.productImage}
@@ -253,38 +249,42 @@ const HistoryTable = () => {
                         </div>
                       </div>
                     </div>
-                  </Link>
-                ))
-              ) : (
-                <div
-                  className="flex items-center gap-2 text-sm text-greyscale-500 cursor-pointer"
-                  onClick={() => setShowAllProducts(true)}
-                >
-                  <span>
-                    {t('myReviews.history.table.mobile.moreProducts', {
-                      count: remainingProducts.length,
-                    })}
-                  </span>
-                  <button className="text-greyscale-400 hover:text-greyscale-600">
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
+                  ))
+                ) : (
+                  <div
+                    className="flex w-full justify-between mt-2 items-center gap-2 text-sm text-greyscale-500 cursor-pointer"
+                    // onClick={(e) => {
+                    //   e.preventDefault()
+                    //   e.stopPropagation()
+                    //   setShowAllProducts(true)
+                    // }}
+                  >
+                    <span>
+                      {t('myReviews.history.table.mobile.moreProducts', {
+                        count: remainingProducts.length,
+                      })}
+                    </span>
+                    <button className="text-greyscale-400 hover:text-greyscale-600">
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </Link>
 
         {/* Divider */}
         <div className="border-t border-[#E5E7EB] mt-3 mb-3"></div>
@@ -292,13 +292,13 @@ const HistoryTable = () => {
         {/* Footer: Time left, Action button */}
         <div className="flex justify-between items-center">
           <div className="text-sm text-orange-600">
-            {t('myReviews.history.table.mobile.daysLeftToSubmit', { count: 3 })}
+            {t('myReviews.history.table.mobile.daysLeftToSubmit', {
+              count: 3,
+            })}
           </div>
-          <Link href={`/submit-review/${item.id}`} className="w-fit h-full">
-            <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
-              {t('myReviews.history.table.actions.review')}
-            </button>
-          </Link>
+          <button className="px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+            {t('myReviews.history.table.actions.review')}
+          </button>
         </div>
       </div>
     )
@@ -366,28 +366,28 @@ const HistoryTable = () => {
               ) : (
                 // Show actual data
                 processedReviews.map((item) => (
-                  <tr
+                  <Link
                     key={item.id}
-                    className="border-t border-dashed border-greyscale-100 first:border-t-0 hover:bg-greyscale-50/50"
+                    href={`/submit-review/${item.id}`}
+                    className="contents"
                   >
-                    {/* Order ID */}
-                    <td className="px-3 py-5">
-                      <div className="text-sm text-greyscale-900 font-medium truncate">
-                        {item.orderId}
-                      </div>
-                    </td>
+                    <tr className="border-t border-dashed border-greyscale-100 first:border-t-0 hover:bg-greyscale-50/50 cursor-pointer">
+                      {/* Order ID */}
+                      <td className="px-3 py-5">
+                        <div className="text-sm text-greyscale-900 font-medium truncate">
+                          {item.orderId}
+                        </div>
+                      </td>
 
-                    {/* Product Info */}
-                    <td className="px-3 py-5">
-                      <div className="max-h-[190px] overflow-y-scroll">
-                        <div className="space-y-2">
-                          {item.products.map((product, index) => (
-                            <Link
-                              key={index}
-                              href={`/product/${product.slug}`}
-                              className="block"
-                            >
-                              <div className="flex items-start gap-3 rounded-lg p-2 transition-colors cursor-pointer hover:bg-greyscale-50">
+                      {/* Product Info */}
+                      <td className="px-3 py-5">
+                        <div className="max-h-[190px] overflow-y-scroll">
+                          <div className="space-y-2">
+                            {item.products.slice(0, 2).map((product, index) => (
+                              <div
+                                key={index}
+                                className="flex items-start gap-3 rounded-lg p-2"
+                              >
                                 <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
                                   <img
                                     src={product.productImage}
@@ -406,39 +406,46 @@ const HistoryTable = () => {
                                   </div>
                                 </div>
                               </div>
-                            </Link>
-                          ))}
+                            ))}
+                            {item.products.length > 2 && (
+                              <div className="flex items-center gap-2 text-sm text-greyscale-500 p-2">
+                                <span>
+                                  {t(
+                                    'myReviews.history.table.mobile.moreProducts',
+                                    {
+                                      count: item.products.length - 2,
+                                    }
+                                  )}
+                                </span>
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    {/* Time created */}
-                    <td className="px-3 py-5">
-                      <div className="text-sm text-greyscale-900">
-                        {item.date}
-                      </div>
-                      <div className="text-xs text-greyscale-400">
-                        {item.time}
-                      </div>
-                    </td>
+                      {/* Time created */}
+                      <td className="px-3 py-5">
+                        <div className="text-sm text-greyscale-900">
+                          {item.date}
+                        </div>
+                        <div className="text-xs text-greyscale-400">
+                          {item.time}
+                        </div>
+                      </td>
 
-                    {/* Order Status */}
-                    <td className="px-3 py-5 truncate">
-                      {renderStatusChip(item.status, item.statusColor)}
-                    </td>
+                      {/* Order Status */}
+                      <td className="px-3 py-5 truncate">
+                        {renderStatusChip(item.status, item.statusColor)}
+                      </td>
 
-                    {/* Action */}
-                    <td className="px-3 py-5 w-[160px]">
-                      <Link
-                        href={`/submit-review/${item.id}`}
-                        className="w-full h-full"
-                      >
+                      {/* Action */}
+                      <td className="px-3 py-5 w-[160px]">
                         <button className="truncate w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
                           {t('myReviews.history.table.actions.review')}
                         </button>
-                      </Link>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  </Link>
                 ))
               )}
               {/* Loading more indicator */}

@@ -90,3 +90,34 @@ export const useSignUp = () => {
     },
   })
 }
+
+export const useSendOTPForgotPassword = () => {
+  return useMutation({
+    mutationFn: async (data: { phone: string }) => {
+      const response = await authApi.senOTPForgotPassword(data)
+      return response.data
+    },
+  })
+}
+
+export const useCheckOTPForgotPassword = () => {
+  return useMutation({
+    mutationFn: async (data: { phone: string; key_code: string }) => {
+      const response = await authApi.checkOTPForgotPassword(data)
+      return response.data
+    },
+  })
+}
+
+export const useSaveNewPassword = () => {
+  return useMutation({
+    mutationFn: async (data: {
+      phone: string
+      key_code: string
+      password: string
+    }) => {
+      const response = await authApi.saveNewPassword(data)
+      return response.data
+    },
+  })
+}
