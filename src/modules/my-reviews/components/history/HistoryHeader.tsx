@@ -22,9 +22,12 @@ const HistoryHeader = () => {
     setSearchQuery(value)
   }, 400)
 
-  const handleDateRangeChange = (value: { from?: string; to?: string }) => {
-    const from = value.from ? new Date(value.from) : undefined
-    const to = value.to ? new Date(value.to) : undefined
+  const handleDateRangeChange = (
+    value: { from: string; to: string } | { from: ''; to: '' }
+  ) => {
+    const from =
+      value.from && value.from !== '' ? new Date(value.from) : undefined
+    const to = value.to && value.to !== '' ? new Date(value.to) : undefined
 
     setDateRange(from, to)
   }
