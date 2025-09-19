@@ -16,6 +16,7 @@ type ReviewItem = {
     brand: string
     productName: string
     productImage: string
+    slug: string
   }[]
   date: string
   time: string
@@ -92,6 +93,7 @@ const HistoryTable = () => {
         productImage:
           clientReview.products?.[0]?.image ||
           '/image/product/image-nodata.png',
+        slug: clientReview.products?.[0]?.slug || '',
       })),
       date: moment(item.created_at).format('DD/MM/YYYY'),
       time: new Date(item.created_at).toLocaleTimeString('en-US', {
@@ -171,8 +173,8 @@ const HistoryTable = () => {
   // Mobile card component
   const MobileCard = ({ item }: { item: ReviewItem }) => {
     const [showAllProducts, setShowAllProducts] = useState(false)
-    const firstProduct = item.products[0]
-    const remainingProducts = item.products.slice(1)
+    const firstTwoProducts = item.products.slice(0, 2)
+    const remainingProducts = item.products.slice(2)
 
     return (
       <div className="px-4 py-3 bg-white rounded-3xl mb-3">
@@ -193,63 +195,77 @@ const HistoryTable = () => {
 
         {/* Product List */}
         <div className="space-y-3">
-          {/* First product */}
-          <div className="flex items-start gap-3">
-            <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
-              <img
-                src={firstProduct.productImage}
-                alt={firstProduct.productName}
-                width={56}
-                height={56}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-xs text-greyscale-500">
-                {firstProduct.brand}
+          {/* First two products */}
+          {firstTwoProducts.map((product, index) => (
+            <Link
+              key={index}
+              href={`/product/${product.slug}`}
+              className="block"
+            >
+              <div className="flex items-start gap-3 hover:bg-greyscale-50 rounded-lg p-2 -m-2 transition-colors cursor-pointer">
+                <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
+                  <img
+                    src={product.productImage}
+                    alt={product.productName}
+                    width={56}
+                    height={56}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs text-greyscale-500">
+                    {product.brand}
+                  </div>
+                  <div className="text-sm font-medium text-greyscale-900 truncate">
+                    {product.productName}
+                  </div>
+                </div>
               </div>
-              <div className="text-sm font-medium text-greyscale-900 truncate">
-                {firstProduct.productName}
-              </div>
-            </div>
-          </div>
+            </Link>
+          ))}
 
           {/* Show more products if there are any */}
           {remainingProducts.length > 0 && (
             <>
               {showAllProducts ? (
                 remainingProducts.map((product, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
-                      <img
-                        src={product.productImage}
-                        alt={product.productName}
-                        width={56}
-                        height={56}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs text-greyscale-500">
-                        {product.brand}
+                  <Link
+                    key={index}
+                    href={`/product/${product.slug}`}
+                    className="block"
+                  >
+                    <div className="flex items-start gap-3 hover:bg-greyscale-50 rounded-lg p-2 -m-2 transition-colors cursor-pointer">
+                      <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
+                        <img
+                          src={product.productImage}
+                          alt={product.productName}
+                          width={56}
+                          height={56}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className="text-sm font-medium text-greyscale-900 truncate">
-                        {product.productName}
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs text-greyscale-500">
+                          {product.brand}
+                        </div>
+                        <div className="text-sm font-medium text-greyscale-900 truncate">
+                          {product.productName}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))
               ) : (
-                <div className="flex items-center gap-2 text-sm text-greyscale-500">
+                <div
+                  className="flex items-center gap-2 text-sm text-greyscale-500 cursor-pointer"
+                  onClick={() => setShowAllProducts(true)}
+                >
                   <span>
                     {t('myReviews.history.table.mobile.moreProducts', {
                       count: remainingProducts.length,
                     })}
                   </span>
-                  <button
-                    onClick={() => setShowAllProducts(true)}
-                    className="text-greyscale-400 hover:text-greyscale-600"
-                  >
+                  <button className="text-greyscale-400 hover:text-greyscale-600">
                     <svg
                       className="w-4 h-4"
                       fill="none"
@@ -361,28 +377,36 @@ const HistoryTable = () => {
 
                     {/* Product Info */}
                     <td className="px-3 py-5">
-                      <div className="space-y-3 max-h-[160px] overflow-y-auto">
-                        {item.products.map((product, index) => (
-                          <div key={index} className="flex items-start gap-3">
-                            <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
-                              <img
-                                src={product.productImage}
-                                alt={product.productName}
-                                width={56}
-                                height={56}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <div className="min-w-0">
-                              <div className="text-xs text-greyscale-500">
-                                {product.brand}
+                      <div className="max-h-[160px] overflow-y-scroll">
+                        <div className="space-y-2">
+                          {item.products.map((product, index) => (
+                            <Link
+                              key={index}
+                              href={`/product/${product.slug}`}
+                              className="block"
+                            >
+                              <div className="flex items-start gap-3 rounded-lg p-2 transition-colors cursor-pointer">
+                                <div className="size-14 rounded-lg overflow-hidden bg-greyscale-100 border border-greyscale-200 flex-shrink-0">
+                                  <img
+                                    src={product.productImage}
+                                    alt={product.productName}
+                                    width={56}
+                                    height={56}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="text-xs text-greyscale-500">
+                                    {product.brand}
+                                  </div>
+                                  <div className="text-sm font-medium text-greyscale-900 truncate">
+                                    {product.productName}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="text-sm font-medium text-greyscale-900 truncate">
-                                {product.productName}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </td>
 
@@ -403,8 +427,11 @@ const HistoryTable = () => {
 
                     {/* Action */}
                     <td className="px-3 py-5 w-[160px]">
-                      <Link href={`/submit-review/${item.id}`} className='w-full h-full'>
-                        <button className="w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
+                      <Link
+                        href={`/submit-review/${item.id}`}
+                        className="w-full h-full"
+                      >
+                        <button className="truncate w-full cursor-pointer px-4 py-2 bg-pink-600 text-white text-sm font-medium hover:bg-pink-600/80 transition-colors rounded-full">
                           {t('myReviews.history.table.actions.review')}
                         </button>
                       </Link>
