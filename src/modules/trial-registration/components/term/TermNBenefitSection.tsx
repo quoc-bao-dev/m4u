@@ -8,8 +8,8 @@ const TermNBenefitSection = () => {
   const t = useTranslations('termBenefit')
   return (
     <section className=" pb-[60px] md:py-[96px]">
-      <Container className="space-y-3 xl:px-[200px]">
-        <h2 className="text-title-sect font-bold text-gray-400 pb-5">
+      <Container className="space-y-3 px-3 xl:px-[200px]">
+        <h2 className="text-title-sect font-bold text-gray-400 xl:pb-5">
           <span className="text-gray-900">{t('benefits')} </span> & {t('terms')}
         </h2>
 

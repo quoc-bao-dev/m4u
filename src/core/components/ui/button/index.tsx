@@ -50,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
   // Variant Classes
   const variantClasses = {
     primary:
-      'bg-pink-100 text-pink-600 shadow-theme-xs hover:bg-pink-600/20 disabled:bg-pink-500',
+      'bg-pink-100 text-pink-600 shadow-theme-xs hover:bg-pink-600/20 disabled:bg-pink-600/20',
     outline:
       'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300',
     outlineSecondary:
@@ -63,10 +63,10 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <motion.button
-      className={`inline-flex w-fit items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 cursor-pointer ${className} ${
+      className={`inline-flex w-fit items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 ${className} ${
         sizeClasses[size]
       } ${variantClasses[variant]} ${
-        disabled ? 'cursor-not-allowed opacity-50' : ''
+        disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
       }`}
       onClick={onClick}
       disabled={disabled}

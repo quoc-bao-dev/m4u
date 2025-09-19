@@ -58,6 +58,9 @@ export const useGetListProductReview = (id_review: number) => {
     queryKey: ['listProductReview', id_review],
     queryFn: queryFn,
     enabled: !!id_review,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    staleTime: 0,
   })
 }
 

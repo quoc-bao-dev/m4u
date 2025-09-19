@@ -507,7 +507,10 @@
     "tellUsWhatYouThink": "생각을 알려주세요",
     "reviewTips": "리뷰 팁",
     "placeholder": "이 제품의 어떤 점을 좋아하셨나요?",
-    "submitReview": "리뷰 제출"
+    "submitReview": "리뷰 제출",
+    "uploadSuccessfully": "업로드 성공",
+    "hasVideoReview": "비디오 리뷰 있음",
+    "reviewImage": "리뷰 이미지 {number}"
   },
   "dateRangePicker": {
     "from": "시작",

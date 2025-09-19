@@ -510,7 +510,10 @@
     "tellUsWhatYouThink": "Tell us what you think",
     "reviewTips": "Review tips",
     "placeholder": "What did you love about this product?",
-    "submitReview": "Submit review"
+    "submitReview": "Submit review",
+    "uploadSuccessfully": "Upload successfully",
+    "hasVideoReview": "Has video review",
+    "reviewImage": "Review image {number}"
   },
   "dateRangePicker": {
     "from": "From",
