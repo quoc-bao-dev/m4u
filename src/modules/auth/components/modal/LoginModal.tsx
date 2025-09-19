@@ -40,8 +40,10 @@ const LoginModal = () => {
     },
   })
 
-  // Load saved account and checkbox state from localStorage on mount
+  // Load saved account and checkbox state from localStorage on mount and when modal opens
   useEffect(() => {
+    if (!isOpen) return // Only run when modal is open
+
     const savedPhone = localStorage.getItem('m4u_saved_phone')
     const savedPassword = localStorage.getItem('m4u_saved_password')
     const rememberState =
@@ -54,16 +56,29 @@ const LoginModal = () => {
     if (rememberState && savedPhone && savedPassword) {
       setValue('phone', savedPhone)
       setValue('password', savedPassword)
+    } else {
+      // Reset form if remember is disabled or no saved data
+      setValue('phone', '')
+      setValue('password', '')
     }
-  }, [setValue])
+  }, [setValue, isOpen])
 
   // Handle checkbox change and immediately save state to localStorage
   const handleRememberAccountChange = (checked: boolean) => {
     setRememberAccount(checked)
     localStorage.setItem('m4u_remember_account', checked.toString())
 
-    // If unchecked, immediately remove saved credentials
-    if (!checked) {
+    if (checked) {
+      // If checked, try to fill form with saved data if available
+      const savedPhone = localStorage.getItem('m4u_saved_phone')
+      const savedPassword = localStorage.getItem('m4u_saved_password')
+
+      if (savedPhone && savedPassword) {
+        setValue('phone', savedPhone)
+        setValue('password', savedPassword)
+      }
+    } else {
+      // If unchecked, immediately remove saved credentials and clear form
       localStorage.removeItem('m4u_saved_phone')
       localStorage.removeItem('m4u_saved_password')
     }
@@ -138,10 +153,16 @@ const LoginModal = () => {
     }
   }
 
+  const handleClose = () => {
+    // Reset form when closing modal to ensure clean state next time
+    reset()
+    close()
+  }
+
   return (
     <ModalClient
       open={isOpen}
-      onClose={close}
+      onClose={handleClose}
       showCloseButton={true}
       className="w-full mx-3 md:mx-0 md:w-[530px] h-fit md:h-auto rounded-4xl"
     >
