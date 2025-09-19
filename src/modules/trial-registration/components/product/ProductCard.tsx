@@ -204,7 +204,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 e.stopPropagation()
                 router.push(`/submit-review/${id_review}`)
               }}
-              className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-3 px-4 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px] flex items-center gap-3"
+              className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px] flex items-center gap-3"
               style={{
                 color: accentHex,
                 transition: 'all 300ms ease',
@@ -227,7 +227,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             isSig === null ? 
               <button
                 onClick={handleRegistration}
-                className="bg-white w-fit mt-2 py-3 px-4 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px]"
+                className="bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px]"
                 style={{
                   border: `1px solid ${accentHex}`,
                   color: accentHex,

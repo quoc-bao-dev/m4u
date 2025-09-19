@@ -60,14 +60,14 @@ const Timer: React.FC<TimerProps> = ({ initTime }) => {
 
   return (
     <div className="flex justify-end pr-2 xl:pr-3 pb-2 xl:pb-3">
-      <div className="relative flex items-center gap-1 xl:gap-1.5">
+      <div className="relative flex items-center gap-0.5 xl:gap-1.5">
         {segments.map((segment, index, arr) => (
           <React.Fragment key={`${segment}-${index}`}>
-            <div className="flex items-center justify-center flex-col gap-0.5 size-[30px] sm:size-[38px] py-1 px-1 rounded-md sm:rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A]">
-              <span className="text-center text-white text-xs sm:text-base font-bold leading-none">
+            <div className="flex items-center justify-center flex-col gap-0.5 size-[30px] xl:size-[38px] 2xl:size-[42px] py-1 px-1 rounded-md xl:rounded-[12px] bg-[#FF3B30] shadow-[0px_4px_24px_0px_#0000001A]">
+              <span className="text-center text-white text-xs xl:text-base font-bold leading-none">
                 {segment}
               </span>
-              <span className="text-white text-[8px] sm:text-sm font-bold leading-none">
+              <span className="text-white text-[8px] xl:text-xs font-bold leading-none">
                 {index === 0 && t('timer.days')}
                 {index === 1 && t('timer.hours')}
                 {index === 2 && t('timer.minutes')}
@@ -75,7 +75,7 @@ const Timer: React.FC<TimerProps> = ({ initTime }) => {
               </span>
             </div>
             {index < arr.length - 1 && (
-              <span className="text-[#FF3B30] text-xl sm:text-2xl font-bold">
+              <span className="text-[#FF3B30] text-base xl:text-2xl font-bold">
                 :
               </span>
             )}

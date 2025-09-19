@@ -62,7 +62,7 @@ const FilterMobile = () => {
     <>
       {/* Filter Chips */}
       <div
-        className="md:mx-0 md:hidden flex gap-2 px-4 py-3 overflow-x-auto scrollbar-none"
+        className="md:mx-0 md:hidden flex gap-2 xl:px-4 py-3 overflow-x-auto scrollbar-none"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {filterOptions.map((option, idx) => (
