@@ -181,12 +181,13 @@ const HistoryTable = () => {
         {/* Header: Order ID, Time, Status */}
         <div className="flex justify-between items-end mb-3">
           <div className="text-base text-greyscale-900 font-medium">
-            {item.orderId}
+            <p>{item.orderId}</p>
+            <div className="text-right flex gap-1 items-center text-greyscale-400">
+              <div className="text-xs">{item.date}</div>
+              <div className="text-xs">{item.time}</div>
+            </div>
           </div>
-          <div className="text-right">
-            <div className="text-sm text-greyscale-900">{item.date}</div>
-            <div className="text-xs text-greyscale-400">{item.time}</div>
-          </div>
+
           <div>{renderStatusChip(item.status, item.statusColor)}</div>
         </div>
 
