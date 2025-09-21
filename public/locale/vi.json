@@ -635,5 +635,83 @@
         "photoRequirement": "Cho phép *.jpeg, *.jpg, *.png, *.gif\nKích thước tối đa 3.1 MB"
       }
     }
+  },
+  "personal": {
+    "form": {
+      "general": {
+        "title": "Thông tin chung",
+        "updatePhoto": "Cập nhật ảnh",
+        "uploadNote": "Cho phép *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "Kích thước tối đa 3.1 MB"
+      },
+      "security": {
+        "title": "Bảo mật"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên của bạn"
+        },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại của bạn"
+        },
+        "gender": {
+          "label": "Giới tính",
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh của bạn"
+        },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ của bạn"
+        },
+        "oldPassword": {
+          "label": "Mật khẩu cũ",
+          "placeholder": "Nhập mật khẩu cũ"
+        },
+        "newPassword": {
+          "label": "Mật khẩu mới",
+          "placeholder": "Nhập mật khẩu mới",
+          "helperText": "Mật khẩu phải có ít nhất 8+ ký tự"
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu mới",
+          "placeholder": "Xác nhận mật khẩu mới",
+          "helperTextMatch": "Mật khẩu khớp"
+        }
+      },
+      "submit": {
+        "saveChanges": "Lưu thay đổi",
+        "saving": "Đang lưu..."
+      },
+      "success": {
+        "updateAccount": "Cập nhật tài khoản thành công",
+        "updatePassword": "Cập nhật mật khẩu thành công"
+      },
+      "errors": {
+        "noToken": "Không tìm thấy token xác thực. Vui lòng đăng nhập lại.",
+        "updateFailed": "Cập nhật tài khoản thất bại. Vui lòng thử lại.",
+        "updatePasswordFailed": "Cập nhật mật khẩu thất bại. Vui lòng thử lại."
+      },
+      "validation": {
+        "fullNameMin": "Họ và tên phải có ít nhất 2 ký tự",
+        "phoneInvalid": "Số điện thoại phải từ 8-15 ký tự",
+        "genderRequired": "Giới tính là bắt buộc",
+        "dobRequired": "Ngày sinh là bắt buộc",
+        "addressMin": "Địa chỉ phải có ít nhất 5 ký tự",
+        "oldPasswordRequired": "Mật khẩu cũ là bắt buộc",
+        "newPasswordRequired": "Mật khẩu mới là bắt buộc",
+        "newPasswordMin": "Mật khẩu mới phải có ít nhất 8 ký tự",
+        "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc",
+        "passwordsNotMatch": "Mật khẩu không khớp"
+      }
+    }
   }
 }

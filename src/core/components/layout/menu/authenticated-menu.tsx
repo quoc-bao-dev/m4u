@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from '@/locale'
+import { Link, useNavigate } from '@/locale'
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { UserResponse } from '@/services/auth/type'
 import {
@@ -9,7 +9,6 @@ import {
   QrCodeIcon,
   SignOutIcon,
   UserCircleIcon,
-  UsersThreeIcon,
 } from '@phosphor-icons/react'
 import moment from 'moment'
 import 'moment/locale/ko'
@@ -203,10 +202,14 @@ const Top = ({ user }: TopProps) => {
 
 export const AccountButton = () => {
   const t = useTranslations()
+  const nav = useNavigate()
   return (
     <button
       className="flex items-center gap-2 cursor-pointer group"
-      onClick={() => sMenuSignal.set('close')}
+      onClick={() => {
+        sMenuSignal.set('close')
+        nav('/personal')
+      }}
     >
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
         <UserCircleIcon
