@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useGetListProductReview, useGetTypeEvaluate } from '@/services/review/queries'
 import { useSubmitReview } from '@/services/review/mutations'
 import { withAlpha } from '@/core/utils'
+import { Link } from '@/locale'
 
 const SubmitReview = ({ id }: { id: number }) => {
   const router = useRouter()
@@ -282,10 +283,10 @@ const SubmitReview = ({ id }: { id: number }) => {
       <div className='px-3 lg:px-6 xl:px-40 2xl:px-[240px] lg:py-4 xl:py-16 flex flex-col lg:flex-row gap-6 lg:gap-10 xl:gap-20 2xl:gap-32 w-full h-full'>
         {/* Cột trái - tỷ lệ 397/1312 ≈ 30.3% */}
         <div className='lg:flex-[300] xl::flex-[397] flex flex-col gap-2 xl:gap-8'>
-          <div className='flex items-center gap-2 group cursor-pointer' onClick={() => router.back()}>
+          <Link href='/trial-history' className='flex items-center gap-2 group cursor-pointer'>
             <CaretLeftIcon className='size-5 text-greyscale-600 group-hover:text-pink-600 transition-all duration-300' />
             <p className='text-base font-normal text-greyscale-600 group-hover:text-pink-600 group-hover:font-medium transition-all duration-300'>{t('back')}</p>
-          </div>
+          </Link>
           <h2 className='pb-6 lg:pb-0 text-2xl xl:text-5xl font-semibold text-greyscale-700'>{t('title')}</h2>
           <div className='flex lg:flex-col gap-2 lg:gap-5 xl:gap-8 w-full overflow-x-auto pb-2'>
             {listProductReview?.map((item: any) => {
