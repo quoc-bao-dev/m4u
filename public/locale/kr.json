@@ -637,6 +637,7 @@
     }
   },
   "personal": {
+    "accountPreferences": "계정 설정",
     "form": {
       "general": {
         "title": "일반 정보",

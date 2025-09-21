@@ -637,6 +637,7 @@
     }
   },
   "personal": {
+    "accountPreferences": "Tùy chọn tài khoản",
     "form": {
       "general": {
         "title": "Thông tin chung",

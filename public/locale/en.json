@@ -640,6 +640,7 @@
     }
   },
   "personal": {
+    "accountPreferences": "Account preferences",
     "form": {
       "general": {
         "title": "General",
