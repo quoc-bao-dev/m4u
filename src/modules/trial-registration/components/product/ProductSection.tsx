@@ -84,7 +84,7 @@ const ProductSection = () => {
                       delay={index * 0.1}
                       duration={0.6}
                     >
-                      <Link href={`/product/${p.slug}`}>
+                      <Link href={`/product/${p.slug}`} className='h-full'>
                         <ProductCard
                           id={p.id}
                           brand={p.brand}

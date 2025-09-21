@@ -133,7 +133,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
       <div
-        className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-xl xl:rounded-3xl h-fit select-none w-full ${className}`}
+        className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-xl xl:rounded-3xl select-none w-full ${className}`}
       >
         <div className="rounded-t-xl xl:rounded-t-3xl relative overflow-hidden w-full aspect-[327/320]">
           <div
@@ -145,20 +145,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
               )} )`,
             }}
           />
-          <div className="absolute top-2 xl:top-4 left-2 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-sm 2xl:text-base font-medium text-greyscale-900">
+          <div className="absolute top-2 xl:top-4 left-2 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs sm:text-sm 2xl:text-base font-medium text-greyscale-900">
             <StarIcon weight="fill" className="size-4 xl:size-5 text-yellow-600" />
             {safeRate.toFixed(1)}
           </div>
-          <Image
-            src={image}
-            alt={imageAlt}
-            width={820}
-            height={820}
-            className={cn(
-              'py-8 xl:py-12 w-full h-[400px] md:h-[320px] lg:h-[370px] xl:h-[400px] max-h-full object-contain rounded-t-3xl',
-              classNameImage
-            )}
-          />
+          <div className='py-8 xl:py-12 w-full h-full'>
+            <Image
+              src={image}
+              alt={imageAlt}
+              width={820}
+              height={820}
+              className="h-full object-contain"
+            />
+          </div>
 
           <div className="absolute bottom-0 right-0">
             {time && <Timer initTime={time} />}
@@ -168,10 +167,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="p-2 xl:p-3 flex flex-col gap-1 rounded-b-xl xl:rounded-b-3xl w-full"
           style={{ backgroundColor: withAlpha(contentBg, "90") }}
         >
-          <h3 className="text-xs sm:text-sm font-bold text-greyscale-900">
+          <h3 className="text-[10px] sm:text-sm font-bold text-greyscale-900">
             {brand}
           </h3>
-          <h3 className="text-greyscale-900 text-base xl:text-lg truncate">
+          <h3 className="text-greyscale-900 text-sm md:text-base xl:text-lg truncate">
             {productName}
           </h3>
 
@@ -204,7 +203,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 e.stopPropagation()
                 router.push(`/submit-review/${id_review}`)
               }}
-              className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px] flex items-center gap-3"
+              className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
               style={{
                 color: accentHex,
                 transition: 'all 300ms ease',
@@ -220,14 +219,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 e.currentTarget.style.color = accentHex
               }}
             >
-              <span className="truncate">{t('product.writeYourReview')}</span>
+              <span className="truncate text-xs sm:text-base/[21px] ">{t('product.writeYourReview')}</span>
               <PenIcon />
             </button>
             :
             isSig === null ? 
               <button
                 onClick={handleRegistration}
-                className="bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer text-sm sm:text-base/[21px]"
+                className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
                 style={{
                   border: `1px solid ${accentHex}`,
                   color: accentHex,
@@ -243,7 +242,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   e.currentTarget.style.color = accentHex
                 }}
               >
-                <span className="truncate">{t('product.register')}</span>
+                <span className="truncate text-xs sm:text-base/[21px]">{t('product.register')}</span>
               </button>
               :
               <div className='xl:pt-2 flex gap-3 items-center'>
@@ -256,7 +255,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         <PlayIcon weight="fill" className="size-5 text-white" />
                       )}
                     </div>
-                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-16 aspect-[65/83] rounded-lg object-cover' />
+                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
                   </div>
                 )}
                 <div className='flex flex-col gap-1'>

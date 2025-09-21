@@ -29,6 +29,10 @@ interface Product {
   kols: Kol[]
 }
 
+interface RankingListProps {
+  products?: any
+}
+
 const kols = [
   {
     name: 'MANYO',
@@ -74,7 +78,7 @@ const kols = [
   },
 ]
 
-const products: Product[] = [
+const defaultProducts: Product[] = [
   {
     id: '1',
     productName: 'Panthetoin Deep Moisture Mask',
@@ -137,8 +141,10 @@ const products: Product[] = [
   },
 ]
 
-const RankingList = () => {
+const RankingList = ({ products }: RankingListProps) => {
   const t = useTranslations('reviewHub')
+  console.log(products)
+  // const list = productsProp.length ? productsProp : defaultProducts
   const filterOptions = {
     freeFrom: [
       { value: 'all', label: t('filters.freeFrom') },
@@ -274,16 +280,12 @@ const RankingList = () => {
 
       {/* Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 xl:gap-x-10 2xl:gap-x-16 gap-y-4 xl:gap-y-8 2xl:gap-y-12">
-        {products.map((product, idx) => (
+        {products.map((product : any, idx : number) => (
           <TopReviewerCard
             key={product.id}
-            productName={product.productName}
-            brandName={product.brandName}
-            rating={product.rating}
-            reviewCount={product.reviewCount}
-            productImage={product.productImage}
-            kols={product.kols}
-            topReview={product.topReview}
+            data={product}
+            kols={kols}
+            topReview={idx + 2}
             isRightColumn={idx % 2 === 1}
           />
         ))}
