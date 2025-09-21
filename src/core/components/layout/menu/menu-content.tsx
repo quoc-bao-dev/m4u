@@ -175,7 +175,7 @@ const MenuContent = ({
                 } else {
                   setIsReviewer(option.value)
                   onClose()
-                  nav('/review-hub')
+                  nav('/trial-registration')
                 }
               }}
               className={`${
