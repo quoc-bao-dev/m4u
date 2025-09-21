@@ -1,8 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useAuth } from '@/modules/auth'
-import { useRouter } from '@/locale/navigation'
+import { useAuthGuard } from './useAuthGuard'
 import { PropsWithChildren } from 'react'
 
 interface AuthGuardProps extends PropsWithChildren {
@@ -15,17 +13,14 @@ const AuthGuard = ({
   redirectTo = '/',
   fallback = null,
 }: AuthGuardProps) => {
-  const { isAuthenticated, user } = useAuth()
-  const router = useRouter()
+  const { isAuthenticated, user, isInitialized } = useAuthGuard(redirectTo)
 
-  useEffect(() => {
-    // Chỉ redirect khi component đã mount và user chưa được authenticate
-    if (typeof window !== 'undefined' && !isAuthenticated && user === null) {
-      router.push(redirectTo)
-    }
-  }, [isAuthenticated, user, router, redirectTo])
+  // Đang trong quá trình kiểm tra authentication
+  if (!isInitialized) {
+    return fallback
+  }
 
-  // Nếu chưa authenticated, hiển thị fallback hoặc null
+  // Nếu chưa authenticated sau khi đã check xong, hiển thị fallback
   if (!isAuthenticated || user === null) {
     return fallback
   }
