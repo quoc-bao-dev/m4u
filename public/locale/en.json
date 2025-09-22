@@ -573,6 +573,11 @@
       }
     }
   },
+  "nodataReviewhub": {
+    "title": "Start your beauty journey!",
+    "description": "Your history of product trials will appear here once you register for your first product. It's easy to get started—sign up to get free products, earn commissions, and claim exclusive vouchers.",
+    "registerButton": "Register for a Free Trial"
+  },
   "user": {
     "form": {
       "validation": {
@@ -728,6 +733,10 @@
     "copied": "Copied",
     "referrals": "Referrals",
     "commissionRevenue": "Commission Revenue",
-    "friends": "Friends"
+    "friends": "Friends",
+    "noData": {
+      "title": "No data yet",
+      "desc": "The list of users you referred will appear here once available. Share your referral code to get started."
+    }
   }
 }

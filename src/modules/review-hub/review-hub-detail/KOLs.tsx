@@ -98,7 +98,8 @@ const kolCards = [
   },
 ]
 
-const KOLs = () => {
+const KOLs = ({ data }: { data: any }) => {
+  console.log(data?.data)
   const t = useTranslations('reviewHub.kols')
   const [isOpen, setIsOpen] = React.useState(false)
   const [selectedKol, setSelectedKol] = React.useState<KolInfo>(null)
@@ -144,14 +145,15 @@ const KOLs = () => {
         </Select>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-        {kolCards.map((kol, index) => (
+        {data?.data?.map((kol: any, index: number) => (
           <ScrollRevealCard key={index} delay={index * 0.1} duration={0.6}>
             <KOLCard
-              image={kol.image}
-              avatar={kol.avatar}
-              name={kol.name}
-              rating={kol.rating}
-              reviews={kol.reviews}
+            data={kol}
+              // image={kol.image}
+              // avatar={kol.avatar}
+              // name={kol.name}
+              // rating={kol.rating}
+              // reviews={kol.reviews}
               onClick={() => handleOpen(kol)}
             />
           </ScrollRevealCard>

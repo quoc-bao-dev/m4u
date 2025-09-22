@@ -118,11 +118,6 @@ const TrialRegistrationForm = ({
   const onSubmitForm = async (data: TrialFormData) => {
     onSubmit?.(data)
 
-    const introduceCode = localStorage.getItem('m4u_introduce_code')
-    if (introduceCode) {
-      localStorage.removeItem('m4u_introduce_code')
-    }
-
     const apiData = {
       fullname: data.fullName,
       phone: data.phoneNumber,
@@ -132,7 +127,7 @@ const TrialRegistrationForm = ({
       id_product: String(productId),
       event: 'register',
       key_code: '',
-      code_introduce: introduceCode,
+      // code_introduce: introduceCode,
     }
 
     try {

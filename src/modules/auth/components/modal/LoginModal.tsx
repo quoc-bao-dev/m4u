@@ -85,7 +85,11 @@ const LoginModal = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      const response = await loginMutation.mutateAsync(data)
+      // Chuẩn hoá số điện thoại: xoá toàn bộ khoảng trắng
+      const sanitizedPhone = (data.phone || '').replace(/\s+/g, '')
+      const payload: LoginFormData = { ...data, phone: sanitizedPhone }
+
+      const response = await loginMutation.mutateAsync(payload)
 
       // Check if result is false (API returned error)
       if (response && response.result === false) {
@@ -95,7 +99,7 @@ const LoginModal = () => {
 
       // Login thành công, cập nhật credentials nếu remember account được tích
       if (rememberAccount) {
-        localStorage.setItem('m4u_saved_phone', data.phone)
+        localStorage.setItem('m4u_saved_phone', sanitizedPhone)
         localStorage.setItem('m4u_saved_password', data.password)
       }
 

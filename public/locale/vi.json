@@ -570,6 +570,11 @@
       }
     }
   },
+  "nodataReviewhub": {
+    "title": "Bắt đầu hành trình làm đẹp của bạn!",
+    "description": "Lịch sử đăng ký dùng thử sản phẩm của bạn sẽ xuất hiện ở đây khi bạn đăng ký sản phẩm đầu tiên. Thật dễ dàng để bắt đầu—đăng ký để nhận sản phẩm miễn phí, kiếm hoa hồng và nhận voucher độc quyền.",
+    "registerButton": "Đăng ký dùng thử miễn phí"
+  },
   "user": {
     "form": {
       "validation": {
@@ -628,7 +633,7 @@
       "sections": {
         "general": "Chung",
         "security": "Bảo mật",
-        "accountPreferences": "Tùy chọn tài khoản"
+        "accountPreferences": "Tùy chỉnh tài khoản"
       },
       "helpers": {
         "passwordRequirement": "Mật khẩu phải có tối thiểu 8+ ký tự",
@@ -637,7 +642,7 @@
     }
   },
   "personal": {
-    "accountPreferences": "Tùy chọn tài khoản",
+    "accountPreferences": "Tùy chỉnh tài khoản",
     "form": {
       "general": {
         "title": "Thông tin chung",
@@ -725,6 +730,10 @@
     "copied": "Đã copy",
     "referrals": "Số lượt giới thiệu",
     "commissionRevenue": "Doanh thu hoa hồng",
-    "friends": "Bạn bè"
+    "friends": "Bạn bè",
+    "noData": {
+      "title": "Chưa có dữ liệu",
+      "desc": "Danh sách người được bạn giới thiệu sẽ hiển thị tại đây khi có dữ liệu. Hãy chia sẻ mã giới thiệu để bắt đầu."
+    }
   }
 }

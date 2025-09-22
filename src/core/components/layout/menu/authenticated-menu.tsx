@@ -16,6 +16,7 @@ import 'moment/locale/vi'
 import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 import { sMenuSignal } from './sMenuSignal'
+import UserAvatar from '../../UserAvatar'
 
 type UserType = UserResponse['info']
 
@@ -76,17 +77,7 @@ const Header = ({ user }: HeaderProps) => {
         <Link href="/personal" onClick={() => sMenuSignal.set('close')}>
           <div className="flex items-center space-x-4">
             {/* Avatar */}
-            <div className="size-[64px] rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200">
-              <img
-                src={user.avatar || '/placeholder-avatar.jpg'}
-                alt={user.fullname || 'User'}
-                className="w-full h-full object-cover "
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.src = '/image/avatar/image-01.png'
-                }}
-              />
-            </div>
+            <UserAvatar src={user.avatar} userName={user.fullname} size={64} />
 
             {/* Name and join date */}
             <div>

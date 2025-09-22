@@ -3,7 +3,6 @@
 import { Container } from '@/core/components/common/group'
 import ProductCard from '@/modules/trial-registration/components/product/ProductCard'
 import { useGetProductRelationList } from '@/services/product'
-import useEmblaCarousel from 'embla-carousel-react'
 import { useMemo } from 'react'
 import { sProductIdSignal } from '../../store/sProductIdSignal'
 import { Link, useTranslation } from '@/locale'
@@ -23,15 +22,19 @@ const SimilarProductSection = () => {
     return productRelationList.data.map((product) => ({
       id: product.id.toString(),
       slug: product.slug,
-      brand: 'Brand', // Có thể cần lấy từ API hoặc hardcode
+      brand: product.code || 'Brand',
       productName: product.name,
       participation: product.count_join, // Default value, có thể cần lấy từ API
-      rate: product.average_star,
       limitPeople: product.limit_people,
       image: product.image,
       imageAlt: product.name,
+      rate: product.average_star,
       bgColor: product.background_color || '#FFF7ED',
       hex: product.color_header || '#FF8500',
+      isSig: product.isSig,
+      evaluate: product.evaluate || 5,
+      video_review: product.video_review,
+      id_review: product.id_review,
       time:
         product.time_left_dd_hh_mm_ss === '0:00:00:00' ||
         !product.time_left_dd_hh_mm_ss
@@ -40,29 +43,29 @@ const SimilarProductSection = () => {
     }))
   }, [productRelationList?.data])
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: 'center',
-    containScroll: 'trimSnaps',
-    slidesToScroll: 1,
-    dragFree: false,
-    inViewThreshold: 0.7,
-    duration: 25,
-    breakpoints: {
-      '(min-width: 640px)': {
-        slidesToScroll: 1,
-        dragFree: false,
-        inViewThreshold: 0.7,
-        duration: 25,
-      },
-      '(min-width: 768px)': {
-        slidesToScroll: 1,
-        dragFree: false,
-        inViewThreshold: 0.7,
-        duration: 25,
-      },
-    },
-  })
+  // const [emblaRef, emblaApi] = useEmblaCarousel({
+  //   loop: true,
+  //   align: 'center',
+  //   containScroll: 'trimSnaps',
+  //   slidesToScroll: 1,
+  //   dragFree: false,
+  //   inViewThreshold: 0.7,
+  //   duration: 25,
+  //   breakpoints: {
+  //     '(min-width: 640px)': {
+  //       slidesToScroll: 1,
+  //       dragFree: false,
+  //       inViewThreshold: 0.7,
+  //       duration: 25,
+  //     },
+  //     '(min-width: 768px)': {
+  //       slidesToScroll: 1,
+  //       dragFree: false,
+  //       inViewThreshold: 0.7,
+  //       duration: 25,
+  //     },
+  //   },
+  // })
 
   if (carouselItems.length === 0) {
     return null
@@ -70,7 +73,7 @@ const SimilarProductSection = () => {
 
   return (
     <section className="py-[40px] md:py-[96px]">
-      <Container className="overflow-hidden">
+      <Container className="">
         <div className="text-center">
           <h2 className="text-title-sect font-extrabold leading-tight text-[#0B0B0B]">
             {t('product.exploreSimilarProducts')}
@@ -110,34 +113,37 @@ const SimilarProductSection = () => {
             </div>
           ) : (
             <div
-              className="overflow-visible sm:overflow-hidden"
-              ref={emblaRef}
-              style={{
-                touchAction: 'pan-y pinch-zoom',
-                WebkitOverflowScrolling: 'touch',
-              }}
+              className=""
+              // ref={emblaRef}
+              // style={{
+              //   touchAction: 'pan-y pinch-zoom',
+              //   WebkitOverflowScrolling: 'touch',
+              // }}
             >
-              <div className="flex w-full">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {carouselItems.map((p) => (
                   <div
                     key={p.id}
-                    className="flex-shrink-0 w-4/5 sm:w-1/2 md:w-1/3 px-2 h-full flex justify-center"
+                    className="flex-shrink-0 w-full h-full flex justify-center"
                   >
                     <div className="h-full w-full max-w-sm xl:max-w-md">
                       <Link href={`/product/${p.slug}`}>
                         <ProductCard
+                          id={Number(p.id)}
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
-                          id={Number(p.id)}
                           limitPeople={p.limitPeople}
                           image={p.image}
                           imageAlt={p.imageAlt}
-                          rate={p.rate}
+                          rate={p.evaluate}
                           bgColor={p.bgColor}
                           hex={p.hex}
                           time={p.time}
-                          classNameImage="xl:h-[400px]"
+                          isSig={p.isSig}
+                          // evaluate={p.evaluate}
+                          video_review={p.video_review}
+                          id_review={p.id_review}
                           className="h-full flex flex-col"
                         />
                       </Link>

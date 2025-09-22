@@ -1,3 +1,4 @@
+import UserAvatar from '@/core/components/UserAvatar'
 import { QRCodeCanvas } from 'qrcode.react'
 import React from 'react'
 
@@ -5,12 +6,15 @@ const QrWithAvatar = ({
   value,
   size = 270,
   logo,
+  name,
 }: {
   value: string
   size?: number
   logo?: string
+  name?: string
 }) => {
   const logoSize = size * 0.24 // avatar chiếm 20% QR (trừ padding)
+  console.log(name)
 
   return (
     <div
@@ -32,25 +36,12 @@ const QrWithAvatar = ({
           height: '100%',
         }}
       />
-      {logo && (
-        <img
-          src={logo}
-          alt="avatar"
-          className="object-cover"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: logoSize,
-            height: logoSize,
-            borderRadius: '50%',
-            transform: 'translate(-50%, -50%)',
-            background: '#fff', // bo nền trắng để QR dễ quét hơn
-            padding: 1,
-            border: '1px solid #fff',
-          }}
-        />
-      )}
+      <UserAvatar
+        src={logo}
+        userName={name}
+        size={logoSize}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white"
+      />
     </div>
   )
 }
