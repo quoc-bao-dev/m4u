@@ -572,5 +572,10 @@
         }
       }
     }
+  },
+  "nodataReviewhub": {
+    "title": "Start your beauty journey!",
+    "description": "Your history of product trials will appear here once you register for your first product. It's easy to get started—sign up to get free products, earn commissions, and claim exclusive vouchers.",
+    "registerButton": "Register for a Free Trial"
   }
 }

@@ -183,6 +183,7 @@ const ProductInfo = () => {
                   isSig={detail?.isSig}
                   video_review={detail?.video_review || undefined}
                   evaluate={detail?.evaluate || 0}
+                  id_review={detail?.id_review || 0}
                 />
               </RevertContainer>
             </div>
