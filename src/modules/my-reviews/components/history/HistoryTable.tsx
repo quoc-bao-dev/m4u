@@ -364,11 +364,10 @@ const HistoryTable = () => {
               ) : processedReviews.length === 0 ? (
                 // Show empty state with NoData component
                 <tr>
-                  <td colSpan={5} className="px-3 py-8 align-middle">
+                  <td colSpan={5} className="px-3 py-8 align-middle h-[400px]">
                     <NoData
                       title={t('myReviews.history.table.empty.title')}
                       description={t('myReviews.history.table.empty.desc')}
-                      className="h-[400px]"
                     />
                   </td>
                 </tr>
@@ -518,11 +517,10 @@ const HistoryTable = () => {
             </div>
           ) : processedReviews.length === 0 ? (
             // Show empty state for mobile
-            <div className="px-4 py-8">
+            <div className="px-4 py-8 h-[400px]">
               <NoData
                 title={t('myReviews.history.table.empty.title')}
                 description={t('myReviews.history.table.empty.desc')}
-                className="h-[400px]"
               />
             </div>
           ) : (

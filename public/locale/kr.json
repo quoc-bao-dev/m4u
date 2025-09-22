@@ -574,5 +574,162 @@
     "title": "뷰티 여정을 시작하세요!",
     "description": "첫 번째 제품을 등록하면 여기에 제품 체험 내역이 표시됩니다. 시작하기 쉽습니다—무료 제품을 받고, 커미션을 벌고, 독점 바우처를 받으세요.",
     "registerButton": "무료 체험 등록"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "이름은 최소 2글자 이상이어야 합니다",
+        "phoneInvalid": "유효한 전화번호를 입력해주세요",
+        "genderRequired": "성별을 선택해주세요",
+        "dobRequired": "생년월일은 필수입니다",
+        "addressMin": "주소는 최소 5글자 이상이어야 합니다",
+        "oldPasswordRequired": "현재 비밀번호는 필수입니다",
+        "newPasswordMin": "새 비밀번호는 최소 8글자 이상이어야 합니다",
+        "confirmPasswordRequired": "새 비밀번호를 확인해주세요",
+        "passwordsDoNotMatch": "비밀번호가 일치하지 않습니다"
+      },
+      "fields": {
+        "fullName": {
+          "label": "이름",
+          "placeholder": "이름을 입력하세요"
+        },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "gender": {
+          "label": "성별",
+          "options": {
+            "female": "여성",
+            "male": "남성",
+            "other": "기타"
+          }
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
+        "address": {
+          "label": "주소",
+          "placeholder": "주소를 입력하세요"
+        },
+        "oldPassword": {
+          "label": "기존 비밀번호",
+          "placeholder": "현재 비밀번호를 입력하세요"
+        },
+        "newPassword": {
+          "label": "새 비밀번호",
+          "placeholder": "새 비밀번호를 입력하세요"
+        },
+        "confirmPassword": {
+          "label": "새 비밀번호 확인",
+          "placeholder": "새 비밀번호를 확인하세요"
+        }
+      },
+      "buttons": {
+        "saveChanges": "변경사항 저장",
+        "updatePhoto": "사진 업데이트"
+      },
+      "sections": {
+        "general": "일반",
+        "security": "보안",
+        "accountPreferences": "계정 설정"
+      },
+      "helpers": {
+        "passwordRequirement": "비밀번호는 최소 8글자 이상이어야 합니다",
+        "photoRequirement": "허용된 형식: *.jpeg, *.jpg, *.png, *.gif\n최대 크기: 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "accountPreferences": "계정 설정",
+    "form": {
+      "general": {
+        "title": "일반 정보",
+        "updatePhoto": "사진 업데이트",
+        "uploadNote": "허용된 형식: *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "최대 크기: 3.1 MB"
+      },
+      "security": {
+        "title": "보안"
+      },
+      "fields": {
+        "fullName": {
+          "label": "성명",
+          "placeholder": "성명을 입력하세요"
+        },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "gender": {
+          "label": "성별",
+          "options": {
+            "female": "여성",
+            "male": "남성",
+            "other": "기타"
+          }
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
+        "address": {
+          "label": "주소",
+          "placeholder": "주소를 입력하세요"
+        },
+        "oldPassword": {
+          "label": "기존 비밀번호",
+          "placeholder": "기존 비밀번호를 입력하세요"
+        },
+        "newPassword": {
+          "label": "새 비밀번호",
+          "placeholder": "새 비밀번호를 입력하세요",
+          "helperText": "비밀번호는 최소 8자 이상이어야 합니다"
+        },
+        "confirmPassword": {
+          "label": "새 비밀번호 확인",
+          "placeholder": "새 비밀번호를 확인하세요",
+          "helperTextMatch": "비밀번호가 일치합니다"
+        }
+      },
+      "submit": {
+        "saveChanges": "변경사항 저장",
+        "saving": "저장 중..."
+      },
+      "success": {
+        "updateAccount": "계정이 성공적으로 업데이트되었습니다",
+        "updatePassword": "비밀번호가 성공적으로 업데이트되었습니다",
+        "updateAvatar": "프로필 사진이 성공적으로 업데이트되었습니다"
+      },
+      "errors": {
+        "noToken": "인증 토큰을 찾을 수 없습니다. 다시 로그인해 주세요.",
+        "updateFailed": "계정 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "updatePasswordFailed": "비밀번호 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "updateAvatarFailed": "프로필 사진 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "invalidFileType": "유효하지 않은 파일 형식입니다. 유효한 이미지 파일(JPEG, JPG, PNG, GIF)을 선택해 주세요.",
+        "fileTooLarge": "파일 크기가 너무 큽니다. 3.1 MB보다 작은 파일을 선택해 주세요."
+      },
+      "validation": {
+        "fullNameMin": "성명은 최소 2자 이상이어야 합니다",
+        "phoneInvalid": "전화번호는 8-15자 사이여야 합니다",
+        "genderRequired": "성별은 필수입니다",
+        "dobRequired": "생년월일은 필수입니다",
+        "addressMin": "주소는 최소 5자 이상이어야 합니다",
+        "oldPasswordRequired": "기존 비밀번호는 필수입니다",
+        "newPasswordRequired": "새 비밀번호는 필수입니다",
+        "newPasswordMin": "새 비밀번호는 최소 8자 이상이어야 합니다",
+        "confirmPasswordRequired": "비밀번호 확인은 필수입니다",
+        "passwordsNotMatch": "비밀번호가 일치하지 않습니다"
+      }
+    }
+  },
+  "Referral": {
+    "title": "추천 프로그램",
+    "copy": "복사",
+    "copied": "복사됨",
+    "referrals": "추천 수",
+    "commissionRevenue": "커미션 수익",
+    "friends": "친구"
   }
 }

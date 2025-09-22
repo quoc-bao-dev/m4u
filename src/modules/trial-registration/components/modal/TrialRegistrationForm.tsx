@@ -2,24 +2,30 @@
 
 import { DatePicker, Input, RadioGroup } from '@/core/components/ui'
 import Button from '@/core/components/ui/button'
-import { useStartSignUp } from '@/services/auth/mutations'
-import { ArrowRightIcon } from '@phosphor-icons/react'
-import { Controller, useForm } from 'react-hook-form'
-import useTrialOTPModal from '../../stores/useTrialOTPModal'
-import useModalRegistration from '../../stores/useModalRegistration'
 import { useToast } from '@/core/hooks/useToast'
-import Image from 'next/image'
 import { withAlpha } from '@/core/utils'
-import { z } from 'zod'
+import { useStartSignUp } from '@/services/auth/mutations'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRightIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
+import useModalRegistration from '../../stores/useModalRegistration'
+import useTrialOTPModal from '../../stores/useTrialOTPModal'
 
 // schema sẽ được tạo trong component để dùng i18n messages
 
 // type is derived inside component after schema is created
 
 interface TrialRegistrationFormProps {
-  onSubmit?: (data: { fullName: string; phoneNumber: string; gender: 'female' | 'male' | 'other'; dateOfBirth: string; address: string }) => void
+  onSubmit?: (data: {
+    fullName: string
+    phoneNumber: string
+    gender: 'female' | 'male' | 'other'
+    dateOfBirth: string
+    address: string
+  }) => void
   productId: string | number
   productImage: string
   productName: string
@@ -27,7 +33,14 @@ interface TrialRegistrationFormProps {
   productColor?: string
 }
 
-const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName, productBrand, productColor }: TrialRegistrationFormProps) => {
+const TrialRegistrationForm = ({
+  onSubmit,
+  productId,
+  productImage,
+  productName,
+  productBrand,
+  productColor,
+}: TrialRegistrationFormProps) => {
   const t = useTranslations()
   const schema = z.object({
     fullName: z.string().trim().min(2, t('trial.form.validation.fullNameMin')),
@@ -46,7 +59,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
   const { close: closeModalRegistration } = useModalRegistration()
   const { open: openOTPModal } = useTrialOTPModal()
   const { showError } = useToast()
-  
+
   // RHF
   const {
     control,
@@ -105,6 +118,11 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
   const onSubmitForm = async (data: TrialFormData) => {
     onSubmit?.(data)
 
+    const introduceCode = localStorage.getItem('m4u_introduce_code')
+    if (introduceCode) {
+      localStorage.removeItem('m4u_introduce_code')
+    }
+
     const apiData = {
       fullname: data.fullName,
       phone: data.phoneNumber,
@@ -114,6 +132,7 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
       id_product: String(productId),
       event: 'register',
       key_code: '',
+      code_introduce: introduceCode,
     }
 
     try {
@@ -144,7 +163,10 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
       {/* Form */}
       <div className="flex-1 min-h-0">
         <div className="h-full overflow-y-auto custom-scrollbar">
-          <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-4 px-1">
+          <form
+            onSubmit={handleSubmit(onSubmitForm)}
+            className="space-y-4 px-1"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Full Name */}
               <Controller
@@ -160,7 +182,9 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                       required
                     />
                     {errors.fullName && (
-                      <p className="mt-1 text-xs text-red-600">{errors.fullName.message}</p>
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.fullName.message}
+                      </p>
                     )}
                   </div>
                 )}
@@ -177,10 +201,14 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
                       required
-                      placeholder={t('trial.form.fields.dateOfBirth.placeholder')}
+                      placeholder={t(
+                        'trial.form.fields.dateOfBirth.placeholder'
+                      )}
                     />
                     {errors.dateOfBirth && (
-                      <p className="mt-1 text-xs text-red-600">{errors.dateOfBirth.message}</p>
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.dateOfBirth.message}
+                      </p>
                     )}
                   </div>
                 )}
@@ -197,13 +225,17 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                     <Input
                       label={t('trial.form.fields.phoneNumber.label')}
                       type="tel"
-                      placeholder={t('trial.form.fields.phoneNumber.placeholder')}
+                      placeholder={t(
+                        'trial.form.fields.phoneNumber.placeholder'
+                      )}
                       value={field.value}
                       onChange={(e) => field.onChange(e.target.value)}
                       required
                     />
                     {errors.phoneNumber && (
-                      <p className="mt-1 text-xs text-red-600">{errors.phoneNumber.message}</p>
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.phoneNumber.message}
+                      </p>
                     )}
                   </div>
                 )}
@@ -223,7 +255,9 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                       required
                     />
                     {errors.address && (
-                      <p className="mt-1 text-xs text-red-600">{errors.address.message}</p>
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.address.message}
+                      </p>
                     )}
                   </div>
                 )}
@@ -242,14 +276,25 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                     value={field.value}
                     onChange={(value) => field.onChange(value)}
                     options={[
-                      { value: 'female', label: t('trial.form.fields.gender.options.female') },
-                      { value: 'male', label: t('trial.form.fields.gender.options.male') },
-                      { value: 'other', label: t('trial.form.fields.gender.options.other') },
+                      {
+                        value: 'female',
+                        label: t('trial.form.fields.gender.options.female'),
+                      },
+                      {
+                        value: 'male',
+                        label: t('trial.form.fields.gender.options.male'),
+                      },
+                      {
+                        value: 'other',
+                        label: t('trial.form.fields.gender.options.other'),
+                      },
                     ]}
                     required
                   />
                   {errors.gender && (
-                    <p className="mt-1 text-xs text-red-600">{errors.gender.message as string}</p>
+                    <p className="mt-1 text-xs text-red-600">
+                      {errors.gender.message as string}
+                    </p>
                   )}
                 </div>
               )}
@@ -258,10 +303,13 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
             {/* Product for Trial */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t('trial.form.productSection.label')} <span className="text-red-500">*</span>
+                {t('trial.form.productSection.label')}{' '}
+                <span className="text-red-500">*</span>
               </label>
-              <div className="max-w-[450px] rounded-lg p-2 flex items-center space-x-3"
-                style={{ backgroundColor: withAlpha(productColor, 0.4) }}>
+              <div
+                className="max-w-[450px] rounded-lg p-2 flex items-center space-x-3"
+                style={{ backgroundColor: withAlpha(productColor, 0.4) }}
+              >
                 <div className="size-24 bg-white rounded-lg flex items-center justify-center">
                   <Image
                     width={200}
@@ -272,10 +320,10 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-xs text-gray-900">{productBrand}</p>
-                  <p className="text-base text-gray-600">
-                    {productName}
+                  <p className="font-semibold text-xs text-gray-900">
+                    {productBrand}
                   </p>
+                  <p className="text-base text-gray-600">{productName}</p>
                 </div>
               </div>
             </div>
@@ -287,9 +335,15 @@ const TrialRegistrationForm = ({ onSubmit, productId, productImage, productName,
                 type="submit"
                 className="w-fit"
                 disabled={startSignUpMutation.isPending}
-                endIcon={!startSignUpMutation.isPending && <ArrowRightIcon weight="bold" className="size-5" />}
+                endIcon={
+                  !startSignUpMutation.isPending && (
+                    <ArrowRightIcon weight="bold" className="size-5" />
+                  )
+                }
               >
-                {startSignUpMutation.isPending ? t('trial.form.submit.processing') : t('trial.form.submit.continue')}
+                {startSignUpMutation.isPending
+                  ? t('trial.form.submit.processing')
+                  : t('trial.form.submit.continue')}
               </Button>
             </div>
           </form>

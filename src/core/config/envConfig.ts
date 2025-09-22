@@ -11,4 +11,7 @@ export const envConfig = {
 
   apiTimeout: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '10000'),
   accessTokenKey: 'accessToken',
+  appDomain: process.env.NEXT_PUBLIC_APP_DOMAIN as string,
+  introduceCodeQueryKey: 'code_introduce',
+  introduceCodeStorageKey: 'm4u_introduce_code',
 }

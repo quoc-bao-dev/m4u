@@ -21,7 +21,8 @@ import 'moment/locale/ko'
 import 'moment/locale/vi'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import React, { useMemo, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { useMemo } from 'react'
 
 const PersonalSidebar = () => {
   const t = useTranslations()
@@ -29,6 +30,7 @@ const PersonalSidebar = () => {
   const locale = useLocale()
   const { user, isAuthenticated } = useAuth()
   const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
+  const pathname = usePathname()
 
   const formatJoinDate = (dateString: string) => {
     try {
@@ -42,16 +44,11 @@ const PersonalSidebar = () => {
     }
   }
 
-  const [activeItem, setActiveItem] = useState<
-    | 'trial'
-    | 'reviews'
-    | 'donation'
-    | 'language'
-    | 'account'
-    | 'help'
-    | 'feedback'
-    | 'logout'
-  >('trial')
+  // Function to check if a path is active
+  const isActiveRoute = (href: string) => {
+    if (!href || href === '/developing') return false
+    return pathname.includes(href)
+  }
 
   const activityItems = useMemo(
     () => [
@@ -71,7 +68,7 @@ const PersonalSidebar = () => {
         id: 'donation' as const,
         label: t('menu.auth.activity.referralCode'),
         Icon: QrCode,
-        href: '/developing',
+        href: '/referral-program',
       },
     ],
     [t]
@@ -88,7 +85,7 @@ const PersonalSidebar = () => {
         id: 'account' as const,
         label: t('menu.auth.account.preferences'),
         Icon: UserCircle,
-        href: '/developing',
+        href: '/personal',
       },
     ],
     [t]
@@ -212,8 +209,7 @@ const PersonalSidebar = () => {
                   <Icon size={16} weight="fill" className="text-[#3B82F6]" />
                 }
                 label={label}
-                active={activeItem === id}
-                onClick={() => setActiveItem(id)}
+                active={isActiveRoute(href)}
                 href={href}
               />
             ))}
@@ -320,8 +316,7 @@ const PersonalSidebar = () => {
                       />
                     }
                     label={label}
-                    active={activeItem === id}
-                    onClick={() => setActiveItem(id)}
+                    active={isActiveRoute(href)}
                     href={href}
                   />
                 )
@@ -345,12 +340,8 @@ const PersonalSidebar = () => {
                     />
                   }
                   label={label}
-                  active={activeItem === id}
-                  onClick={() =>
-                    id === 'logout'
-                      ? openLogoutConfirmModal()
-                      : setActiveItem(id)
-                  }
+                  active={href ? isActiveRoute(href) : false}
+                  onClick={id === 'logout' ? openLogoutConfirmModal : undefined}
                   href={id === 'logout' ? undefined : href}
                 />
               ))}
@@ -378,8 +369,8 @@ const SidebarItem = ({
   const content = (
     <div
       onClick={onClick}
-      className={`flex items-center gap-3 rounded-xl  px-3 py-2 cursor-pointer transition-colors ${
-        active ? 'bg-[#E7F7FE]  hover:bg-blue-100' : 'bg-white hover:bg-gray-50'
+      className={`flex items-center gap-3 rounded-xl px-3 py-2 cursor-pointer transition-colors ${
+        active ? 'bg-[#E7F7FE] hover:bg-blue-100' : 'bg-white hover:bg-gray-50'
       }`}
     >
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200 bg-white">

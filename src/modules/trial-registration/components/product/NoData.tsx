@@ -13,7 +13,7 @@ const NoData = ({
 }: NoDataProps) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center w-full md:h-[600px]  ${className}`}
+      className={`flex flex-col items-center justify-center w-full h-full min-h-[300px] max-h-[600px] ${className}`}
     >
       <div className="relative mb-6">
         <img

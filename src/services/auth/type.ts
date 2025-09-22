@@ -30,6 +30,7 @@ export type UserResponse = {
     referral_code: string
     active: number
     avatar: string
+    code_introduce: string
   }
   message: string
 }
@@ -56,4 +57,5 @@ export type SignUpRequest = {
   id_product: string
   event: string
   key_code: string
+  code_introduce?: string | null
 }

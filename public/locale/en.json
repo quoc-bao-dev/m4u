@@ -577,5 +577,162 @@
     "title": "Start your beauty journey!",
     "description": "Your history of product trials will appear here once you register for your first product. It's easy to get started—sign up to get free products, earn commissions, and claim exclusive vouchers.",
     "registerButton": "Register for a Free Trial"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "Full name must be at least 2 characters",
+        "phoneInvalid": "Please enter a valid phone number",
+        "genderRequired": "Please select your gender",
+        "dobRequired": "Date of birth is required",
+        "addressMin": "Address must be at least 5 characters",
+        "oldPasswordRequired": "Current password is required",
+        "newPasswordMin": "New password must be at least 8 characters",
+        "confirmPasswordRequired": "Please confirm your new password",
+        "passwordsDoNotMatch": "Passwords do not match"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "gender": {
+          "label": "Gender",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "dateOfBirth": {
+          "label": "D.O.B",
+          "placeholder": "Select your date of birth"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "oldPassword": {
+          "label": "Old password",
+          "placeholder": "Enter your current password"
+        },
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "buttons": {
+        "saveChanges": "Save changes",
+        "updatePhoto": "Update photo"
+      },
+      "sections": {
+        "general": "General",
+        "security": "Security",
+        "accountPreferences": "Account preferences"
+      },
+      "helpers": {
+        "passwordRequirement": "Password must be minimum 8+ characters",
+        "photoRequirement": "Allowed *.jpeg, *.jpg, *.png, *.gif\nMax size of 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "accountPreferences": "Account preferences",
+    "form": {
+      "general": {
+        "title": "General",
+        "updatePhoto": "Update photo",
+        "uploadNote": "Allowed *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "Max size of 3.1 MB"
+      },
+      "security": {
+        "title": "Security"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "gender": {
+          "label": "Gender",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "dateOfBirth": {
+          "label": "D.O.B",
+          "placeholder": "Select your date of birth"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "oldPassword": {
+          "label": "Old password",
+          "placeholder": "Enter your old password"
+        },
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password",
+          "helperText": "Password must be minimum 8+ characters"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password",
+          "helperTextMatch": "Passwords match"
+        }
+      },
+      "submit": {
+        "saveChanges": "Save changes",
+        "saving": "Saving..."
+      },
+      "success": {
+        "updateAccount": "Account updated successfully",
+        "updatePassword": "Password updated successfully",
+        "updateAvatar": "Avatar updated successfully"
+      },
+      "errors": {
+        "noToken": "Authentication token not found. Please login again.",
+        "updateFailed": "Failed to update account. Please try again.",
+        "updatePasswordFailed": "Failed to update password. Please try again.",
+        "updateAvatarFailed": "Failed to update avatar. Please try again.",
+        "invalidFileType": "Invalid file type. Please select a valid image file (JPEG, JPG, PNG, GIF).",
+        "fileTooLarge": "File size too large. Please select a file smaller than 3.1 MB."
+      },
+      "validation": {
+        "fullNameMin": "Full name must be at least 2 characters",
+        "phoneInvalid": "Phone number must be between 8-15 characters",
+        "genderRequired": "Gender is required",
+        "dobRequired": "Date of birth is required",
+        "addressMin": "Address must be at least 5 characters",
+        "oldPasswordRequired": "Old password is required",
+        "newPasswordRequired": "New password is required",
+        "newPasswordMin": "New password must be at least 8 characters",
+        "confirmPasswordRequired": "Confirm password is required",
+        "passwordsNotMatch": "Passwords do not match"
+      }
+    }
+  },
+  "Referral": {
+    "title": "Referral Program",
+    "copy": "Copy",
+    "copied": "Copied",
+    "referrals": "Referrals",
+    "commissionRevenue": "Commission Revenue",
+    "friends": "Friends"
   }
 }
