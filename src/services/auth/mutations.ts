@@ -1,4 +1,5 @@
 import { tokenManager } from '@/core/http/axiosInstance'
+import { useRouter } from '@/locale'
 import { useAuth } from '@/modules/auth'
 import { authApi } from '@/services/auth/api'
 import {
@@ -42,6 +43,7 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   const queryClient = useQueryClient()
+  const router = useRouter()
   return useMutation({
     mutationFn: async (token: string) => {
       const response = await authApi.logout(token)
@@ -49,6 +51,7 @@ export const useLogout = () => {
     },
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['product-list'] })
+      router.push('/')
     },
   })
 }

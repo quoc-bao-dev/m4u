@@ -82,7 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   )
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
-  
+
   // Tạo unique ID cho CSS class
   const cardId = `product-card-${id}`
 
@@ -172,7 +172,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div
           className="content-bg p-2 xl:p-3 flex flex-col gap-1 rounded-b-xl xl:rounded-b-3xl w-full transition-all duration-300"
-          style={{ 
+          style={{
             backgroundColor: withAlpha(contentBg, "90"),
           } as React.CSSProperties}
         >
@@ -202,7 +202,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               )}`}</p>
             </>
           )}
-          
+
           {/* isSig === 0 nhảy qua đánh giá  */}
           {isSig === 0 ?
             <button
@@ -232,7 +232,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <PenIcon />
             </button>
             :
-            isSig === null ? 
+            isSig === 1 ?
+              <div className='xl:pt-2 flex gap-3 items-center'>
+                {video_review && (
+                  <div className='relative cursor-pointer group' onClick={togglePlay}>
+                    <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+                      {isPlaying ? (
+                        <PauseIcon weight="fill" className="size-5 text-white" />
+                      ) : (
+                        <PlayIcon weight="fill" className="size-5 text-white" />
+                      )}
+                    </div>
+                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
+                  </div>
+                )}
+                <div className='flex flex-col gap-1'>
+                  <Rating value={evaluate || 0} maxWidth={96} readOnly />
+                  <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
+                </div>
+              </div>
+              :
               <button
                 onClick={handleRegistration}
                 className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
@@ -253,25 +272,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <span className="truncate text-xs sm:text-base/[21px]">{t('product.register')}</span>
               </button>
-              :
-              <div className='xl:pt-2 flex gap-3 items-center'>
-                {video_review && (
-                  <div className='relative cursor-pointer group' onClick={togglePlay}>
-                    <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                      {isPlaying ? (
-                        <PauseIcon weight="fill" className="size-5 text-white" />
-                      ) : (
-                        <PlayIcon weight="fill" className="size-5 text-white" />
-                      )}
-                    </div>
-                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
-                  </div>
-                )}
-                <div className='flex flex-col gap-1'>
-                  <Rating value={evaluate || 0} maxWidth={96} readOnly />
-                  <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
-                </div>
-              </div>
           }
         </div>
       </div>

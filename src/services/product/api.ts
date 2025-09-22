@@ -9,7 +9,7 @@ export const productApi = {
       params: { _local },
     }),
   getProductRelationList: ({ _local, id }: { _local?: string; id: string }) =>
-    axiosInstance.get<ProductListResponse>('products/getList', {
+    axiosInstance.get<ProductListResponse>('products/getList?NotIsSig=1', {
       baseURL: envConfig.adminUrl,
       params: { _local, id, per_page: 3 },
     }),
