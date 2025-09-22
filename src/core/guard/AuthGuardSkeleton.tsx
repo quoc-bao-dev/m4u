@@ -6,11 +6,13 @@ import { IMAGES } from '@/core/constants/IMAGES'
 const AuthGuardSkeleton = () => {
   return (
     <div className="py-[96px] relative overflow-visible min-h-screen">
-      <img
-        src={IMAGES.topGradient2}
-        alt="top-gradient"
-        className="hidden lg:block absolute -z-30 top-0 w-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3] opacity-60"
-      />
+      <div className="hidden lg:block absolute -z-30 top-0 left-0 right-0 overflow-hidden -translate-y-1/2">
+        <img
+          src={IMAGES.topGradient2}
+          alt="top-gradient"
+          className="w-full h-auto object-cover pointer-events-none scale-x-[-1.3] opacity-60"
+        />
+      </div>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10">
           {/* Sidebar Skeleton */}
@@ -106,7 +108,7 @@ const AuthGuardSkeleton = () => {
               </div>
 
               {/* Loading Text */}
-              <div className="flex items-center justify-center mt-8">
+              {/* <div className="flex items-center justify-center mt-8">
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 bg-pink-500 rounded-full animate-bounce"></div>
                   <div
@@ -118,7 +120,7 @@ const AuthGuardSkeleton = () => {
                     style={{ animationDelay: '0.2s' }}
                   ></div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Background Gradient */}
               <div className="hidden lg:block absolute -bottom-6 left-0 right-0 z-8 translate-y-3/4 scale-x-[-1.8] overflow-hidden">

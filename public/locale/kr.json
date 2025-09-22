@@ -718,5 +718,13 @@
         "passwordsNotMatch": "비밀번호가 일치하지 않습니다"
       }
     }
+  },
+  "Referral": {
+    "title": "추천 프로그램",
+    "copy": "복사",
+    "copied": "복사됨",
+    "referrals": "추천 수",
+    "commissionRevenue": "커미션 수익",
+    "friends": "친구"
   }
 }

@@ -71,32 +71,34 @@ const Header = ({ user }: HeaderProps) => {
   return (
     <div className="">
       {/* Top section with profile info and membership */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex items-start justify-between mb-6 cursor-pointer">
         {/* Profile info */}
-        <div className="flex items-center space-x-4">
-          {/* Avatar */}
-          <div className="size-[64px] rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200">
-            <img
-              src={user.avatar || '/placeholder-avatar.jpg'}
-              alt={user.fullname || 'User'}
-              className="w-full h-full object-cover "
-              onError={(e) => {
-                const target = e.target as HTMLImageElement
-                target.src = '/image/avatar/image-01.png'
-              }}
-            />
-          </div>
+        <Link href="/personal" onClick={() => sMenuSignal.set('close')}>
+          <div className="flex items-center space-x-4">
+            {/* Avatar */}
+            <div className="size-[64px] rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200">
+              <img
+                src={user.avatar || '/placeholder-avatar.jpg'}
+                alt={user.fullname || 'User'}
+                className="w-full h-full object-cover "
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = '/image/avatar/image-01.png'
+                }}
+              />
+            </div>
 
-          {/* Name and join date */}
-          <div>
-            <h3 className="text-[18px] font-bold text-greyscale-900 mb-1">
-              {user.fullname || t('menu.auth.unknownUser')}
-            </h3>
-            <p className="text-[12px] text-greyscale-500">
-              {formatJoinDate(user.created_at)}
-            </p>
+            {/* Name and join date */}
+            <div>
+              <h3 className="text-[18px] font-bold text-greyscale-900 mb-1">
+                {user.fullname || t('menu.auth.unknownUser')}
+              </h3>
+              <p className="text-[12px] text-greyscale-500">
+                {formatJoinDate(user.created_at)}
+              </p>
+            </div>
           </div>
-        </div>
+        </Link>
 
         {/* Membership badge */}
         <div className="bg-[#FFD4001A] px-3 py-1 rounded-full flex items-center gap-1 relative z-10">
@@ -163,7 +165,7 @@ const Top = ({ user }: TopProps) => {
       id: 'referral-code',
       label: 'menu.auth.activity.referralCode',
       icon: QrCodeIcon,
-      href: '/developing',
+      href: '/referral-program',
     },
   ]
 

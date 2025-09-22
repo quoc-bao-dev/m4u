@@ -1,8 +1,8 @@
 'use client'
 
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { cn } from '@/core/utils'
-import { Eye, EyeSlash, XCircle } from '@phosphor-icons/react'
+import { Eye, EyeClosed, XCircle } from '@phosphor-icons/react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
 interface PasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -112,9 +112,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             tabIndex={-1}
           >
             {show ? (
-              <EyeSlash weight="bold" className="size-5" />
-            ) : (
               <Eye weight="bold" className="size-5" />
+            ) : (
+              <EyeClosed className="size-5" />
             )}
           </button>
         </div>

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import { Container, Section } from '@/core/components/common/group'
 import { useEffect } from 'react'
 import HeroBackground from './HeroBackground'
@@ -10,7 +10,8 @@ const HeroSection = () => {
   //lấy chiều cao của viewport
   useEffect(() => {
     const inner = window.innerHeight
-    const visual = (window.visualViewport && window.visualViewport.height) || inner
+    const visual =
+      (window.visualViewport && window.visualViewport.height) || inner
     const initial = Math.min(inner, visual)
     const root = document.documentElement
     root.style.setProperty('--vh-initial', `${initial * 0.01}px`)

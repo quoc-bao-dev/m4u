@@ -1,6 +1,11 @@
 'use client'
 
-import { DatePicker, Input, RadioGroup } from '@/core/components/ui'
+import {
+  DatePicker,
+  Input,
+  RadioGroup,
+  SectionHeader,
+} from '@/core/components/ui'
 import { useToast } from '@/core/hooks/useToast'
 import { tokenManager } from '@/core/http/axiosInstance'
 import { useAuth } from '@/modules/auth'
@@ -193,12 +198,7 @@ const UserGeneralForm = () => {
   return (
     <div className="w-full px-1">
       {/* Header with tag line */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-[12px] h-[32px] bg-pink-500 rounded"></div>
-        <h2 className="text-xl text-gray-900 font-semibold">
-          {t('personal.form.general.title')}
-        </h2>
-      </div>
+      <SectionHeader title={t('personal.form.general.title')} />
 
       {/* Separator line */}
       <div className="w-full h-px bg-gray-200 mb-8"></div>
@@ -219,7 +219,7 @@ const UserGeneralForm = () => {
           {/* Avatar upload area */}
           <div
             onClick={handleAvatarClick}
-            className="relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors"
+            className="group relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors"
           >
             <div className="relative w-32 h-32 bg-gray-400 rounded-full flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0">
@@ -234,7 +234,7 @@ const UserGeneralForm = () => {
                     }
                   }}
                 />
-                <div className="absolute inset-0 bg-gray-900/65"></div>
+                <div className="absolute inset-0 bg-gray-900/15 group-hover:bg-gray-900/65 transition-all duration-300"></div>
               </div>
             </div>
             <div className="flex items-center justify-center flex-col gap-2 absolute inset-0">

@@ -721,5 +721,13 @@
         "passwordsNotMatch": "Passwords do not match"
       }
     }
+  },
+  "Referral": {
+    "title": "Referral Program",
+    "copy": "Copy",
+    "copied": "Copied",
+    "referrals": "Referrals",
+    "commissionRevenue": "Commission Revenue",
+    "friends": "Friends"
   }
 }

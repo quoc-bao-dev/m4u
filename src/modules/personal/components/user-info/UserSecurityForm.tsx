@@ -1,6 +1,6 @@
 'use client'
 
-import { PasswordInput } from '@/core/components/ui'
+import { PasswordInput, SectionHeader } from '@/core/components/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { Controller, useForm } from 'react-hook-form'
@@ -88,12 +88,8 @@ const UserSecurityForm = () => {
   return (
     <div className="w-full px-1">
       {/* Header with tag line */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-[12px] h-[32px] bg-pink-500 rounded"></div>
-        <h2 className="text-xl text-gray-900 font-semibold">
-          {t('personal.form.security.title')}
-        </h2>
-      </div>
+
+      <SectionHeader title={t('personal.form.security.title')} />
 
       {/* Separator line */}
       <div className="w-full h-px bg-gray-200 mb-8"></div>

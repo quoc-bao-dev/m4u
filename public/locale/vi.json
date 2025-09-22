@@ -718,5 +718,13 @@
         "passwordsNotMatch": "Mật khẩu không khớp"
       }
     }
+  },
+  "Referral": {
+    "title": "Chương trình giới thiệu",
+    "copy": "Copy",
+    "copied": "Đã copy",
+    "referrals": "Số lượt giới thiệu",
+    "commissionRevenue": "Doanh thu hoa hồng",
+    "friends": "Bạn bè"
   }
 }

@@ -68,7 +68,7 @@ const PersonalSidebar = () => {
         id: 'donation' as const,
         label: t('menu.auth.activity.referralCode'),
         Icon: QrCode,
-        href: '/developing',
+        href: '/referral-program',
       },
     ],
     [t]
