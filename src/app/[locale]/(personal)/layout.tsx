@@ -9,12 +9,14 @@ import { PropsWithChildren } from 'react'
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <AuthGuard redirectTo="/" fallback={<AuthGuardSkeleton />}>
-      <div className="py-[96px] relative overflow-visible min-h-screen">
-        <img
-          src={IMAGES.topGradient2}
-          alt="top-gradient"
-          className="hidden lg:block absolute -z-30 top-0 w-full object-cover pointer-events-none -translate-y-1/2 scale-x-[-1.3] opacity-60"
-        />
+      <div className="py-[96px] relative min-h-screen">
+        <div className="hidden lg:block absolute -z-30 top-0 left-0 right-0 overflow-hidden -translate-y-1/2">
+          <img
+            src={IMAGES.topGradient2}
+            alt="top-gradient"
+            className="w-full h-auto object-cover pointer-events-none scale-x-[-1.3] opacity-60"
+          />
+        </div>
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 relative z-10">
             <aside className="hidden lg:block lg:col-span-4 xl:col-span-3">

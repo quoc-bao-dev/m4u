@@ -48,8 +48,8 @@ const UserSecurityForm = () => {
     try {
       const response = await updatePasswordMutation.mutateAsync({
         token,
-        old_password: data.oldPassword,
-        new_password: data.newPassword,
+        password_old: data.oldPassword,
+        password: data.newPassword,
       })
 
       // Check API response
@@ -86,7 +86,7 @@ const UserSecurityForm = () => {
   const isFormValid = isValid && hasAllRequiredValues
 
   return (
-    <div className="w-full">
+    <div className="w-full px-1">
       {/* Header with tag line */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-[12px] h-[32px] bg-pink-500 rounded"></div>

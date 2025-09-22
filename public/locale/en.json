@@ -697,12 +697,16 @@
       },
       "success": {
         "updateAccount": "Account updated successfully",
-        "updatePassword": "Password updated successfully"
+        "updatePassword": "Password updated successfully",
+        "updateAvatar": "Avatar updated successfully"
       },
       "errors": {
         "noToken": "Authentication token not found. Please login again.",
         "updateFailed": "Failed to update account. Please try again.",
-        "updatePasswordFailed": "Failed to update password. Please try again."
+        "updatePasswordFailed": "Failed to update password. Please try again.",
+        "updateAvatarFailed": "Failed to update avatar. Please try again.",
+        "invalidFileType": "Invalid file type. Please select a valid image file (JPEG, JPG, PNG, GIF).",
+        "fileTooLarge": "File size too large. Please select a file smaller than 3.1 MB."
       },
       "validation": {
         "fullNameMin": "Full name must be at least 2 characters",

@@ -4,10 +4,10 @@ import { DatePicker, Input, RadioGroup } from '@/core/components/ui'
 import { useToast } from '@/core/hooks/useToast'
 import { tokenManager } from '@/core/http/axiosInstance'
 import { useAuth } from '@/modules/auth'
-import { useUpdateAccount } from '@/services/user'
+import { useUpdateAccount, useUpdateAvatar } from '@/services/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { createUserGeneralSchema, type UserGeneralFormData } from '../../schema'
 import { CameraPlus } from '@phosphor-icons/react'
@@ -16,8 +16,10 @@ const UserGeneralForm = () => {
   const t = useTranslations()
   const schema = createUserGeneralSchema(t)
   const updateAccountMutation = useUpdateAccount()
+  const updateAvatarMutation = useUpdateAvatar()
   const { showSuccess, showError } = useToast()
   const { user } = useAuth()
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const {
     control,
@@ -82,8 +84,9 @@ const UserGeneralForm = () => {
         fullname: data.fullName,
         gender: getGenderNumber(data.gender).toString(),
         address: data.address,
-        phone: data.phoneNumber,
         birthday: data.dateOfBirth,
+        // Note: phone is readonly and won't be updated
+        // phone: data.phoneNumber,
       })
 
       // Check API response
@@ -108,15 +111,87 @@ const UserGeneralForm = () => {
   const formValues = watch()
   const hasAllRequiredValues =
     formValues.fullName?.trim() &&
-    formValues.phoneNumber?.trim() &&
     formValues.gender &&
     formValues.dateOfBirth?.trim() &&
     formValues.address?.trim()
+  // Note: phoneNumber is readonly and always has value from user data
 
   const isFormValid = isValid && hasAllRequiredValues
 
+  // File validation helper
+  const validateFile = (file: File): string | null => {
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+    const maxSizeInBytes = 3.1 * 1024 * 1024 // 3.1 MB
+
+    if (!allowedTypes.includes(file.type)) {
+      return t('personal.form.errors.invalidFileType')
+    }
+
+    if (file.size > maxSizeInBytes) {
+      return t('personal.form.errors.fileTooLarge')
+    }
+
+    return null
+  }
+
+  // Handle avatar click
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  // Handle file selection
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    // Validate file
+    const validationError = validateFile(file)
+    if (validationError) {
+      showError(validationError)
+      return
+    }
+
+    // Get token
+    const token = tokenManager.getAccessToken()
+    if (!token) {
+      showError(t('personal.form.errors.noToken'))
+      return
+    }
+
+    try {
+      const response = await updateAvatarMutation.mutateAsync({
+        token,
+        avatar: file,
+      })
+
+      // Check API response
+      if (response?.data?.result === true) {
+        showSuccess(t('personal.form.success.updateAvatar'))
+      } else {
+        showError(
+          response?.data?.message ||
+            t('personal.form.errors.updateAvatarFailed')
+        )
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        t('personal.form.errors.updateAvatarFailed')
+      showError(errorMessage)
+      console.error('Update avatar failed:', error)
+    } finally {
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
+
   return (
-    <div className="w-full">
+    <div className="w-full px-1">
       {/* Header with tag line */}
       <div className="flex items-center gap-3 mb-6">
         <div className="w-[12px] h-[32px] bg-pink-500 rounded"></div>
@@ -132,15 +207,43 @@ const UserGeneralForm = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Avatar Column */}
         <div className="flex flex-col items-center lg:items-start">
+          {/* Hidden file input */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/jpg,image/png,image/gif"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+
           {/* Avatar upload area */}
-          <div className="relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors">
-            <div className="w-32 h-32 bg-gray-400 rounded-full flex items-center justify-center overflow-hidden">
-              <div className="flex items-center flex-col gap-2">
-                <CameraPlus size={28} className="text-white" />
-                <span className="text-white text-xs font-medium">
-                  {t('personal.form.general.updatePhoto')}
-                </span>
+          <div
+            onClick={handleAvatarClick}
+            className="relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors"
+          >
+            <div className="relative w-32 h-32 bg-gray-400 rounded-full flex items-center justify-center overflow-hidden">
+              <div className="absolute inset-0">
+                <img
+                  src={user?.avatar || '/image/avatar/image-03.png'}
+                  alt="Avatar"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement
+                    if (target.src !== '/image/avatar/image-03.png') {
+                      target.src = '/image/avatar/image-03.png'
+                    }
+                  }}
+                />
+                <div className="absolute inset-0 bg-gray-900/65"></div>
               </div>
+            </div>
+            <div className="flex items-center justify-center flex-col gap-2 absolute inset-0">
+              <CameraPlus size={28} className="text-white" />
+              <span className="text-white text-xs font-medium">
+                {updateAvatarMutation.isPending
+                  ? t('personal.form.submit.saving')
+                  : t('personal.form.general.updatePhoto')}
+              </span>
             </div>
           </div>
 
@@ -194,6 +297,7 @@ const UserGeneralForm = () => {
                         value={field.value}
                         onChange={field.onChange}
                         required
+                        readonly
                         error={errors.phoneNumber?.message}
                       />
                     </div>
@@ -284,6 +388,7 @@ const UserGeneralForm = () => {
                         value={field.value}
                         onChange={field.onChange}
                         required
+                        readonly
                         error={errors.phoneNumber?.message}
                       />
                     </div>

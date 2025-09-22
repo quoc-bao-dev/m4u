@@ -694,12 +694,16 @@
       },
       "success": {
         "updateAccount": "Cập nhật tài khoản thành công",
-        "updatePassword": "Cập nhật mật khẩu thành công"
+        "updatePassword": "Cập nhật mật khẩu thành công",
+        "updateAvatar": "Cập nhật ảnh đại diện thành công"
       },
       "errors": {
         "noToken": "Không tìm thấy token xác thực. Vui lòng đăng nhập lại.",
         "updateFailed": "Cập nhật tài khoản thất bại. Vui lòng thử lại.",
-        "updatePasswordFailed": "Cập nhật mật khẩu thất bại. Vui lòng thử lại."
+        "updatePasswordFailed": "Cập nhật mật khẩu thất bại. Vui lòng thử lại.",
+        "updateAvatarFailed": "Cập nhật ảnh đại diện thất bại. Vui lòng thử lại.",
+        "invalidFileType": "Định dạng file không hợp lệ. Vui lòng chọn file ảnh hợp lệ (JPEG, JPG, PNG, GIF).",
+        "fileTooLarge": "Kích thước file quá lớn. Vui lòng chọn file nhỏ hơn 3.1 MB."
       },
       "validation": {
         "fullNameMin": "Họ và tên phải có ít nhất 2 ký tự",

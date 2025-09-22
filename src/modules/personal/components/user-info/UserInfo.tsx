@@ -10,7 +10,7 @@ const UserInfo = () => {
   return (
     <div>
       <div className="py-2">
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-2xl font-bold pb-1">
           {t('personal.accountPreferences', {
             defaultValue: 'Account preferences',
           })}

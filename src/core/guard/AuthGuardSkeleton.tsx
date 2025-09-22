@@ -117,9 +117,6 @@ const AuthGuardSkeleton = () => {
                     className="w-4 h-4 bg-pink-500 rounded-full animate-bounce"
                     style={{ animationDelay: '0.2s' }}
                   ></div>
-                  <span className="ml-3 text-gray-500 font-medium">
-                    Đang kiểm tra xác thực...
-                  </span>
                 </div>
               </div>
 

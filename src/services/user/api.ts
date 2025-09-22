@@ -17,13 +17,26 @@ export const userApi = {
 
   updatePassword: (data: {
     token: string
-    old_password: string
-    new_password: string
+    password_old: string
+    password: string
     type?: string
   }) => {
     data.type = !data.type ? 'password' : data.type
     return axiosInstance.post('/update_password', data, {
       baseURL: envConfig.accountUrl,
+    })
+  },
+
+  updateAvatar: (data: { token: string; avatar: File }) => {
+    const formData = new FormData()
+    formData.append('token', data.token)
+    formData.append('avatar', data.avatar)
+
+    return axiosInstance.post('/update_account', formData, {
+      baseURL: envConfig.accountUrl,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
   },
 }
