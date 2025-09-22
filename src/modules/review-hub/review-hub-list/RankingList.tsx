@@ -10,6 +10,7 @@ import { IMAGES } from '@/core/constants/IMAGES'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import TopReviewerCard from './components/TopReviewerCard'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface Kol {
   name: string
@@ -31,6 +32,7 @@ interface Product {
 
 interface RankingListProps {
   products?: any
+  isLoading?: boolean
 }
 
 const kols = [
@@ -78,7 +80,7 @@ const kols = [
   },
 ]
 
-const RankingList = ({ products }: RankingListProps) => {
+const RankingList = ({ products, isLoading }: RankingListProps) => {
   const t = useTranslations('reviewHub')
   // const list = productsProp.length ? productsProp : defaultProducts
   const filterOptions = {
@@ -127,7 +129,7 @@ const RankingList = ({ products }: RankingListProps) => {
     <div className="w-full flex flex-col gap-3 lg:gap-12">
       {/* Filter Section */}
       <div className="w-full flex flex-col xl:flex-row justify-between items-center gap-3">
-        <div className="flex gap-3 2xl:gap-4 overflow-x-scroll scroll-hidden w-full">
+        <div className="flex gap-3 2xl:gap-4 overflow-x-scroll scroll-hidden w-full p-1">
           {/* Free From Filter */}
           <Select defaultValue="all">
             <SelectTrigger className="w-[140px] bg-white">
@@ -216,15 +218,24 @@ const RankingList = ({ products }: RankingListProps) => {
 
       {/* Content Area */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 xl:gap-x-10 2xl:gap-x-16 gap-y-4 xl:gap-y-8 2xl:gap-y-12">
-        {products.map((product : any, idx : number) => (
-          <TopReviewerCard
-            key={product.id}
-            data={product}
-            kols={kols}
-            topReview={idx + 2}
-            isRightColumn={idx % 2 === 1}
-          />
-        ))}
+        {isLoading ? (
+          <>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Skeleton key={index} className="size-full h-[250px] rounded-3xl" />
+            ))}
+          </>
+        ) : (
+          products.map((product : any, idx : number) => (
+            <TopReviewerCard
+              key={product.id}
+              data={product}
+              kols={kols}
+              topReview={idx + 2}
+              isRightColumn={idx % 2 === 1}
+            />
+          ))
+        )}
+        
       </div>
     </div>
   )
