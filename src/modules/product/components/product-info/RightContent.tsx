@@ -30,9 +30,10 @@ type RightContentProps = {
   isSig?: number
   video_review?: string | null
   evaluate: number
+  id_review: number
 }
 
-const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, rate, quantityReviews, limitPeople, participation, isSig, video_review, evaluate,
+const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, rate, quantityReviews, limitPeople, participation, isSig, video_review, evaluate, id_review
 }: RightContentProps) => {
   const { t } = useTranslation()
   return (
@@ -67,6 +68,7 @@ const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, r
             productCode={code}
             productColor={colorHeader || undefined}
             isSig={isSig}
+            id_review={id_review}
             video_review={video_review || undefined}
             evaluate={evaluate}
           />
@@ -100,9 +102,10 @@ type ButtonRegisterProps = {
   isSig?: number
   video_review?: string
   evaluate: number
+  id_review: number
 }
 
-const ButtonRegister = ({ productId, productImage, productName, productCode, productColor, isSig, video_review, evaluate }: ButtonRegisterProps) => {
+const ButtonRegister = ({ productId, productImage, productName, productCode, productColor, isSig, video_review, evaluate, id_review }: ButtonRegisterProps) => {
   const { open: onpen } = useModalRegistration()
   const { t } = useTranslation()
   const { isAuthenticated } = useAuth()
@@ -132,7 +135,7 @@ const ButtonRegister = ({ productId, productImage, productName, productCode, pro
     return (
       <button
         type="button"
-        onClick={() => router.push('/submit-review')}
+        onClick={() => router.push(`/submit-review/${id_review}`)}
         className="transform-gpu border-gradient-button-dynamic bg-white w-fit py-3 px-5 md:py-3 md:px-6 rounded-full cursor-pointer text-sm md:text-base flex items-center gap-3"
         style={{
           color: '#FF8500',

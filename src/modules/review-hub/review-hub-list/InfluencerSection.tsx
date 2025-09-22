@@ -3,6 +3,7 @@
 import Button from '@/core/components/ui/button'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/locale'
 
 const Influencer = () => {
   const t = useTranslations('reviewHub.influencer')
@@ -27,7 +28,9 @@ const Influencer = () => {
           {t('titleEnd')}
         </h2>
         <p className="text-gray-600 text-base lg:text-lg">{t('subtitle')}</p>
-        <Button>{t('cta')}</Button>
+        <Link href="/trial-registration">
+          <Button>{t('cta')}</Button>
+        </Link>
       </div>
     </div>
   )

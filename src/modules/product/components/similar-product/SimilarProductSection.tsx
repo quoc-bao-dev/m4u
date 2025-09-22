@@ -23,15 +23,19 @@ const SimilarProductSection = () => {
     return productRelationList.data.map((product) => ({
       id: product.id.toString(),
       slug: product.slug,
-      brand: 'Brand', // Có thể cần lấy từ API hoặc hardcode
+      brand: product.code || 'Brand',
       productName: product.name,
       participation: product.count_join, // Default value, có thể cần lấy từ API
-      rate: product.average_star,
       limitPeople: product.limit_people,
       image: product.image,
       imageAlt: product.name,
+      rate: product.average_star,
       bgColor: product.background_color || '#FFF7ED',
       hex: product.color_header || '#FF8500',
+      isSig: product.isSig,
+      evaluate: product.evaluate,
+      video_review: product.video_review,
+      id_review: product.id_review,
       time:
         product.time_left_dd_hh_mm_ss === '0:00:00:00' ||
         !product.time_left_dd_hh_mm_ss
@@ -126,10 +130,10 @@ const SimilarProductSection = () => {
                     <div className="h-full w-full max-w-sm xl:max-w-md">
                       <Link href={`/product/${p.slug}`}>
                         <ProductCard
+                          id={Number(p.id)}
                           brand={p.brand}
                           productName={p.productName}
                           participation={p.participation}
-                          id={Number(p.id)}
                           limitPeople={p.limitPeople}
                           image={p.image}
                           imageAlt={p.imageAlt}
@@ -137,7 +141,10 @@ const SimilarProductSection = () => {
                           bgColor={p.bgColor}
                           hex={p.hex}
                           time={p.time}
-                          classNameImage="xl:h-[400px]"
+                          isSig={p.isSig}
+                          evaluate={p.evaluate}
+                          video_review={p.video_review}
+                          id_review={p.id_review}
                           className="h-full flex flex-col"
                         />
                       </Link>
