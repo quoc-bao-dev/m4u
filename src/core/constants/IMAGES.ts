@@ -34,4 +34,5 @@ export const IMAGES = {
   review2: '/image/review/review2.png',
   review3: '/image/review/review3.png',
   imageNoData: '/image/product/image-nodata.png',
+  nodataReviewhub: '/image/no-data/nodata-reviewhub.png',
 }

@@ -3,7 +3,7 @@
 import { Timer } from '@/core/components'
 import Rating from '@/core/components/common/Rating'
 import { useToast } from '@/core/hooks'
-import { cn, getRatingI18nKey } from '@/core/utils'
+import { getRatingI18nKey } from '@/core/utils'
 import { Lightning } from '@/icons'
 import { useRouter, useTranslation } from '@/locale'
 import { useAuth } from '@/modules/auth'
@@ -28,7 +28,6 @@ interface ProductCardProps {
   limitPeople: number
   time?: string // HH:MM:SS
   className?: string
-  classNameImage?: string
   isSig?: number
   video_review?: string
   evaluate?: number
@@ -62,7 +61,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   limitPeople,
   time,
   className = '',
-  classNameImage = '',
   isSig,
   video_review,
   evaluate,
@@ -84,6 +82,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   )
   const accentHex = hex || '#FF8500'
   const contentBg = bgColor || backgroundColor
+  
+  // Tạo unique ID cho CSS class
+  const cardId = `product-card-${id}`
 
   // Video controls
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
@@ -132,8 +133,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
+    <>
+      <style jsx>{`
+        .${cardId}:hover .content-bg {
+          background-color: ${withAlpha(contentBg, "70")} !important;
+        }
+      `}</style>
       <div
-        className={`relative shadow-[0px_4px_24px_0px_#0000000F] rounded-xl xl:rounded-3xl select-none w-full ${className}`}
+        className={`${cardId} group relative shadow-[0px_4px_24px_0px_#0000000F] hover:shadow-xl rounded-xl xl:rounded-3xl select-none w-full transition-all duration-300 ${className}`}
       >
         <div className="rounded-t-xl xl:rounded-t-3xl relative overflow-hidden w-full aspect-[327/320]">
           <div
@@ -164,8 +171,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
         <div
-          className="p-2 xl:p-3 flex flex-col gap-1 rounded-b-xl xl:rounded-b-3xl w-full"
-          style={{ backgroundColor: withAlpha(contentBg, "90") }}
+          className="content-bg p-2 xl:p-3 flex flex-col gap-1 rounded-b-xl xl:rounded-b-3xl w-full transition-all duration-300"
+          style={{ 
+            backgroundColor: withAlpha(contentBg, "90"),
+          } as React.CSSProperties}
         >
           <h3 className="text-[10px] sm:text-sm font-bold text-greyscale-900">
             {brand}
@@ -266,6 +275,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           }
         </div>
       </div>
+    </>
   )
 }
 
