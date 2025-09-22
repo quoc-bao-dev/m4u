@@ -16,6 +16,7 @@ const ReviewHub = () => {
       <h1 className="text-2xl lg:text-5xl 2xl:text-[64px] font-bold xl:py-6 text-gradient-blue-black">
         {t('title')}
       </h1>
+
       {!isLoading && data?.length === 0 ? (
         <NodataReviewhub />
       ) : (

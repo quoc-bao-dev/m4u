@@ -226,7 +226,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
               onMouseUp={endDrag}
               onMouseLeave={endDrag}
             >
-              {kols.map((kol, index) => (
+              {data?.review?.data?.map((kol: any, index: number) => (
                 <div
                   className="group relative cursor-pointer"
                   key={index}
@@ -237,7 +237,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                       weight="fill"
                       className="size-3 xl:size-5 text-yellow-600"
                     />
-                    4.9
+                    {kol.evaluate}
                   </div>
                   <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg lg:rounded-3xl">
                     {playingIndex === index ? (
@@ -253,7 +253,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                     ref={(el) => {
                       if (el) videoRefs.current[index] = el
                     }}
-                    src={kol.image}
+                    src={kol.video_review}
                     autoPlay={index === 0}
                     muted
                     loop

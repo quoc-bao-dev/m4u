@@ -78,72 +78,8 @@ const kols = [
   },
 ]
 
-const defaultProducts: Product[] = [
-  {
-    id: '1',
-    productName: 'Panthetoin Deep Moisture Mask',
-    brandName: 'MANYO',
-    rating: 4.0,
-    reviewCount: 69,
-    productImage: IMAGES.topProduct,
-    topReview: 1,
-    kols: kols,
-  },
-  {
-    id: '2',
-    productName: 'Vitamin C Brightening Serum',
-    brandName: 'COSRX',
-    rating: 4.2,
-    reviewCount: 85,
-    productImage: IMAGES.topProduct1,
-    topReview: 2,
-    kols: kols,
-  },
-  {
-    id: '3',
-    productName: 'Hyaluronic Acid Moisturizer',
-    brandName: 'The Ordinary',
-    rating: 4.1,
-    reviewCount: 72,
-    productImage: IMAGES.topProduct2,
-    topReview: 3,
-    kols: kols,
-  },
-  {
-    id: '4',
-    productName: 'Retinol Night Cream',
-    brandName: "Paula's Choice",
-    rating: 3.9,
-    reviewCount: 58,
-    productImage: IMAGES.topProduct3,
-    topReview: 4,
-    kols: kols,
-  },
-  {
-    id: '5',
-    productName: 'Hyaluronic Acid Moisturizer',
-    brandName: 'The Ordinary',
-    rating: 4.1,
-    reviewCount: 72,
-    productImage: IMAGES.topProduct,
-    topReview: 5,
-    kols: kols,
-  },
-  {
-    id: '6',
-    productName: 'Retinol Night Cream',
-    brandName: "Paula's Choice",
-    rating: 3.9,
-    reviewCount: 58,
-    productImage: IMAGES.topProduct1,
-    topReview: 6,
-    kols: kols,
-  },
-]
-
 const RankingList = ({ products }: RankingListProps) => {
   const t = useTranslations('reviewHub')
-  console.log(products)
   // const list = productsProp.length ? productsProp : defaultProducts
   const filterOptions = {
     freeFrom: [

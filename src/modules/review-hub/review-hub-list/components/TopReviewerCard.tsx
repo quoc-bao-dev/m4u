@@ -40,7 +40,6 @@ const TopReviewerCard = ({
   topReview = 1,
   isRightColumn = false,
 }: TopReviewerCardProps) => {
-  console.log(data)
   const { isMobile, isTablet } = useDevice()
   // Left column should start earlier; right column should start a bit later
   const { ref: cardRef, isInView } = useInView<HTMLDivElement>({
