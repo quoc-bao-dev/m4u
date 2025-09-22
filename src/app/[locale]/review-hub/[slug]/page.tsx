@@ -3,8 +3,15 @@ import React from 'react'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 
-const ReviewHubDetailPage = () => {
-  return <ReviewHubDetail />
+interface ReviewHubDetailPageProps {
+  params: Promise<{
+      slug: string;
+  }>;
+}
+
+const ReviewHubDetailPage = async ({ params }: ReviewHubDetailPageProps) => {
+  const { slug } = await params
+  return <ReviewHubDetail slug={slug} />
 }
 
 export default ReviewHubDetailPage

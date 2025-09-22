@@ -46,20 +46,16 @@ const kols = [
   },
 ]
 
-const Info = () => {
-  const { isMobile, isTablet, isDesktop } = useDevice()
-  const images = [
-    IMAGES.topProduct,
-    IMAGES.topProduct1,
-    IMAGES.topProduct2,
-    IMAGES.topProduct3,
-    IMAGES.topProduct1,
-  ]
+const Info = ({ data }: { data: any }) => {
+  const { isMobile, isDesktop } = useDevice()
+  console.log(data)
+
   const [activeIndex, setActiveIndex] = useState<number>(0)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const itemRefs = useRef<(HTMLImageElement | null)[]>([])
 
   const tProduct = useTranslations('product')
+
   return (
     <div className="p-3 py-6 lg:p-6 xl:p-12 bg-yellow-100 flex flex-col lg:flex-row gap-4 lg:gap-6 xl:gap-8 md:rounded-3xl w-full">
       <div className="flex flex-col-reverse lg:flex-row gap-3 lg:h-[300px] xl:h-[350px] flex-shrink-0">
@@ -71,7 +67,7 @@ const Info = () => {
             ref={containerRef}
             className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto overflow-y-hidden lg:overflow-x-hidden h-full scroll-hidden w-fit flex-shrink-0"
           >
-            {images.map((img, index) => (
+            {data?.list_images?.map((img: string, index: number) => (
               <Image
                 key={`thumb-${index}`}
                 src={img}
@@ -91,18 +87,17 @@ const Info = () => {
                     inline: isVertical ? 'nearest' : 'center',
                   })
                 }}
-                className={`size-24 xl:size-30 rounded-2xl object-cover cursor-pointer ${
-                  activeIndex === index
+                className={`size-24 xl:size-30 rounded-2xl object-cover cursor-pointer ${activeIndex === index
                     ? 'border border-[#FF8092]'
                     : 'border border-transparent'
-                }`}
+                  }`}
               />
             ))}
           </div>
         </div>
         <div className="relative size-full lg:size-[300px] xl:size-[350px] flex-shrink-0">
           <Image
-            src={images[activeIndex]}
+            src={data?.list_images[activeIndex] ?? '/image/product/image-nodata.png'}
             alt="top-reviewer"
             width={1000}
             height={1000}
@@ -126,21 +121,21 @@ const Info = () => {
       <div className="flex flex-col gap-3 justify-between flex-1">
         <div className="flex flex-col gap-1 xl:gap-3 w-full">
           <h2 className="text-xs lg:text-base xl:text-xl font-bold text-greyscale-900">
-            MANYO
+            {data?.code}
           </h2>
           <h3 className="text-base lg:text-2xl xl:text-[32px] xl:leading-[100%] font-normal text-greyscale-900">
-            Panthetoin Deep Moisture Mask
+            {data?.name}
           </h3>
           <div className="flex gap-3 justify-between w-full mt-2 lg:mt-0">
             <div className="flex items-center gap-3">
               <Rating
-                value={Number(4.0)}
+                value={Number(data?.average_star)}
                 readOnly
                 maxWidth={isMobile ? 116 : 136}
               />
               <p className="text-sm lg:text-xl xl:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
-                <span className="text-greyscale-900 font-medium">4.0 </span>
-                (69 {tProduct('reviews')})
+                <span className="text-greyscale-900 font-medium">{data?.average_star} </span>
+                ({data?.quantity_reviews} {tProduct('reviews')})
               </p>
             </div>
             <div className="hidden xl:flex items-center gap-1.5">
@@ -161,11 +156,11 @@ const Info = () => {
         <div className="flex flex-col-reverse xl:flex-row gap-3 justify-between xl:items-center w-full">
           <div className="flex flex-col gap-1">
             <h4 className="text-lg lg:text-xl xl:text-2xl font-bold text-[#F5222D]">
-              ⚡ {tProduct('slotsLeft', { count: 88 })}
+              ⚡ {tProduct('slotsLeft', { count: data?.limit_people - data?.count_join })}
             </h4>
             <p className="text-sm lg:text-base xl:text-xl text-greyscale-600">
               <span className="text-greyscale-900 font-bold">
-                69 {tProduct('users')}
+                {data?.count_join} {tProduct('users')}
               </span>{' '}
               {tProduct('enrolledTrial')}
             </p>
