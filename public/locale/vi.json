@@ -633,7 +633,7 @@
       "sections": {
         "general": "Chung",
         "security": "Bảo mật",
-        "accountPreferences": "Tùy chọn tài khoản"
+        "accountPreferences": "Tùy chỉnh tài khoản"
       },
       "helpers": {
         "passwordRequirement": "Mật khẩu phải có tối thiểu 8+ ký tự",
@@ -642,7 +642,7 @@
     }
   },
   "personal": {
-    "accountPreferences": "Tùy chọn tài khoản",
+    "accountPreferences": "Tùy chỉnh tài khoản",
     "form": {
       "general": {
         "title": "Thông tin chung",
@@ -730,6 +730,10 @@
     "copied": "Đã copy",
     "referrals": "Số lượt giới thiệu",
     "commissionRevenue": "Doanh thu hoa hồng",
-    "friends": "Bạn bè"
+    "friends": "Bạn bè",
+    "noData": {
+      "title": "Chưa có dữ liệu",
+      "desc": "Danh sách người được bạn giới thiệu sẽ hiển thị tại đây khi có dữ liệu. Hãy chia sẻ mã giới thiệu để bắt đầu."
+    }
   }
 }

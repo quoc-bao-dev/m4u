@@ -733,6 +733,10 @@
     "copied": "Copied",
     "referrals": "Referrals",
     "commissionRevenue": "Commission Revenue",
-    "friends": "Friends"
+    "friends": "Friends",
+    "noData": {
+      "title": "No data yet",
+      "desc": "The list of users you referred will appear here once available. Share your referral code to get started."
+    }
   }
 }

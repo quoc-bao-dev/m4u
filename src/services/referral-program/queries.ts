@@ -11,3 +11,14 @@ export const useReferralProgramQuery = () => {
     queryFn: queryFn,
   })
 }
+
+export const useReferralIntroduceInfoQuery = () => {
+  const queryFn = async () => {
+    const response = await apiReferralProgram.getIntroduceInfo()
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['referral-introduce-info'],
+    queryFn: queryFn,
+  })
+}

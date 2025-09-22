@@ -1,5 +1,6 @@
 'use client'
 
+import UserAvatar from '@/core/components/UserAvatar'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { Link } from '@/locale'
 import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
@@ -124,22 +125,11 @@ const PersonalSidebar = () => {
         <div className="relative z-[1] flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="relative w-fit">
-              <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
-                {isAuthenticated && user ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={user.avatar || '/placeholder-avatar.jpg'}
-                    alt={user.fullname || t('menu.auth.unknownUser')}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement
-                      target.src = '/image/avatar/image-01.png'
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-greyscale-100" />
-                )}
-              </div>
+              <UserAvatar
+                src={user?.avatar}
+                userName={user?.fullname}
+                size={64}
+              />
               <div className="absolute bottom-0 -right-1 size-6 rounded-full bg-gray-50 shadow-xs flex items-center justify-center">
                 <CameraIcon size={18} className="text-pink-500" />
               </div>

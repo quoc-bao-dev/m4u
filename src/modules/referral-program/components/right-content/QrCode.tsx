@@ -20,9 +20,6 @@ const QrCode = () => {
     '/?code_introduce=' +
     user?.code_introduce
 
-  // Lấy avatar từ user hiện tại, fallback về logo nếu không có
-  const avatarUrl = user?.avatar || '/image/logo/logo.svg'
-
   return (
     <div className="flex flex-col items-center space-y-4">
       {/* QR Code with Avatar và Corner Frame */}
@@ -34,7 +31,12 @@ const QrCode = () => {
             padding: '16px',
           }}
         >
-          <QrWithAvatar value={linkQr} size={270} logo={avatarUrl} />
+          <QrWithAvatar
+            value={linkQr}
+            size={270}
+            logo={user?.avatar}
+            name={user?.fullname}
+          />
         </div>
         {/* Corner Frame */}
         <CornerFrame />

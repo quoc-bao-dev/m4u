@@ -730,6 +730,10 @@
     "copied": "복사됨",
     "referrals": "추천 수",
     "commissionRevenue": "커미션 수익",
-    "friends": "친구"
+    "friends": "친구",
+    "noData": {
+      "title": "아직 데이터가 없습니다",
+      "desc": "추천한 사용자의 목록은 여기에 표시됩니다. 추천 코드를 공유하여 시작해보세요."
+    }
   }
 }
