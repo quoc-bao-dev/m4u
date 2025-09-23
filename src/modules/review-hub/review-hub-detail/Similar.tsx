@@ -60,8 +60,8 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
               href={`/review-hub/${product.slug}`}
               className="group flex flex-col lg:flex-row gap-3 lg:gap-5 w-full"
             >
-              <div className='bg-white rounded-3xl w-full aspect-square group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300'>
-                <div className="relative rounded-3xl h-full aspect-square"
+              <div className='bg-white rounded-3xl w-full aspect-square xl:aspect-auto xl:h-[475px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300'>
+                <div className="relative rounded-3xl h-full"
                   style={{ backgroundColor: withAlpha(product.background_color, 0.1) }}
                 >
                   <div className="bg-white absolute bottom-3 left-3 right-3 flex flex-col gap-1 lg:gap-2 rounded-2xl p-4 xl:p-6">
@@ -93,13 +93,13 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
                     alt="product"
                     width={1000}
                     height={1000}
-                    className="size-full object-contain p-2 rounded-3xl"
+                    className="size-full p-10 object-contain rounded-3xl"
                   />
                 </div>
               </div>
 
               <div className="flex-shrink-0 flex lg:flex-col gap-3 xl:gap-5 w-full lg:w-fit overflow-auto scroll-hidden">
-                {sideImages.map((item: any, index: number) => (
+                {product?.review?.data?.map((item: any, index: number) => (
                   <div
                     key={`${product.id}-side-${index}`}
                     className="relative size-[120px] lg:size-[100px] xl:size-[145px] 2xl:size-[190px] flex-shrink-0 rounded-2xl overflow-hidden"
@@ -110,7 +110,7 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
                         className="size-3 lg:size-4 text-yellow-600"
                       />
                       <span className="text-[10px] xl:text-sm font-medium text-greyscale-900">
-                        {item.rating}
+                        {item.evaluate.toFixed(1)}
                       </span>
                     </div>
                     <video
@@ -121,7 +121,7 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
                       }}
                       data-product-id={product.id}
                       data-index={index}
-                      src={item.image as string}
+                      src={item.video_review as string}
                       muted
                       loop
                       playsInline

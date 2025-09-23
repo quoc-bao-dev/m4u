@@ -11,7 +11,7 @@ import Button from '@/core/components/ui/button'
 import ScrollRevealCard from '@/modules/trial-registration/components/product/ScrollRevealCard'
 import { useTranslations } from 'next-intl'
 import React, { useCallback, useEffect, useRef } from 'react'
-import InfoKolModal, { type KolInfo } from './components/InfoKolModal'
+import InfoKolModal from './components/InfoKolModal'
 import { KOLCard } from './components/KOLCard'
 
 const filterOptions = {
@@ -48,14 +48,13 @@ const KOLs = ({
   isFetchingNextPage,
   fetchNextPage
 }: KOLsProps) => {
-  console.log(data)
   const tCommon = useTranslations('common')
   const t = useTranslations('reviewHub.kols')
   const [isOpen, setIsOpen] = React.useState(false)
-  const [selectedKol, setSelectedKol] = React.useState<KolInfo>(null)
+  const [selectedKol, setSelectedKol] = React.useState<any>(null)
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  const handleOpen = (kol: KolInfo) => {
+  const handleOpen = (kol: any) => {
     setSelectedKol(kol)
     setIsOpen(true)
   }
@@ -162,7 +161,7 @@ const KOLs = ({
         </div>
       )}
 
-      <InfoKolModal isOpen={isOpen} onClose={handleClose} kol={selectedKol} />
+      <InfoKolModal isOpen={isOpen} onClose={handleClose} id={selectedKol?.id} />
     </div>
   )
 }

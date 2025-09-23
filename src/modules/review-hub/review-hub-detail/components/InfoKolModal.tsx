@@ -1,69 +1,74 @@
+import { Skeleton } from '@/components/ui/skeleton'
 import { Modal } from '@/core/components/common/modal'
 import Rating from '@/core/components/common/Rating'
+import UserAvatar from '@/core/components/UserAvatar'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
+import { getRatingI18nKey, withAlpha } from '@/core/utils'
 import { QuoteIcon } from '@/icons'
+import { useTranslation } from '@/locale'
+import { useGetProductReview } from '@/services/review/queries'
 import {
   CalendarBlankIcon,
   CaretRightIcon,
   ChartBarIcon,
 } from '@phosphor-icons/react'
+import moment from 'moment'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
-
-export type KolInfo = {
-  image: string | any
-  avatar: string | any
-  name: string
-  rating: number | string
-  reviews: number | string
-} | null
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 type InfoKolModalProps = {
   isOpen: boolean
   onClose: () => void
-  kol: KolInfo
+  id: any
 }
 
-const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose }) => {
-  const { isDesktop } = useDevice()
+const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id }) => {
+  const tProduct = useTranslations('product')
+  const { t } = useTranslation()
+  const { isDesktop, isMobile } = useDevice()
+  const { isLoading, data: productReview } = useGetProductReview(id || 0, isOpen)
+  type MediaItem = { type: 'video' | 'image'; src: string }
 
-  const videoSources = [
-    'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
-    'https://cdn2.videowise.com/custom-videos/videos/1747066891144_wid_NjgyMjIwMGIzZjJiOTAwMDU4OGMxZGQ2.mp4',
-    'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
-    'https://cdn2.videowise.com/custom-videos/videos/1747066894346_wid_NjgyMjIwMGUzZjJiOTAwMDU4OGMxZjEx.mp4',
-    'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
-  ]
+  const mediaSources: MediaItem[] = useMemo(() => {
+    const sources: MediaItem[] = []
+    if (productReview?.video_review) {
+      sources.push({ type: 'video', src: productReview.video_review })
+    }
+    if (Array.isArray(productReview?.media_other)) {
+      for (const m of productReview.media_other) {
+        if (m?.media) sources.push({ type: 'image', src: m.media })
+      }
+    }
+    return sources
+  }, [productReview])
 
-  const [activeSrc, setActiveSrc] = useState<string>(videoSources[0])
+  const [activeIndex, setActiveIndex] = useState<number>(0)
+  const activeItem = mediaSources[activeIndex]
   const mainVideoRef = useRef<HTMLVideoElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [mainVideoHeight, setMainVideoHeight] = useState<number>(0)
 
   // Cập nhật chiều cao dựa vào video lớn
   useEffect(() => {
     if (!isOpen) return
-    const videoEl = mainVideoRef.current
-    if (!videoEl) return
+    const targetEl = containerRef.current
+    if (!targetEl) return
 
     const updateHeight = () => {
-      if (videoEl) {
-        setMainVideoHeight(videoEl.clientHeight)
-      }
+      setMainVideoHeight(targetEl.clientHeight)
     }
 
     updateHeight()
 
-    // ResizeObserver để theo dõi thay đổi kích thước phần tử video
     let resizeObserver: ResizeObserver | null = null
     if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
       resizeObserver = new ResizeObserver(() => updateHeight())
-      resizeObserver.observe(videoEl)
+      resizeObserver.observe(targetEl)
     } else {
-      // Fallback: cập nhật khi resize cửa sổ
       if (typeof window !== 'undefined') {
-        ;(window as any).addEventListener('resize', updateHeight)
+        ; (window as any).addEventListener('resize', updateHeight)
       }
     }
 
@@ -72,24 +77,28 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose }) => {
         resizeObserver.disconnect()
       } else {
         if (typeof window !== 'undefined') {
-          ;(window as any).removeEventListener('resize', updateHeight)
+          ; (window as any).removeEventListener('resize', updateHeight)
         }
       }
     }
-  }, [isOpen, activeSrc])
+  }, [isOpen, activeIndex])
 
   // Tự động phát khi đổi nguồn
   useEffect(() => {
     if (!isOpen) return
+    if (activeItem?.type !== 'video') return
     const play = async () => {
       try {
         await mainVideoRef.current?.play()
-      } catch {
-        // ignore autoplay restriction errors
-      }
+      } catch { }
     }
     play()
-  }, [activeSrc, isOpen])
+  }, [activeItem, isOpen])
+
+  // Reset active index when mediaSources change
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [isOpen, mediaSources.length])
 
   return (
     <Modal
@@ -104,46 +113,91 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose }) => {
             className="flex flex-col gap-3 flex-shrink-0 overflow-auto scroll-hidden"
             style={{ maxHeight: mainVideoHeight || undefined }}
           >
-            {videoSources.map((src) => (
-              <video
-                key={src}
-                src={src}
-                muted
-                loop
-                playsInline
-                width={1000}
-                height={1000}
-                onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
-                  setActiveSrc(src)
-                  e.currentTarget.scrollIntoView({
-                    block: 'center',
-                    inline: 'nearest',
-                    behavior: 'smooth',
-                  })
-                }}
-                className={`size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer ${
-                  activeSrc === src ? 'border border-pink-500' : ''
-                }`}
-              />
-            ))}
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, idx) => (
+                <Skeleton key={idx} className="flex-shrink-0 size-[64px] lg:size-[120px] rounded-lg lg:rounded-2xl" />
+              ))
+            ) : (
+              mediaSources.map((item, idx) => (
+                <div key={`${item.src}-${idx}`} className={`rounded-lg lg:rounded-2xl border ${activeIndex === idx ? ' border-pink-500' : 'border-transparent'}`}>
+                  {item.type === 'video' ? (
+                    <video
+                      src={item.src}
+                      muted
+                      loop
+                      playsInline
+                      width={1000}
+                      height={1000}
+                      onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
+                        setActiveIndex(idx)
+                        if (!isMobile) {
+                          e.currentTarget.scrollIntoView({
+                            block: 'center',
+                            inline: 'nearest',
+                            behavior: 'smooth',
+                          })
+                        }
+                      }}
+                      className={`size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer`}
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={`media-${idx}`}
+                      width={1000}
+                      height={1000}
+                      onClick={(e) => {
+                        setActiveIndex(idx)
+                        if (!isMobile) {
+                          ; (e.currentTarget as HTMLImageElement).scrollIntoView({
+                            block: 'center',
+                            inline: 'nearest',
+                            behavior: 'smooth',
+                          })
+                        }
+                      }}
+                      className="size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer"
+                    />
+                  )}
+                </div>
+              )))}
           </div>
-          <div className="relative flex-1">
-            <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
-              <CaretRightIcon weight="fill" className="size-5 text-white" />
-            </div>
-            <video
-              ref={mainVideoRef}
-              src={activeSrc}
-              muted
-              loop
-              playsInline
-              width={1000}
-              height={1000}
-              onLoadedMetadata={() =>
-                setMainVideoHeight(mainVideoRef.current?.clientHeight || 0)
-              }
-              className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]"
-            />
+          <div className="relative w-full" ref={containerRef}>
+            {isLoading ? (
+              <Skeleton className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]" />
+            ) : (
+              <>
+                {activeItem?.type === 'video' && (
+                  <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
+                    <CaretRightIcon weight="fill" className="size-5 text-white" />
+                  </div>
+                )}
+                {activeItem?.type === 'video' ? (
+                  <video
+                    ref={mainVideoRef}
+                    src={activeItem.src}
+                    muted
+                    loop
+                    playsInline
+                    width={1000}
+                    height={1000}
+                    onLoadedMetadata={() =>
+                      setMainVideoHeight(containerRef.current?.clientHeight || 0)
+                    }
+                    className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]"
+                  />
+                ) : (
+                  <Image
+                    src={activeItem?.src || ''}
+                    alt="main-media"
+                    width={1000}
+                    height={1000}
+                    onLoad={() => setMainVideoHeight(containerRef.current?.clientHeight || 0)}
+                    className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]"
+                  />
+                )}
+              </>
+            )}
           </div>
         </div>
         <div
@@ -151,125 +205,137 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose }) => {
           style={{ maxHeight: mainVideoHeight || undefined }}
         >
           <div className="flex gap-3 items-center">
-            <Image
-              src={IMAGES.kol3}
-              alt="top-product"
-              width={1000}
-              height={1000}
-              className="size-9 lg:size-12 object-cover rounded-full"
-            />
-            <div className="flex flex-col">
-              <h3 className="text-sm lg:text-lg font-bold text-greyscale-900">
-                Phượng Võ
-              </h3>
-              <p className="text-xs lg:text-sm text-greyscale-900">
-                169 reviews
-              </p>
+            {isLoading ? (
+              <Skeleton className="size-[40px] lg:size-[52px] flex-shrink-0 rounded-full" />
+            ) : (
+              <UserAvatar
+                src={productReview?.client?.avatar}
+                userName={productReview?.client?.fullname}
+                size={isMobile ? 40 : 52}
+                className='flex-shrink-0'
+              />
+            )}
+
+            <div className="flex flex-col w-full">
+              {isLoading ? (
+                <>
+                  <Skeleton className="w-[20%] h-6" />
+                  <Skeleton className="w-[70%] h-5 mt-1" />
+                </>
+              ) : (
+                <>
+                  <h3 className="text-sm lg:text-lg font-bold text-greyscale-900">
+                    {productReview?.client?.fullname}
+                  </h3>
+                  <p className="text-xs lg:text-sm text-greyscale-900">
+                    {productReview?.quantity_reviews} {tProduct('reviews')}
+                  </p>
+                </>
+              )}
             </div>
           </div>
           <div className="flex gap-2 justify-between">
-            <div className="flex gap-2 items-center">
-              <CalendarBlankIcon
-                weight="fill"
-                className="size-5 text-greyscale-400"
-              />
-              <p className="text-sm font-medium text-greyscale-400">
-                06/09/2025
-              </p>
-            </div>
-            <div className="flex gap-2 items-center">
-              <ChartBarIcon
-                weight="fill"
-                className="size-5 text-greyscale-400"
-              />
-              <p className="text-sm font-medium text-greyscale-400">69 views</p>
-            </div>
+            {isLoading ? (
+              <>
+                <Skeleton className="w-[40%] h-5" />
+                <Skeleton className="w-[30%] h-5" />
+              </>
+            ) : (
+              <>
+                <div className="flex gap-2 items-center">
+                  <CalendarBlankIcon
+                    weight="fill"
+                    className="size-5 text-greyscale-400"
+                  />
+                  <p className="text-sm font-medium text-greyscale-400">
+                    {moment(productReview?.date_review || '').format('DD/MM/YYYY')}
+                  </p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <ChartBarIcon
+                    weight="fill"
+                    className="size-5 text-greyscale-400"
+                  />
+                  <p className="text-sm font-medium text-greyscale-400">
+                    {productReview?.view_see} {tProduct('views')}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
           <div className="flex flex-col gap-6 lg:flex-1 lg:overflow-y-auto scroll-hidden">
-            <div className="bg-pink-100 p-2 rounded-lg flex gap-3 items-center">
-              <div className="w-[91px] lg:w-[106px] aspect-[106/112] rounded-lg bg-white flex justify-center items-center">
-                <Image
-                  src={IMAGES.deal1}
-                  alt="deal"
-                  width={1000}
-                  height={1000}
-                  className="size-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <h3 className="text-[10px] font-bold text-greyscale-900">
-                  MANYO
-                </h3>
-                <p className="text-sm font-normal text-greyscale-900">
-                  Panthetoin Deep Moisture Mask
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4 xl:gap-8 items-end justify-center lg:justify-start">
-              <div className="flex flex-col items-center">
-                <p className="text-xl font-bold text-greyscale-400">
-                  <span className="text-pink-600 text-[32px] lg:text-[40px]">
-                    4.8
-                  </span>
-                  /5
-                </p>
-                <p className="text-sm lg:text-base font-bold text-pink-600">
-                  Excellent
-                </p>
-              </div>
-              <div className="flex flex-col gap-1 lg:gap-2">
-                <div className="flex gap-3 items-center">
-                  <Rating
-                    value={Number(4.8)}
-                    readOnly
-                    maxWidth={isDesktop ? 136 : 96}
+            {isLoading ? (
+              <Skeleton className="w-full h-32 rounded-lg" />
+            ) : (
+              <div className="p-2 rounded-lg flex gap-3 items-center"
+                style={{
+                  backgroundColor: withAlpha(productReview?.background_color || '#FE6BBA', 0.2)
+                }}>
+                <div className="w-[91px] lg:w-[106px] aspect-[106/112] rounded-lg bg-white flex justify-center items-center">
+                  <Image
+                    src={productReview?.image || IMAGES.deal1}
+                    alt="deal"
+                    width={1000}
+                    height={1000}
+                    className="size-full object-contain p-2"
                   />
-                  <p className="text-xs lg:text-sm font-semibold text-[#4E5969]">
-                    Absorbability
-                  </p>
                 </div>
-                <div className="flex gap-3 items-center">
-                  <Rating
-                    value={Number(4)}
-                    readOnly
-                    maxWidth={isDesktop ? 136 : 96}
-                  />
-                  <p className="text-xs lg:text-sm font-semibold text-[#4E5969]">
-                    Moisturization
-                  </p>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <Rating
-                    value={Number(3)}
-                    readOnly
-                    maxWidth={isDesktop ? 136 : 96}
-                  />
-                  <p className="text-xs lg:text-sm font-semibold text-[#4E5969]">
-                    Skin brightening
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-[10px] font-bold text-greyscale-900">
+                    {productReview?.code}
+                  </h3>
+                  <p className="text-sm font-normal text-greyscale-900">
+                    {productReview?.name}
                   </p>
                 </div>
               </div>
-            </div>
-            <div className="relative pt-5 lg:pt-9 pl-8 lg:pl-9 flex-1 overflow-y-auto scroll-hidden">
-              <QuoteIcon className="size-7 lg:size-9 text-neutral-200 absolute top-0 left-0" />
-              <p className="text-sm lg:text-base font-normal text-greyscale-800">
-                Such a pleasant surprise! I got to try premium products for free
-                and even picked up so many helpful beauty tips. Highly
-                recommended! Such a pleasant surprise! I got to try premium
-                products for free and even picked up so many helpful beauty
-                tips. Highly recommended! Such a pleasant surprise! I got to try
-                premium products for free and even picked up so many helpful
-                beauty tips. Highly recommended! Such a pleasant surprise! I got
-                to try premium products for free and even picked up so many
-                helpful beauty tips. Highly recommended! Such a pleasant
-                surprise! I got to try premium products for free and even picked
-                up so many helpful beauty tips. Highly recommended!{' '}
-              </p>
-            </div>
+            )}
+
+            {isLoading ? (
+              <Skeleton className="w-full h-28 rounded-lg" />
+            ) : (
+              <div className="flex gap-4 xl:gap-8 items-end justify-center lg:justify-start">
+                <div className="flex flex-col items-center">
+                  <p className="text-xl font-bold text-greyscale-400">
+                    <span className="text-pink-600 text-[32px] lg:text-[40px]">
+                      {Number(productReview?.evaluate || 0).toFixed(1)}
+                    </span>
+                    /5
+                  </p>
+                  <p className="text-sm lg:text-base font-bold text-pink-600">
+                    {t(getRatingI18nKey(productReview?.evaluate))}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1 lg:gap-2">
+                  {productReview?.list_evaluate.map((item: any) => (
+                    <div key={item?.id} className="flex gap-3 items-center">
+                      <Rating
+                        value={Number(item?.star ?? item?.evaluate)}
+                        readOnly
+                        maxWidth={isDesktop ? 136 : 96}
+                      />
+                      <p className="text-xs lg:text-sm font-semibold text-[#4E5969]">
+                        {item?.name}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {isLoading ? (
+              <Skeleton className="w-full h-20 rounded-lg" />
+            ) : (
+              <div className="relative pt-5 lg:pt-9 pl-8 lg:pl-9 flex-1 overflow-y-auto scroll-hidden">
+                <QuoteIcon className="size-7 lg:size-9 text-neutral-200 absolute top-0 left-0" />
+                <p className="text-sm lg:text-base font-normal text-greyscale-800">
+                  {productReview?.content_evaluate}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </Modal>
+    </Modal >
   )
 }
 

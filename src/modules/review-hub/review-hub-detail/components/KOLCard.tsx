@@ -1,4 +1,6 @@
 'use client'
+import UserAvatar from '@/core/components/UserAvatar'
+import { useDevice } from '@/core/hooks'
 import { CaretRightIcon, StarIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -15,6 +17,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
 }) => {
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
   const tProduct = useTranslations('product')
+  const { isDesktop } = useDevice()
 
   const handleMouseEnter = () => {
     void videoRef.current?.play()
@@ -49,23 +52,17 @@ export const KOLCard: React.FC<KOLCardProps> = ({
         />
 
         <div className="2xl:p-5 p-3 bg-orange-100 flex gap-3 items-center justify-between">
-          <Image
-            src={data?.client?.avatar || '/image/avatar/image-01.png'}
-            onError={(e) => {
-              const target = e.target as HTMLImageElement
-              target.src = '/image/avatar/image-01.png'
-            }}
-            alt="avatar"
-            width={1000}
-            height={1000}
-            className="size-10 lg:size-12 rounded-full object-cover bg-[#D5DEDA]"
+          <UserAvatar
+            src={data?.client?.avatar}
+            userName={data?.client?.fullname}
+            size={isDesktop ? 48 : 40}
           />
           <div className="flex flex-col flex-1">
             <h3 className="2xl:text-lg text-base font-bold text-greyscale-900 group-hover:text-orange-600 transition-colors">
               {data?.client?.fullname}
             </h3>
             <p className="2xl:text-sm text-sm font-normal text-greyscale-900">
-              {100} {tProduct('views')}
+              {data?.view_see} {tProduct('views')}
             </p>
           </div>
           <div className="absolute top-2 right-2 md:static py-0.5 px-1 lg:px-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">

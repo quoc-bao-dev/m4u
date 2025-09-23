@@ -3,6 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Timer } from '@/core/components'
 import Rating from '@/core/components/common/Rating'
 import Button from '@/core/components/ui/button'
+import UserAvatar from '@/core/components/UserAvatar'
 import { useDevice, useToast } from '@/core/hooks'
 import { withAlpha } from '@/core/utils'
 import { useRouter, useTranslation } from '@/locale'
@@ -88,7 +89,7 @@ const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
                       inline: isVertical ? 'nearest' : 'center',
                     })
                   }}
-                  className={`size-24 xl:size-30 rounded-2xl object-cover cursor-pointer ${activeIndex === index
+                  className={`size-24 xl:size-30 bg-white rounded-2xl object-cover cursor-pointer ${activeIndex === index
                     ? 'border border-[#FF8092]'
                     : 'border border-transparent'
                     }`}
@@ -105,7 +106,7 @@ const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
               alt="top-reviewer"
               width={1000}
               height={1000}
-              className="size-full rounded-2xl object-cover"
+              className="size-full rounded-2xl object-cover bg-white"
             />
           )}
           <div className="xl:hidden absolute bottom-2 right-2 flex items-center gap-1.5">
@@ -136,13 +137,13 @@ const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
                     readOnly
                     maxWidth={isMobile ? 116 : 136}
                   />
-                  <p className="whitespace-nowrap text-sm lg:text-xl xl:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
+                  <p className="whitespace-nowrap text-sm lg:text-xl text-greyscale-500">
                     <span className="text-greyscale-900 font-medium">{data?.average_star.toFixed(1)} </span>
                     ({data?.quantity_reviews} {tProduct('reviews')})
                   </p>
                 </div>
                 <div className="hidden xl:flex items-center gap-1.5">
-                  {data?.time_left_dd_hh_mm_ss && data?.time_left_dd_hh_mm_ss !== "0:00:00:00" ? <Timer initTime={data?.time_left_dd_hh_mm_ss} /> : null}
+                  {data?.time_left_dd_hh_mm_ss && data?.time_left_dd_hh_mm_ss !== "0:00:00:00" ? <Timer initTime={data?.time_left_dd_hh_mm_ss} className='!pr-0 !pb-0'/> : null}
                 </div>
               </div>
             </>
@@ -165,17 +166,15 @@ const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
             </div>
             <div className="flex -space-x-2 lg:-space-x-4">
               {data?.review?.data?.slice(0, 5).map((kol: any, index: number) => (
-                <Image
+                <UserAvatar
                   key={`${kol.id}-${index}`}
-                  src={kol?.client?.avatar || '/image/avatar/image-01.png'}
-                  alt="top-reviewer"
-                  width={1000}
-                  height={1000}
-                  className="flex-shrink-0 size-10 lg:size-12 xl:size-14 2xl:size-16 rounded-full object-cover border-2 border-white bg-[#D5DEDA]"
+                  src={kol?.client?.avatar}
+                  userName={kol?.client?.fullname}
+                  size={isMobile ? 40 : 48}
                 />
               ))}
               {data?.review?.total > 5 && (
-                <div className="flex-shrink-0 size-10 lg:size-12 xl:size-14 2xl:size-16 rounded-full object-cover border-2 border-white bg-black flex items-center justify-center text-white text-base font-semibold">
+                <div className="flex-shrink-0 size-10 lg:size-12 rounded-full object-cover border-2 border-white bg-black flex items-center justify-center text-white text-base font-semibold">
                   +{data?.review?.total - 5}
                 </div>
               )}
