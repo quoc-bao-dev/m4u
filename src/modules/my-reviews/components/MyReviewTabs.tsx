@@ -5,7 +5,7 @@ import { useTableFilter } from '../stores/useTableFilter'
 import { useEffect, useMemo, useState } from 'react'
 import { Tabs as CoreTabs, type TabItem } from '@/core/components'
 
-const Tabs = ({
+const MyReviewTabs = ({
   onChange,
   className,
   defaultActiveKey,
@@ -71,4 +71,4 @@ const Tabs = ({
   )
 }
 
-export default Tabs
+export default MyReviewTabs
