@@ -546,6 +546,9 @@
         "headers": {
           "orderId": "주문 번호",
           "productInfo": "제품 정보",
+          "review": "리뷰",
+          "reward": "보상",
+          "dateTime": "날짜/시간",
           "timeCreated": "생성 시간",
           "orderStatus": "주문 상태",
           "action": "동작"

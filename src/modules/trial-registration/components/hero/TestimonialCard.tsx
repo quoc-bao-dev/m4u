@@ -1,8 +1,94 @@
 import Image from 'next/image'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+
+// Config
+export const REVIEW_ROTATE_MS = 300000 // 5 phút, có thể điều chỉnh nếu cần
+export const REVIEW_FADE_MS = 500 // fade duration in ms
+
+const reviewsData: {
+  reviewerName: string
+  content: string
+  address: string
+  rating: number
+}[] = [
+  {
+    reviewerName: 'Linh Trần',
+    content:
+      'Thật sự bất ngờ! Mình đã được dùng thử sản phẩm xịn sò miễn phí, còn được học hỏi thêm nhiều kiến thức làm đẹp hữu ích. Rất recommend nha!',
+    address: 'Beauty Blogger tại TP.HCM',
+    rating: 5,
+  },
+  {
+    reviewerName: 'Minh Anh',
+    content:
+      'Ấn tượng với độ lành tính của mặt nạ M4U, không gây kích ứng dù da mình khá nhạy cảm. Mùi hương dịu nhẹ, rất dễ chịu.',
+    address: 'Content Creator tại Đà Nẵng',
+    rating: 5,
+  },
+  {
+    reviewerName: 'Thuỳ Dung',
+    content:
+      'Dùng mặt nạ xong thấy da căng bóng, lớp trang điểm hôm sau bám lâu và mịn hơn. Đặc biệt là kiểm soát dầu khá tốt, không bị cakey.',
+    address: 'Nhân viên văn phòng tại TP.HCM',
+    rating: 5,
+  },
+  {
+    reviewerName: 'Hải Nam',
+    content:
+      'Giá trị xứng đáng. Thành phần an toàn, dưỡng ẩm vừa đủ mà không gây bết dính. Mặt nạ M4U chắc chắn sẽ là lựa chọn lâu dài của mình.',
+    address: 'Freelancer tại Cần Thơ',
+    rating: 4,
+  },
+]
 
 const TestimonialCard = () => {
+  const getRandomIndex = (excludeIndex: number | null = null) => {
+    if (reviewsData.length <= 1) return 0
+    let idx = Math.floor(Math.random() * reviewsData.length)
+    if (excludeIndex !== null) {
+      while (idx === excludeIndex) {
+        idx = Math.floor(Math.random() * reviewsData.length)
+      }
+    }
+    return idx
+  }
+
+  const [currentIndex, setCurrentIndex] = useState<number>(() =>
+    getRandomIndex()
+  )
+  const currentReview = reviewsData[currentIndex]
+  const [isFading, setIsFading] = useState(false)
+  const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIsFading(true)
+      if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current)
+      fadeTimeoutRef.current = setTimeout(() => {
+        setCurrentIndex((prev) => getRandomIndex(prev))
+        setIsFading(false)
+      }, REVIEW_FADE_MS)
+    }, REVIEW_ROTATE_MS)
+    return () => {
+      clearInterval(intervalId)
+      if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current)
+    }
+  }, [])
+
+  // Prevent layout shift by pinning text area to tallest content
+  const [textMinHeight, setTextMinHeight] = useState<number>(0)
+  const measureRefs = useRef<Array<HTMLParagraphElement | null>>([])
+
+  useLayoutEffect(() => {
+    const heights = measureRefs.current
+      .map((el) => (el ? el.scrollHeight : 0))
+      .filter((h) => typeof h === 'number')
+    const max = heights.length ? Math.max(...heights) : 0
+    if (max && max !== textMinHeight) setTextMinHeight(max)
+  }, [])
+
   return (
-    <div className="w-full md:h-[506px] flex flex-col">
+    <div className="w-full md:h-[506px] flex flex-col relative">
       <div className="flex items-end gap-3">
         {/* Quote Icon */}
         <div className="mb-4">
@@ -12,23 +98,35 @@ const TestimonialCard = () => {
         {/* Stars */}
         <div className="flex space-x-1 mb-4">
           {[1, 2, 3, 4, 5].map((star) => (
-            <StartIcon key={star} />
+            <StartIcon
+              key={star}
+              filled={star <= (currentReview?.rating ?? 5)}
+            />
           ))}
         </div>
       </div>
 
-      {/* Testimonial Text */}
-      <p className="text-desc text-black mb-6 leading-relaxed">
-        Thật sự bất ngờ! Mình đã được dùng thử sản phẩm xịn sò miễn phí, còn
-        được học hỏi thêm nhiều kiến thức làm đẹp hữu ích. Rất recommend nha!
-      </p>
+      {/* Review Content with fade transition */}
+      <div
+        style={{
+          transition: `opacity ${REVIEW_FADE_MS}ms ease`,
+          opacity: isFading ? 0 : 1,
+        }}
+      >
+        <p
+          className="text-desc text-black mb-6 leading-relaxed"
+          style={{ minHeight: textMinHeight }}
+        >
+          {currentReview?.content}
+        </p>
 
-      {/* Reviewer Info */}
-      <div className="mb-8">
-        <h3 className="text-desc font-semibold text-purple-600 mb-1">
-          Linh Trần
-        </h3>
-        <p className="text-[16px] text-gray-600">Beauty Blogger tại TP.HCM</p>
+        {/* Reviewer Info */}
+        <div className="mb-8">
+          <h3 className="text-desc font-semibold text-purple-600 mb-1">
+            {currentReview?.reviewerName}
+          </h3>
+          <p className="text-[16px] text-gray-600">{currentReview?.address}</p>
+        </div>
       </div>
 
       {/* Product Images */}
@@ -47,11 +145,26 @@ const TestimonialCard = () => {
           </div>
         ))}
       </div>
+
+      {/* Hidden measuring block */}
+      <div className="invisible absolute -z-10 pointer-events-none w-full">
+        {reviewsData.map((review, i) => (
+          <p
+            key={`measure-${i}`}
+            ref={(el) => {
+              measureRefs.current[i] = el
+            }}
+            className="text-desc text-black mb-6 leading-relaxed"
+          >
+            {review.content}
+          </p>
+        ))}
+      </div>
     </div>
   )
 }
 
-const StartIcon = () => {
+const StartIcon = ({ filled = false }: { filled?: boolean }) => {
   return (
     <svg
       width="24"
@@ -62,7 +175,7 @@ const StartIcon = () => {
     >
       <path
         d="M29.3126 14.2975L23.6751 19.2175L25.3638 26.5425C25.4532 26.9254 25.4277 27.3262 25.2905 27.6947C25.1533 28.0632 24.9106 28.3831 24.5926 28.6144C24.2746 28.8457 23.8954 28.9782 23.5026 28.9951C23.1097 29.0121 22.7206 28.913 22.3838 28.71L15.9951 24.835L9.62005 28.71C9.28327 28.913 8.89412 29.0121 8.50127 28.9951C8.10842 28.9782 7.72929 28.8457 7.4113 28.6144C7.0933 28.3831 6.85054 28.0632 6.71336 27.6947C6.57619 27.3262 6.55069 26.9254 6.64005 26.5425L8.3263 19.225L2.68755 14.2975C2.38931 14.0403 2.17365 13.7007 2.06762 13.3214C1.96159 12.9421 1.9699 12.54 2.09152 12.1654C2.21313 11.7908 2.44264 11.4604 2.75125 11.2158C3.05986 10.9711 3.43385 10.823 3.8263 10.79L11.2588 10.1462L14.1601 3.22624C14.3116 2.86314 14.5671 2.55298 14.8945 2.33482C15.222 2.11665 15.6066 2.00024 16.0001 2.00024C16.3935 2.00024 16.7781 2.11665 17.1056 2.33482C17.433 2.55298 17.6885 2.86314 17.8401 3.22624L20.7501 10.1462L28.1801 10.79C28.5725 10.823 28.9465 10.9711 29.2551 11.2158C29.5637 11.4604 29.7932 11.7908 29.9148 12.1654C30.0365 12.54 30.0448 12.9421 29.9387 13.3214C29.8327 13.7007 29.617 14.0403 29.3188 14.2975H29.3126Z"
-        fill="#FCD34D"
+        fill={filled ? '#FCD34D' : '#E5E7EB'}
       />
     </svg>
   )

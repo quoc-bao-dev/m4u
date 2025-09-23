@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { useTableFilter } from '../stores/useTableFilter'
 
-const Header = () => {
+const MyReviewHeader = () => {
   const t = useTranslations()
   const { searchQuery, setSearchQuery, setDateRange } = useTableFilter()
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery)
@@ -39,9 +39,9 @@ const Header = () => {
       <div className="flex flex-col lg:flex-row items-center gap-2 ">
         <div className=" w-full lg:w-[260px] xl:w-[340px] flex-1  relative">
           <MagnifyingGlass
-            size={18}
+            size={20}
             weight="bold"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-greyscale-200"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-greyscale-500"
           />
           <input
             type="text"
@@ -79,4 +79,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default MyReviewHeader

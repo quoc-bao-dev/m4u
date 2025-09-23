@@ -440,7 +440,7 @@
         "accountBalance": "Số dư tài khoản",
         "points": "Điểm",
         "commissionRevenue": "Doanh thu hoa hồng",
-        "reviews": "Đánh giá"
+        "reviews": "Người đánh giá"
       },
       "activity": {
         "title": "Hoạt động của tôi",
@@ -539,13 +539,16 @@
     },
     "history": {
       "header": {
-        "title": "Lịch sử đánh giá",
+        "title": "Lịch sử đăng kí dùng thử",
         "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
       },
       "table": {
         "headers": {
           "orderId": "Mã đơn",
           "productInfo": "Thông tin sản phẩm",
+          "review": "Đánh giá",
+          "reward": "Phần thưởng",
+          "dateTime": "Ngày giờ",
           "timeCreated": "Thời gian tạo",
           "orderStatus": "Trạng thái",
           "action": "Thao tác"

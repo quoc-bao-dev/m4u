@@ -40,7 +40,7 @@ const Tabs = ({
   if (loading) {
     return (
       <div className={`w-full border-b border-gray-300 ${className ?? ''}`}>
-        <div className="flex items-center gap-6 relative pt-4 overflow-x-auto custom-scrollbar">
+        <div className="flex items-center gap-10 relative pt-4 overflow-x-auto custom-scrollbar">
           {Array.from({ length: loadingSkeletonCount }).map((_, index) => (
             <div key={index} className="relative pb-3 animate-pulse">
               <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ const Tabs = ({
   return (
     <div className={`w-full relative ${className ?? ''}`}>
       <div className="absolute bottom-0 h-[1.5px] bg-gray-200 w-full"></div>
-      <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar">
+      <div className="flex items-center gap-10 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar">
         {items.map((tab) => {
           const isActive = activeKey === tab.key
 
@@ -85,10 +85,10 @@ const Tabs = ({
             <button
               key={tab.key}
               className={
-                'relative pb-3 text-[16px] transition-colors cursor-pointer ' +
+                'relative pb-3 text-[14px] transition-colors cursor-pointer ' +
                 (isActive
-                  ? 'text-gray-900 font-semibold'
-                  : 'text-gray-400 hover:text-gray-600')
+                  ? 'text-gray-900 font-bold'
+                  : 'text-gray-500 font-medium')
               }
               onClick={() => handleClick(tab.key)}
             >
@@ -96,12 +96,10 @@ const Tabs = ({
                 <span className="truncate">{tab.label}</span>
                 {typeof tab.count === 'number' && (
                   <span
-                    className="inline-flex py-0.5 min-w-5 items-center justify-center rounded-md px-2 text-sm font-semibold text-white"
+                    className="inline-flex py-0.5 min-w-5 items-center justify-center rounded-[6px] px-[6px] text-[12px] font-bold"
                     style={{
-                      backgroundColor:
-                        countBackgroundColor ||
-                        tab.color ||
-                        activeIndicatorColor,
+                      color: tab.color || activeIndicatorColor,
+                      backgroundColor: `${tab.color || activeIndicatorColor}1A`, // 10% opacity
                     }}
                   >
                     {tab.count}

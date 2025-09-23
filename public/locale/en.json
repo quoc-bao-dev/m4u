@@ -549,6 +549,9 @@
         "headers": {
           "orderId": "Order ID",
           "productInfo": "Product Info",
+          "review": "Review",
+          "reward": "Reward",
+          "dateTime": "Date time",
           "timeCreated": "Time created",
           "orderStatus": "Order Status",
           "action": "Action"
