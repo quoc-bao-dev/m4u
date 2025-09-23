@@ -13,6 +13,7 @@ import {
   CaretRightIcon,
   ChartBarIcon,
 } from '@phosphor-icons/react'
+import { useQueryClient } from '@tanstack/react-query'
 import moment from 'moment'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -22,13 +23,16 @@ type InfoKolModalProps = {
   isOpen: boolean
   onClose: () => void
   id: any
+  slug?: string
 }
 
-const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id }) => {
+const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }) => {
   const tProduct = useTranslations('product')
+  const tNodataReviewhub = useTranslations('nodataReviewhub')
   const { t } = useTranslation()
   const { isDesktop, isMobile } = useDevice()
   const { isLoading, data: productReview } = useGetProductReview(id || 0, isOpen)
+  const queryClient = useQueryClient()
   type MediaItem = { type: 'video' | 'image'; src: string }
 
   const mediaSources: MediaItem[] = useMemo(() => {
@@ -37,8 +41,18 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id }) => {
       sources.push({ type: 'video', src: productReview.video_review })
     }
     if (Array.isArray(productReview?.media_other)) {
+      const isVideo = (item: any) => {
+        const filetype = String(item?.filetype || '').toLowerCase()
+        const mime = String(item?.mime_type || '').toLowerCase()
+        const url = String(item?.media || '').toLowerCase()
+        if (mime.startsWith('video/')) return true
+        if (['mp4', 'mov', 'webm', 'm4v', 'mkv'].includes(filetype)) return true
+        if (/[\.](mp4|mov|webm|m4v|mkv)(\?|#|$)/.test(url)) return true
+        return false
+      }
       for (const m of productReview.media_other) {
-        if (m?.media) sources.push({ type: 'image', src: m.media })
+        if (!m?.media) continue
+        sources.push({ type: isVideo(m) ? 'video' : 'image', src: m.media })
       }
     }
     return sources
@@ -99,6 +113,35 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id }) => {
   useEffect(() => {
     setActiveIndex(0)
   }, [isOpen, mediaSources.length])
+
+  // Đồng bộ view_see vào cache danh sách KOLs để tránh refetch dư thừa
+  useEffect(() => {
+    if (!isOpen) return
+    if (!productReview?.id) return
+    queryClient.setQueryData(
+      ['dataReviewHubDetailInfinite', slug],
+      (oldData: any) => {
+        if (!oldData?.pages) return oldData
+        const pages = oldData.pages.map((page: any) => {
+          const reviewList = page?.review?.data
+          if (!Array.isArray(reviewList)) return page
+          const newReviewList = reviewList.map((item: any) =>
+            item?.id === productReview.id
+              ? { ...item, view_see: productReview.view_see }
+              : item
+          )
+          return {
+            ...page,
+            review: {
+              ...page.review,
+              data: newReviewList,
+            },
+          }
+        })
+        return { ...oldData, pages }
+      }
+    )
+  }, [isOpen, productReview?.id, productReview?.view_see, slug, queryClient])
 
   return (
     <Modal
@@ -328,7 +371,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id }) => {
               <div className="relative pt-5 lg:pt-9 pl-8 lg:pl-9 flex-1 overflow-y-auto scroll-hidden">
                 <QuoteIcon className="size-7 lg:size-9 text-neutral-200 absolute top-0 left-0" />
                 <p className="text-sm lg:text-base font-normal text-greyscale-800">
-                  {productReview?.content_evaluate}
+                  {productReview?.content_evaluate || tNodataReviewhub('noData')}
                 </p>
               </div>
             )}

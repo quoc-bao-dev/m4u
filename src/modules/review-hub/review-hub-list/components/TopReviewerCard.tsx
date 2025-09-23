@@ -241,7 +241,7 @@ const TopReviewerCard = ({
                 {topReview}{' '}
               </span>
             )}
-            <div className="flex flex-col gap-2 2xl:gap-3">
+            <div className="flex flex-col gap-2 2xl:gap-3 pr-2">
               <h3 className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900 transition-colors duration-300 group-hover:text-[var(--topreview-color)]"
                 style={{
                   "--topreview-color": withAlpha(data?.background_color || '#F59E0B', 1)
