@@ -23,6 +23,6 @@ export const productApi = {
   getProductListDetail: ({ id_product }: { id_product: string[] }) =>
     axiosInstance.post<ProductListResponse>('products/getListDetail', {
       baseURL: envConfig.adminUrl,
-      id_product:  id_product || [],
+      id_product: id_product || [],
     }),
 }

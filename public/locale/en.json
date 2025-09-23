@@ -7,7 +7,8 @@
     "welcome": "Welcome to our application",
     "reviewer": "reviewer",
     "product": "product",
-    "share": "Share:"
+    "share": "Share:",
+    "loadMore": "Load more"
   },
   "navigation": {
     "home": "Home",
