@@ -63,7 +63,7 @@ const PersonalSidebar = () => {
         id: 'reviews' as const,
         label: t('menu.auth.activity.myReviews'),
         Icon: PencilSimpleLine,
-        href: '/developing',
+        href: '/my-reviews',
       },
       {
         id: 'donation' as const,

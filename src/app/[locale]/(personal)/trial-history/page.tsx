@@ -1,4 +1,8 @@
-import { HistoryHeader, HistoryTable, HistoryTabs } from '@/modules/my-reviews'
+import {
+  HistoryHeader,
+  HistoryTable,
+  HistoryTabs,
+} from '@/modules/trial-history'
 
 const Page = () => {
   return (

@@ -1,4 +1,3 @@
-export { default as HistoryReviewSection } from './history/HistoryReviewSection'
-export { default as HistoryHeader } from './history/HistoryHeader'
-export { default as HistoryTabs } from './history/HistoryTabs'
-export { default as HistoryTable } from './history/HistoryTable'
+export { default as Header } from './Header'
+export { default as Tabs } from './Tabs'
+export { default as Table } from './Table'

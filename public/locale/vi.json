@@ -533,6 +533,10 @@
     "apply": "Áp dụng"
   },
   "myReviews": {
+    "header": {
+      "title": "Đánh giá của tôi",
+      "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
+    },
     "history": {
       "header": {
         "title": "Lịch sử đánh giá",
