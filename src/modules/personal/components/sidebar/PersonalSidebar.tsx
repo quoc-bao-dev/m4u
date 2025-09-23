@@ -1,10 +1,12 @@
 'use client'
 
+import UserAvatar from '@/core/components/UserAvatar'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { Link } from '@/locale'
 import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { useAuth } from '@/modules/auth/stores/useAuth'
+import { useReferralIntroduceInfoQuery } from '@/services/referral-program'
 import {
   CameraIcon,
   ClockCounterClockwise,
@@ -21,7 +23,8 @@ import 'moment/locale/ko'
 import 'moment/locale/vi'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import React, { useMemo, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { useMemo } from 'react'
 
 const PersonalSidebar = () => {
   const t = useTranslations()
@@ -29,6 +32,8 @@ const PersonalSidebar = () => {
   const locale = useLocale()
   const { user, isAuthenticated } = useAuth()
   const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
+  const { data } = useReferralIntroduceInfoQuery()
+  const pathname = usePathname()
 
   const formatJoinDate = (dateString: string) => {
     try {
@@ -42,16 +47,11 @@ const PersonalSidebar = () => {
     }
   }
 
-  const [activeItem, setActiveItem] = useState<
-    | 'trial'
-    | 'reviews'
-    | 'donation'
-    | 'language'
-    | 'account'
-    | 'help'
-    | 'feedback'
-    | 'logout'
-  >('trial')
+  // Function to check if a path is active
+  const isActiveRoute = (href: string) => {
+    if (!href || href === '/developing') return false
+    return pathname.includes(href)
+  }
 
   const activityItems = useMemo(
     () => [
@@ -65,13 +65,13 @@ const PersonalSidebar = () => {
         id: 'reviews' as const,
         label: t('menu.auth.activity.myReviews'),
         Icon: PencilSimpleLine,
-        href: '/developing',
+        href: '/my-reviews',
       },
       {
         id: 'donation' as const,
         label: t('menu.auth.activity.referralCode'),
         Icon: QrCode,
-        href: '/developing',
+        href: '/referral-program',
       },
     ],
     [t]
@@ -88,7 +88,7 @@ const PersonalSidebar = () => {
         id: 'account' as const,
         label: t('menu.auth.account.preferences'),
         Icon: UserCircle,
-        href: '/developing',
+        href: '/personal',
       },
     ],
     [t]
@@ -127,22 +127,11 @@ const PersonalSidebar = () => {
         <div className="relative z-[1] flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="relative w-fit">
-              <div className="size-16 rounded-full overflow-hidden bg-greyscale-100 border-2 border-gray-200 relative">
-                {isAuthenticated && user ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={user.avatar || '/placeholder-avatar.jpg'}
-                    alt={user.fullname || t('menu.auth.unknownUser')}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement
-                      target.src = '/image/avatar/image-01.png'
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-greyscale-100" />
-                )}
-              </div>
+              <UserAvatar
+                src={user?.avatar}
+                userName={user?.fullname}
+                size={64}
+              />
               <div className="absolute bottom-0 -right-1 size-6 rounded-full bg-gray-50 shadow-xs flex items-center justify-center">
                 <CameraIcon size={18} className="text-pink-500" />
               </div>
@@ -172,7 +161,7 @@ const PersonalSidebar = () => {
         <div className="relative z-[1] flex justify-between gap-2 mt-5 rounded-xl w-full px-3">
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {isAuthenticated && user && user.referral_code ? 69 : '0'}
+              {data?.guest || 0}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.referrals')}
@@ -180,7 +169,7 @@ const PersonalSidebar = () => {
           </div>
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {'12,345,678 đ'}
+              {'0 ₫'}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.commissionRevenue')}
@@ -188,7 +177,7 @@ const PersonalSidebar = () => {
           </div>
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {isAuthenticated && user ? user.point || '0' : '0'}
+              {data?.review || 0}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.reviews')}
@@ -212,8 +201,7 @@ const PersonalSidebar = () => {
                   <Icon size={16} weight="fill" className="text-[#3B82F6]" />
                 }
                 label={label}
-                active={activeItem === id}
-                onClick={() => setActiveItem(id)}
+                active={isActiveRoute(href)}
                 href={href}
               />
             ))}
@@ -320,8 +308,7 @@ const PersonalSidebar = () => {
                       />
                     }
                     label={label}
-                    active={activeItem === id}
-                    onClick={() => setActiveItem(id)}
+                    active={isActiveRoute(href)}
                     href={href}
                   />
                 )
@@ -345,12 +332,8 @@ const PersonalSidebar = () => {
                     />
                   }
                   label={label}
-                  active={activeItem === id}
-                  onClick={() =>
-                    id === 'logout'
-                      ? openLogoutConfirmModal()
-                      : setActiveItem(id)
-                  }
+                  active={href ? isActiveRoute(href) : false}
+                  onClick={id === 'logout' ? openLogoutConfirmModal : undefined}
                   href={id === 'logout' ? undefined : href}
                 />
               ))}
@@ -378,8 +361,8 @@ const SidebarItem = ({
   const content = (
     <div
       onClick={onClick}
-      className={`flex items-center gap-3 rounded-xl  px-3 py-2 cursor-pointer transition-colors ${
-        active ? 'bg-[#E7F7FE]  hover:bg-blue-100' : 'bg-white hover:bg-gray-50'
+      className={`flex items-center gap-3 rounded-xl px-3 py-2 cursor-pointer transition-colors ${
+        active ? 'bg-[#E7F7FE] hover:bg-blue-100' : 'bg-white hover:bg-gray-50'
       }`}
     >
       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200 bg-white">

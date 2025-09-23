@@ -9,11 +9,21 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   required?: boolean
   error?: string
   helperText?: string
+  readonly?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, required, error, helperText, className, onChange, ...props },
+    {
+      label,
+      required,
+      error,
+      helperText,
+      className,
+      onChange,
+      readonly,
+      ...props
+    },
     ref
   ) => {
     const inputRef = useRef<HTMLInputElement | null>(null)
@@ -83,12 +93,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               'w-full px-3 py-2.5 bg-white border border-gray-100 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors placeholder:text-gray-300 pr-10',
               error && 'border-red-500 focus:ring-red-500 focus:border-red-500',
+              readonly &&
+                'bg-gray-50 text-gray-500 cursor-not-allowed focus:ring-0 focus:border-gray-100',
               className
             )}
-            onChange={handleChange}
+            onChange={readonly ? undefined : handleChange}
+            readOnly={readonly}
             {...props}
           />
-          {hasValue && (
+          {hasValue && !readonly && (
             <button
               type="button"
               onClick={handleClear}

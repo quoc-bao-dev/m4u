@@ -21,6 +21,7 @@ interface DatePickerProps {
   className?: string
   placeholder?: string
   allowManualInput?: boolean
+  readonly?: boolean
 }
 
 const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
@@ -35,6 +36,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
       className,
       placeholder = 'Chọn ngày',
       allowManualInput = true,
+      readonly = false,
     },
     ref
   ) => {
@@ -93,20 +95,29 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
           </label>
         )}
         <Popover>
-          <PopoverTrigger asChild>
+          <PopoverTrigger asChild disabled={readonly}>
             <div className={cn('relative', className)}>
               <input
                 type="text"
                 inputMode="numeric"
                 placeholder={placeholder}
-                value={allowManualInput ? textValue : date ? format(date, 'dd/MM/yyyy') : ''}
-                readOnly={!allowManualInput}
+                value={
+                  allowManualInput && !readonly
+                    ? textValue
+                    : date
+                    ? format(date, 'dd/MM/yyyy')
+                    : ''
+                }
+                readOnly={!allowManualInput || readonly}
                 onChange={(e) => {
-                  if (!allowManualInput) return
+                  if (!allowManualInput || readonly) return
                   setTextValue(e.target.value)
                 }}
-                onBlur={() => allowManualInput && commitTextToDate(textValue)}
+                onBlur={() =>
+                  !readonly && allowManualInput && commitTextToDate(textValue)
+                }
                 onKeyDown={(e) => {
+                  if (readonly) return
                   if (e.key === 'Enter' && allowManualInput) {
                     e.preventDefault()
                     commitTextToDate(textValue)
@@ -114,22 +125,33 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
                 }}
                 className={cn(
                   'w-full bg-white px-3 py-2.5! pr-9 border border-gray-100 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition-colors',
-                  (!date && !textValue) && 'placeholder:text-gray-300',
-                  error && 'border-red-500 focus:ring-red-500 focus:border-red-500'
+                  !date && !textValue && 'placeholder:text-gray-300',
+                  error &&
+                    'border-red-500 focus:ring-red-500 focus:border-red-500',
+                  readonly &&
+                    'bg-gray-50 text-gray-500 cursor-not-allowed focus:ring-0 focus:border-gray-100'
                 )}
               />
-              <CalendarIcon className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
+              <CalendarIcon
+                className={cn(
+                  'absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none',
+                  readonly ? 'text-gray-400' : 'text-gray-500'
+                )}
+              />
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={handleDateSelect}
-              initialFocus
-              className="rounded-md border"
-            />
-          </PopoverContent>
+          {!readonly && (
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateSelect}
+                initialFocus
+                defaultMonth={date || new Date()}
+                className="rounded-md border"
+              />
+            </PopoverContent>
+          )}
         </Popover>
         {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
         {helperText && !error && (

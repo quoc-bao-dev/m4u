@@ -58,6 +58,10 @@ const OTPModal = () => {
     }
 
     try {
+      const introduceCode = localStorage.getItem('m4u_introduce_code')
+      if (introduceCode) {
+        localStorage.removeItem('m4u_introduce_code')
+      }
       // Chuẩn bị dữ liệu cho API sign_up
       const apiData = {
         fullname: formData.fullName,
@@ -68,6 +72,7 @@ const OTPModal = () => {
         id_product: String(productId || ''),
         event: 'register',
         key_code: otp,
+        code_introduce: introduceCode,
       }
 
       // Gọi API đăng ký với OTP
