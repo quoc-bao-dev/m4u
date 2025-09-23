@@ -137,7 +137,7 @@ const MyReviewTable = () => {
         id: item.id,
         id_review: item.id_review,
         product: {
-          brand: '',
+          brand: item.code,
           name: item.name,
           image: item.image,
         },
