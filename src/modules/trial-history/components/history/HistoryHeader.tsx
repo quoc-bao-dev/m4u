@@ -42,9 +42,9 @@ const HistoryHeader = () => {
         {/* Search placeholder */}
         <div className=" w-full lg:w-[260px] xl:w-[340px] flex-1  relative">
           <MagnifyingGlass
-            size={18}
+            size={20}
             weight="bold"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-greyscale-200"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-greyscale-500"
           />
           <input
             type="text"
