@@ -581,7 +581,8 @@
   "nodataReviewhub": {
     "title": "Bắt đầu hành trình làm đẹp của bạn!",
     "description": "Lịch sử đăng ký dùng thử sản phẩm của bạn sẽ xuất hiện ở đây khi bạn đăng ký sản phẩm đầu tiên. Thật dễ dàng để bắt đầu—đăng ký để nhận sản phẩm miễn phí, kiếm hoa hồng và nhận voucher độc quyền.",
-    "registerButton": "Đăng ký dùng thử miễn phí"
+    "registerButton": "Đăng ký dùng thử miễn phí",
+    "noData": "Chưa có nội dung"
   },
   "user": {
     "form": {
