@@ -5,6 +5,7 @@ import { useTranslation } from '@/locale'
 
 interface TimerProps {
   initTime: string // Formats supported: D:HH:MM:SS or HH:MM:SS
+  className?: string
 }
 
 const parseInitTimeToSeconds = (initTime: string): number => {
@@ -32,7 +33,7 @@ const secondsToParts = (totalSeconds: number) => {
   return { days, hours, minutes, seconds }
 }
 
-const Timer: React.FC<TimerProps> = ({ initTime }) => {
+const Timer: React.FC<TimerProps> = ({ initTime, className }) => {
   const { t } = useTranslation()
   const initialSeconds = React.useMemo(
     () => parseInitTimeToSeconds(initTime),
@@ -59,7 +60,7 @@ const Timer: React.FC<TimerProps> = ({ initTime }) => {
   )
 
   return (
-    <div className="flex justify-end pr-1 xl:pr-3 pb-1 xl:pb-3">
+    <div className={`flex justify-end pr-1 xl:pr-3 pb-1 xl:pb-3 ${className}`}>
       <div className="relative flex items-center gap-0.5 xl:gap-1.5">
         {segments.map((segment, index, arr) => (
           <React.Fragment key={`${segment}-${index}`}>

@@ -36,11 +36,16 @@ export const apiReview = {
   getTypeEvaluate: () =>
     axiosInstance.get<any>('/type_evaluate', { baseURL: envConfig.adminUrl }),
 
-  getProductReview: () =>
-    axiosInstance.get<any>(`/get_product_review/57`, {
+  getProductReview: (id_review: number) =>
+    axiosInstance.get<any>(`/get_product_review/${id_review}`, {
       baseURL: envConfig.adminUrl,
     }),
-    
+
+  getProductReviewPublic: (id_review: number) =>
+    axiosInstance.get<any>(`/get_product_review_public/${id_review}`, {
+      baseURL: envConfig.adminUrl,
+    }),
+
   getListProductReview: (id_review: number) =>
     axiosInstance.get<any>(`/get_list_product_review/${id_review}`, {
       baseURL: envConfig.adminUrl,

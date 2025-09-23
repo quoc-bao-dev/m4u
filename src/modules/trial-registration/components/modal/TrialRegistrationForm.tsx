@@ -311,7 +311,7 @@ const TrialRegistrationForm = ({
                     height={200}
                     src={productImage}
                     alt="product"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-contain p-1 rounded-lg"
                   />
                 </div>
                 <div>

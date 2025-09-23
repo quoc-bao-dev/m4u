@@ -12,14 +12,15 @@ export const useGetTypeEvaluate = () => {
   })
 }
 
-export const useGetProductReview = () => {
+export const useGetProductReview = (id_review: number, isOpen :boolean) => {
   const queryFn = async () => {
-    const response = await apiReview.getProductReview()
+    const response = await apiReview.getProductReviewPublic(id_review)
     return response.data.data
   }
   return useQuery({
-    queryKey: ['get-product-review'],
+    queryKey: ['get-product-review', id_review],
     queryFn: queryFn,
+    enabled: isOpen,
   })
 }
 

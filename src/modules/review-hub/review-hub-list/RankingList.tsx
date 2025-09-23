@@ -6,83 +6,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IMAGES } from '@/core/constants/IMAGES'
+import { Skeleton } from '@/components/ui/skeleton'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import TopReviewerCard from './components/TopReviewerCard'
-import { Skeleton } from '@/components/ui/skeleton'
-
-interface Kol {
-  name: string
-  image: string
-  rating: number
-  reviews: number
-}
-
-interface Product {
-  id: string
-  productName: string
-  brandName: string
-  rating: number
-  reviewCount: number
-  productImage: string
-  topReview: number
-  kols: Kol[]
-}
 
 interface RankingListProps {
   products?: any
   isLoading?: boolean
 }
 
-const kols = [
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/custom-videos/videos/1747067655414_wid_NjgyMjIzMDczZjJiOTAwMDU4OGQ5ODRk.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-  {
-    name: 'MANYO',
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    rating: 4.9,
-    reviews: 69,
-  },
-]
-
 const RankingList = ({ products, isLoading }: RankingListProps) => {
   const t = useTranslations('reviewHub')
-  // const list = productsProp.length ? productsProp : defaultProducts
+
+  if (!isLoading && products.length === 0) return null
+
   const filterOptions = {
     freeFrom: [
       { value: 'all', label: t('filters.freeFrom') },
@@ -225,17 +163,17 @@ const RankingList = ({ products, isLoading }: RankingListProps) => {
             ))}
           </>
         ) : (
-          products.map((product : any, idx : number) => (
+          products.map((product: any, idx: number) => (
             <TopReviewerCard
               key={product.id}
               data={product}
-              kols={kols}
+              // kols={kols}
               topReview={idx + 2}
               isRightColumn={idx % 2 === 1}
             />
           ))
         )}
-        
+
       </div>
     </div>
   )
