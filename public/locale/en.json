@@ -536,6 +536,10 @@
     "apply": "Apply"
   },
   "myReviews": {
+    "header": {
+      "title": "My Reviews",
+      "searchPlaceholder": "Search product, review, date, etc"
+    },
     "history": {
       "header": {
         "title": "Trial registration history",

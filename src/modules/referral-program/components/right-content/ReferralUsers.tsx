@@ -56,7 +56,11 @@ const ReferralUsers = () => {
             className="flex items-center justify-between pr-0 "
           >
             <div className="flex items-center space-x-3">
-              <UserAvatar userName={user.name} size={40} />
+              <UserAvatar
+                userName={user.name}
+                size={40}
+                className="border-none"
+              />
               <div>
                 <div className="text-gray-900 text-base font-medium">
                   {user.name}

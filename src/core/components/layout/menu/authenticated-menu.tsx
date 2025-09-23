@@ -149,7 +149,7 @@ const Top = ({ user }: TopProps) => {
       id: 'my-reviews',
       label: 'menu.auth.activity.myReviews',
       icon: PencilSimpleLineIcon,
-      href: '/developing',
+      href: '/my-reviews',
     },
 
     {

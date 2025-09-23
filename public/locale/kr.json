@@ -533,6 +533,10 @@
     "apply": "적용"
   },
   "myReviews": {
+    "header": {
+      "title": "내 리뷰",
+      "searchPlaceholder": "제품, 리뷰, 날짜 등 검색"
+    },
     "history": {
       "header": {
         "title": "체험 신청 내역",
