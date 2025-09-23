@@ -1,11 +1,15 @@
 'use client'
 
 import { Rating } from '@/core/components'
-import { useMyReview } from '@/services/my-review'
-import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
-import StackVideo from './StackVideo'
 import { NoData } from '@/modules/trial-registration'
+import { useMyReview } from '@/services/my-review'
+import moment from 'moment'
+import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { useTableFilter } from '../stores/useTableFilter'
+import StackVideo from './StackVideo'
+import InfoKolModal from '../../review-hub/review-hub-detail/components/InfoKolModal'
+import { getRatingI18nKey } from '@/core/utils'
 
 const StatusDot = ({ color }: { color: string }) => (
   <span
@@ -16,11 +20,68 @@ const StatusDot = ({ color }: { color: string }) => (
 
 const MyReviewTable = () => {
   const t = useTranslations('myReviews.history.table.headers')
+  const t0 = useTranslations()
+  const tTable = useTranslations('myReviews.history.table')
+  const tCart = useTranslations('cart')
+  const { activeTab, searchQuery, dateRange } = useTableFilter()
 
-  const { data, isLoading } = useMyReview()
+  const [isInfoOpen, setIsInfoOpen] = useState(false)
+  const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null)
+
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useMyReview({
+    activeTab,
+    searchQuery,
+    dateStart: dateRange.from
+      ? moment(dateRange.from).format('DD/MM/YYYY')
+      : undefined,
+    dateEnd: dateRange.to
+      ? moment(dateRange.to).format('DD/MM/YYYY')
+      : undefined,
+    perPage: 5,
+  })
+
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const rootEl = scrollContainerRef.current
+    const sentinelEl = sentinelRef.current
+    if (!rootEl || !sentinelEl) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        root: rootEl,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinelEl)
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  useEffect(() => {
+    refetch()
+  }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   const rows = useMemo(() => {
-    const items = data?.data.data ?? []
+    const pages = data?.pages ?? []
+    const items = pages.flatMap((p: any) => p?.data?.data ?? [])
 
     return items.map((item) => {
       // Build media array from video_review and media_other using mime_type
@@ -39,16 +100,18 @@ const MyReviewTable = () => {
         })
       }
       if (Array.isArray(item.media_other)) {
-        item.media_other.forEach((m, idx) => {
-          const mime = (m.mime_type || '').toLowerCase()
-          const isVideo = mime.startsWith('video/')
-          media.push({
-            id: `m-${item.id}-${idx}`,
-            src: m.media,
-            type: isVideo ? 'video' : 'image',
-            thumbnail: isVideo ? undefined : m.media,
-          })
-        })
+        item.media_other.forEach(
+          (m: { mime_type?: string; media: string }, idx: number) => {
+            const mime = (m.mime_type || '').toLowerCase()
+            const isVideo = mime.startsWith('video/')
+            media.push({
+              id: `m-${item.id}-${idx}`,
+              src: m.media,
+              type: isVideo ? 'video' : 'image',
+              thumbnail: isVideo ? undefined : m.media,
+            })
+          }
+        )
       }
 
       // Format date/time from date_review
@@ -72,15 +135,16 @@ const MyReviewTable = () => {
 
       return {
         id: item.id,
+        id_review: item.id_review,
         product: {
-          brand: '',
+          brand: item.code,
           name: item.name,
           image: item.image,
         },
         review: {
           rating: item.evaluate,
-          title: item.content_evaluate || '',
-          excerpt: item.content || '',
+          title: t0(getRatingI18nKey(item.evaluate)) || '',
+          excerpt: item.content_evaluate || '',
           media,
         },
         reward: '',
@@ -95,6 +159,11 @@ const MyReviewTable = () => {
 
   return (
     <div className="w-full">
+      <InfoKolModal
+        isOpen={isInfoOpen}
+        onClose={() => setIsInfoOpen(false)}
+        id={selectedReviewId}
+      />
       {/* Desktop table */}
       <div className="hidden md:block  bg-white">
         <div className="overflow-x-auto">
@@ -132,8 +201,8 @@ const MyReviewTable = () => {
                 <tr>
                   <td className="px-3 py-8 align-middle h-[400px]" colSpan={6}>
                     <NoData
-                      title={t('myReviews.history.table.empty.title')}
-                      description={t('myReviews.history.table.empty.desc')}
+                      title={tTable('empty.title')}
+                      description={tTable('empty.desc')}
                     />
                   </td>
                 </tr>
@@ -175,7 +244,7 @@ const MyReviewTable = () => {
                               rate={row.review.rating || 0}
                             />
                             <span
-                              className="text-xs font-semibold"
+                              className="text-xs font-semibold truncate"
                               style={{ color: '#4E5969' }}
                             >
                               {row.review.title}
@@ -226,8 +295,14 @@ const MyReviewTable = () => {
 
                     {/* Action */}
                     <td className="px-3 py-5 w-[160px] align-middle">
-                      <button className="truncate w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full">
-                        {row.action}
+                      <button
+                        className="truncate w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full"
+                        onClick={() => {
+                          setSelectedReviewId(row.id as number)
+                          setIsInfoOpen(true)
+                        }}
+                      >
+                        {tCart('viewDetails', { default: 'View details' })}
                       </button>
                     </td>
                   </tr>
@@ -265,8 +340,8 @@ const MyReviewTable = () => {
         {!isLoading && rows.length === 0 && (
           <div className="px-4 py-8 h-[400px]">
             <NoData
-              title={t('myReviews.history.table.empty.title')}
-              description={t('myReviews.history.table.empty.desc')}
+              title={tTable('empty.title')}
+              description={tTable('empty.desc')}
             />
           </div>
         )}
@@ -352,8 +427,14 @@ const MyReviewTable = () => {
 
               {/* Button */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full">
-                  {row.action}
+                <button
+                  className="px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full"
+                  onClick={() => {
+                    setSelectedReviewId(row.id as number)
+                    setIsInfoOpen(true)
+                  }}
+                >
+                  {tCart('viewDetails', { default: 'View details' })}
                 </button>
               </div>
             </div>

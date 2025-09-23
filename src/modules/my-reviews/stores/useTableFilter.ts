@@ -17,7 +17,7 @@ export interface TableFilterState {
 }
 
 export const useTableFilter = create<TableFilterState>((set) => ({
-  activeTab: 'All',
+  activeTab: '',
   setActiveTab: (tab: string) => set({ activeTab: tab }),
 
   searchQuery: '',
@@ -29,7 +29,7 @@ export const useTableFilter = create<TableFilterState>((set) => ({
 
   resetFilters: () =>
     set({
-      activeTab: 'All',
+      activeTab: '',
       searchQuery: '',
       dateRange: { from: undefined, to: undefined },
     }),
