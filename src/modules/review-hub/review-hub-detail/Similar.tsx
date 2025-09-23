@@ -60,7 +60,7 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
               href={`/review-hub/${product.slug}`}
               className="group flex flex-col lg:flex-row gap-3 lg:gap-5 w-full"
             >
-              <div className='bg-white rounded-3xl w-full aspect-square xl:aspect-auto xl:h-[475px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300'>
+              <div className='bg-white rounded-3xl w-full aspect-square xl:aspect-auto lg:h-[324px] xl:h-[475px] 2xl:h-[610px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300'>
                 <div className="relative rounded-3xl h-full"
                   style={{ backgroundColor: withAlpha(product.background_color, 0.1) }}
                 >

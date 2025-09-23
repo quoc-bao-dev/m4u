@@ -24,6 +24,7 @@ const ReviewHubDetail = ({ slug }: { slug: string }) => {
         hasNextPage={hasNextPage}
         isFetchingNextPage={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
+        slug={slug}
       />
       <Similar isError={isError} data={productRelationListReviewHub} isLoading={isLoading || isLoadingSimilar} />
       <VideoWrapper

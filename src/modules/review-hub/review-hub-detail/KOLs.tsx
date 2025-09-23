@@ -39,6 +39,7 @@ interface KOLsProps {
   hasNextPage?: boolean
   isFetchingNextPage?: boolean
   fetchNextPage?: () => void
+  slug: string
 }
 
 const KOLs = ({
@@ -46,7 +47,8 @@ const KOLs = ({
   isLoading,
   hasNextPage,
   isFetchingNextPage,
-  fetchNextPage
+  fetchNextPage,
+  slug
 }: KOLsProps) => {
   const tCommon = useTranslations('common')
   const t = useTranslations('reviewHub.kols')
@@ -161,7 +163,7 @@ const KOLs = ({
         </div>
       )}
 
-      <InfoKolModal isOpen={isOpen} onClose={handleClose} id={selectedKol?.id} />
+      <InfoKolModal isOpen={isOpen} onClose={handleClose} id={selectedKol?.id} slug={slug} />
     </div>
   )
 }
