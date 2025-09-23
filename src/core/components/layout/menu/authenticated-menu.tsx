@@ -17,6 +17,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 import { sMenuSignal } from './sMenuSignal'
 import UserAvatar from '../../UserAvatar'
+import { useReferralIntroduceInfoQuery } from '@/services/referral-program'
 
 type UserType = UserResponse['info']
 
@@ -40,6 +41,7 @@ const AuthenticatedMenu = ({ user, children }: AuthenticatedMenuProps) => {
 const Header = ({ user }: HeaderProps) => {
   const t = useTranslations()
   const locale = useLocale()
+  const { data } = useReferralIntroduceInfoQuery()
 
   // Format join date from created_at
   const formatJoinDate = (dateString: string) => {
@@ -105,7 +107,7 @@ const Header = ({ user }: HeaderProps) => {
         {/* Referrals */}
         <div className="text-center">
           <div className="text-base font-bold text-greyscale-900 mb-1">
-            {user.referral_code ? t('menu.auth.stats.active') : '0'}
+            {data?.guest || 0}
           </div>
           <div className="text-[12px] text-greyscale-500">
             {t('menu.auth.stats.referrals')}
@@ -115,20 +117,20 @@ const Header = ({ user }: HeaderProps) => {
         {/* Account Balance */}
         <div className="text-center">
           <div className="text-base font-bold text-greyscale-900 mb-1">
-            {formatBalance(user.account_balance)}
+            {formatBalance(0)}
           </div>
           <div className="text-[12px] text-greyscale-500">
-            {t('menu.auth.stats.accountBalance')}
+            {t('menu.auth.stats.commissionRevenue')}
           </div>
         </div>
 
         {/* Points */}
         <div className="text-center">
           <div className="text-base font-bold text-greyscale-900 mb-1">
-            {user.point || '0'}
+            {data?.review || 0}
           </div>
           <div className="text-[12px] text-greyscale-500">
-            {t('menu.auth.stats.points')}
+            {t('menu.auth.stats.reviews')}
           </div>
         </div>
       </div>

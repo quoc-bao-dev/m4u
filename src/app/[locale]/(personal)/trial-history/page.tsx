@@ -9,7 +9,7 @@ const Page = () => {
     <>
       <HistoryHeader />
       <HistoryTabs className="mt-4" />
-      <div className="mt-2 z-10 relative">
+      <div className="mt-8 z-10 relative">
         <HistoryTable />
       </div>
     </>
