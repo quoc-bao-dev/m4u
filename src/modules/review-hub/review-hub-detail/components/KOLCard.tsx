@@ -1,29 +1,18 @@
 'use client'
-import * as React from 'react'
-import { useTranslations } from 'next-intl'
-import Image, { type StaticImageData } from 'next/image'
 import { CaretRightIcon, StarIcon } from '@phosphor-icons/react'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import * as React from 'react'
 
 export type KOLCardProps = {
   data: any
-  image?: StaticImageData | string
-  avatar?: StaticImageData | string
-  name?: string
-  rating?: number | string
-  reviews?: number | string
   onClick?: () => void
 }
 
 export const KOLCard: React.FC<KOLCardProps> = ({
   data,
-  image,
-  avatar,
-  name,
-  rating,
-  reviews,
   onClick,
 }) => {
-  // const [isLoading, setIsLoading] = React.useState(true)
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
   const tProduct = useTranslations('product')
 
@@ -34,10 +23,6 @@ export const KOLCard: React.FC<KOLCardProps> = ({
   const handleMouseLeave = () => {
     videoRef.current?.pause()
   }
-
-  // setTimeout(() => {
-  //   setIsLoading(false)
-  // }, 3000)
 
   return (
     <div className="shadow-[0px_4px_24px_0px_#0000000F] rounded-2xl xl:rounded-3xl">
@@ -51,7 +36,7 @@ export const KOLCard: React.FC<KOLCardProps> = ({
         <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
           <CaretRightIcon weight="fill" className="size-5 text-white" />
         </div>
-       
+
         <video
           src={data?.video_review as string}
           ref={videoRef}
@@ -83,13 +68,13 @@ export const KOLCard: React.FC<KOLCardProps> = ({
               {100} {tProduct('views')}
             </p>
           </div>
-          <div className="absolute top-2 right-2 md:static py-0.5 px-1 lg:p-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
+          <div className="absolute top-2 right-2 md:static py-0.5 px-1 lg:px-2 h-fit flex items-center gap-1 lg:gap-2 bg-white rounded-full">
             <StarIcon
               weight="fill"
               className="size-4 xl:size-5 text-yellow-600"
             />
             <span className="text-sm xl:text-base 2xl:text-lg font-medium text-greyscale-900">
-              {data?.evaluate}
+              {data?.evaluate.toFixed(1)}
             </span>
           </div>
         </div>

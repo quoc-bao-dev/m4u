@@ -211,7 +211,7 @@ const TopReviewerCard = ({
     <Link
       ref={cardRef as Ref<HTMLAnchorElement>}
       href={`/review-hub/${data?.slug}`}
-      className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-6 w-full border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
+      className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-5 w-full border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
       <div className='hidden xl:block flex-shrink-0 lg:size-[160px] xl:size-[250px] 2xl:size-[300px] rounded-3xl'
       style={{
@@ -254,13 +254,13 @@ const TopReviewerCard = ({
               } as React.CSSProperties}>
                 {data?.name || productName}
               </p>
-              <div className="flex items-center gap-3 pt-0 xl:pt-1 2xl:pt-2">
+              <div className="flex items-center gap-1 2xl:gap-3 pt-0 xl:pt-1 2xl:pt-2">
                 <Rating
                   value={Number(data?.average_star || rating)}
                   readOnly
-                  maxWidth={isMobile ? 96 : isTablet ? 116 : 136}
+                  maxWidth={isMobile ? 96 : isTablet ? 116 : 120}
                 />
-                <p className="text-sm lg:text-base xl:text-lg 2xl:text-xl xl:leading-[80%] text-greyscale-500">
+                <p className="whitespace-nowrap text-sm lg:text-base xl:text-lg 2xl:text-xl xl:leading-[80%] text-greyscale-500">
                   <span className="text-greyscale-900 font-medium">
                     {data?.average_star || rating}{' '}
                   </span>

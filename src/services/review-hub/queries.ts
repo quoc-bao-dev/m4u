@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query'
 import apiReviewHub from './api'
 
 export const useGetDataReviewHub = () => {
@@ -32,7 +32,7 @@ export const useGetDataReviewHubProduct = (id_product: number) => {
 export const useGetDataReviewHubDetail = (slug: string) => {
   const queryFn = async () => {
     const response = await apiReviewHub.dataReviewHubDetail(slug, {
-      per_page: 10,
+      per_page: 8,
       current_page: 1,
     })
     return response.data.data
@@ -41,5 +41,41 @@ export const useGetDataReviewHubDetail = (slug: string) => {
     queryKey: ['dataReviewHubDetail', slug],
     queryFn: queryFn,
     enabled: !!slug,
+  })
+}
+
+export const useGetDataReviewHubDetailInfinite = (slug: string) => {
+  const queryFn = async ({ pageParam = 1 }) => {
+    const response = await apiReviewHub.dataReviewHubDetail(slug, {
+      per_page: 8,
+      current_page: pageParam,
+    })
+    return response.data.data
+  }
+  
+  return useInfiniteQuery({
+    queryKey: ['dataReviewHubDetailInfinite', slug],
+    queryFn: queryFn,
+    enabled: !!slug,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      // Kiểm tra nếu có dữ liệu review và còn trang tiếp theo
+      if (lastPage?.review?.next_page_url) {
+        return lastPage.review.current_page + 1
+      }
+      return undefined
+    },
+  })
+}
+
+export const useGetProductRelationListReviewHub = ({ id }: { id: string }) => {
+  const queryFn = async () => {
+    const response = await apiReviewHub.getProductRelationListReviewHub({ id })
+    return response.data.data.data
+  }
+  return useQuery({
+    queryKey: ['product-relation-list-review-hub', id],
+    queryFn: queryFn,
+    enabled: !!id,
   })
 }

@@ -6,12 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IMAGES } from '@/core/constants/IMAGES'
-import React from 'react'
-import InfoKolModal, { type KolInfo } from './components/InfoKolModal'
-import { KOLCard } from './components/KOLCard'
+import { Skeleton } from '@/components/ui/skeleton'
+import Button from '@/core/components/ui/button'
 import ScrollRevealCard from '@/modules/trial-registration/components/product/ScrollRevealCard'
 import { useTranslations } from 'next-intl'
+import React, { useCallback, useEffect, useRef } from 'react'
+import InfoKolModal, { type KolInfo } from './components/InfoKolModal'
+import { KOLCard } from './components/KOLCard'
 
 const filterOptions = {
   sortBy: [
@@ -31,78 +32,28 @@ const filterOptions = {
   ],
 }
 
-const kolCards = [
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-  {
-    image:
-      'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-    avatar: IMAGES.kol1,
-    name: 'Đào Bùi',
-    rating: 4.9,
-    reviews: 88,
-  },
-]
 
-const KOLs = ({ data }: { data: any }) => {
-  console.log(data?.data)
+interface KOLsProps {
+  data: any
+  isLoading: boolean
+  hasNextPage?: boolean
+  isFetchingNextPage?: boolean
+  fetchNextPage?: () => void
+}
+
+const KOLs = ({
+  data,
+  isLoading,
+  hasNextPage,
+  isFetchingNextPage,
+  fetchNextPage
+}: KOLsProps) => {
+  console.log(data)
+  const tCommon = useTranslations('common')
   const t = useTranslations('reviewHub.kols')
   const [isOpen, setIsOpen] = React.useState(false)
   const [selectedKol, setSelectedKol] = React.useState<KolInfo>(null)
+  const loadMoreRef = useRef<HTMLDivElement>(null)
 
   const handleOpen = (kol: KolInfo) => {
     setSelectedKol(kol)
@@ -112,6 +63,30 @@ const KOLs = ({ data }: { data: any }) => {
   const handleClose = () => {
     setIsOpen(false)
   }
+
+  // Infinite scroll logic
+  const handleObserver = useCallback((entries: IntersectionObserverEntry[]) => {
+    const target = entries[0]
+    if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage?.()
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, {
+      threshold: 0.1,
+    })
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current)
+    }
+
+    return () => {
+      if (loadMoreRef.current) {
+        observer.unobserve(loadMoreRef.current)
+      }
+    }
+  }, [handleObserver])
 
   return (
     <div className="flex flex-col gap-3 lg:gap-6 xl:gap-12 w-full px-3 lg:px-0">
@@ -145,20 +120,47 @@ const KOLs = ({ data }: { data: any }) => {
         </Select>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-        {data?.data?.map((kol: any, index: number) => (
-          <ScrollRevealCard key={index} delay={index * 0.1} duration={0.6}>
-            <KOLCard
-            data={kol}
-              // image={kol.image}
-              // avatar={kol.avatar}
-              // name={kol.name}
-              // rating={kol.rating}
-              // reviews={kol.reviews}
-              onClick={() => handleOpen(kol)}
-            />
-          </ScrollRevealCard>
-        ))}
+        {isLoading ? (
+          <>
+            {Array.from({ length: 8 }).map((_, index) => (
+              <Skeleton key={index} className="w-full aspect-square rounded-3xl" />
+            ))}
+          </>
+        ) : (
+          data?.pages?.map((page: any, pageIndex: number) =>
+            page?.review?.data?.map((review: any, index: number) => (
+              <ScrollRevealCard
+                key={`${pageIndex}-${review.id}`}
+                delay={(pageIndex * 8 + index) * 0.1}
+                duration={0.6}
+              >
+                <KOLCard
+                  data={review}
+                  onClick={() => handleOpen(review)}
+                />
+              </ScrollRevealCard>
+            ))
+          ).flat()
+        )}
       </div>
+
+      {/* Load More Trigger */}
+      {hasNextPage && (
+        <div ref={loadMoreRef} className="flex justify-center py-4">
+          {isFetchingNextPage ? (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+              <span className="text-gray-600">Đang tải thêm...</span>
+            </div>
+          ) : (
+            <Button
+              onClick={() => fetchNextPage?.()}
+            >
+              {tCommon('loadMore')}
+            </Button>
+          )}
+        </div>
+      )}
 
       <InfoKolModal isOpen={isOpen} onClose={handleClose} kol={selectedKol} />
     </div>

@@ -52,6 +52,12 @@ const apiReviewHub = {
       },
       baseURL: envConfig.adminUrl,
     }),
+
+  getProductRelationListReviewHub: ({ id }: { id: string }) =>
+    axiosInstance.get<any>('dataReviewHubOther', {
+      baseURL: envConfig.adminUrl,
+      params: { id, per_page: 2 },
+    }),
 }
 
 export default apiReviewHub
