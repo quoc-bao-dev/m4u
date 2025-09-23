@@ -6,6 +6,7 @@ import { Link } from '@/locale'
 import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import { useLogoutConfirmModal } from '@/modules/auth'
 import { useAuth } from '@/modules/auth/stores/useAuth'
+import { useReferralIntroduceInfoQuery } from '@/services/referral-program'
 import {
   CameraIcon,
   ClockCounterClockwise,
@@ -31,6 +32,7 @@ const PersonalSidebar = () => {
   const locale = useLocale()
   const { user, isAuthenticated } = useAuth()
   const { open: openLogoutConfirmModal } = useLogoutConfirmModal()
+  const { data } = useReferralIntroduceInfoQuery()
   const pathname = usePathname()
 
   const formatJoinDate = (dateString: string) => {
@@ -159,7 +161,7 @@ const PersonalSidebar = () => {
         <div className="relative z-[1] flex justify-between gap-2 mt-5 rounded-xl w-full px-3">
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {isAuthenticated && user && user.referral_code ? 69 : '0'}
+              {data?.guest || 0}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.referrals')}
@@ -167,7 +169,7 @@ const PersonalSidebar = () => {
           </div>
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {'12,345,678 đ'}
+              {'0 ₫'}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.commissionRevenue')}
@@ -175,7 +177,7 @@ const PersonalSidebar = () => {
           </div>
           <div className="text-center">
             <div className="text-base leading-6 font-bold text-greyscale-900 mb-1">
-              {isAuthenticated && user ? user.point || '0' : '0'}
+              {data?.review || 0}
             </div>
             <div className="text-[12px] text-greyscale-500 truncate">
               {t('menu.auth.stats.reviews')}

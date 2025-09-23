@@ -5,7 +5,7 @@ const Page = () => {
     <>
       <Header />
       <Tabs className="mt-4" />
-      <div className="mt-2 relative z-10">
+      <div className="mt-8 relative z-10">
         <Table />
       </div>
     </>
