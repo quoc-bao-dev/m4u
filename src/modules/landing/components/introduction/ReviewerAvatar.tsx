@@ -21,7 +21,7 @@ const ReviewerAvatar = ({
   const t = useTranslations('product')
   const labelContent = (
     <div className="text-center">
-      <h3 className="font-bold text-dark text-[7px] lg:text-base">{name}</h3>
+      <h3 className="font-bold text-dark text-[7px] lg:text-base capitalize">{name}</h3>
       <p className="text-dark text-[7px] lg:text-sm">{jobTitle} {t('reviews')}</p>
     </div>
   )

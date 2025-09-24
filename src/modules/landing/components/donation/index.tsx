@@ -260,7 +260,7 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center w-full ${className}`}
+      className={`flex flex-col items-center justify-center w-full gap-2 ${className}`}
     >
       {/* Mobile Content */}
       <div className="lg:hidden relative flex flex-col justify-center items-center lg:gap-6 gap-2 w-[90%] lg:w-[464px]">
