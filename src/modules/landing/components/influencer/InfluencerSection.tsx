@@ -5,6 +5,7 @@ import { Container, Section } from '@/core/components/common/group'
 import { useGetHomePage } from '@/services/home/queries'
 import Image from 'next/image'
 import { RegisterCTA } from '../cta'
+import { Link } from '@/locale'
 
 const InfluencerSection = () => {
   const { isLoading, data: homePage } = useGetHomePage()
@@ -48,10 +49,12 @@ const InfluencerSection = () => {
                 {data?.subtitle}
               </p>
             )}
-            <RegisterCTA
-              className="mt-6 inline-flex"
-              label={data?.title_button}
-            />
+            <Link href="/trial-registration">
+              <RegisterCTA
+                className="mt-6 inline-flex"
+                label={data?.title_button}
+              />
+            </Link>
           </div>
         </div>
       </Container>
