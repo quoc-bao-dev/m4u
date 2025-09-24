@@ -473,6 +473,12 @@
       "prev": "Trang trước",
       "next": "Trang sau",
       "pageXofY": "Trang {current} / {total}"
+    },
+    "relative": {
+      "now": "Vừa xong",
+      "minutes": "{count} phút trước",
+      "hours": "{count} giờ trước",
+      "days": "{count} ngày trước"
     }
   },
   "trial": {

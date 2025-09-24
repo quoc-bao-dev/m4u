@@ -5,7 +5,7 @@ import { useGetListNotifications } from '@/services/notification'
 import type { NotificationItem as ApiNotificationItem } from '@/services/notification/type'
 import { X } from '@phosphor-icons/react'
 import React, { useEffect, useMemo } from 'react'
-import { formatNotificationTime } from '../../utils'
+import { formatNotificationTime, formatNotificationTimeI18n } from '../../utils'
 import { renderNotificationIcon } from '../../utils/render-icon'
 import styles from './NotifyPopup.module.css'
 import { useNavigate } from '@/locale'
@@ -143,7 +143,7 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
                   {notification.content}
                 </p>
                 <span className="text-xs text-gray-500">
-                  {formatNotificationTime(notification.timestamp)}
+                  {formatNotificationTimeI18n(notification.timestamp, t)}
                 </span>
               </div>
             </div>

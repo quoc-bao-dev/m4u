@@ -6,7 +6,7 @@ import type {
   NotificationItem as ApiNotificationItem,
   ListNotificationsParams,
 } from '@/services/notification/type'
-import { formatNotificationTime, renderNotificationIcon } from '../../utils'
+import { formatNotificationTimeI18n, renderNotificationIcon } from '../../utils'
 import { NotificationItem } from '../popup/NotifyPopup'
 import { useTranslations } from 'next-intl'
 
@@ -68,7 +68,7 @@ const NotifyList = () => {
                   {notification.content}
                 </p>
                 <span className="text-xs text-gray-500">
-                  {formatNotificationTime(notification.timestamp)}
+                  {formatNotificationTimeI18n(notification.timestamp, t)}
                 </span>
               </div>
               <div className="ml-auto">

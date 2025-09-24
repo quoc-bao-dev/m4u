@@ -473,6 +473,12 @@
       "prev": "Previous",
       "next": "Next",
       "pageXofY": "Page {current} / {total}"
+    },
+    "relative": {
+      "now": "Just now",
+      "minutes": "{count} minutes ago",
+      "hours": "{count} hours ago",
+      "days": "{count} days ago"
     }
   },
   "trial": {
