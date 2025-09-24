@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuth } from '@/modules/auth'
 import { useAuthGuard } from './useAuthGuard'
 import { PropsWithChildren } from 'react'
 
@@ -14,6 +15,11 @@ const AuthGuard = ({
   fallback = null,
 }: AuthGuardProps) => {
   const { isAuthenticated, user, isInitialized } = useAuthGuard(redirectTo)
+  const { isAuthenticated: isAuthenticatedAuth } = useAuth()
+
+  if (isAuthenticatedAuth) {
+    return <>{children}</>
+  }
 
   // Đang trong quá trình kiểm tra authentication
   if (!isInitialized) {

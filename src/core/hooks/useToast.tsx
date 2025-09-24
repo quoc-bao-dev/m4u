@@ -1,4 +1,5 @@
 import toast from 'react-hot-toast'
+import { BellRinging } from '@phosphor-icons/react'
 
 export const useToast = () => {
   const showSuccess = (message: string) => {
@@ -15,7 +16,7 @@ export const useToast = () => {
 
   const showInfo = (message: string) => {
     toast(message, {
-      icon: 'ℹ️',
+      icon: <BellRinging size={28} className="text-blue-500" />,
     })
   }
 

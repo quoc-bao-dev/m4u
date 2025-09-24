@@ -73,7 +73,6 @@ const HistoryTabs = ({
       loading={isLoading}
       className={className}
       loadingSkeletonCount={5}
-      activeIndicatorColor="#ea4b8b"
     />
   )
 }

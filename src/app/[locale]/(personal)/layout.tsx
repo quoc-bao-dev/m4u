@@ -27,7 +27,8 @@ const Layout = ({ children }: PropsWithChildren) => {
             <section className="lg:col-span-8 xl:col-span-9">
               <div className="lg:p-5 lg:bg-white lg:rounded-2xl lg:shadow-[0px_4px_24px_0px_#0000000F] lg:min-h-[calc(100vh-162px)] relative overflow-hidden">
                 {/* Main table content area - children */}
-                <div className="relative z-10">{children}</div>
+                <div className="relative- z-10">{children} </div>
+
                 <div className="hidden lg:block absolute -bottom-6 left-0 right-0 z-8 translate-y-3/4 scale-x-[-1.8] overflow-hidden">
                   <img
                     src={IMAGES.topGradient2}
