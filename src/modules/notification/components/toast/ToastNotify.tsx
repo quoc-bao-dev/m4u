@@ -12,7 +12,7 @@ const ToastNotify = () => {
     if (!socket) return
 
     socket.on('new_notification', () => {
-      toast.showInfo('Thông báo mới')
+      //   toast.showInfo('Thông báo mới')
     })
   }, [socket])
   return null
