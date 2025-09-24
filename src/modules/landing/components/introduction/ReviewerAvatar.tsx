@@ -1,4 +1,5 @@
-import { cn } from '@/core/utils'
+import UserAvatar from '@/core/components/common/UserAvatar'
+import { useTranslations } from 'next-intl'
 
 interface ReviewerAvatarProps {
   src: string
@@ -17,10 +18,11 @@ const ReviewerAvatar = ({
   jobTitle,
   labelPosition,
 }: ReviewerAvatarProps) => {
+  const t = useTranslations('product')
   const labelContent = (
     <div className="text-center">
       <h3 className="font-bold text-dark text-[7px] lg:text-base">{name}</h3>
-      <p className="text-dark text-[7px] lg:text-sm">{jobTitle}</p>
+      <p className="text-dark text-[7px] lg:text-sm">{jobTitle} {t('reviews')}</p>
     </div>
   )
 
@@ -30,13 +32,16 @@ const ReviewerAvatar = ({
     >
       {labelPosition === 'top' && labelContent}
       <div className="relative ">
-        <img
+        <UserAvatar src={src} userName={name}
+          className={'size-20 aspect-square md:text-xl xl:text-3xl rounded-full object-cover border-[#BBBEFA] ' + imageClassName}
+        />
+        {/* <img
           src={src}
           alt={name}
           className={cn(
             `size-20 aspect-square rounded-full object-cover border-4 border-[#BBBEFA] ${imageClassName}`
           )}
-        />
+        /> */}
       </div>
       {labelPosition === 'bottom' && labelContent}
     </div>

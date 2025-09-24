@@ -93,6 +93,7 @@ const reviewerData = [
 const Reviewer = () => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section6
+  const dataReviewer = homePage?.list_review_new
 
   // Theo dõi item đang ở giữa vùng nhìn của thanh cuộn ngang
   const [activeLoopIndex, setActiveLoopIndex] = useState<number>(0)
@@ -100,7 +101,7 @@ const Reviewer = () => {
 
   // Hàm tìm phần tử con nằm gần tâm viewport của container nhất
   // Dữ liệu cơ bản của các thẻ (có thể thay bằng dữ liệu thật)
-  const baseItems = useMemo(() => reviewerData, [])
+  const baseItems = useMemo(() => dataReviewer ?? [], [dataReviewer])
 
   const LOOP_TIMES = 3
   const loopedItems = useMemo(
@@ -145,10 +146,7 @@ const Reviewer = () => {
   const scrollTween = useRef<gsap.core.Tween | null>(null)
   const activeDelayTimer = useRef<number | null>(null)
 
-  const handleScroll: UIEventHandler<HTMLDivElement> = () => {}
-
-  // Tự động canh giữa item gần trung tâm khi người dùng dừng cuộn
-  // Không còn lắng nghe scroll vì đã vô hiệu hóa cuộn tay
+  const handleScroll: UIEventHandler<HTMLDivElement> = () => { }
 
   const getScrollLeftForIndex = (index: number) => {
     const el = scrollRef.current
@@ -164,6 +162,7 @@ const Reviewer = () => {
   const normalizeToMiddle = (indexInLoop: number) => {
     const el = scrollRef.current
     if (!el) return indexInLoop
+    if (baseLength === 0) return indexInLoop
     const relative = ((indexInLoop % baseLength) + baseLength) % baseLength
     const normalizedIndex = middleStart + relative
     if (normalizedIndex === indexInLoop) return indexInLoop
@@ -207,6 +206,7 @@ const Reviewer = () => {
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
+    if (baseLength === 0) return
     const children = Array.from(el.children) as HTMLElement[]
     const target = children[middleStart]
     if (!target) return
@@ -215,6 +215,8 @@ const Reviewer = () => {
     el.scrollLeft = targetCenter - containerCenter
     setActiveLoopIndex(middleStart)
   }, [middleStart])
+
+  if (!isLoading && !dataReviewer) return null
 
   return (
     <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
@@ -227,7 +229,6 @@ const Reviewer = () => {
               className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold capitalize text-greyscale-700"
               dangerouslySetInnerHTML={{ __html: data?.title }}
             >
-              {/* Reviewer <span className="text-greyscale-400">nói gì?</span> */}
             </div>
           )}
           {isLoading ? (
@@ -261,31 +262,25 @@ const Reviewer = () => {
       </div>
       <div
         ref={scrollRef}
-        className="flex items-center gap-4 max-w-full overflow-x-hidden cursor-default select-none h-[450px] md:h-[620px]"
+        className="flex items-center gap-4 w-full max-w-full overflow-x-hidden cursor-default select-none h-[450px] md:h-[630px]"
         onScroll={handleScroll}
       >
-        {loopedItems.map((item, idx) => (
-          <ReviewCard
-            key={`review-${idx}`}
-            reviewerImage={item.reviewerImage}
-            reviewerVideo={item.reviewerVideo}
-            reviewerAlt={item.reviewerAlt}
-            productImage={item.productImage}
-            productAlt={item.productAlt}
-            brandName={item.brandName}
-            productName={item.productName}
-            timeInfo={item.timeInfo}
-            progressPercentage={item.progressPercentage}
-            participationText={item.participationText}
-            buttonText={item.buttonText}
-            isActive={activeLoopIndex === idx}
-            onButtonClick={() => {
-              console.log('Đăng ký dùng thử clicked')
-            }}
-            className="cursor-pointer select-none"
-            onClick={() => centerToIndex(idx)}
-          />
-        ))}
+        {isLoading ? (
+          <>
+            <Skeleton className="w-full h-full" />
+            <Skeleton className="w-full h-full" />
+            <Skeleton className="w-full h-full" />
+          </>
+        ) : (
+          loopedItems.map((item, idx) => (
+            <ReviewCard
+              key={`review-${idx}`}
+              data={item}
+              isActive={activeLoopIndex === idx}
+              className="cursor-pointer select-none"
+              onClick={() => centerToIndex(idx)}
+            />
+          )))}
       </div>
       <div className="xl:hidden flex gap-4 items-center">
         <button

@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 /**
@@ -49,6 +50,7 @@ export default function RatingRing({
   animate = true,
   className,
 }: RatingRingProps) {
+  const t = useTranslations()
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
   const clamped = Math.max(0, Math.min(value / max, 1))
@@ -160,7 +162,7 @@ export default function RatingRing({
                   className="text-greyscale-500 text-xs"
                   style={{ fontSize: size * 0.085, opacity: 0.8, marginTop: 2 }}
                 >
-                  {reviews} reviews
+                  {reviews} {t('product.reviews')}
                 </div>
               )}
             </div>

@@ -315,7 +315,9 @@
     "viewAll": "Xem tất cả",
     "exploreSimilarProducts": "Khám phá sản phẩm tương tự",
     "honestReviews": "Đánh giá chân thực",
-    "fromRealUsers": "Từ người dùng thực"
+    "fromRealUsers": "Từ người dùng thực",
+    "noReviews": "Không có đánh giá cho sản phẩm này.",
+    "viewReview": "Xem đánh giá"
   },
   "review": {
     "rating": {

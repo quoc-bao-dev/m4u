@@ -22,12 +22,12 @@ const AccordionItem = ({
   return (
     <div
       className={cn(
-        'rounded-[16px] md:rounded-[24px] border border-gray-1000  cursor-pointer',
+        'rounded-[16px] md:rounded-[24px] border border-gray-1000',
         className
       )}
     >
       <div
-        className="w-full"
+        className="w-full cursor-pointer"
         onClick={() => {
           setOpen((prev) => !prev)
           setIsFirstRender(false)

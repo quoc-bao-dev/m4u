@@ -15,3 +15,20 @@ export const useGetHomePage = () => {
     queryFn: fetchHomePage,
   })
 }
+
+export const useGetViewReviewer = ({
+  per_page,
+  current_page,
+}: {
+  per_page?: number
+  current_page?: number
+}) => {
+  const fetchViewReviewer = async () => {
+    const response = await apiHome.getViewReviewer({ per_page, current_page })
+    return response.data.data
+  }
+  return useQuery({
+    queryKey: ['viewReviewer', per_page, current_page],
+    queryFn: fetchViewReviewer,
+  })
+}

@@ -2,8 +2,14 @@
 import Rating from '@/core/components/common/Rating'
 import Button from '@/core/components/ui/button'
 import { IMAGES } from '@/core/constants/IMAGES'
+import { withAlpha } from '@/core/utils'
 import { CornerTag } from '@/icons'
-import { useTranslations } from 'next-intl'
+import { Link } from '@/locale'
+import { useSubmitReview } from '@/services/review/mutations'
+import {
+  useGetListProductReview,
+  useGetTypeEvaluate,
+} from '@/services/review/queries'
 import {
   CaretLeftIcon,
   CheckIcon,
@@ -15,19 +21,11 @@ import {
   TrashIcon,
   XIcon,
 } from '@phosphor-icons/react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
-import {
-  useGetListProductReview,
-  useGetTypeEvaluate,
-} from '@/services/review/queries'
-import { useSubmitReview } from '@/services/review/mutations'
-import { withAlpha } from '@/core/utils'
-import { Link } from '@/locale'
+import { useEffect, useRef, useState } from 'react'
 
 const SubmitReview = ({ id }: { id: number }) => {
-  const router = useRouter()
   const t = useTranslations('submitReview')
   const [videoPreview, setVideoPreview] = useState<string | null>(null)
   const [videoFile, setVideoFile] = useState<File | null>(null)
@@ -258,7 +256,7 @@ const SubmitReview = ({ id }: { id: number }) => {
     selectedImages.forEach((url) => {
       try {
         URL.revokeObjectURL(url)
-      } catch {}
+      } catch { }
     })
     setVideoPreview(null)
     setVideoFile(null)
@@ -353,7 +351,7 @@ const SubmitReview = ({ id }: { id: number }) => {
                       setSelectedProductId(item.id)
                       try {
                         window.scrollTo({ top: 0, behavior: 'smooth' })
-                      } catch {}
+                      } catch { }
                     }
                   }}
                 >
@@ -439,11 +437,10 @@ const SubmitReview = ({ id }: { id: number }) => {
                       onPause={() => setIsVideoPlaying(false)}
                     />
                     <div
-                      className={`transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-9 flex items-center justify-center bg-black/50 rounded-full cursor-pointer ${
-                        isVideoPlaying
+                      className={`transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-9 flex items-center justify-center bg-black/50 rounded-full cursor-pointer ${isVideoPlaying
                           ? 'opacity-0 group-hover:opacity-100'
                           : 'opacity-100'
-                      }`}
+                        }`}
                       onClick={() => {
                         const video = document.querySelector(
                           'video'
@@ -493,15 +490,13 @@ const SubmitReview = ({ id }: { id: number }) => {
               </div>
             ) : (
               <div
-                className={`flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl border transition-all duration-300 ${
-                  currentProductReview?.active === 0
+                className={`flex flex-col justify-center items-center gap-2.5 p-10 rounded-3xl border transition-all duration-300 ${currentProductReview?.active === 0
                     ? 'cursor-pointer hover:bg-greyscale-100'
                     : 'cursor-not-allowed opacity-50'
-                } ${
-                  isVideoDragOver
+                  } ${isVideoDragOver
                     ? 'bg-greyscale-100 border-greyscale-300'
                     : 'bg-greyscale-50 border-greyscale-200'
-                }`}
+                  }`}
                 onClick={
                   currentProductReview?.active === 0
                     ? openVideoPicker
@@ -510,9 +505,9 @@ const SubmitReview = ({ id }: { id: number }) => {
                 onDragOver={
                   currentProductReview?.active === 0
                     ? (e) => {
-                        e.preventDefault()
-                        setIsVideoDragOver(true)
-                      }
+                      e.preventDefault()
+                      setIsVideoDragOver(true)
+                    }
                     : undefined
                 }
                 onDragLeave={
@@ -548,17 +543,16 @@ const SubmitReview = ({ id }: { id: number }) => {
               className="hidden"
             />
             <div
-              className={`flex gap-1 flex-wrap rounded-xl ${
-                isImagesDragOver
+              className={`flex gap-1 flex-wrap rounded-xl ${isImagesDragOver
                   ? 'ring-2 ring-greyscale-300 bg-greyscale-50'
                   : ''
-              }`}
+                }`}
               onDragOver={
                 currentProductReview?.active === 0
                   ? (e) => {
-                      e.preventDefault()
-                      setIsImagesDragOver(true)
-                    }
+                    e.preventDefault()
+                    setIsImagesDragOver(true)
+                  }
                   : undefined
               }
               onDragLeave={
@@ -573,11 +567,10 @@ const SubmitReview = ({ id }: { id: number }) => {
               }
             >
               <div
-                className={`size-[72px] rounded-lg border border-greyscale-200 bg-greyscale-100 flex flex-col justify-center items-center gap-1 transition-all duration-300 ${
-                  currentProductReview?.active === 0
+                className={`size-[72px] rounded-lg border border-greyscale-200 bg-greyscale-100 flex flex-col justify-center items-center gap-1 transition-all duration-300 ${currentProductReview?.active === 0
                     ? 'cursor-pointer hover:bg-greyscale-200'
                     : 'cursor-not-allowed opacity-50'
-                }`}
+                  }`}
                 onClick={
                   currentProductReview?.active === 0
                     ? openImagePicker
@@ -732,11 +725,10 @@ const SubmitReview = ({ id }: { id: number }) => {
             </div>
             <textarea
               placeholder={t('placeholder')}
-              className={`w-full h-[160px] rounded-xl border border-black/10 p-3 placeholder:text-greyscale-400 placeholder:text-base placeholder:font-normal focus:outline-pink-500 ${
-                currentProductReview?.active === 0
+              className={`w-full h-[160px] rounded-xl border border-black/10 p-3 placeholder:text-greyscale-400 placeholder:text-base placeholder:font-normal focus:outline-pink-500 ${currentProductReview?.active === 0
                   ? 'bg-white'
                   : 'bg-greyscale-100 cursor-not-allowed'
-              }`}
+                }`}
               value={
                 currentProductReview?.active === 0
                   ? content

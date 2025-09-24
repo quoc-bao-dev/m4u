@@ -18,7 +18,6 @@ import { useRef, useState } from 'react'
 
 const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
   const { isMobile, isDesktop } = useDevice()
-  console.log(data)
   const { t } = useTranslation()
   const router = useRouter()
   const [activeIndex, setActiveIndex] = useState<number>(0)

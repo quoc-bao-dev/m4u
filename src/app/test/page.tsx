@@ -4,7 +4,7 @@ import ReviewerCarousel from '@/modules/landing/components/introduction/Reviewer
 import { DatePicker } from '@/core/components/ui'
 import { useState } from 'react'
 
-const page = () => {
+const Page = () => {
   const [date, setDate] = useState('')
 
   return (
@@ -22,10 +22,10 @@ const page = () => {
         </p>
       </div>
       <div>
-        <ReviewerCarousel />
+        {/* <ReviewerCarousel /> */}
       </div>
     </div>
   )
 }
 
-export default page
+export default Page
