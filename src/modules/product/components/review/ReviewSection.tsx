@@ -8,7 +8,6 @@ import { useTranslation } from '@/locale'
 
 const ReviewSection = () => {
   const { t } = useTranslation()
-
   // Sample data based on the image
   const reviewData = {
     overallRating: 4.8,
