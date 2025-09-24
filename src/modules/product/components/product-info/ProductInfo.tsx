@@ -117,6 +117,7 @@ const ProductInfo = () => {
                 src={images[selectedIndex] || '/image/product/image-01.png'}
                 alt="product-image"
                 fill
+                sizes='full'
                 className="object-cover"
                 priority
               />
@@ -184,6 +185,7 @@ const ProductInfo = () => {
                   video_review={detail?.video_review || undefined}
                   evaluate={detail?.evaluate || 0}
                   id_review={detail?.id_review || 0}
+                  slug={detail?.slug || ''}
                 />
               </RevertContainer>
             </div>

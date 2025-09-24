@@ -1,8 +1,12 @@
+'use client'
+import { Rating } from '@/core/components'
+import { getRatingI18nKey } from '@/core/utils'
 import { cn } from '@/core/utils/cn'
+import { useTranslations } from 'next-intl'
+import { useParams } from 'next/navigation'
 import React from 'react'
 import RatingRing from './RatingRing'
-import { Rating } from '@/core/components'
-import { useTranslations } from 'next-intl'
+import { useGetDataReviewHubDetailInfinite } from '@/services/review-hub/queries'
 
 interface StarDistribution {
   stars: number
@@ -43,12 +47,10 @@ const StarDistributionBar = ({
   stars,
   count,
   percentage,
-  maxCount,
 }: {
   stars: number
   count: number
   percentage: number
-  maxCount: number
 }) => (
   <div className="flex items-center gap-3 ">
     <div className="flex items-center gap-1">
@@ -71,7 +73,7 @@ const FeatureRatingItem = ({ name, rating }: FeatureRating) => (
 
     <div className="flex-1 flex gap-4">
       <span className="text-sm font-semibold text-gray-900 truncate">
-        {rating.toFixed(1)} <span className="text-greyscale-400">/5</span>
+        {rating?.toFixed(1)} <span className="text-greyscale-400">/5</span>
       </span>{' '}
       <span className="text-sm text-left text-greyscale-400 truncate">
         {name}
@@ -81,30 +83,63 @@ const FeatureRatingItem = ({ name, rating }: FeatureRating) => (
 )
 
 const Review: React.FC<ReviewSectionProps> = ({
-  starDistribution,
-  featureRatings,
   className,
 }) => {
-  const t = useTranslations('review.rating')
-  const maxCount = Math.max(...starDistribution.map((item) => item.count))
+  const { slug } = useParams()
+  const t = useTranslations()
+
+  const { data: productDetail } = useGetDataReviewHubDetailInfinite(slug as string)
+  console.log(productDetail)
+
+  // Tạo mảng đầy đủ từ 1-5 sao, những sao không có đánh giá sẽ có giá trị 0
+  const createFullStarDistribution = (countStarData: any[]) => {
+    const fullDistribution = []
+    const maxCount = Math.max(...countStarData.map(item => item.total), 1) // Đảm bảo không chia cho 0
+    
+    for (let star = 5; star >= 1; star--) {
+      const existingData = countStarData.find(item => item.star === star)
+      fullDistribution.push({
+        star,
+        total: existingData ? existingData.total : 0,
+        percentage: existingData ? (existingData.total / maxCount * 100) : 0
+      })
+    }
+    return fullDistribution
+  }
+
+  // Tạo mảng mặc định với giá trị 0 cho tất cả sao khi chưa có dữ liệu
+  const defaultStarDistribution = [
+    { star: 5, total: 0, percentage: 0 },
+    { star: 4, total: 0, percentage: 0 },
+    { star: 3, total: 0, percentage: 0 },
+    { star: 2, total: 0, percentage: 0 },
+    { star: 1, total: 0, percentage: 0 },
+  ]
+
+  const fullStarDistribution = productDetail?.pages?.[0]?.countStar 
+    ? createFullStarDistribution(productDetail.pages[0].countStar)
+    : defaultStarDistribution
 
   return (
     <div className={cn('rounded-2xl p-4 md:p-8 border', className)}>
       <div className="flex flex-col md:flex-row justify-between">
         <div className="md:w-[60%] flex gap-8 items-center">
           {/* Overall Rating */}
-          <RatingRing value={4} label={t('excellent')} reviews={69} />
+          <RatingRing
+            value={productDetail?.pages?.[0]?.average_star || 0}
+            label={t(getRatingI18nKey(productDetail?.pages?.[0]?.average_star || 0))}
+            reviews={productDetail?.pages?.[0]?.quantity_reviews || 0}
+          />
 
           {/* Star Distribution */}
           <div className="flex-1 h-fit">
             <div className="space-y-2 ">
-              {starDistribution.map((item) => (
+              {fullStarDistribution.map((item: any) => (
                 <StarDistributionBar
-                  key={item.stars}
-                  stars={item.stars}
-                  count={item.count}
+                  key={item.star}
+                  stars={item.star}
+                  count={item.total}
                   percentage={item.percentage}
-                  maxCount={maxCount}
                 />
               ))}
             </div>
@@ -114,9 +149,22 @@ const Review: React.FC<ReviewSectionProps> = ({
         {/* Feature Ratings */}
         <div className="space-y-4 md:w-[38%] lg:w-[30%] flex items-center justify-end">
           <div className="space-y-1 w-full md:w-auto mt-2">
-            {featureRatings.map((feature, index) => (
-              <FeatureRatingItem key={index} {...feature} />
-            ))}
+            {productDetail?.pages?.[0]?.type_evaluate?.map((feature: any, index: any) => (
+              <FeatureRatingItem key={index} name={feature.name} rating={Number(feature.star)} />
+            )) || (
+              // Hiển thị skeleton khi chưa có dữ liệu
+              <div className="space-y-2">
+                {[1, 2, 3, 4].map((index) => (
+                  <div key={index} className="flex items-center gap-2 justify-between w-full">
+                    <div className="w-[100px] md:w-[120px] h-4 bg-gray-200 rounded animate-pulse"></div>
+                    <div className="flex-1 flex gap-4">
+                      <div className="w-8 h-4 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="w-20 h-4 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

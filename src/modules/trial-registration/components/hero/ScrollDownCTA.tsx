@@ -26,7 +26,7 @@ const ScrollDownCTA = ({ label = 'Xem ngay' }: ScrollDownCTAProps) => {
     <div className="fixed bottom-4 left-1/2 translate-x-[-50%] md:translate-x-0 md:bottom-6 md:left-16 z-50">
       <button
         onClick={scrollDown}
-        className={`text-gray-500 md:text-xl rounded-full hover:bg-gray-700 active:scale-[0.98] transition duration-300 ${
+        className={`text-gray-500 md:text-xl rounded-full px-2 py-0.5 hover:bg-gray-700 hover:text-white active:scale-[0.98] cursor-pointer transition-all duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         aria-label={label}

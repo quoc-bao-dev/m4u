@@ -315,7 +315,8 @@
     "viewAll": "View all",
     "exploreSimilarProducts": "Explore Similar Products",
     "honestReviews": "Honest Reviews",
-    "fromRealUsers": "From Real Users"
+    "fromRealUsers": "From Real Users",
+    "noReviews": "No reviews for this product."
   },
   "review": {
     "rating": {
