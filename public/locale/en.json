@@ -463,6 +463,10 @@
     "title": "Notification",
     "viewAll": "View all",
     "viewDetail": "View detail",
+    "nodata": {
+      "title": "No notifications yet",
+      "desc": "Your notifications will appear here when there are updates."
+    },
     "tabs": {
       "all": "All",
       "reviews": "Reviews",

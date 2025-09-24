@@ -10,6 +10,7 @@ import { renderNotificationIcon } from '../../utils/render-icon'
 import styles from './NotifyPopup.module.css'
 import { useNavigate } from '@/locale'
 import { useTranslations } from 'next-intl'
+import { Nodata } from '@/core/components/common'
 
 // Types
 export interface NotificationItem {
@@ -131,29 +132,37 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
       <div
         className={`max-h-[339px] overflow-y-auto mb-3 ${styles.notificationScroll}`}
       >
-        {mappedNotifications.map((notification, index) => (
-          <div key={notification.id}>
-            <div className="rounded-lg p-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer">
-              {/* Icon */}
-              {renderNotificationIcon(notification.type)}
+        {mappedNotifications.length === 0 ? (
+          <Nodata
+            title={t('notification.nodata.title')}
+            description={t('notification.nodata.desc')}
+            className="py-8"
+          />
+        ) : (
+          mappedNotifications.map((notification, index) => (
+            <div key={notification.id}>
+              <div className="rounded-lg p-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer">
+                {/* Icon */}
+                {renderNotificationIcon(notification.type)}
 
-              {/* Content */}
-              <div className="flex-1 flex flex-col">
-                <p className="text-sm text-gray-900 mb-1">
-                  {notification.content}
-                </p>
-                <span className="text-xs text-gray-500">
-                  {formatNotificationTimeI18n(notification.timestamp, t)}
-                </span>
+                {/* Content */}
+                <div className="flex-1 flex flex-col">
+                  <p className="text-sm text-gray-900 mb-1">
+                    {notification.content}
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    {formatNotificationTimeI18n(notification.timestamp, t)}
+                  </span>
+                </div>
               </div>
-            </div>
 
-            {/* Line between items (except last item) */}
-            {index < mappedNotifications.length - 1 && (
-              <div className="border-b border-gray-100 mx-2"></div>
-            )}
-          </div>
-        ))}
+              {/* Line between items (except last item) */}
+              {index < mappedNotifications.length - 1 && (
+                <div className="border-b border-gray-100 mx-2"></div>
+              )}
+            </div>
+          ))
+        )}
       </div>
 
       {/* View All Button */}

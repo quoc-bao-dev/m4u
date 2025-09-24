@@ -463,6 +463,10 @@
     "title": "알림",
     "viewAll": "모두 보기",
     "viewDetail": "자세히 보기",
+    "nodata": {
+      "title": "알림이 아직 없습니다",
+      "desc": "새로운 업데이트가 있으면 여기에 표시됩니다."
+    },
     "tabs": {
       "all": "전체",
       "reviews": "리뷰",
