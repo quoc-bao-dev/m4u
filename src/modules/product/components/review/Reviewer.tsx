@@ -8,11 +8,12 @@ import { ScrollRevealCard } from '@/modules/trial-registration'
 import { PlayIcon, StarIcon } from '@phosphor-icons/react'
 import { useGetDataReviewHubDetailInfinite } from '@/services/review-hub/queries'
 import { useParams } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import Image from 'next/image'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useTranslations } from 'next-intl'
+import InfoKolModal from '@/modules/review-hub/review-hub-detail/components/InfoKolModal'
 
 const options = [
   { label: 'Đặt lịch', value: 'dat-lich' },
@@ -26,6 +27,8 @@ const Reviewer = () => {
   const { slug } = useParams()
   const loadMoreRef = useRef<HTMLDivElement>(null)
   const firstVideoRef = useRef<HTMLVideoElement>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedReview, setSelectedReview] = useState<any>(null)
 
   const {
     data,
@@ -108,6 +111,10 @@ const Reviewer = () => {
               <ReviewCard
                 reviewer={reviewer}
                 videoRef={index === 0 ? firstVideoRef : undefined}
+                onClick={() => {
+                  setSelectedReview(reviewer)
+                  setIsOpen(true)
+                }}
               />
             </ScrollRevealCard>
           ))
@@ -134,12 +141,19 @@ const Reviewer = () => {
           {t('product.viewAll')}
         </Button>
       </div> */}
+
+      <InfoKolModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        id={selectedReview?.id}
+        slug={(slug as string) || ''}
+      />
     </div>
   )
 }
 
 // Review Card Component
-const ReviewCard = ({ reviewer, videoRef }: { reviewer: any, videoRef?: React.RefObject<HTMLVideoElement | null> }) => {
+const ReviewCard = ({ reviewer, videoRef, onClick }: { reviewer: any, videoRef?: React.RefObject<HTMLVideoElement | null>, onClick?: () => void }) => {
   const { t } = useTranslation()
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLVideoElement>) => {
@@ -153,7 +167,7 @@ const ReviewCard = ({ reviewer, videoRef }: { reviewer: any, videoRef?: React.Re
   }
 
   return (
-    <div className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300 group cursor-pointer">
+    <div onClick={onClick} className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300 group cursor-pointer">
       {/* Video Thumbnail */}
       <div className="relative bg-gray-100 w-full aspect-[410/342]">
         <video

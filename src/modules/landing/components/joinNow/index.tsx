@@ -13,6 +13,7 @@ import {
 import { useGetHomePage } from '@/services/home/queries'
 import { Skeleton } from '@/components/ui/skeleton'
 import Image from 'next/image'
+import { Link } from '@/locale'
 
 // Interface định nghĩa cấu trúc dữ liệu cho mỗi bước tham gia
 interface JoinStep {
@@ -150,7 +151,9 @@ const JoinNow = () => {
           })}
         </div>
       </div>
-      <Button>{data?.title_button}</Button>
+      <Link href="/trial-registration">
+        <Button>{data?.title_button}</Button>
+      </Link>
     </div>
   )
 }

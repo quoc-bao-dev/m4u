@@ -3,7 +3,7 @@
 import { Lightning } from '@/icons'
 import { ArrowLeftIcon, ArrowRightIcon, PenIcon, StarIcon, PauseIcon, PlayIcon } from '@phosphor-icons/react'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Button from '@/core/components/ui/button'
 import { useGetHomePage } from '@/services/home/queries'
@@ -37,6 +37,13 @@ const Deal: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const bgRef = useRef<HTMLDivElement | null>(null)
 
+  // Nhân bản deals 3 lần để vẫn loop mượt khi ít phần tử
+  const displayDeals = useMemo(() => {
+    if (!deals?.length) return []
+    const repeatTimes = 3
+    return Array.from({ length: repeatTimes }, () => deals).flat()
+  }, [deals])
+
   // Video controls per-card
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({})
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
@@ -45,13 +52,13 @@ const Deal: React.FC = () => {
     if (!current) return
     if (playingIndex != null && playingIndex !== index) {
       const prev = videoRefs.current[playingIndex]
-      try { prev?.pause() } catch {}
+      try { prev?.pause() } catch { }
     }
     if (playingIndex === index) {
-      try { current.pause() } catch {}
+      try { current.pause() } catch { }
       setPlayingIndex(null)
     } else {
-      try { current.play() } catch {}
+      try { current.play() } catch { }
       setPlayingIndex(index)
     }
   }, [playingIndex])
@@ -103,11 +110,11 @@ const Deal: React.FC = () => {
   }, [emblaApi])
 
   useEffect(() => {
-    const hex = deals?.[selectedIndex]?.background_color ?? '#000000'
+    const hex = displayDeals?.[selectedIndex]?.background_color ?? '#000000'
     if (bgRef.current) {
       bgRef.current.style.background = `radial-gradient(ellipse, ${hex}66 0%, transparent 65%)`
     }
-  }, [selectedIndex, deals])
+  }, [selectedIndex, displayDeals])
 
   const handlePrev = useCallback(() => {
     emblaApi?.scrollPrev()
@@ -123,6 +130,8 @@ const Deal: React.FC = () => {
     },
     [emblaApi]
   )
+
+  if (!isLoading && deals?.length === 0) return null
 
   return (
     <div className="relative py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
@@ -178,131 +187,96 @@ const Deal: React.FC = () => {
       {/* Viewport */}
       <div className="z-[3] w-full px-0 lg:px-10 xl:px-32 cursor-default select-none">
         <div ref={emblaRef} className="overflow-hidden">
-          <div className="flex items-center gap-4 lg:gap-3 h-full">
-            {deals?.map((deal: any, index: number) => {
-              return (
-                <div
-                  key={`wrapper-${index}-${deal.id}`}
-                  className="shrink-0 basis-1/3 cursor-pointer w-full"
-                  onClick={() => handleSelect(index)}
-                  role="button"
-                  aria-label={`Chuyển tới ưu đãi ${index + 1}`}
-                >
+          <div className="flex items-center gap-4 lg:gap-3 h-full w-full">
+            {isLoading ? (
+              <>
+                <Skeleton className="w-full h-[500px]" />
+                <Skeleton className="w-full h-[500px]" />
+                <Skeleton className="w-full h-[500px]" />
+              </>
+           ) : (
+            displayDeals?.map((deal: any, index: number) => {
+                return (
                   <div
-                    key={`deal-${index}-${deal.id}`}
-                    className={`deal-card relative rounded-3xl h-fit w-full select-none transition-transform duration-300 ${index === selectedIndex
-                      ? ''
-                      : 'scale-[0.9] lg:scale-[0.8] opacity-90'
-                      }`}
+                    key={`wrapper-${index}-${deal.id}`}
+                    className="shrink-0 basis-1/3 cursor-pointer w-full"
+                    onClick={() => handleSelect(index)}
+                    role="button"
+                    aria-label={`Chuyển tới ưu đãi ${index + 1}`}
                   >
-                    <div className="w-full aspect-square bg-white/50 rounded-t-3xl relative overflow-hidden">
-                      <div
-                        className="absolute inset-0 z-[0]"
-                        style={{
-                          background: `radial-gradient(circle, white 0%, ${deal?.background_color}26 )`,
-                        }}
-                      />
-                      <div className="absolute z-[2] top-3 xl:top-4 left-3 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs xl:text-base font-medium text-greyscale-900">
-                        <StarIcon
-                          weight="fill"
-                          className="size-3 xl:size-5 text-yellow-600"
+                    <div
+                      key={`deal-${index}-${deal.id}`}
+                      className={`deal-card relative rounded-3xl h-fit w-full select-none transition-transform duration-300 ${index === selectedIndex
+                        ? ''
+                        : 'scale-[0.9] lg:scale-[0.8] opacity-90'
+                        }`}
+                    >
+                      <div className="w-full aspect-square bg-white/50 rounded-t-3xl relative overflow-hidden">
+                        <div
+                          className="absolute inset-0 z-[0]"
+                          style={{
+                            background: `radial-gradient(circle, white 0%, ${deal?.background_color}26 )`,
+                          }}
                         />
-                        {deal?.average_star.toFixed(1)}
-                      </div>
-                      <div className="absolute z-[2] bottom-3 xl:bottom-4 right-3 xl:right-4 flex items-center gap-1.5">
-                        {deal?.time_left_dd_hh_mm_ss && deal?.time_left_dd_hh_mm_ss !== "0:00:00:00"
-                          ? <Timer initTime={deal?.time_left_dd_hh_mm_ss} className='!pr-0 !pb-0' />
-                          : null
-                        }
-                      </div>
-                      <Image
-                        src={deal.image}
-                        alt="deal"
-                        width={500}
-                        height={500}
-                        className="w-full h-full object-contain rounded-t-3xl p-6 xl:p-10 z-[1] relative"
-                      />
-                    </div>
-                    <div className='bg-white rounded-b-3xl w-full'>
-                      <div
-                        className="p-3 xl:p-5 w-full flex flex-col gap-1 rounded-b-3xl"
-                        style={{ backgroundColor: withAlpha(deal?.background_color, 0.3) }}
-                      >
-                        <h3 className="text-xs xl:text-sm font-bold text-greyscale-900">
-                          {deal?.code}
-                        </h3>
-                        <h3 className="text-greyscale-900 text-sm xl:text-lg truncate">
-                          {deal?.name}
-                        </h3>
-                        <div className="py-1">
-                          <div className="relative w-full h-1.5">
-                            <div className="relative" style={{ width: `${deal?.count_join / deal?.limit_people * 100}%` }}>
-                              <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-                              <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
-                            </div>
-                            <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
-                          </div>
+                        <div className="absolute z-[2] top-3 xl:top-4 left-3 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs xl:text-base font-medium text-greyscale-900">
+                          <StarIcon
+                            weight="fill"
+                            className="size-3 xl:size-5 text-yellow-600"
+                          />
+                          {deal?.average_star.toFixed(1)}
                         </div>
-                        <p className="text-xs xl:text-sm text-greyscale-700">
-                          {deal?.count_join}/{deal?.limit_people} {tProduct('participation')}
-                        </p>
-                        {deal?.isSig === 0 ?
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              router.push(`/submit-review/${deal?.id_review}`)
-                            }}
-                            className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
-                            style={{
-                              color: deal?.background_color,
-                              transition: 'all 300ms ease',
-                              boxShadow: `0px 2px 4px ${withAlpha(deal?.background_color, 0.26)}, -2px -2px 8px ${withAlpha(deal?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(deal?.background_color, 0.7)} inset`,
-                              '--accent-color': deal?.background_color,
-                            } as React.CSSProperties}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = deal?.background_color
-                              e.currentTarget.style.color = '#fff'
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = '#ffffff'
-                              e.currentTarget.style.color = deal?.background_color
-                            }}
-                          >
-                            <span className="truncate text-xs sm:text-base/[21px] ">{tProduct('writeYourReview')}</span>
-                            <PenIcon />
-                          </button>
-                          :
-                          deal?.isSig === 1 ?
-                            <div className='xl:pt-2 flex gap-3 items-center'>
-                              {deal?.video_review && (
-                                <div className='relative cursor-pointer group' onClick={() => togglePlay(index)}>
-                                  <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${playingIndex === index ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                                    {playingIndex === index ? (
-                                      <PauseIcon weight="fill" className="size-5 text-white" />
-                                    ) : (
-                                      <PlayIcon weight="fill" className="size-5 text-white" />
-                                    )}
-                                  </div>
-                                  <video ref={(el) => { videoRefs.current[index] = el }} muted loop playsInline src={deal?.video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
-                                </div>
-                              )}
-                              <div className='flex flex-col gap-1'>
-                                <Rating value={deal?.evaluate || 0} maxWidth={96} readOnly />
-                                <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(deal?.evaluate))}</p>
+                        <div className="absolute z-[2] bottom-3 xl:bottom-4 right-3 xl:right-4 flex items-center gap-1.5">
+                          {deal?.time_left_dd_hh_mm_ss && deal?.time_left_dd_hh_mm_ss !== "0:00:00:00"
+                            ? <Timer initTime={deal?.time_left_dd_hh_mm_ss} className='!pr-0 !pb-0' />
+                            : null
+                          }
+                        </div>
+                        <Image
+                          src={deal.image}
+                          alt="deal"
+                          width={500}
+                          height={500}
+                          className="w-full h-full object-contain rounded-t-3xl p-6 xl:p-10 z-[1] relative"
+                        />
+                      </div>
+                      <div className='bg-white rounded-b-3xl w-full'>
+                        <div
+                          className="p-3 xl:p-5 w-full flex flex-col gap-1 rounded-b-3xl min-w-[230px]"
+                          style={{ backgroundColor: withAlpha(deal?.background_color, 0.3) }}
+                        >
+                          <h3 className="text-xs xl:text-sm font-bold text-greyscale-900">
+                            {deal?.code}
+                          </h3>
+                          <h3 className="text-greyscale-900 text-sm xl:text-lg truncate">
+                            {deal?.name}
+                          </h3>
+                          <div className="py-1">
+                            <div className="relative w-full h-1.5">
+                              <div className="relative" style={{ width: `${deal?.count_join / deal?.limit_people * 100}%` }}>
+                                <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
+                                <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
                               </div>
+                              <div className="opacity-20 absolute top-0 left-0 h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
                             </div>
-                            :
+                          </div>
+                          <p className="text-xs xl:text-sm text-greyscale-700">
+                            {deal?.count_join}/{deal?.limit_people} {tProduct('participation')}
+                          </p>
+                          {deal?.isSig === 0 ?
                             <button
-                              onClick={(e) => onRegister(deal, e)}
-                              className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                router.push(`/submit-review/${deal?.id_review}`)
+                              }}
+                              className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
                               style={{
-                                border: `1px solid ${deal?.background_color}`,
                                 color: deal?.background_color,
                                 transition: 'all 300ms ease',
-                                boxShadow: `0px 2px 2px ${withAlpha(deal?.background_color, 0.26)}, -2px -2px 6px ${withAlpha(deal?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(deal?.background_color, 0.7)} inset`,
-                              }}
+                                boxShadow: `0px 2px 4px ${withAlpha(deal?.background_color, 0.26)}, -2px -2px 8px ${withAlpha(deal?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(deal?.background_color, 0.7)} inset`,
+                                '--accent-color': deal?.background_color,
+                              } as React.CSSProperties}
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.backgroundColor = deal?.background_color
                                 e.currentTarget.style.color = '#fff'
@@ -312,16 +286,58 @@ const Deal: React.FC = () => {
                                 e.currentTarget.style.color = deal?.background_color
                               }}
                             >
-                              <span className="truncate text-xs sm:text-base/[21px]">{tProduct('register')}</span>
+                              <span className="truncate text-xs sm:text-base/[21px] ">{tProduct('writeYourReview')}</span>
+                              <PenIcon />
                             </button>
-                        }
+                            :
+                            deal?.isSig === 1 ?
+                              <div className='xl:pt-2 flex gap-3 items-center'>
+                                {deal?.video_review && (
+                                  <div className='relative cursor-pointer group' onClick={() => togglePlay(index)}>
+                                    <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${playingIndex === index ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+                                      {playingIndex === index ? (
+                                        <PauseIcon weight="fill" className="size-5 text-white" />
+                                      ) : (
+                                        <PlayIcon weight="fill" className="size-5 text-white" />
+                                      )}
+                                    </div>
+                                    <video ref={(el) => { videoRefs.current[index] = el }} muted loop playsInline src={deal?.video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
+                                  </div>
+                                )}
+                                <div className='flex flex-col gap-1'>
+                                  <Rating value={deal?.evaluate || 0} maxWidth={96} readOnly />
+                                  <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(deal?.evaluate))}</p>
+                                </div>
+                              </div>
+                              :
+                              <button
+                                onClick={(e) => onRegister(deal, e)}
+                                className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
+                                style={{
+                                  border: `1px solid ${deal?.background_color}`,
+                                  color: deal?.background_color,
+                                  transition: 'all 300ms ease',
+                                  boxShadow: `0px 2px 2px ${withAlpha(deal?.background_color, 0.26)}, -2px -2px 6px ${withAlpha(deal?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(deal?.background_color, 0.7)} inset`,
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = deal?.background_color
+                                  e.currentTarget.style.color = '#fff'
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = '#ffffff'
+                                  e.currentTarget.style.color = deal?.background_color
+                                }}
+                              >
+                                <span className="truncate text-xs sm:text-base/[21px]">{tProduct('register')}</span>
+                              </button>
+                          }
+                        </div>
                       </div>
-                    </div>
 
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              }))}
           </div>
         </div>
       </div>
