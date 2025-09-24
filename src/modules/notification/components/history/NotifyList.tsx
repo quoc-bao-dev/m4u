@@ -9,6 +9,7 @@ import type {
 import { formatNotificationTimeI18n, renderNotificationIcon } from '../../utils'
 import { NotificationItem } from '../popup/NotifyPopup'
 import { useTranslations } from 'next-intl'
+import { Nodata } from '@/core/components/common'
 
 const NotifyList = () => {
   const t = useTranslations()
@@ -52,57 +53,69 @@ const NotifyList = () => {
     setParams((p) => ({ ...p, current_page: currentPage + 1 }))
   }
 
+  const isEmpty = mappedNotifications.length === 0
+
   return (
     <div className="">
-      <div className="pt-2 flex flex-col">
-        {mappedNotifications.map((notification) => (
-          <div
-            key={notification.id}
-            className="border-t first:border-t-0 border-gray-100 border-dashed"
-          >
-            <div className="rounded-lg py-5 px-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ">
-              {renderNotificationIcon(notification.type)}
+      {isEmpty ? (
+        <Nodata
+          title={t('notification.nodata.title')}
+          description={t('notification.nodata.desc')}
+          className="py-16"
+        />
+      ) : (
+        <div className="pt-2 flex flex-col">
+          {mappedNotifications.map((notification) => (
+            <div
+              key={notification.id}
+              className="border-t first:border-t-0 border-gray-100 border-dashed"
+            >
+              <div className="rounded-lg py-5 px-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ">
+                {renderNotificationIcon(notification.type)}
 
-              <div className="flex-1 flex flex-col">
-                <p className="text-sm text-gray-900 mb-1">
-                  {notification.content}
-                </p>
-                <span className="text-xs text-gray-500">
-                  {formatNotificationTimeI18n(notification.timestamp, t)}
-                </span>
-              </div>
-              <div className="ml-auto">
-                <button className="truncate  w-fit lg:w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-white/60 transition-colors rounded-full">
-                  {t('notification.viewDetail')}
-                </button>
+                <div className="flex-1 flex flex-col">
+                  <p className="text-sm text-gray-900 mb-1">
+                    {notification.content}
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    {formatNotificationTimeI18n(notification.timestamp, t)}
+                  </span>
+                </div>
+                <div className="ml-auto">
+                  <button className="truncate  w-fit lg:w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-white/60 transition-colors rounded-full">
+                    {t('notification.viewDetail')}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
-      <div className="absolute bottom-5 left-8 right-8 flex items-center justify-center gap-6">
-        <button
-          onClick={handlePrev}
-          disabled={currentPage <= 1}
-          className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
-        >
-          {t('notification.pagination.prev')}
-        </button>
-        <span className="text-sm text-gray-600">
-          {t('notification.pagination.pageXofY', {
-            current: currentPage,
-            total: lastPage,
-          })}
-        </span>
-        <button
-          onClick={handleNext}
-          disabled={currentPage >= lastPage}
-          className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
-        >
-          {t('notification.pagination.next')}
-        </button>
-      </div>
+      {!isEmpty && (
+        <div className="absolute bottom-5 left-8 right-8 flex items-center justify-center gap-6">
+          <button
+            onClick={handlePrev}
+            disabled={currentPage <= 1}
+            className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
+          >
+            {t('notification.pagination.prev')}
+          </button>
+          <span className="text-sm text-gray-600">
+            {t('notification.pagination.pageXofY', {
+              current: currentPage,
+              total: lastPage,
+            })}
+          </span>
+          <button
+            onClick={handleNext}
+            disabled={currentPage >= lastPage}
+            className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
+          >
+            {t('notification.pagination.next')}
+          </button>
+        </div>
+      )}
     </div>
   )
 }

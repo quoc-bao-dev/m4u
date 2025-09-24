@@ -463,6 +463,10 @@
     "title": "Thông báo",
     "viewAll": "Xem tất cả",
     "viewDetail": "Xem chi tiết",
+    "nodata": {
+      "title": "Chưa có thông báo",
+      "desc": "Thông báo của bạn sẽ hiển thị tại đây khi có cập nhật."
+    },
     "tabs": {
       "all": "Tất cả",
       "reviews": "Đánh giá",
