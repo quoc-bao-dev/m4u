@@ -27,8 +27,15 @@ export interface MyReviewItem {
   image: string
   slug: string
   date_end_promotion: string
-  name_status: string
-  status_color: string
+  note_rejected?: string | null
+  //   name_status: string
+  //   status_color: string
+  data_active: {
+    id: number
+    name: string
+    color: string
+  }
+
   media_other: MyReviewMediaOther[]
 }
 
@@ -55,3 +62,12 @@ export interface MyReviewResponse {
     total: number
   }
 }
+
+export interface MyReviewStatusItem {
+  id: number
+  name: string
+  color: string
+  countActive: number
+}
+
+export type MyReviewStatusResponse = MyReviewStatusItem[]

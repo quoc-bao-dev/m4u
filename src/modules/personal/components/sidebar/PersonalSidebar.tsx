@@ -8,6 +8,7 @@ import { useLogoutConfirmModal } from '@/modules/auth'
 import { useAuth } from '@/modules/auth/stores/useAuth'
 import { useReferralIntroduceInfoQuery } from '@/services/referral-program'
 import {
+  Bell,
   CameraIcon,
   ClockCounterClockwise,
   HeadsetIcon,
@@ -73,6 +74,12 @@ const PersonalSidebar = () => {
         Icon: QrCode,
         href: '/referral-program',
       },
+      {
+        id: 'notification' as const,
+        label: t('menu.auth.activity.notification'),
+        Icon: Bell,
+        href: '/notification',
+      },
     ],
     [t]
   )
@@ -116,7 +123,7 @@ const PersonalSidebar = () => {
   return (
     <div className="lg:rounded-2xl overflow-hidden  lg:bg-white lg:shadow-[0px_4px_24px_0px_#0000000F] h-full flex flex-col min-h-0">
       {/* Header */}
-      <div className="relative pt-6 pb-4 lg:px-6">
+      <div className="relative pt-6 pb-4 md:px-3 2xl:px-6">
         <Image
           src={IMAGES.topGradient2}
           alt="top-gradient"
@@ -187,7 +194,7 @@ const PersonalSidebar = () => {
       </div>
 
       {/* Body */}
-      <div className="px-6 pb-6 overflow-y-auto min-h-0 flex-1">
+      <div className="md:px-3 2xl:px-6 pb-6 overflow-y-auto min-h-0 flex-1">
         {/* My Activity */}
         <div className="pt-2">
           <div className="text-base font-bold text-greyscale-700 tracking-wide">

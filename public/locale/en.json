@@ -450,12 +450,41 @@
         "trialHistory": "Trial registration history",
         "myReviews": "My reviews",
         "referralList": "Referral List",
-        "referralCode": "Referral Program"
+        "referralCode": "Referral Program",
+        "notification": "Notification"
       },
       "account": {
         "preferences": "Account Preferences"
       },
       "logout": "Log out"
+    }
+  },
+  "notification": {
+    "title": "Notification",
+    "viewAll": "View all",
+    "viewDetail": "View detail",
+    "nodata": {
+      "title": "No notifications yet",
+      "desc": "Your notifications will appear here when there are updates."
+    },
+    "tabs": {
+      "all": "All",
+      "reviews": "Reviews",
+      "products": "Products"
+    },
+    "actions": {
+      "markReadAll": "Mark Read All"
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageXofY": "Page {current} / {total}"
+    },
+    "relative": {
+      "now": "Just now",
+      "minutes": "{count} minutes ago",
+      "hours": "{count} hours ago",
+      "days": "{count} days ago"
     }
   },
   "trial": {
@@ -566,7 +595,11 @@
           "processing": "Processing"
         },
         "actions": {
-          "review": "Review"
+          "review": "Review",
+          "edit": "Edit",
+          "viewDetails": "View details",
+          "viewReason": "View reason",
+          "rewriteReview": "Rewrite review"
         },
         "error": {
           "loadFailed": "Error loading review history",
@@ -580,6 +613,11 @@
           "moreProducts": "+{count} products",
           "daysLeftToSubmit": "{count} days left to submit your review"
         }
+      },
+      "reasonModal": {
+        "title": "Rejection reason",
+        "empty": "No reason provided.",
+        "close": "Close"
       }
     }
   },

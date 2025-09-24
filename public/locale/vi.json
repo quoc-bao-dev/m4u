@@ -447,15 +447,44 @@
       },
       "activity": {
         "title": "Hoạt động của tôi",
-        "trialHistory": "Lịch sử đăng ký dùng thử",
+        "trialHistory": "Lịch sử dùng thử",
         "myReviews": "Đánh giá của tôi",
         "referralList": "Danh sách giới thiệu",
-        "referralCode": "Mã giới thiệu"
+        "referralCode": "Mã giới thiệu",
+        "notification": "Thông báo"
       },
       "account": {
         "preferences": "Tuỳ chỉnh tài khoản"
       },
       "logout": "Đăng xuất"
+    }
+  },
+  "notification": {
+    "title": "Thông báo",
+    "viewAll": "Xem tất cả",
+    "viewDetail": "Xem chi tiết",
+    "nodata": {
+      "title": "Chưa có thông báo",
+      "desc": "Thông báo của bạn sẽ hiển thị tại đây khi có cập nhật."
+    },
+    "tabs": {
+      "all": "Tất cả",
+      "reviews": "Đánh giá",
+      "products": "Sản phẩm"
+    },
+    "actions": {
+      "markReadAll": "Đánh dấu đã đọc tất cả"
+    },
+    "pagination": {
+      "prev": "Trang trước",
+      "next": "Trang sau",
+      "pageXofY": "Trang {current} / {total}"
+    },
+    "relative": {
+      "now": "Vừa xong",
+      "minutes": "{count} phút trước",
+      "hours": "{count} giờ trước",
+      "days": "{count} ngày trước"
     }
   },
   "trial": {
@@ -542,7 +571,7 @@
     },
     "history": {
       "header": {
-        "title": "Lịch sử đăng kí dùng thử",
+        "title": "Lịch sử đăng ký dùng thử",
         "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
       },
       "table": {
@@ -563,7 +592,11 @@
           "processing": "Đang xử lý"
         },
         "actions": {
-          "review": "Đánh giá"
+          "review": "Đánh giá",
+          "edit": "Chỉnh sửa",
+          "viewDetails": "Xem chi tiết",
+          "viewReason": "Xem lý do",
+          "rewriteReview": "Viết lại bài đánh giá"
         },
         "error": {
           "loadFailed": "Lỗi khi tải lịch sử đánh giá",
@@ -577,6 +610,11 @@
           "moreProducts": "+{count} sản phẩm",
           "daysLeftToSubmit": "Còn {count} ngày để gửi đánh giá"
         }
+      },
+      "reasonModal": {
+        "title": "Lý do bị từ chối",
+        "empty": "Không có lý do được cung cấp.",
+        "close": "Đóng"
       }
     }
   },

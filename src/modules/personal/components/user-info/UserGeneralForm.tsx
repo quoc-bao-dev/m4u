@@ -11,11 +11,11 @@ import { tokenManager } from '@/core/http/axiosInstance'
 import { useAuth } from '@/modules/auth'
 import { useUpdateAccount, useUpdateAvatar } from '@/services/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CameraPlus } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { createUserGeneralSchema, type UserGeneralFormData } from '../../schema'
-import { CameraPlus } from '@phosphor-icons/react'
 
 const UserGeneralForm = () => {
   const t = useTranslations()
@@ -206,53 +206,55 @@ const UserGeneralForm = () => {
       {/* Main form content */}
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Avatar Column */}
-        <div className="flex flex-col items-center lg:items-start">
-          {/* Hidden file input */}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/jpeg,image/jpg,image/png,image/gif"
-            onChange={handleFileChange}
-            className="hidden"
-          />
+        <div className=" xl:w-[220px] flex justify-center">
+          <div className="flex flex-col items-center lg:items-start ">
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/jpg,image/png,image/gif"
+              onChange={handleFileChange}
+              className="hidden"
+            />
 
-          {/* Avatar upload area */}
-          <div
-            onClick={handleAvatarClick}
-            className="group relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors"
-          >
-            <div className="relative w-32 h-32 bg-gray-400 rounded-full flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0">
-                <img
-                  src={user?.avatar || '/image/avatar/image-03.png'}
-                  alt="Avatar"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    if (target.src !== '/image/avatar/image-03.png') {
-                      target.src = '/image/avatar/image-03.png'
-                    }
-                  }}
-                />
-                <div className="absolute inset-0 bg-gray-900/15 group-hover:bg-gray-900/65 transition-all duration-300"></div>
+            {/* Avatar upload area */}
+            <div
+              onClick={handleAvatarClick}
+              className="mx-auto  group relative w-36 h-36 border-2 border-dashed border-gray-200 rounded-full flex items-center justify-center mb-3 cursor-pointer hover:border-gray-300 transition-colors"
+            >
+              <div className="relative w-32 h-32 bg-gray-400 rounded-full flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0">
+                  <img
+                    src={user?.avatar || '/image/avatar/image-03.png'}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      if (target.src !== '/image/avatar/image-03.png') {
+                        target.src = '/image/avatar/image-03.png'
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gray-900/15 group-hover:bg-gray-900/65 transition-all duration-300"></div>
+                </div>
+              </div>
+              <div className="flex items-center justify-center flex-col gap-2 absolute inset-0">
+                <CameraPlus size={28} className="text-white" />
+                <span className="text-white text-xs font-medium">
+                  {updateAvatarMutation.isPending
+                    ? t('personal.form.submit.saving')
+                    : t('personal.form.general.updatePhoto')}
+                </span>
               </div>
             </div>
-            <div className="flex items-center justify-center flex-col gap-2 absolute inset-0">
-              <CameraPlus size={28} className="text-white" />
-              <span className="text-white text-xs font-medium">
-                {updateAvatarMutation.isPending
-                  ? t('personal.form.submit.saving')
-                  : t('personal.form.general.updatePhoto')}
-              </span>
-            </div>
-          </div>
 
-          {/* Upload note */}
-          <p className="text-xs text-gray-400 text-center max-w-32">
-            {t('personal.form.general.uploadNote')}
-            <br />
-            {t('personal.form.general.uploadSize')}
-          </p>
+            {/* Upload note */}
+            <p className="text-xs text-gray-400 text-center max-w-32- whitespace-nowrap">
+              {t('personal.form.general.uploadNote')}
+              <br />
+              {t('personal.form.general.uploadSize')}
+            </p>
+          </div>
         </div>
 
         {/* Form Column */}

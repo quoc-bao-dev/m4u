@@ -1,6 +1,6 @@
 import { envConfig } from '@/core/config/envConfig'
 import axiosInstance from '@/core/http/axiosInstance'
-import { MyReviewResponse } from './type'
+import { MyReviewResponse, MyReviewStatusResponse } from './type'
 
 export const apiMyReview = {
   getMyReview: ({
@@ -33,4 +33,8 @@ export const apiMyReview = {
         },
       }
     ),
+  getMyReviewStatus: () =>
+    axiosInstance.get<MyReviewStatusResponse>('type_active_review', {
+      baseURL: envConfig.adminUrl,
+    }),
 }
