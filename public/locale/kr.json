@@ -450,12 +450,37 @@
         "trialHistory": "체험 신청 내역",
         "myReviews": "내 리뷰",
         "referralList": "추천 목록",
-        "referralCode": "추천 코드"
+        "referralCode": "추천 코드",
+        "notification": "알림"
       },
       "account": {
         "preferences": "계정 설정"
       },
       "logout": "로그아웃"
+    }
+  },
+  "notification": {
+    "title": "알림",
+    "viewAll": "모두 보기",
+    "viewDetail": "자세히 보기",
+    "tabs": {
+      "all": "전체",
+      "reviews": "리뷰",
+      "products": "제품"
+    },
+    "actions": {
+      "markReadAll": "모두 읽음 처리"
+    },
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "pageXofY": "페이지 {current} / {total}"
+    },
+    "relative": {
+      "now": "방금 전",
+      "minutes": "{count}분 전",
+      "hours": "{count}시간 전",
+      "days": "{count}일 전"
     }
   },
   "trial": {
@@ -563,7 +588,11 @@
           "processing": "처리 중"
         },
         "actions": {
-          "review": "리뷰"
+          "review": "리뷰",
+          "edit": "편집",
+          "viewDetails": "자세히 보기",
+          "viewReason": "이유 보기",
+          "rewriteReview": "리뷰 다시 작성"
         },
         "error": {
           "loadFailed": "리뷰 내역을 불러오는 중 오류가 발생했습니다",
@@ -577,6 +606,11 @@
           "moreProducts": "+{count}개 제품",
           "daysLeftToSubmit": "리뷰 제출까지 {count}일 남음"
         }
+      },
+      "reasonModal": {
+        "title": "반려 사유",
+        "empty": "제공된 사유가 없습니다.",
+        "close": "닫기"
       }
     }
   },

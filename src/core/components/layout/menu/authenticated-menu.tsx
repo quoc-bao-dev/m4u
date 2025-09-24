@@ -9,6 +9,7 @@ import {
   QrCodeIcon,
   SignOutIcon,
   UserCircleIcon,
+  Bell,
 } from '@phosphor-icons/react'
 import moment from 'moment'
 import 'moment/locale/ko'
@@ -160,6 +161,12 @@ const Top = ({ user }: TopProps) => {
       icon: QrCodeIcon,
       href: '/referral-program',
     },
+    {
+      id: 'notification',
+      label: 'menu.auth.activity.notification',
+      icon: Bell,
+      href: '/notification',
+    },
   ]
 
   return (
@@ -167,7 +174,7 @@ const Top = ({ user }: TopProps) => {
       <h3 className="text-base font-bold text-greyscale-700 py-2 px-3 border-b border-greyscale-200">
         {t('menu.auth.activity.title')}
       </h3>
-      <div className="grid grid-cols-3 gap-4 px-3">
+      <div className="grid grid-cols-4  px-3">
         {activityItems.map((item) => {
           const IconComponent = item.icon
           return (

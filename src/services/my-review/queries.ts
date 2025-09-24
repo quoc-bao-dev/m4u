@@ -45,3 +45,14 @@ export function useMyReview({
     },
   })
 }
+
+export function useMyReviewStatus(options?: { enabled?: boolean }) {
+  return useQuery({
+    queryKey: ['my-review-status'],
+    queryFn: async () => {
+      const response = await apiMyReview.getMyReviewStatus()
+      return response.data
+    },
+    enabled: options?.enabled ?? true,
+  })
+}

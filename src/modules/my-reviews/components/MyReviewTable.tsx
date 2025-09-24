@@ -10,6 +10,9 @@ import { useTableFilter } from '../stores/useTableFilter'
 import StackVideo from './StackVideo'
 import InfoKolModal from '../../review-hub/review-hub-detail/components/InfoKolModal'
 import { getRatingI18nKey } from '@/core/utils'
+import ActionButtons from './ActionButtons'
+import RejectReasonModal from './RejectReasonModal'
+import { useNavigate } from '@/locale'
 
 const StatusDot = ({ color }: { color: string }) => (
   <span
@@ -22,11 +25,14 @@ const MyReviewTable = () => {
   const t = useTranslations('myReviews.history.table.headers')
   const t0 = useTranslations()
   const tTable = useTranslations('myReviews.history.table')
-  const tCart = useTranslations('cart')
   const { activeTab, searchQuery, dateRange } = useTableFilter()
 
   const [isInfoOpen, setIsInfoOpen] = useState(false)
   const [selectedReviewId, setSelectedReviewId] = useState<number | null>(null)
+  const [isReasonOpen, setIsReasonOpen] = useState(false)
+  const [selectedReason, setSelectedReason] = useState<string | null>(null)
+
+  const nav = useNavigate()
 
   const {
     data,
@@ -136,6 +142,8 @@ const MyReviewTable = () => {
       return {
         id: item.id,
         id_review: item.id_review,
+        active: item.active,
+        noteRejected: (item as any).note_rejected as string | null,
         product: {
           brand: item.code,
           name: item.name,
@@ -150,8 +158,8 @@ const MyReviewTable = () => {
         reward: '',
         date,
         time,
-        status: item.name_status,
-        statusColor: item.status_color,
+        status: item.data_active.name,
+        statusColor: item.data_active.color,
         action: 'View details',
       }
     })
@@ -164,8 +172,13 @@ const MyReviewTable = () => {
         onClose={() => setIsInfoOpen(false)}
         id={selectedReviewId}
       />
+      <RejectReasonModal
+        open={isReasonOpen}
+        onClose={() => setIsReasonOpen(false)}
+        reason={selectedReason || ''}
+      />
       {/* Desktop table */}
-      <div className="hidden md:block  bg-white">
+      <div className="hidden md:block  md:bg-white rounded-lg">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             {/* Table header */}
@@ -295,15 +308,24 @@ const MyReviewTable = () => {
 
                     {/* Action */}
                     <td className="px-3 py-5 w-[160px] align-middle">
-                      <button
-                        className="truncate w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full"
-                        onClick={() => {
+                      <ActionButtons
+                        active={row.active as number}
+                        onEdit={() => {
+                          // open edit flow
+                          nav(`/submit-review/${row.id_review}`)
+                        }}
+                        onViewDetails={() => {
                           setSelectedReviewId(row.id as number)
                           setIsInfoOpen(true)
                         }}
-                      >
-                        {tCart('viewDetails', { default: 'View details' })}
-                      </button>
+                        onViewReason={() => {
+                          setSelectedReason((row as any).noteRejected || '')
+                          setIsReasonOpen(true)
+                        }}
+                        onRewrite={() => {
+                          nav(`/submit-review/${row.id_review}`)
+                        }}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -427,15 +449,24 @@ const MyReviewTable = () => {
 
               {/* Button */}
               <div className="flex justify-end">
-                <button
-                  className="px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-greyscale-50 transition-colors rounded-full"
-                  onClick={() => {
+                <ActionButtons
+                  active={row.active as number}
+                  onEdit={() => {
+                    nav(`/submit-review/${row.id_review}`)
+                  }}
+                  onViewDetails={() => {
                     setSelectedReviewId(row.id as number)
                     setIsInfoOpen(true)
                   }}
-                >
-                  {tCart('viewDetails', { default: 'View details' })}
-                </button>
+                  onViewReason={() => {
+                    setSelectedReason((row as any).noteRejected || '')
+                    setIsReasonOpen(true)
+                  }}
+                  onRewrite={() => {
+                    nav(`/submit-review/${row.id_review}`)
+                  }}
+                  layout="col"
+                />
               </div>
             </div>
           ))}
