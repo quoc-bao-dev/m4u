@@ -17,6 +17,7 @@ export const useToast = () => {
   const showInfo = (message: string) => {
     toast(message, {
       icon: <BellRinging size={28} className="text-blue-500" />,
+      className: 'border border-blue-500 bg-blue-50/30',
     })
   }
 

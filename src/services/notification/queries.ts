@@ -57,3 +57,19 @@ export const useMarkAllAsRead = () => {
     },
   })
 }
+
+export const useMarkNotificationRead = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (notificationId: number | string) => {
+      const response = await apiNotification.markSingleAsRead(notificationId)
+      return response.data
+    },
+    onSuccess: () => {
+      // Invalidate các queries liên quan
+      queryClient.invalidateQueries({ queryKey: ['list-notifications'] })
+      queryClient.invalidateQueries({ queryKey: ['status-notification'] })
+    },
+  })
+}

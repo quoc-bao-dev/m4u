@@ -13,6 +13,7 @@ import { getRatingI18nKey } from '@/core/utils'
 import ActionButtons from './ActionButtons'
 import RejectReasonModal from './RejectReasonModal'
 import { useNavigate } from '@/locale'
+import { useNotificationActionStore } from '../../notification/stores/useNotificationActionStore'
 
 const StatusDot = ({ color }: { color: string }) => (
   <span
@@ -33,6 +34,8 @@ const MyReviewTable = () => {
   const [selectedReason, setSelectedReason] = useState<string | null>(null)
 
   const nav = useNavigate()
+  const { notificationAction, clearNotificationAction } =
+    useNotificationActionStore()
 
   const {
     data,
@@ -55,35 +58,6 @@ const MyReviewTable = () => {
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    const rootEl = scrollContainerRef.current
-    const sentinelEl = sentinelRef.current
-    if (!rootEl || !sentinelEl) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0]
-        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage()
-        }
-      },
-      {
-        root: rootEl,
-        rootMargin: '0px',
-        threshold: 0.1,
-      }
-    )
-
-    observer.observe(sentinelEl)
-    return () => {
-      observer.disconnect()
-    }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
-
-  useEffect(() => {
-    refetch()
-  }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   const rows = useMemo(() => {
     const pages = data?.pages ?? []
@@ -165,6 +139,72 @@ const MyReviewTable = () => {
     })
   }, [data])
 
+  // Handle notification action
+  useEffect(() => {
+    if (notificationAction && !isLoading && rows.length > 0) {
+      const { reviewId, active } = notificationAction
+
+      // Find the review data from the current page data
+      const reviewData = rows.find((row) => row.id === reviewId)
+
+      if (!reviewData) {
+        console.warn('Review not found:', reviewId)
+        clearNotificationAction()
+        return
+      }
+
+      switch (active) {
+        case 2: // Rejected - show reject reason modal
+          setSelectedReason(reviewData.noteRejected || '')
+          setIsReasonOpen(true)
+          clearNotificationAction()
+          break
+
+        case 1: // Approved - show detail modal
+          setSelectedReviewId(reviewId)
+          setIsInfoOpen(true)
+          clearNotificationAction()
+          break
+
+        case 0: // Pending - highlight row and scroll to top
+          setSelectedReviewId(reviewId)
+          break
+
+        default:
+          clearNotificationAction()
+      }
+    }
+  }, [notificationAction, isLoading, rows, clearNotificationAction])
+
+  useEffect(() => {
+    const rootEl = scrollContainerRef.current
+    const sentinelEl = sentinelRef.current
+    if (!rootEl || !sentinelEl) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage()
+        }
+      },
+      {
+        root: rootEl,
+        rootMargin: '0px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinelEl)
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+
+  useEffect(() => {
+    refetch()
+  }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
+
   return (
     <div className="w-full">
       <InfoKolModal
@@ -224,6 +264,7 @@ const MyReviewTable = () => {
                 rows.map((row) => (
                   <tr
                     key={row.id}
+                    id={`review-${row.id}`}
                     className="border-t border-dashed first:border-t-0 border-greyscale-200 hover:bg-greyscale-50 transition-colors"
                   >
                     {/* Product info */}
@@ -371,6 +412,7 @@ const MyReviewTable = () => {
           rows.map((row) => (
             <div
               key={row.id}
+              id={`review-${row.id}`}
               className="px-4 py-4 bg-white rounded-[24px]"
               style={{ boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.06)' }}
             >

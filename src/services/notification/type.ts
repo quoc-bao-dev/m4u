@@ -16,9 +16,10 @@ export interface NotificationItem {
   object_id: number
   object_type: string
   json_data: {
-    id: number
-    active: number
-    content: string
+    id?: number
+    id_review?: number
+    active?: number
+    content?: string
   }
   title: string
   content: string
@@ -76,4 +77,8 @@ export interface StatusNotificationItem {
 export interface StatusNotificationResponse {
   result: boolean
   data: StatusNotificationItem[]
+}
+
+export interface NotificationDetailResponse {
+  data: NotificationItem
 }
