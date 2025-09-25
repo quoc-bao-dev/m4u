@@ -5,6 +5,7 @@ export interface ConnectParams {
 
 export interface ConnectNotificationResponse {
   status: boolean
+  db_name: string
   sever: string
   message: string
   data: string
@@ -60,4 +61,19 @@ export interface NotificationListResponse {
 export interface ListNotificationsParams {
   current_page: number
   per_page: number
+  status?: string
+  date_start?: string
+  date_end?: string
+}
+
+export interface StatusNotificationItem {
+  count: number
+  id: string
+  name: string
+  color: string
+}
+
+export interface StatusNotificationResponse {
+  result: boolean
+  data: StatusNotificationItem[]
 }

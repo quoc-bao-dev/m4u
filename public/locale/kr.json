@@ -473,7 +473,8 @@
       "products": "제품"
     },
     "actions": {
-      "markReadAll": "모두 읽음 처리"
+      "markReadAll": "모두 읽음 처리",
+      "marking": "처리 중..."
     },
     "pagination": {
       "prev": "이전",

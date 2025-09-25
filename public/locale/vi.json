@@ -473,7 +473,8 @@
       "products": "Sản phẩm"
     },
     "actions": {
-      "markReadAll": "Đánh dấu đã đọc tất cả"
+      "markReadAll": "Đánh dấu đã đọc tất cả",
+      "marking": "Đang đánh dấu..."
     },
     "pagination": {
       "prev": "Trang trước",

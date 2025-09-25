@@ -2,11 +2,20 @@
 
 import { DateRangePicker } from '@/core/components/ui/date-range-picker/DateRangePicker'
 import { useTranslations } from 'next-intl'
+import { useNotificationFilter } from '../../stores/useNotificationFilter'
 
 const NotifyHeader = () => {
   const t = useTranslations()
-  const handleDateRangeChange = () => {
-    // Empty arrow function - no functionality
+  const { setDateRange } = useNotificationFilter()
+
+  const handleDateRangeChange = (
+    value: { from: string; to: string } | { from: ''; to: '' }
+  ) => {
+    const from =
+      value.from && value.from !== '' ? new Date(value.from) : undefined
+    const to = value.to && value.to !== '' ? new Date(value.to) : undefined
+
+    setDateRange(from, to)
   }
 
   return (

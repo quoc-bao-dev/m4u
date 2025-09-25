@@ -41,10 +41,9 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
       createdSocket.emit('connectedData', {
         user_id: user?.id?.toString(),
         user_name: user?.fullname,
+        db_name: connection.db_name,
       })
     })
-
-    console.log('[connect]', createdSocket)
 
     socketRef.current = createdSocket
     setSocketState(createdSocket)
