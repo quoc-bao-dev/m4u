@@ -3,13 +3,16 @@
 import { Nodata } from '@/core/components/common'
 import { useNavigate } from '@/locale'
 import { useGetListNotifications } from '@/services/notification'
+import { useMarkNotificationRead } from '@/services/notification/queries'
 import type { NotificationItem as ApiNotificationItem } from '@/services/notification/type'
 import { X } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import React, { useMemo } from 'react'
 import { formatNotificationTimeI18n } from '../../utils'
 import { renderNotificationIcon } from '../../utils/render-icon'
+import { useNotificationHandler } from '../../utils/notificationHandler'
 import styles from './NotifyPopup.module.css'
+import { Skeleton } from '@/components/ui/skeleton'
 
 // Types
 export interface NotificationItem {
@@ -22,6 +25,7 @@ export interface NotificationItem {
   content: string
   timestamp: Date
   isRead: boolean
+  originalData?: ApiNotificationItem
 }
 
 interface NotifyPopupProps {
@@ -32,7 +36,12 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
   const nav = useNavigate()
   const t = useTranslations()
 
-  const { data: notifications } = useGetListNotifications(null)
+  const { data: notifications, isLoading } = useGetListNotifications(null)
+  const markReadMutation = useMarkNotificationRead()
+
+  const { handleNotificationClick } = useNotificationHandler({
+    onClick: onClose,
+  })
 
   const mappedNotifications = useMemo<NotificationItem[]>(() => {
     const items: ApiNotificationItem[] = notifications?.data ?? []
@@ -52,6 +61,7 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
       content: n.content || n.json_data?.content || n.title || '',
       timestamp: new Date(n.created_at),
       isRead: n.is_read === 1,
+      originalData: n, // Store original API data for handler
     }))
   }, [notifications])
 
@@ -77,7 +87,17 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
       <div
         className={`max-h-[339px] overflow-y-auto mb-3 ${styles.notificationScroll}`}
       >
-        {mappedNotifications.length === 0 ? (
+        {isLoading ? (
+          Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="rounded-lg p-2 my-1 flex gap-2">
+              <Skeleton className="h-8 w-8 rounded-full" />
+              <div className="flex-1 flex flex-col">
+                <Skeleton className="h-4 w-3/4 mb-2" />
+                <Skeleton className="h-3 w-1/3" />
+              </div>
+            </div>
+          ))
+        ) : mappedNotifications.length === 0 ? (
           <Nodata
             title={t('notification.nodata.title')}
             description={t('notification.nodata.desc')}
@@ -90,6 +110,12 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
                 className={`rounded-lg p-2 my-1 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ${
                   notification.isRead ? '' : 'bg-blue-50/30'
                 }`}
+                onClick={() => {
+                  if (notification.originalData) {
+                    markReadMutation.mutate(notification.originalData.id)
+                    handleNotificationClick(notification.originalData)
+                  }
+                }}
               >
                 {/* Icon */}
                 {renderNotificationIcon(notification.type)}

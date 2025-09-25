@@ -32,4 +32,18 @@ export const apiNotification = {
       }
     )
   },
+
+  markSingleAsRead: (notification_id: number | string) => {
+    return axiosInstance.post(
+      'notification/readSingleNotification',
+      { notification_id },
+      {
+        baseURL: envConfig.adminUrl,
+      }
+    )
+  },
+
+  getNotificationDetail: (id: number | string) => {
+    return axiosInstance.get(`/notification/getDetail/${id}`)
+  },
 }

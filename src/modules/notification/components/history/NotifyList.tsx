@@ -1,28 +1,35 @@
 'use client'
 
-import { useMemo, useState, useEffect } from 'react'
+import { Nodata } from '@/core/components/common'
+import { useNavigate } from '@/locale'
 import { useGetListNotifications } from '@/services/notification'
+import { useMarkNotificationRead } from '@/services/notification/queries'
 import type {
   NotificationItem as ApiNotificationItem,
   ListNotificationsParams,
 } from '@/services/notification/type'
-import { formatNotificationTimeI18n, renderNotificationIcon } from '../../utils'
-import { NotificationItem } from '../popup/NotifyPopup'
-import { useTranslations } from 'next-intl'
-import { Nodata } from '@/core/components/common'
-import { useNotificationFilter } from '../../stores/useNotificationFilter'
 import moment from 'moment'
+import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useState } from 'react'
+import { useNotificationFilter } from '../../stores/useNotificationFilter'
+import { formatNotificationTimeI18n, renderNotificationIcon } from '../../utils'
+import { useNotificationHandler } from '../../utils/notificationHandler'
+import { NotificationItem } from '../popup/NotifyPopup'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const NotifyList = () => {
   const t = useTranslations()
   const { activeTab, dateRange } = useNotificationFilter()
+
+  const { handleNotificationClick } = useNotificationHandler({})
+  const markReadMutation = useMarkNotificationRead()
 
   const [params, setParams] = useState<ListNotificationsParams>({
     current_page: 1,
     per_page: 10,
   })
 
-  const { data, refetch } = useGetListNotifications({
+  const { data, refetch, isLoading } = useGetListNotifications({
     ...params,
     status: activeTab,
     date_start: dateRange.from
@@ -56,6 +63,7 @@ const NotifyList = () => {
       content: n.content || n.json_data?.content || n.title || '',
       timestamp: new Date(n.created_at),
       isRead: n.is_read === 1,
+      originalData: n, // Store original API data for handler
     }))
   }, [data])
 
@@ -76,14 +84,34 @@ const NotifyList = () => {
 
   return (
     <div className="">
-      {isEmpty ? (
+      {isLoading ? (
+        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[56vh] 2xl:max-h-[65vh] overflow-y-auto">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div
+              key={index}
+              className="border-t first:border-t-0 border-gray-100 border-dashed"
+            >
+              <div className="py-5 px-2 flex gap-2">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="flex-1 flex flex-col">
+                  <Skeleton className="h-4 w-2/3 mb-2" />
+                  <Skeleton className="h-3 w-1/4" />
+                </div>
+                <div className="ml-auto">
+                  <Skeleton className="h-8 w-24 rounded-full" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : isEmpty ? (
         <Nodata
           title={t('notification.nodata.title')}
           description={t('notification.nodata.desc')}
           className="py-16"
         />
       ) : (
-        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[56vh] overflow-y-auto">
+        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[56vh] 2xl:max-h-[65vh] overflow-y-auto">
           {mappedNotifications.map((notification) => (
             <div
               key={notification.id}
@@ -93,6 +121,13 @@ const NotifyList = () => {
                 className={`rounded-lg- py-5 px-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ${
                   notification.isRead ? '' : 'bg-blue-50/30'
                 }`}
+                onClick={() => {
+                  if (notification.originalData) {
+                    // mark as read then navigate/handle
+                    markReadMutation.mutate(notification.originalData.id)
+                    handleNotificationClick(notification.originalData)
+                  }
+                }}
               >
                 {renderNotificationIcon(notification.type)}
 
