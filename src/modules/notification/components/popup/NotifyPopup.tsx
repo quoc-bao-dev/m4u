@@ -1,16 +1,15 @@
 'use client'
 
-import { useSocket } from '@/core/hooks'
+import { Nodata } from '@/core/components/common'
+import { useNavigate } from '@/locale'
 import { useGetListNotifications } from '@/services/notification'
 import type { NotificationItem as ApiNotificationItem } from '@/services/notification/type'
 import { X } from '@phosphor-icons/react'
-import React, { useEffect, useMemo } from 'react'
-import { formatNotificationTime, formatNotificationTimeI18n } from '../../utils'
+import { useTranslations } from 'next-intl'
+import React, { useMemo } from 'react'
+import { formatNotificationTimeI18n } from '../../utils'
 import { renderNotificationIcon } from '../../utils/render-icon'
 import styles from './NotifyPopup.module.css'
-import { useNavigate } from '@/locale'
-import { useTranslations } from 'next-intl'
-import { Nodata } from '@/core/components/common'
 
 // Types
 export interface NotificationItem {
@@ -22,71 +21,16 @@ export interface NotificationItem {
     | 'trial_registered'
   content: string
   timestamp: Date
+  isRead: boolean
 }
 
 interface NotifyPopupProps {
   onClose: () => void
 }
 
-// Mock data
-const mockNotifications: NotificationItem[] = [
-  {
-    id: '1',
-    type: 'review_liked',
-    content: 'Phượng Lê đã thích đánh giá của bạn.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 2), // 2 minutes ago
-  },
-  {
-    id: '2',
-    type: 'review_approved',
-    content: 'Đánh giá của bạn đã được duyệt.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 10), // 10 minutes ago
-  },
-  {
-    id: '3',
-    type: 'review_submitted',
-    content: 'Bạn vừa gửi đánh giá cho sản phẩm Manyo.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 60), // 1 hour ago
-  },
-  {
-    id: '4',
-    type: 'trial_registered',
-    content: 'Bạn đã đăng ký dùng thử Manyo thành công.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3), // 3 hours ago
-  },
-  {
-    id: '5',
-    type: 'trial_registered',
-    content: 'Bạn đã đăng ký dùng thử Manyo thành công.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3), // 3 hours ago
-  },
-  {
-    id: '6',
-    type: 'trial_registered',
-    content: 'Bạn đã đăng ký dùng thử Manyo thành công.',
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3), // 3 hours ago
-  },
-]
-
 const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
-  const socket = useSocket()
-
   const nav = useNavigate()
   const t = useTranslations()
-
-  useEffect(() => {
-    if (!socket) return
-
-    const handler = (data: any) => {
-      console.log('Data:', data)
-    }
-
-    socket.on('new_notification', handler)
-
-    return () => {
-      socket.off('new_notification', handler)
-    }
-  }, [socket])
 
   const { data: notifications } = useGetListNotifications(null)
 
@@ -107,6 +51,7 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
       type: mapType(n.object_type),
       content: n.content || n.json_data?.content || n.title || '',
       timestamp: new Date(n.created_at),
+      isRead: n.is_read === 1,
     }))
   }, [notifications])
 
@@ -141,13 +86,23 @@ const NotifyPopup: React.FC<NotifyPopupProps> = ({ onClose }) => {
         ) : (
           mappedNotifications.map((notification, index) => (
             <div key={notification.id}>
-              <div className="rounded-lg p-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer">
+              <div
+                className={`rounded-lg p-2 my-1 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ${
+                  notification.isRead ? '' : 'bg-blue-50/30'
+                }`}
+              >
                 {/* Icon */}
                 {renderNotificationIcon(notification.type)}
 
                 {/* Content */}
                 <div className="flex-1 flex flex-col">
-                  <p className="text-sm text-gray-900 mb-1">
+                  <p
+                    className={`text-sm mb-1 ${
+                      notification.isRead
+                        ? 'text-gray-700'
+                        : 'text-gray-900 font-medium'
+                    }`}
+                  >
                     {notification.content}
                   </p>
                   <span className="text-xs text-gray-500">

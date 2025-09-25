@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useGetListNotifications } from '@/services/notification'
 import type {
   NotificationItem as ApiNotificationItem,
@@ -10,15 +10,33 @@ import { formatNotificationTimeI18n, renderNotificationIcon } from '../../utils'
 import { NotificationItem } from '../popup/NotifyPopup'
 import { useTranslations } from 'next-intl'
 import { Nodata } from '@/core/components/common'
+import { useNotificationFilter } from '../../stores/useNotificationFilter'
+import moment from 'moment'
 
 const NotifyList = () => {
   const t = useTranslations()
+  const { activeTab, dateRange } = useNotificationFilter()
+
   const [params, setParams] = useState<ListNotificationsParams>({
     current_page: 1,
     per_page: 10,
   })
 
-  const { data } = useGetListNotifications(params)
+  const { data, refetch } = useGetListNotifications({
+    ...params,
+    status: activeTab,
+    date_start: dateRange.from
+      ? moment(dateRange.from).format('DD/MM/YYYY')
+      : undefined,
+    date_end: dateRange.to
+      ? moment(dateRange.to).format('DD/MM/YYYY')
+      : undefined,
+  })
+
+  // Refetch khi filter thay đổi
+  useEffect(() => {
+    refetch()
+  }, [activeTab, dateRange.from, dateRange.to, refetch])
 
   const mappedNotifications = useMemo<NotificationItem[]>(() => {
     const items: ApiNotificationItem[] = data?.data ?? []
@@ -37,6 +55,7 @@ const NotifyList = () => {
       type: mapType(n.object_type),
       content: n.content || n.json_data?.content || n.title || '',
       timestamp: new Date(n.created_at),
+      isRead: n.is_read === 1,
     }))
   }, [data])
 
@@ -64,17 +83,27 @@ const NotifyList = () => {
           className="py-16"
         />
       ) : (
-        <div className="pt-2 flex flex-col">
+        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[650px] overflow-y-auto">
           {mappedNotifications.map((notification) => (
             <div
               key={notification.id}
               className="border-t first:border-t-0 border-gray-100 border-dashed"
             >
-              <div className="rounded-lg py-5 px-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ">
+              <div
+                className={`rounded-lg- py-5 px-2 flex gap-2 hover:bg-gray-50 transition-colors cursor-pointer ${
+                  notification.isRead ? '' : 'bg-blue-50/30'
+                }`}
+              >
                 {renderNotificationIcon(notification.type)}
 
                 <div className="flex-1 flex flex-col">
-                  <p className="text-sm text-gray-900 mb-1">
+                  <p
+                    className={`text-sm mb-1 ${
+                      notification.isRead
+                        ? 'text-gray-700'
+                        : 'text-gray-900 font-medium'
+                    }`}
+                  >
                     {notification.content}
                   </p>
                   <span className="text-xs text-gray-500">
@@ -93,11 +122,11 @@ const NotifyList = () => {
       )}
 
       {!isEmpty && (
-        <div className="absolute bottom-5 left-8 right-8 flex items-center justify-center gap-6">
+        <div className="absolute z-20 bottom-5 left-8 right-8 flex items-center justify-center gap-6">
           <button
             onClick={handlePrev}
             disabled={currentPage <= 1}
-            className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
+            className="bg-white cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
           >
             {t('notification.pagination.prev')}
           </button>
@@ -110,7 +139,7 @@ const NotifyList = () => {
           <button
             onClick={handleNext}
             disabled={currentPage >= lastPage}
-            className="cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
+            className="bg-white cursor-pointer px-3 py-2 text-sm rounded-lg border border-gray-300 disabled:opacity-50"
           >
             {t('notification.pagination.next')}
           </button>

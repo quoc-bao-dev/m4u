@@ -40,7 +40,7 @@ const ActionButtons = ({
   if (active === 0) {
     return (
       <button
-        className="truncate  w-fit lg:w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-white/60 transition-colors rounded-full"
+        className="truncate  w-fit lg:w-full cursor-pointer px-4 py-2.5 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-white/60 transition-colors rounded-full"
         onClick={handleEdit}
       >
         {tTable('actions.edit', { default: 'Edit' })}
@@ -51,7 +51,7 @@ const ActionButtons = ({
   if (active === 1) {
     return (
       <button
-        className="truncate w-fit lg:w-full cursor-pointer px-4 py-2 text-xs bg-white text-greyscale-900 font-medium border border-greyscale-300 hover:bg-white/60 transition-colors rounded-full"
+        className="truncate w-fit lg:w-full cursor-pointer px-4 py-2.5 text-xs bg-white text-pink-600 font-medium border border-pink-600 hover:bg-pink-50 transition-colors rounded-full"
         onClick={handleViewDetails}
       >
         {tTable('actions.viewDetails', { default: 'View details' })}

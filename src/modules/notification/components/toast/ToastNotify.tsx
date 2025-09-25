@@ -1,20 +1,34 @@
 'use client'
 
-import { useSocket, useToast } from '@/core/hooks'
+import { useSocket } from '@/core/hooks'
+import {
+  useGetListNotifications,
+  useGetStatusNotification,
+} from '@/services/notification'
+import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
 const ToastNotify = () => {
-  // TODO: nhận sự kiên và thông báo toast
   const socket = useSocket()
-  const toast = useToast()
+  const queryClient = useQueryClient()
+  const { refetch: refetchStatus } = useGetStatusNotification()
 
   useEffect(() => {
     if (!socket) return
 
-    socket.on('new_notification', () => {
-      //   toast.showInfo('Thông báo mới')
-    })
-  }, [socket])
+    const handler = () => {
+      // Refetch notifications và status khi có thông báo mới
+      refetchStatus()
+      queryClient.invalidateQueries({ queryKey: ['list-notifications'] })
+    }
+
+    socket.on('new_notification', handler)
+
+    return () => {
+      socket.off('new_notification', handler)
+    }
+  }, [socket, refetchStatus, queryClient])
+
   return null
 }
 

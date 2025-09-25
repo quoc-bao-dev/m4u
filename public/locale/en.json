@@ -473,7 +473,8 @@
       "products": "Products"
     },
     "actions": {
-      "markReadAll": "Mark Read All"
+      "markReadAll": "Mark Read All",
+      "marking": "Marking..."
     },
     "pagination": {
       "prev": "Previous",

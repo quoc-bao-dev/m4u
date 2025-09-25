@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { apiNotification } from './api'
 import { ConnectParams, ListNotificationsParams } from './type'
 
@@ -28,5 +28,32 @@ export const useGetListNotifications = (
   return useQuery({
     queryKey: ['list-notifications', params],
     queryFn: queryFn,
+  })
+}
+
+export const useGetStatusNotification = () => {
+  const queryFn = async () => {
+    const response = await apiNotification.getStatusNotification()
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['status-notification'],
+    queryFn: queryFn,
+  })
+}
+
+export const useMarkAllAsRead = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      const response = await apiNotification.markAllAsRead()
+      return response.data
+    },
+    onSuccess: () => {
+      // Invalidate và refetch các queries liên quan
+      queryClient.invalidateQueries({ queryKey: ['list-notifications'] })
+      queryClient.invalidateQueries({ queryKey: ['status-notification'] })
+    },
   })
 }
