@@ -83,7 +83,7 @@ const NotifyList = () => {
           className="py-16"
         />
       ) : (
-        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[650px] overflow-y-auto">
+        <div className="pt-2 flex flex-col pb-12 lg:pb-0 lg:max-h-[56vh] overflow-y-auto">
           {mappedNotifications.map((notification) => (
             <div
               key={notification.id}
