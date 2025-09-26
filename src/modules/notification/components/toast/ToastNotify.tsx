@@ -51,13 +51,15 @@ const ToastNotify = () => {
     const handler = async (data: SocketNotificationData) => {
       try {
         const id = data?.data?.id_notication
-        console.log(data)
-        console.log(id)
 
-        if (id) {
+        if (
+          id &&
+          ['remind_review', 'change_active_review'].includes(
+            data?.data?.object_type
+          )
+        ) {
           try {
             const response = await apiNotification.getNotificationDetail(id)
-            console.log(response)
 
             const detail = response?.data?.data
             const message =

@@ -16,7 +16,11 @@ export const useToast = () => {
 
   const showInfo = (message: string) => {
     toast(message, {
-      icon: <BellRinging size={28} className="text-blue-500" />,
+      icon: (
+        <div className="w-[30px]">
+          <BellRinging size={28} className="text-blue-500" />
+        </div>
+      ),
       className: 'border border-blue-500 bg-blue-50/30',
     })
   }
