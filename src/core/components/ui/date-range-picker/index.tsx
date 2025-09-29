@@ -292,9 +292,12 @@ const DateRangePicker = React.forwardRef<HTMLDivElement, DateRangePickerProps>(
               className="rounded-md border"
               disabled={disabled}
               modifiers={{
+                // @ts-ignore
                 highlight: (day) => shouldPreview && inPreview(day),
+                // @ts-ignore
                 highlight_start: (day) =>
                   shouldPreview && previewStart && isSameDay(day, previewStart),
+                // @ts-ignore
                 highlight_end: (day) =>
                   shouldPreview && previewEnd && isSameDay(day, previewEnd),
               }}
