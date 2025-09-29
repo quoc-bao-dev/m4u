@@ -83,3 +83,20 @@ export interface ProductDetailResponse {
   message: string
   data: ProductDetailData
 }
+
+// Top 3 products response types
+export interface TopThreeProductItem {
+  id: number
+  code: string
+  count_join: number
+  background_color: string | null
+  color_header: string | null
+  name: string
+  image: string
+  slug: string
+}
+
+export interface TopThreeProductsResponse {
+  result: boolean
+  data: TopThreeProductItem[]
+}

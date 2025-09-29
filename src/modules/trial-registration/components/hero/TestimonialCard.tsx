@@ -130,7 +130,7 @@ const TestimonialCard = () => {
       </div>
 
       {/* Product Images */}
-      <div className="flex space-x-3 md:mt-auto mx-auto md:mx-0">
+      {/* <div className="flex space-x-3 md:mt-auto mx-auto md:mx-0">
         {[2, 3, 4].map((val, index) => (
           <div className="p-2 rounded-2xl border border-white" key={index}>
             <div className="p-2 bg-white rounded-2xl">
@@ -144,7 +144,7 @@ const TestimonialCard = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Hidden measuring block */}
       <div className="invisible absolute -z-10 pointer-events-none w-full">
