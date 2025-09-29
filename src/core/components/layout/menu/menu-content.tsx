@@ -60,7 +60,8 @@ const settingsItems = {
   ],
   support: [
     {
-      id: 'help-centre',
+      // help-centre
+      id: 'developing',
       label: 'menu.settings.support.help-centre',
       icon: 'HeadsetIcon',
     },
