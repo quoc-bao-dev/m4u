@@ -35,7 +35,23 @@ type RightContentProps = {
   slug: string
 }
 
-const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, rate, quantityReviews, limitPeople, participation, isSig, video_review, evaluate, id_review, slug,
+const RightContent = ({
+  id,
+  name,
+  code,
+  image,
+  colorHeader,
+  time,
+  ingredients,
+  rate,
+  quantityReviews,
+  limitPeople,
+  participation,
+  isSig,
+  video_review,
+  evaluate,
+  id_review,
+  slug,
 }: RightContentProps) => {
   const { t } = useTranslation()
   const { data } = useGetDataReviewHubDetailInfinite(slug as string)
@@ -63,7 +79,11 @@ const RightContent = ({ id, name, code, image, colorHeader, time, ingredients, r
       </div>
 
       <div className="pt-2 md:pt-6 flex md:flex-row flex-col md:justify-between md:items-end gap-4">
-        <AvatarStack data={data?.pages?.[0]?.review} limitPeople={limitPeople} participation={participation} />
+        <AvatarStack
+          data={data?.pages?.[0]?.review}
+          limitPeople={limitPeople}
+          participation={participation}
+        />
         <div className="flex justify-start">
           <ButtonRegister
             productId={id}
@@ -109,7 +129,17 @@ type ButtonRegisterProps = {
   id_review: number
 }
 
-const ButtonRegister = ({ productId, productImage, productName, productCode, productColor, isSig, video_review, evaluate, id_review }: ButtonRegisterProps) => {
+const ButtonRegister = ({
+  productId,
+  productImage,
+  productName,
+  productCode,
+  productColor,
+  isSig,
+  video_review,
+  evaluate,
+  id_review,
+}: ButtonRegisterProps) => {
   const { open: onpen } = useModalRegistration()
   const { t } = useTranslation()
   const { isAuthenticated } = useAuth()
@@ -145,7 +175,7 @@ const ButtonRegister = ({ productId, productImage, productName, productCode, pro
           color: '#FF8500',
           transition: 'all 300ms ease',
           boxShadow:
-            "0px 2px 4px rgba(255, 133, 0, 0.15), -2px -2px 8px rgba(255, 133, 0, 0.48) inset, 2px 2px 8px -5px rgba(255, 133, 0, 0.48) inset",
+            '0px 2px 4px rgba(255, 133, 0, 0.15), -2px -2px 8px rgba(255, 133, 0, 0.48) inset, 2px 2px 8px -5px rgba(255, 133, 0, 0.48) inset',
           ['--accent-color' as any]: '#FF8500',
         }}
         onMouseEnter={(e) => {
@@ -164,22 +194,35 @@ const ButtonRegister = ({ productId, productImage, productName, productCode, pro
   }
   if (isSig === 1) {
     return (
-      <div className='flex flex-col gap-3 items-center'>
+      <div className="flex flex-col gap-3 items-center">
         {video_review ? (
-          <div className='relative cursor-pointer group' onClick={togglePlay}>
-            <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+          <div className="relative cursor-pointer group" onClick={togglePlay}>
+            <div
+              className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${
+                isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+              }`}
+            >
               {isPlaying ? (
                 <PauseIcon weight="fill" className="size-5 text-white" />
               ) : (
                 <PlayIcon weight="fill" className="size-5 text-white" />
               )}
             </div>
-            <video ref={videoRef} muted loop playsInline src={video_review} className='w-16 aspect-[65/83] rounded-lg object-cover' />
+            <video
+              ref={videoRef}
+              muted
+              loop
+              playsInline
+              src={video_review}
+              className="w-16 aspect-[65/83] rounded-lg object-cover"
+            />
           </div>
         ) : null}
-        <div className='flex flex-col items-center'>
-          <Rating rate={evaluate || 0} className='w-24' />
-          <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
+        <div className="flex flex-col items-center">
+          <Rating rate={evaluate || 0} className="w-24" />
+          <p className="text-xs font-semibold text-[#4E5969]">
+            {t(getRatingI18nKey(evaluate))}
+          </p>
         </div>
       </div>
     )

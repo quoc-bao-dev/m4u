@@ -117,7 +117,7 @@ const ProductInfo = () => {
                 src={images[selectedIndex] || '/image/product/image-01.png'}
                 alt="product-image"
                 fill
-                sizes='full'
+                sizes="full"
                 className="object-cover"
                 priority
               />
@@ -176,7 +176,9 @@ const ProductInfo = () => {
                     undefined
                   }
                   time={detail?.time_left_dd_hh_mm_ss || undefined}
-                  ingredients={detail?.ingredients || []}
+                  ingredients={
+                    detail?.ingredients.filter((p) => p.content) || []
+                  }
                   rate={detail?.average_star || 5}
                   quantityReviews={detail?.quantity_reviews || 0}
                   limitPeople={detail?.limit_people || 0}

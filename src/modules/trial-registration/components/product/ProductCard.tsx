@@ -64,7 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isSig,
   video_review,
   evaluate,
-  id_review
+  id_review,
 }) => {
   const router = useRouter()
   const { t } = useTranslation()
@@ -136,7 +136,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <>
       <style jsx>{`
         .${cardId}:hover .content-bg {
-          background-color: ${withAlpha(contentBg, "70")} !important;
+          background-color: ${withAlpha(contentBg, '70')} !important;
         }
       `}</style>
       <div
@@ -153,10 +153,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
             }}
           />
           <div className="absolute top-2 xl:top-4 left-2 xl:left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-xs sm:text-sm 2xl:text-base font-medium text-greyscale-900">
-            <StarIcon weight="fill" className="size-4 xl:size-5 text-yellow-600" />
+            <StarIcon
+              weight="fill"
+              className="size-4 xl:size-5 text-yellow-600"
+            />
             {safeRate.toFixed(1)}
           </div>
-          <div className='py-8 xl:py-12 w-full h-full'>
+          <div className="py-8 xl:py-12 w-full h-full">
             <Image
               src={image}
               alt={imageAlt}
@@ -172,9 +175,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
         <div
           className="content-bg p-2 xl:p-3 flex flex-col gap-1 rounded-b-xl xl:rounded-b-3xl w-full transition-all duration-300"
-          style={{
-            backgroundColor: withAlpha(contentBg, "90"),
-          } as React.CSSProperties}
+          style={
+            {
+              // TODO: bg color
+              backgroundColor: withAlpha(contentBg, '50'),
+            } as React.CSSProperties
+          }
         >
           <h3 className="text-[10px] sm:text-sm font-bold text-greyscale-900">
             {brand}
@@ -204,7 +210,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
 
           {/* isSig === 0 nhảy qua đánh giá  */}
-          {isSig === 0 ?
+          {isSig === 0 ? (
             <button
               type="button"
               onClick={(e) => {
@@ -213,12 +219,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 router.push(`/submit-review/${id_review}`)
               }}
               className="transform-gpu border-gradient-button-dynamic bg-white w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
-              style={{
-                color: accentHex,
-                transition: 'all 300ms ease',
-                boxShadow: `0px 2px 4px ${withAlpha(accentHex, '26')}, -2px -2px 8px ${withAlpha(accentHex, '7A')} inset, 2px 2px 8px -5px ${withAlpha(accentHex, '7A')} inset`,
-                '--accent-color': accentHex,
-              } as React.CSSProperties}
+              style={
+                {
+                  color: accentHex,
+                  transition: 'all 300ms ease',
+                  boxShadow: `0px 2px 4px ${withAlpha(
+                    accentHex,
+                    '26'
+                  )}, -2px -2px 8px ${withAlpha(
+                    accentHex,
+                    '7A'
+                  )} inset, 2px 2px 8px -5px ${withAlpha(
+                    accentHex,
+                    '7A'
+                  )} inset`,
+                  '--accent-color': accentHex,
+                } as React.CSSProperties
+              }
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = accentHex
                 e.currentTarget.style.color = '#fff'
@@ -228,51 +245,78 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 e.currentTarget.style.color = accentHex
               }}
             >
-              <span className="truncate text-xs sm:text-base/[21px] ">{t('product.writeYourReview')}</span>
+              <span className="truncate text-xs sm:text-base/[21px] ">
+                {t('product.writeYourReview')}
+              </span>
               <PenIcon />
             </button>
-            :
-            isSig === 1 ?
-              <div className='xl:pt-2 flex gap-3 items-center'>
-                {video_review && (
-                  <div className='relative cursor-pointer group' onClick={togglePlay}>
-                    <div className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-                      {isPlaying ? (
-                        <PauseIcon weight="fill" className="size-5 text-white" />
-                      ) : (
-                        <PlayIcon weight="fill" className="size-5 text-white" />
-                      )}
-                    </div>
-                    <video ref={videoRef} muted loop playsInline src={video_review || ""} className='w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover' />
+          ) : isSig === 1 ? (
+            <div className="xl:pt-2 flex gap-3 items-center">
+              {video_review && (
+                <div
+                  className="relative cursor-pointer group"
+                  onClick={togglePlay}
+                >
+                  <div
+                    className={`absolute size-7 2xl:size-9 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/50 rounded-full transition-opacity duration-200 pointer-events-none ${
+                      isPlaying
+                        ? 'opacity-0 group-hover:opacity-100'
+                        : 'opacity-100'
+                    }`}
+                  >
+                    {isPlaying ? (
+                      <PauseIcon weight="fill" className="size-5 text-white" />
+                    ) : (
+                      <PlayIcon weight="fill" className="size-5 text-white" />
+                    )}
                   </div>
-                )}
-                <div className='flex flex-col gap-1'>
-                  <Rating value={evaluate || 0} maxWidth={96} readOnly />
-                  <p className='text-xs font-semibold text-[#4E5969]'>{t(getRatingI18nKey(evaluate))}</p>
+                  <video
+                    ref={videoRef}
+                    muted
+                    loop
+                    playsInline
+                    src={video_review || ''}
+                    className="w-15.5 lg:w-16 aspect-[65/83] rounded-lg object-cover"
+                  />
                 </div>
+              )}
+              <div className="flex flex-col gap-1">
+                <Rating value={evaluate || 0} maxWidth={96} readOnly />
+                <p className="text-xs font-semibold text-[#4E5969]">
+                  {t(getRatingI18nKey(evaluate))}
+                </p>
               </div>
-              :
-              <button
-                onClick={handleRegistration}
-                className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
-                style={{
-                  border: `1px solid ${accentHex}`,
-                  color: accentHex,
-                  transition: 'all 300ms ease',
-                  boxShadow: `0px 2px 2px ${withAlpha(accentHex, '26')}, -2px -2px 6px ${withAlpha(accentHex, '7A')} inset, 2px 2px 8px -5px ${withAlpha(accentHex, '7A')} inset`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = accentHex
-                  e.currentTarget.style.color = '#fff'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#ffffff'
-                  e.currentTarget.style.color = accentHex
-                }}
-              >
-                <span className="truncate text-xs sm:text-base/[21px]">{t('product.register')}</span>
-              </button>
-          }
+            </div>
+          ) : (
+            <button
+              onClick={handleRegistration}
+              className="bg-white flex w-fit mt-2 py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer"
+              style={{
+                border: `1px solid ${accentHex}`,
+                color: accentHex,
+                transition: 'all 300ms ease',
+                boxShadow: `0px 2px 2px ${withAlpha(
+                  accentHex,
+                  '26'
+                )}, -2px -2px 6px ${withAlpha(
+                  accentHex,
+                  '7A'
+                )} inset, 2px 2px 8px -5px ${withAlpha(accentHex, '7A')} inset`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = accentHex
+                e.currentTarget.style.color = '#fff'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#ffffff'
+                e.currentTarget.style.color = accentHex
+              }}
+            >
+              <span className="truncate text-xs sm:text-base/[21px]">
+                {t('product.register')}
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </>

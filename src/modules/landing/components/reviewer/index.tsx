@@ -146,7 +146,7 @@ const Reviewer = () => {
   const scrollTween = useRef<gsap.core.Tween | null>(null)
   const activeDelayTimer = useRef<number | null>(null)
 
-  const handleScroll: UIEventHandler<HTMLDivElement> = () => { }
+  const handleScroll: UIEventHandler<HTMLDivElement> = () => {}
 
   const getScrollLeftForIndex = (index: number) => {
     const el = scrollRef.current
@@ -216,7 +216,7 @@ const Reviewer = () => {
     setActiveLoopIndex(middleStart)
   }, [middleStart])
 
-  if (!isLoading && !dataReviewer) return null
+  if (!isLoading && dataReviewer?.length === 0) return null
 
   return (
     <div className="py-12 xl:py-24 flex flex-col items-center justify-center gap-4 xl:gap-10">
@@ -228,8 +228,7 @@ const Reviewer = () => {
             <div
               className="2xl:text-6xl xl:text-5xl text-2xl text-center lg:text-left font-bold capitalize text-greyscale-700"
               dangerouslySetInnerHTML={{ __html: data?.title }}
-            >
-            </div>
+            ></div>
           )}
           {isLoading ? (
             <Skeleton className="w-4/5 h-7" />
@@ -280,7 +279,8 @@ const Reviewer = () => {
               className="cursor-pointer select-none"
               onClick={() => centerToIndex(idx)}
             />
-          )))}
+          ))
+        )}
       </div>
       <div className="xl:hidden flex gap-4 items-center">
         <button
