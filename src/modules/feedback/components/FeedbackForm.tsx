@@ -4,10 +4,9 @@ import { useGetImproveFeedback, useSendFeedback } from '@/services/feedback'
 import { Check, Image as ImageIcon, X } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
-import { useRouter } from '@/locale'
-import FeedbackSelect from './FeedbackSelect'
+import { useEffect, useRef, useState } from 'react'
 import useFeedbackSuccessModal from '../stores/useFeedbackSuccessModal'
+import FeedbackSelect from './FeedbackSelect'
 
 interface FeedbackFormProps {
   titleExperience: string
@@ -29,7 +28,6 @@ const FeedbackForm = ({
   const feedbackSuccessModal = useFeedbackSuccessModal()
   const [feedbackContent, setFeedbackContent] = useState<string>('')
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const router = useRouter()
 
   const {
     data: improveFeedbackData,
@@ -39,8 +37,14 @@ const FeedbackForm = ({
 
   const sendFeedbackMutation = useSendFeedback()
 
+  // Kiểu cho lý do hiển thị (label từ name, value từ key_main)
+  interface ImproveReasonOption {
+    label: string
+    value: string
+  }
+
   // Lấy reasons từ API dựa trên selectedFeedback
-  const getReasonsFromApi = (): string[] => {
+  const getReasonsFromApi = (): ImproveReasonOption[] => {
     if (!improveFeedbackData?.data) return []
 
     // Sử dụng selectedFeedback trực tiếp làm key (1-5)
@@ -51,9 +55,19 @@ const FeedbackForm = ({
     // Lấy improve items từ feedback data đầu tiên
     const improveItems = feedbackData[0]?.improve || []
 
-    return improveItems.map((item: any) => item.name)
+    return improveItems.map((item: any) => ({
+      label: item.name,
+      value: item.key_main,
+    }))
   }
   const reasons = getReasonsFromApi()
+
+  // Debug: kiểm tra dữ liệu improveFeedbackData khi thay đổi
+  useEffect(() => {
+    if (improveFeedbackData) {
+      // console.log('improveFeedbackData', improveFeedbackData)
+    }
+  }, [improveFeedbackData])
 
   // Reset selectedReasons khi selectedFeedback thay đổi
   const handleFeedbackChange = (feedback: number) => {
@@ -98,21 +112,9 @@ const FeedbackForm = ({
     }
   }
 
-  // Lấy key_main từ selected reasons
+  // Lấy trực tiếp danh sách key_main đã chọn
   const getKeyMainValues = (): string[] => {
-    if (!improveFeedbackData?.data || selectedReasons.length === 0) return []
-
-    const feedbackData = improveFeedbackData.data[selectedFeedback]
-    if (!feedbackData || feedbackData.length === 0) return []
-
-    const improveItems = feedbackData[0]?.improve || []
-
-    // Lọc ra các improve items có name trùng với selectedReasons
-    const matchingItems = improveItems.filter((item: any) =>
-      selectedReasons.includes(item.name)
-    )
-
-    return matchingItems.map((item: any) => item.key_main)
+    return selectedReasons
   }
 
   const handleSubmit = () => {
@@ -141,6 +143,8 @@ const FeedbackForm = ({
       file: uploadedImages.length > 0 ? uploadedImages : undefined,
     }
 
+    // console.log('submitData', submitData)
+
     // Gọi API để gửi feedback
     sendFeedbackMutation.mutate(submitData, {
       onSuccess: (data) => {
@@ -160,11 +164,6 @@ const FeedbackForm = ({
         console.error('Error sending feedback:', error)
       },
     })
-  }
-
-  const handleCloseModal = () => {
-    feedbackSuccessModal.close()
-    router.push('/')
   }
 
   return (
@@ -203,13 +202,13 @@ const FeedbackForm = ({
           {/* Render reasons từ API */}
           {!isLoading &&
             !error &&
-            reasons.map((reason: string) => {
-              const active = selectedReasons.includes(reason)
+            reasons.map((reason: ImproveReasonOption) => {
+              const active = selectedReasons.includes(reason.value)
               return (
                 <button
-                  key={reason}
+                  key={reason.value}
                   type="button"
-                  onClick={() => toggleReason(reason)}
+                  onClick={() => toggleReason(reason.value)}
                   className={
                     `cursor-pointer rounded-full border px-2 sm:px-3 py-1 text-xs sm:text-sm transition-all duration-200 active:scale-95 hover:shadow-md ` +
                     (active
@@ -217,7 +216,7 @@ const FeedbackForm = ({
                       : 'bg-white text-gray-600 border-gray-600 hover:bg-gray-50 hover:border-gray-700 hover:shadow-gray-200')
                   }
                 >
-                  {reason}
+                  {reason.label}
                 </button>
               )
             })}
