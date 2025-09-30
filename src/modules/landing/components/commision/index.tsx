@@ -30,7 +30,7 @@ const CommisionSection = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1  lg:grid-cols-3 xl:grid-cols-4 2xl:gap-8 gap-4 w-full px-3 xl:px-0">
+      <div className="flex gap-[8px] lg:grid lg:grid-cols-3 xl:grid-cols-4 2xl:gap-8 lg:gap-4 w-full px-3 xl:px-0">
         <div className="relative hidden xl:block">
           <div className="absolute 2xl:left-24 -left-10 2xl:-top-52 -top-60  max-w-none select-none pointer-events-none squiggle-les">
             <SvgScrollDraw
@@ -53,12 +53,15 @@ const CommisionSection = () => {
         {isLoading
           ? // Skeleton cho 3 cards
             Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="rounded-3xl border border-gray-100">
+              <div
+                key={index}
+                className="rounded-3xl border border-gray-100 flex-1"
+              >
                 <div className="rounded-t-3xl bg-gray-200 h-16 flex items-center justify-center">
                   <Skeleton className="w-32 h-6" />
                 </div>
-                <div className="relative overflow-hidden rounded-3xl bg-white -mt-7 w-full aspect-[425/290]">
-                  <div className="p-6 flex flex-col gap-3">
+                <div className="relative overflow-hidden rounded-3xl bg-white -mt-7 w-full h-[280px]">
+                  <div className="px-[12px] py-6 xl:p-6 flex flex-col gap-3">
                     <Skeleton className="w-24 h-8" />
                     <Skeleton className="w-1/2 h-4" />
                     <Skeleton className="w-1/2 h-4" />
@@ -89,9 +92,12 @@ const CommisionSection = () => {
               ]
 
               return (
-                <div key={index} className="rounded-3xl border border-gray-100">
+                <div
+                  key={index}
+                  className="rounded-3xl border border-gray-100 flex-1 h-full flex flex-col"
+                >
                   <h2
-                    className={`rounded-t-3xl flex justify-center items-center gap-1 pt-3 pb-10 px-2 font-normal 2xl:text-2xl xl:text-lg text-base text-white ${gradientClasses[index]}`}
+                    className={`rounded-t-3xl flex justify-center items-center gap-1 pt-3 pb-10 px-2 font-normal 2xl:text-2xl xl:text-lg text-[12px] min-h-[88px] text-white ${gradientClasses[index]}`}
                   >
                     <Image
                       src={item.icon}
@@ -102,14 +108,16 @@ const CommisionSection = () => {
                     />
                     {item.title_header}
                   </h2>
-                  <div className="relative overflow-hidden rounded-3xl bg-white -mt-7 w-full aspect-[425/290]">
-                    <div className="p-6 flex flex-col gap-1">
+
+                  <div className="mt-auto"></div>
+                  <div className="relative overflow-hidden rounded-3xl bg-white -mt-7 w-full h-[280px]">
+                    <div className="px-[12px] py-6 xl:p-6 flex flex-col gap-1">
                       <p
-                        className={`${textColors[index]} 2xl:text-4xl text-2xl font-medium capitalize`}
+                        className={`${textColors[index]} text-base xl:text-2xl 2xl:text-4xl font-medium capitalize`}
                       >
                         {item.title}
                       </p>
-                      <p className="text-[#555555] 2xl:text-base xl:text-sm text-base font-medium pr-[20%]">
+                      <p className="text-[#555555] text-xs xl:text-sm 2xl:text-base font-medium pr-[20%]">
                         {item.subtitle}
                       </p>
                     </div>
@@ -125,7 +133,7 @@ const CommisionSection = () => {
                       alt={item.title || ''}
                       width={500}
                       height={500}
-                      className="w-[40%] aspect-[230/315] object-cover ml-auto absolute bottom-0 right-0"
+                      className="w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] xl:w-[40%] md:ml-auto aspect-[230/315] object-cover absolute bottom-0 left-1/2 -translate-x-1/2 xl:left-auto xl:translate-x-0 xl:right-0"
                     />
                   </div>
                 </div>
