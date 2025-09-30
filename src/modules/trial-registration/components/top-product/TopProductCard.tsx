@@ -31,8 +31,8 @@ const TopProductCard = ({
               <p className="text-xl md:text-[32px] font-bold text-gray-900">
                 {formattedCount}
               </p>
-              <p className="text-gray-400 text-sm md:text-[20px]">
-                {t('topProduct.reviews')}
+              <p className="text-gray-400 text-sm md:text-base whitespace-nowrap">
+                {t('topProduct.registerCount')}
               </p>
             </div>
           </div>

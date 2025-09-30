@@ -28,7 +28,7 @@ const ReviewSection = () => {
 
   return (
     <section className="pb-[40px] md:pb-[96px]">
-      <Container>
+      <Container className='px-3'>
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-title-sect font-bold">

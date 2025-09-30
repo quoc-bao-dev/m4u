@@ -1,10 +1,12 @@
+'use client'
 import { Logo } from '@/core/components/brand'
 import { Container, Grid } from '@/core/components/common'
 import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
 import { memo } from 'react'
-import { Link } from '@/locale'
 import { useTranslations } from 'next-intl'
+import { useGetInfoContact } from '@/services/info/queries'
+import { Link } from '@/locale'
 
 type FooterProps = {
   className?: string
@@ -12,7 +14,8 @@ type FooterProps = {
 
 const Footer = ({ className }: FooterProps) => {
   const t = useTranslations('footer')
-
+  const { data: infoContact } = useGetInfoContact()
+  console.log(infoContact)
   return (
     <div
       className={cn(
@@ -24,8 +27,8 @@ const Footer = ({ className }: FooterProps) => {
         <WaterMark />
       </div> */}
 
-      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center">
-        <div className="-mb-[145px] ">
+      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center pointer-events-none">
+        <div className="-mb-[145px] pointer-events-none">
           <WaterMark />
         </div>
       </div>
@@ -42,16 +45,16 @@ const Footer = ({ className }: FooterProps) => {
                 <div className="flex flex-col gap-2 text-sm md:text-[13px] lg:text-sm opacity-90">
                   <div className="flex flex-col md:flex-row md:items-center gap-1 lg:gap-6">
                     <span className="max-w-[200px]">
-                      1901 Thornridge Cir. Shiloh, Hawaii 81063
+                      {infoContact?.address}
                     </span>
                     {/* <span className="hidden md:inline-block">•</span> */}
-                    <span className="truncate">+1 891 989-11-91</span>
+                    <span className="truncate">{infoContact?.phone}</span>
                     {/* <span className="hidden md:inline-block">•</span> */}
                     <a
                       href="mailto:hello@logoipsum.com"
                       className="hover:opacity-100 hover:underline"
                     >
-                      hello@logoipsum.com
+                      {infoContact?.email}
                     </a>
                   </div>
                 </div>
@@ -68,37 +71,37 @@ const Footer = ({ className }: FooterProps) => {
                     </h4>
                   </div>
 
-                  <div className="flex gap-5 text-sm">
+                  <div className="flex gap-6 text-sm">
                     <nav className="flex flex-col gap-2">
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/"
+                        className='hover:underline cursor-pointer'
                       >
                         {t('home')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/trial-registration"
+                        className='hover:underline cursor-pointer'
                       >
                         {t('joinTrial')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/review-hub"
+                        className='hover:underline cursor-pointer'
                       >
                         {t('newsfeed')}
                       </Link>
                     </nav>
                     <nav className="flex flex-col gap-2">
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/donation-charity"
+                        className='hover:underline cursor-pointer'
                       >
                         {t('newsEvents')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/event"
+                        className='hover:underline cursor-pointer'
                       >
                         {t('account')}
                       </Link>

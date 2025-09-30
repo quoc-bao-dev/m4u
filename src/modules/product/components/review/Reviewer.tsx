@@ -94,7 +94,7 @@ const Reviewer = () => {
       </div>
 
       {/* Review Cards Grid */}
-      <Grid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-8">
+      <Grid className="grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 xl:gap-6 mb-8">
         {isLoading ? (
           <>
             {Array.from({ length: 3 }).map((_, index) => (
@@ -167,7 +167,7 @@ const ReviewCard = ({ reviewer, videoRef, onClick }: { reviewer: any, videoRef?:
   }
 
   return (
-    <div onClick={onClick} className="bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300 group cursor-pointer">
+    <div onClick={onClick} className="relative h-full bg-orange-100 rounded-2xl overflow-hidden shadow-xl/3 hover:shadow-xl/5 transition-shadow duration-300 group cursor-pointer">
       {/* Video Thumbnail */}
       <div className="relative bg-gray-100 w-full aspect-[410/342]">
         <video
@@ -186,7 +186,7 @@ const ReviewCard = ({ reviewer, videoRef, onClick }: { reviewer: any, videoRef?:
       </div>
 
       {/* User Info */}
-      <div className="p-4">
+      <div className="p-2 xl:p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Avatar */}
@@ -208,7 +208,7 @@ const ReviewCard = ({ reviewer, videoRef, onClick }: { reviewer: any, videoRef?:
           </div>
 
           {/* Rating */}
-          <div className="flex items-center gap-1 bg-white rounded-full px-2 py-1">
+          <div className="absolute top-2 right-2 xl:static flex items-center gap-1 bg-white rounded-full px-2 py-1">
             <StarIcon weight="fill" className="size-6 text-yellow-600" />
             <span className="text-[18px] font-medium text-gray-900 ml-1">
               {reviewer?.evaluate?.toFixed(1)}
