@@ -66,7 +66,7 @@ const settingsItems = {
       icon: 'HeadsetIcon',
     },
     {
-      id: 'feedback-submission',
+      id: 'feedback',
       label: 'menu.settings.support.feedback-submission',
       icon: 'NotePencilIcon',
     },
@@ -334,21 +334,11 @@ const MenuContent = ({
             <div className="flex flex-col gap-2">
               {(isAuthenticated
                 ? settingsItems.support
-                : settingsItems.support.filter(
-                    (item) => item.id !== 'feedback-submission'
-                  )
+                : settingsItems.support.filter((item) => item.id !== 'feedback')
               ).map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <Link
-                    key={item.id}
-                    href={
-                      item.id === 'feedback-submission'
-                        ? '/developing'
-                        : '/' + item.id
-                    }
-                    onClick={onClose}
-                  >
+                  <Link key={item.id} href={'/' + item.id} onClick={onClose}>
                     <div className="flex items-center gap-3 cursor-pointer group">
                       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
                         <IconComponent

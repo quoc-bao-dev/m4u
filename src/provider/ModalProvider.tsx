@@ -10,6 +10,7 @@ import {
   RegisterSuccessModal,
   TrialRegistrationModal,
 } from '@/modules/trial-registration'
+import { FeedbackSuccessModal } from '@/modules/feedback/components'
 import { PropsWithChildren } from 'react'
 
 const ModalProvider = ({ children }: PropsWithChildren) => {
@@ -24,6 +25,7 @@ const ModalProvider = ({ children }: PropsWithChildren) => {
       <PhoneInputModal />
       <OTPForgotPassModal />
       <ForgotPassModal />
+      <FeedbackSuccessModal />
     </>
   )
 }

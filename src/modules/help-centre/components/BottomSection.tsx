@@ -4,6 +4,7 @@ import { Container } from '@/core/components'
 import Button from '@/core/components/ui/button'
 import { useGetHelpCentre } from '@/services/help-centre/queries'
 import { stripFontSize } from '../utils/html'
+import { Link } from '@/locale'
 
 const BottomSection = () => {
   const { data, isLoading } = useGetHelpCentre()
@@ -74,9 +75,11 @@ const BottomSection = () => {
                 }}
               />
               <div className="pt-4 md:pt-10 flex justify-center">
-                <Button size="md">
-                  {data?.data?.title_button || 'Claim your spot today'}
-                </Button>
+                <Link href={'/trial-registration'}>
+                  <Button size="md">
+                    {data?.data?.title_button || 'Claim your spot today'}
+                  </Button>
+                </Link>
               </div>
             </>
           )}
