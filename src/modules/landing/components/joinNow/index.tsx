@@ -131,6 +131,9 @@ const JoinNow = () => {
                     {/* Nội dung mô tả bước */}
                     <div className="flex flex-col gap-2 xl:gap-4 items-center px-7 lg:px-3">
                       <h3 className="text-center 2xl:text-2xl xl:text-xl text-base font-bold text-greyscale-700">
+                        <span className='lg:hidden text-2xl lg:text-[40px]'>
+                          {step.name_step}.{' '}
+                        </span>
                         {step.title}
                       </h3>
                       <p className="2xl:text-base text-sm text-greyscale-700 text-center">
@@ -139,7 +142,7 @@ const JoinNow = () => {
                     </div>
                   </div>
                   {/* Số thứ tự bước */}
-                  <div className="flex flex-col gap-8 items-center relative z-10">
+                  <div className="hidden lg:flex flex-col gap-8 items-center relative z-10">
                     <span className="hidden lg:block size-8 border-8 border-green-100 rounded-full bg-green-500"></span>
                     <span className="text-silver-sand-900 font-medium text-2xl lg:text-[40px]">
                       {step.name_step}
