@@ -1,12 +1,16 @@
 'use client'
 
 import { Container } from '@/core/components'
+import { useGetTopThreeProducts } from '@/services/product'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import TopProductCard from './TopProductCard'
 
 const TopProductSection = () => {
   const t = useTranslations()
+  const { data: topThreeProducts, isLoading } = useGetTopThreeProducts()
+  const items = topThreeProducts?.data ?? []
+  const placeholder = '/image/trial/image-question-1.png'
 
   return (
     <>
@@ -41,48 +45,73 @@ const TopProductSection = () => {
               <div className="pt-40 md:pt-50"></div>
               <div className="w-full flex items-center justify-center pt-5">
                 <div className="relative w-[700px]">
+                  {/* Left position (index 0) */}
                   <div className="absolute left-[17.14%] translate-x-[-50%] top-[17.95%] translate-y-[-50%]">
-                    <TopProductCard
-                      image="/image/trial/image-02.png"
-                      count={6900}
-                    />
+                    {isLoading ? (
+                      <div className="relative z-10 scale-[60%] md:scale-[70%] lg:scale-[100%] size-[140px] rounded-full bg-gray-200 animate-pulse" />
+                    ) : (
+                      <TopProductCard
+                        image={items[1]?.image || placeholder}
+                        count={items[1]?.count_join ?? ''}
+                        hideMeta={!items[1]}
+                      />
+                    )}
                   </div>
+                  {/* Middle/top (index 1) */}
                   <div className="absolute left-[50.1%] translate-x-[-50%] top-[0%] translate-y-[-50%]">
-                    <TopProductCard
-                      isTop
-                      image="/image/trial/image-03.png"
-                      count={8800}
-                    />
+                    {isLoading ? (
+                      <div className="relative z-10 scale-[60%] md:scale-[70%] lg:scale-[100%] size-[140px] rounded-full bg-gray-200 animate-pulse" />
+                    ) : (
+                      <TopProductCard
+                        isTop
+                        image={items[0]?.image || placeholder}
+                        count={items[0]?.count_join ?? ''}
+                        hideMeta={!items[0]}
+                      />
+                    )}
                   </div>
+                  {/* Right position (index 2) */}
                   <div className="absolute left-[82.86%] translate-x-[-50%]  top-[29.0%] translate-y-[-50%]">
-                    <TopProductCard
-                      image="/image/trial/image-04.png"
-                      count={1300}
-                    />
+                    {isLoading ? (
+                      <div className="relative z-10 scale-[60%] md:scale-[70%] lg:scale-[100%] size-[140px] rounded-full bg-gray-200 animate-pulse" />
+                    ) : (
+                      <TopProductCard
+                        image={items[2]?.image || placeholder}
+                        count={items[2]?.count_join ?? ''}
+                        hideMeta={!items[2]}
+                      />
+                    )}
                   </div>
-                  <div className="absolute left-[16.43%] translate-x-[-50%]  bottom-[5.54%] ">
-                    <div className="w-[200px] text-center">
-                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        {t('topProduct.productName')}
-                      </p>
+                  {/* Names under items, hidden for placeholders and while loading */}
+                  {!isLoading && items[1] && (
+                    <div className="absolute left-[16.43%] translate-x-[-50%]  bottom-[5.54%] ">
+                      <div className="w-[200px] text-center">
+                        <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
+                          {items[1].name}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="absolute left-[50.71%] translate-x-[-50%] bottom-[5.93%] translate-y-[-50%]">
-                    <div className="w-[200px] text-center">
-                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        {t('topProduct.productName')}
-                      </p>
+                  {!isLoading && items[0] && (
+                    <div className="absolute left-[50.71%] translate-x-[-50%] bottom-[5.93%] translate-y-[-50%]">
+                      <div className="w-[200px] text-center">
+                        <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
+                          {items[0].name}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="absolute right-[16.43%]  translate-x-[50%] bottom-[5.54%]">
-                    <div className="w-[200px] text-center">
-                      <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
-                        {t('topProduct.productName')}
-                      </p>
+                  {!isLoading && items[2] && (
+                    <div className="absolute right-[16.43%]  translate-x-[50%] bottom-[5.54%]">
+                      <div className="w-[200px] text-center">
+                        <p className="w-[50%] md:w-[80%] mx-auto text-gray-50 text-[12px] md:text-base">
+                          {items[2].name}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <Image
                     src="/image/trial/image-element-01.svg"
                     alt="image-01"

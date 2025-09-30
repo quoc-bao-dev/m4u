@@ -1,6 +1,10 @@
 import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
-import { ProductDetailResponse, ProductListResponse } from './type'
+import {
+  ProductDetailResponse,
+  ProductListResponse,
+  TopThreeProductsResponse,
+} from './type'
 
 export const productApi = {
   getProductList: ({ _local }: { _local?: string }) =>
@@ -24,5 +28,12 @@ export const productApi = {
     axiosInstance.post<ProductListResponse>('products/getListDetail', {
       baseURL: envConfig.adminUrl,
       id_product: id_product || [],
+    }),
+
+  // Top 3 products
+  getTopThreeProducts: ({ _local }: { _local?: string }) =>
+    axiosInstance.get<TopThreeProductsResponse>('products/top_three_product', {
+      baseURL: envConfig.adminUrl,
+      params: { _local },
     }),
 }

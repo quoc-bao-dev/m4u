@@ -60,12 +60,13 @@ const settingsItems = {
   ],
   support: [
     {
+      // help-centre
       id: 'help-centre',
       label: 'menu.settings.support.help-centre',
       icon: 'HeadsetIcon',
     },
     {
-      id: 'feedback-submission',
+      id: 'feedback',
       label: 'menu.settings.support.feedback-submission',
       icon: 'NotePencilIcon',
     },
@@ -331,10 +332,13 @@ const MenuContent = ({
               {t('menu.section.support')}
             </h4>
             <div className="flex flex-col gap-2">
-              {settingsItems.support.map((item) => {
+              {(isAuthenticated
+                ? settingsItems.support
+                : settingsItems.support.filter((item) => item.id !== 'feedback')
+              ).map((item) => {
                 const IconComponent = getIconComponent(item.icon)
                 return (
-                  <Link key={item.id} href={'/developing'} onClick={onClose}>
+                  <Link key={item.id} href={'/' + item.id} onClick={onClose}>
                     <div className="flex items-center gap-3 cursor-pointer group">
                       <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
                         <IconComponent

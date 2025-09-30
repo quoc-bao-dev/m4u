@@ -788,5 +788,32 @@
       "title": "No data yet",
       "desc": "The list of users you referred will appear here once available. Share your referral code to get started."
     }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "Additional feedback",
+      "textareaPlaceholder": "If you have more to add, please type it here...",
+      "maxImagesReached": "Maximum 3 images reached",
+      "privacyPolicy": "I have read and accept the Privacy Policy.",
+      "submitFeedback": "Submit Feedback",
+      "reasons": {
+        "interface": "Interface",
+        "loadingSpeed": "Loading speed",
+        "functionalManipulation": "Functional manipulation",
+        "customService": "Custom service",
+        "other": "Other"
+      }
+    },
+    "modal": {
+      "thankYou": "Thank you so much!",
+      "message": "We will read every feedback carefully and continue to improve the product for users like you."
+    },
+    "select": {
+      "awesome": "Awesome - Very helpful, works great!",
+      "satisfied": "Satisfied - Stable operation, easy to use",
+      "okay": "Okay - Usable but not very smooth",
+      "needsImprovement": "Needs improvement - Operation is not smooth",
+      "notGood": "Not good - Still a lot to optimize"
+    }
   }
 }

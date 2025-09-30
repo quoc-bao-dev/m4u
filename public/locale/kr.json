@@ -785,5 +785,32 @@
       "title": "아직 데이터가 없습니다",
       "desc": "추천한 사용자의 목록은 여기에 표시됩니다. 추천 코드를 공유하여 시작해보세요."
     }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "추가 피드백",
+      "textareaPlaceholder": "추가로 말씀하고 싶은 것이 있으시면 여기에 입력해주세요...",
+      "maxImagesReached": "최대 3개 이미지에 도달했습니다",
+      "privacyPolicy": "개인정보 보호정책을 읽고 동의합니다.",
+      "submitFeedback": "피드백 제출",
+      "reasons": {
+        "interface": "인터페이스",
+        "loadingSpeed": "로딩 속도",
+        "functionalManipulation": "기능 조작",
+        "customService": "고객 서비스",
+        "other": "기타"
+      }
+    },
+    "modal": {
+      "thankYou": "정말 감사합니다!",
+      "message": "모든 피드백을 신중하게 검토하고 귀하와 같은 사용자를 위해 제품을 계속 개선하겠습니다."
+    },
+    "select": {
+      "awesome": "훌륭함 - 매우 유용하고 잘 작동합니다!",
+      "satisfied": "만족 - 안정적인 작동, 사용하기 쉬움",
+      "okay": "괜찮음 - 사용 가능하지만 매우 부드럽지는 않음",
+      "needsImprovement": "개선 필요 - 작동이 부드럽지 않음",
+      "notGood": "좋지 않음 - 여전히 최적화할 것이 많음"
+    }
   }
 }

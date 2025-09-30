@@ -52,6 +52,16 @@ export const useNotificationHandler = ({
       }
       // Navigate to submit-review page with the review id
       nav(`/submit-review/${jsonData.id_review}`)
+    } else if (notification.object_type === 'remind_review') {
+      const jsonData = notification.json_data
+
+      if (!jsonData) return
+
+      if (onClick) {
+        onClick()
+      }
+      // Navigate to submit-review page with the review id
+      nav(`/submit-review/${jsonData.id_review}`)
     }
   }
 

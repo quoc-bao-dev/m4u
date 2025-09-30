@@ -1,4 +1,5 @@
 {
+  "loading": "Đang tải...",
   "common": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
@@ -8,7 +9,8 @@
     "reviewer": "reviewer",
     "product": "sản phẩm",
     "share": "Chia sẻ:",
-    "loadMore": "Xem thêm"
+    "loadMore": "Xem thêm",
+    "loading": "Đang tải..."
   },
   "navigation": {
     "home": "Trang chủ",
@@ -784,6 +786,33 @@
     "noData": {
       "title": "Chưa có dữ liệu",
       "desc": "Danh sách người được bạn giới thiệu sẽ hiển thị tại đây khi có dữ liệu. Hãy chia sẻ mã giới thiệu để bắt đầu."
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "Phản hồi bổ sung",
+      "textareaPlaceholder": "Nếu bạn có thêm điều gì để chia sẻ, vui lòng nhập vào đây...",
+      "maxImagesReached": "Đã đạt tối đa 3 hình ảnh",
+      "privacyPolicy": "Tôi đã đọc và chấp nhận Chính sách Bảo mật.",
+      "submitFeedback": "Gửi phản hồi",
+      "reasons": {
+        "interface": "Giao diện",
+        "loadingSpeed": "Tốc độ tải",
+        "functionalManipulation": "Thao tác chức năng",
+        "customService": "Dịch vụ khách hàng",
+        "other": "Khác"
+      }
+    },
+    "modal": {
+      "thankYou": "Cảm ơn bạn rất nhiều!",
+      "message": "Chúng tôi sẽ đọc từng phản hồi một cách cẩn thận và tiếp tục cải thiện sản phẩm cho những người dùng như bạn."
+    },
+    "select": {
+      "awesome": "Tuyệt vời - Rất hữu ích, hoạt động tốt!",
+      "satisfied": "Hài lòng - Hoạt động ổn định, dễ sử dụng",
+      "okay": "Ổn - Có thể sử dụng nhưng không mượt mà",
+      "needsImprovement": "Cần cải thiện - Hoạt động không mượt mà",
+      "notGood": "Không tốt - Vẫn còn nhiều điều cần tối ưu"
     }
   }
 }

@@ -54,30 +54,27 @@ const HeroContent = () => {
                   <Skeleton className="w-4/5 h-36" />
                 ) : (
                   <h1
-                    className="hero-title font-bold leading-[120%] md:leading-none"
+                    className="hero-title font-bold leading-[130%]! md:leading-none"
                     dangerouslySetInnerHTML={{ __html: data?.title }}
                   />
                 )}
               </div>
 
               <div className="text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
-              {isLoading ? (
+                {isLoading ? (
                   <Skeleton className="w-4/5 h-24" />
                 ) : (
-                <div
-                  className="hero-subtitle "
-                  dangerouslySetInnerHTML={{ __html: data?.content }}
-                />
+                  <div
+                    className="hero-subtitle "
+                    dangerouslySetInnerHTML={{ __html: data?.content }}
+                  />
                 )}
               </div>
             </div>
             {/* CTA Button */}
             <div className="hidden md:block">
               <Link href={'/trial-registration'}>
-                <RegisterCTA
-                  className="mt-4"
-                  label={data?.title_button}
-                />
+                <RegisterCTA className="mt-4" label={data?.title_button} />
               </Link>
             </div>
 

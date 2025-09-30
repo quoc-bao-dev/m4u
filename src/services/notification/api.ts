@@ -46,4 +46,9 @@ export const apiNotification = {
   getNotificationDetail: (id: number | string) => {
     return axiosInstance.get(`/notification/getDetail/${id}`)
   },
+  sendNotiRemindReview: () => {
+    return axiosInstance.get(
+      envConfig.adminDomain + '/cron/sendNotiRemindReview'
+    )
+  },
 }

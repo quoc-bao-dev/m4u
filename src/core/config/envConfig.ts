@@ -2,6 +2,7 @@ export const envConfig = {
   adminUrl:
     (process.env.NEXT_PUBLIC_ADMIN_API_URL as string) ??
     'https://m4u-admin.fmrp.vn:8881/api',
+  adminDomain: process.env.NEXT_PUBLIC_ADMIN_DOMAIN as string,
   serviceUrl:
     (process.env.NEXT_PUBLIC_SERVICES_API_URL as string) ??
     'https://m4u-services.fmrp.vn:8882/api',

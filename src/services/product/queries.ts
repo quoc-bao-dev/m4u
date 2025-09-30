@@ -60,3 +60,16 @@ export const useGetProductListDetail = ({ ids }: { ids: string[] }) => {
     enabled: Array.isArray(ids) && ids.length > 0,
   })
 }
+
+export const useGetTopThreeProducts = () => {
+  const { currentLocale } = useLanguageSwitch()
+  const _locale = currentLocale
+  const queryFn = async () => {
+    const response = await productApi.getTopThreeProducts({ _local: _locale })
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['product-top-three', _locale],
+    queryFn: queryFn,
+  })
+}
