@@ -52,7 +52,7 @@ const HeroContent = ({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ type: 'spring', stiffness: 140, damping: 48, mass: 1.2 }}
                     style={{ willChange: 'transform, opacity' }}
-                    className="hero-title font-bold leading-[110%]! md:leading-none"
+                    className="hero-title font-bold leading-[120%]! md:leading-none"
                     dangerouslySetInnerHTML={{ __html: displayTitle }}
                   />
                 )}
