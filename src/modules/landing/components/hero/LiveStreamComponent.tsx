@@ -8,7 +8,7 @@ const LiveStreamComponent = () => {
 
   return (
     <>
-      <div className="bg-[#FFF0F8] py-2 md:py-8">
+      <div className="bg-[#FFF0F8] py-2 xl:py-4 2xl:py-8">
         <Container>
           <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-6">
             {/* Live Stream Badge */}
@@ -17,13 +17,13 @@ const LiveStreamComponent = () => {
             </div>
 
             {/* Members Section */}
-            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-2">
+            <div className="flex flex-col md:flex-row items-center gap-2">
               {/* Member Info */}
               <div className="text-center md:text-right">
-                <p className="text-gray-900 text-sm sm:text-lg md:text-xl font-bold truncate">
+                <p className="text-gray-900 text-sm sm:text-lg md:text-lg font-bold truncate">
                   {t('membersOnline')}
                 </p>
-                <p className="text-xs sm:text-sm lg:text-lg ">
+                <p className="text-xs sm:text-sm lg:text-base ">
                   <span className="text-[#F5222D] font-bold">
                     69+ {t('singleMoms')}
                   </span>{' '}
