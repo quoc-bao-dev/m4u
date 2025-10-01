@@ -38,7 +38,7 @@ const TopReviewerCard = ({
   console.log(data)
   const tProduct = useTranslations('product')
 
-  const { isMobile, isTablet } = useDevice()
+  const { isMobile } = useDevice()
   // Left column should start earlier; right column should start a bit later
   const { ref: cardRef, isInView } = useInView<HTMLDivElement>({
     threshold: 0.3,
@@ -327,13 +327,30 @@ const TopReviewerCard = ({
                 </div>
                 <video
                   ref={(el) => {
-                    if (el) videoRefs.current[index] = el
+                    if (el) {
+                      videoRefs.current[index] = el
+                      // Force inline playback across legacy browsers
+                      try {
+                        el.setAttribute('playsinline', 'true')
+                        ;(el as any).playsInline = true
+                        el.setAttribute('webkit-playsinline', 'true')
+                        el.setAttribute('x5-playsinline', 'true')
+                        el.setAttribute('x5-video-player-type', 'h5')
+                        el.setAttribute('x-webkit-airplay', 'allow')
+                        // Restrict fullscreen and remote playback via attributes as a best-effort
+                        el.setAttribute('controlslist', 'nofullscreen noremoteplayback nodownload noplaybackrate')
+                        el.setAttribute('disablepictureinpicture', 'true')
+                      } catch {}
+                    }
                   }}
                   src={kol.video_review}
                   autoPlay={false}
                   muted
                   loop
                   playsInline
+                  controls={false}
+                  controlsList="nofullscreen noremoteplayback nodownload noplaybackrate"
+                  disablePictureInPicture
                   width={1000}
                   height={1000}
                   className="size-[100px] 2xl:size-[140px] min-w-[100px] 2xl:min-w-[140px] object-cover rounded-xl flex-shrink-0 bg-[#DCE5E5]"
