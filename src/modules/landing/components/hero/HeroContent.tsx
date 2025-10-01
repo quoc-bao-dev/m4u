@@ -110,7 +110,7 @@ const HeroContent = ({
                       src={item.image || '/image/hero-baner/image-02.png'}
                       alt={item.alt || 'Hero Banner'}
                       fill
-                      className="md:max-h-full lg:pt-20 xl:pt-40 object-contain object-bottom h-full"
+                      className="md:max-h-full lg:pt-20 object-contain object-bottom h-full"
                       priority={idx === 0}
                     />
                   </div>

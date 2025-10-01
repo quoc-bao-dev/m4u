@@ -71,7 +71,7 @@ const HeroSection = () => {
                         }
                         alt="Hero Background"
                         fill
-                        className="object-fill w-full h-full"
+                        className="object-cover w-full h-full"
                         priority
                       />
                     </motion.div>
@@ -91,10 +91,10 @@ const HeroSection = () => {
                 banners={normalized}
                 currentIndex={dotIndex}
               />
-              <div className="absolute z-20 bottom-3 lg:bottom-7 left-6 md:left-8 lg:left-12 xl:left-20 flex gap-4 items-center">
+              <div className="absolute z-20 bottom-3 lg:bottom-6 left-6 md:left-8 lg:left-12 xl:left-20 flex gap-4 items-center">
                 <button
                   onClick={() => setDotIndex((p) => (p - 1 + normalized.length) % Math.max(normalized.length, 1))}
-                  className="p-2 lg:p-4 xl:p-5 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                  className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
                 >
                   <ArrowLeftIcon
                     weight="bold"
@@ -103,7 +103,7 @@ const HeroSection = () => {
                 </button>
                 <button
                   onClick={() => setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))}
-                  className="p-2 lg:p-4 xl:p-5 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                  className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
                 >
                   <ArrowRightIcon
                     weight="bold"
