@@ -1,3 +1,6 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 type Props = {
@@ -6,6 +9,7 @@ type Props = {
   description?: React.ReactNode
   phone?: string
   note?: React.ReactNode
+  link?: string
 }
 
 const InfoItem: React.FC<Props> = ({
@@ -14,9 +18,43 @@ const InfoItem: React.FC<Props> = ({
   description,
   phone,
   note,
+  link,
 }) => {
+  const router = useRouter()
+
+  const handleClick = () => {
+    if (!link) return
+    const url = link.trim()
+
+    if (/^(tel:|mailto:)/i.test(url)) {
+      window.location.href = url
+      return
+    }
+    if (/^https?:\/\//i.test(url)) {
+      window.open(url, '_blank', 'noopener,noreferrer')
+      return
+    }
+    if (/^\//.test(url)) {
+      router.push(url)
+      return
+    }
+    window.location.href = url
+  }
+
   return (
-    <div className="flex flex-col gap-3 md:p-5">
+    <div
+      className={`flex flex-col gap-3 md:p-5 ${link ? 'cursor-pointer' : ''}`}
+      onClick={handleClick}
+      role={link ? ('link' as const) : undefined}
+      tabIndex={link ? 0 : -1}
+      onKeyDown={(e) => {
+        if (!link) return
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          handleClick()
+        }
+      }}
+    >
       <div className="flex md:flex-col gap-3 items-center md:items-start">
         <div className="size-10 shrink-0 flex items-center justify-center">
           {icon}
@@ -28,12 +66,14 @@ const InfoItem: React.FC<Props> = ({
           </p>
         ) : null}
       </div>
+
       <div className="flex-1 flex flex-col gap-2">
         {description ? (
           <p className="font-primary font-normal text-[14px] md:text-[16px] leading-[100%] tracking-[0%] text-gray-600">
             {description}
           </p>
         ) : null}
+
         {phone ? (
           <div className="mt-0">
             <a
@@ -48,10 +88,13 @@ const InfoItem: React.FC<Props> = ({
                 color: 'transparent',
                 display: 'inline-block',
               }}
+              onClick={(e) => e.stopPropagation()}
             >
               {phone}
             </a>
+
             <div className="h-px w-full bg-[#DDE1E7] my-5" />
+
             {note ? (
               <p className="font-primary font-normal text-[14px] md:text-[16px] leading-[140%] text-gray-600">
                 {note}

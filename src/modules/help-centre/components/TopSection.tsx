@@ -114,6 +114,7 @@ const TopSection = () => {
           ) : (
             <>
               <InfoItem
+                link={data?.data.messager.link!}
                 icon={
                   <img
                     src="/image/help-centre/image-01.png"
@@ -127,6 +128,7 @@ const TopSection = () => {
                 }
               />
               <InfoItem
+                link={data?.data.zalo.link!}
                 icon={
                   <img
                     src="/image/help-centre/image-02.png"
