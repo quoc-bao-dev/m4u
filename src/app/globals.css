@@ -416,3 +416,31 @@ body {
     font-family: var(--font-krona);
   }
 }
+
+.hero-title {
+  font-size: 24px;
+}
+
+.hero-subtitle {
+  font-size: 12px;
+}
+
+.hero-image {
+  width: 50%;
+  height: 50%;
+}
+
+@media (min-height: 600px) {
+  .hero-title {
+    font-size: inherit;
+  }
+
+  .hero-subtitle {
+    font-size: inherit;
+  }
+
+  .hero-image {
+    width: inherit;
+    height: inherit;
+  }
+}

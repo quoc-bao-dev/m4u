@@ -80,9 +80,9 @@
     "sitemap": "Sitemap",
     "home": "Trang chủ",
     "joinTrial": "Tham gia dùng thử",
-    "newsfeed": "Newsfeed",
-    "newsEvents": "Tin tức & Sự kiện",
-    "account": "Tài khoản",
+    "newsfeed": "Review hub",
+    "newsEvents": "Quyên góp & Từ thiện",
+    "account": "Sự kiện",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
   },
   "developing": {
@@ -100,7 +100,8 @@
     "top3Products": "Top 3 sản phẩm",
     "mostCared": "được quan tâm nhiều nhất",
     "reviews": "reviews",
-    "productName": "Panthetoin Deep Moisture Mask"
+    "productName": "Panthetoin Deep Moisture Mask",
+    "registerCount": "Lượt đăng ký"
   },
   "termBenefit": {
     "benefitsAndTerms": "Quyền lợi & Điều khoản",

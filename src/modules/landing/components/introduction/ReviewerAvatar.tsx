@@ -20,8 +20,8 @@ const ReviewerAvatar = ({
 }: ReviewerAvatarProps) => {
   const t = useTranslations('product')
   const labelContent = (
-    <div className="text-center">
-      <h3 className="font-bold text-dark text-[7px] lg:text-base capitalize">{name}</h3>
+    <div className="flex flex-col justify-center items-center">
+      <h3 className="font-bold text-dark text-[7px] lg:text-base capitalize w-[100px] break-words text-center leading-tight overflow-wrap-anywhere whitespace-normal" style={{wordBreak: 'break-word'}}>{name}</h3>
       <p className="text-dark text-[7px] lg:text-sm">{jobTitle} {t('reviews')}</p>
     </div>
   )
