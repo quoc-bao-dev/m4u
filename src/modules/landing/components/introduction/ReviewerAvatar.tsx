@@ -21,14 +21,14 @@ const ReviewerAvatar = ({
   const t = useTranslations('product')
   const labelContent = (
     <div className="flex flex-col justify-center items-center">
-      <h3 className="font-bold text-dark text-[7px] lg:text-base capitalize w-[100px] break-words text-center leading-tight overflow-wrap-anywhere whitespace-normal" style={{wordBreak: 'break-word'}}>{name}</h3>
+      <h3 className="font-bold text-dark text-[7px] lg:text-base capitalize w-[30px] md:w-[60px] lg:w-[100px] break-words text-center leading-tight overflow-wrap-anywhere whitespace-normal" style={{wordBreak: 'break-word'}}>{name}</h3>
       <p className="text-dark text-[7px] lg:text-sm">{jobTitle} {t('reviews')}</p>
     </div>
   )
 
   return (
     <div
-      className={`flex flex-col items-center gap-2 aspect-square ${className}`}
+      className={`flex flex-col items-center gap-1 lg:gap-2 aspect-square ${className}`}
     >
       {labelPosition === 'top' && labelContent}
       <div className="relative ">
