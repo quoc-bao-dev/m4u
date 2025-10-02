@@ -20,7 +20,7 @@ const InfluencerSection = () => {
             style={{ aspectRatio: '845/600' }}
           >
             <Image
-              src="/image/influencer/image-02.png"
+              src="/image/influencer/image-03.png"
               alt="influencer"
               fill
               className="object-cover"
