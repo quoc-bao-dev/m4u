@@ -32,8 +32,10 @@ const ReviewHub = () => {
       <VideoWrapper
         src="/image/background.mp4"
         playbackRate={0.3}
-        className="absolute inset-0 -z-10 w-full h-full object-cover pointer-events-none"
+        className="absolute inset-0 -z-[1] w-full h-full object-cover pointer-events-none"
       />
+
+      <div className="absolute inset-0 -z-[11] w-full h-full bg-gray-50" />
     </div>
   )
 }

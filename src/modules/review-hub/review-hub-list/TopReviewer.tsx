@@ -30,6 +30,12 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
   const [lastPage, setLastPage] = useState<number>(1)
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
 
+  // Detect iPhone to disable autoplay
+  const isIPhone = useCallback(() => {
+    // return true
+    return /iPhone|iPod|iPad/.test(navigator.userAgent)
+  }, [])
+
   const handlePlayVideo = useCallback(
     (index: number) => {
       const target = videoRefs.current[index]
@@ -65,6 +71,10 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
   useEffect(() => {
     const first = videoRefs.current[0]
     if (!first) return
+
+    // Disable autoplay on iPhone
+    if (isIPhone()) return
+
     // Pause others just in case
     videoRefs.current.forEach((video, i) => {
       if (video && i !== 0) {
@@ -77,7 +87,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
       first.play()
       setPlayingIndex(0)
     } catch { }
-  }, [reviews.length])
+  }, [reviews.length, isIPhone])
 
   // Init reviews and pagination from props data
   useEffect(() => {
@@ -178,7 +188,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                 alt="top-reviewer"
                 width={1000}
                 height={1000}
-                className="p-2 lg:p-6 object-contain size-full"
+                className="p-2 lg:p-6 object-contain size-full rounded-3xl"
               />
             </div>
           )}
@@ -273,22 +283,39 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                         />
                         {kol.evaluate.toFixed(1)}
                       </div>
-                      <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg lg:rounded-3xl">
+                      <div className={`${isIPhone() ? (playingIndex === index ? 'opacity-0' : 'opacity-100') : 'opacity-0 group-hover:opacity-100'} transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg lg:rounded-3xl`}>
                         {playingIndex === index ? (
-                          <PauseIcon weight="fill" className="size-10 text-white" />
+                          <PauseIcon weight="fill" className="size-8 xl:size-10 text-white" />
                         ) : (
-                          <PlayIcon weight="fill" className="size-10 text-white" />
+                          <PlayIcon weight="fill" className="size-8 xl:size-10 text-white" />
                         )}
                       </div>
                       <video
                         ref={(el) => {
-                          if (el) videoRefs.current[index] = el
+                          if (el) {
+                            videoRefs.current[index] = el
+                            // Force inline playback across legacy browsers
+                            try {
+                              el.setAttribute('playsinline', 'true')
+                              ;(el as any).playsInline = true
+                              el.setAttribute('webkit-playsinline', 'true')
+                              el.setAttribute('x5-playsinline', 'true')
+                              el.setAttribute('x5-video-player-type', 'h5')
+                              el.setAttribute('x-webkit-airplay', 'allow')
+                              // Restrict fullscreen and remote playback via attributes as a best-effort
+                              el.setAttribute('controlslist', 'nofullscreen noremoteplayback nodownload noplaybackrate')
+                              el.setAttribute('disablepictureinpicture', 'true')
+                            } catch {}
+                          }
                         }}
                         src={kol.video_review}
-                        autoPlay={index === 0}
+                        autoPlay={false}
                         muted
                         loop
                         playsInline
+                        controls={false}
+                        controlsList="nofullscreen noremoteplayback nodownload noplaybackrate"
+                        disablePictureInPicture
                         width={1000}
                         height={1000}
                         className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]"
