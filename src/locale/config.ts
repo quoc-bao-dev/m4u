@@ -12,5 +12,5 @@ export const localeNames = {
   en: 'English',
   kr: '한국어',
   th: 'ไทย', // hoặc 'ภาษาไทย'
-  cn: '简体中文', // hoặc '中文'
+  cn: '中文', // hoặc '中文'
 } as const
