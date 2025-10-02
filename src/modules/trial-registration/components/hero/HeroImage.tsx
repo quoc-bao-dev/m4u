@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 const HeroImage = ({
   duration = 4,
   delay = 0,
-  src = '/image/trial/image-01.png',
+  src = '/image/trial/image-05.png?v=1',
   alt = 'Hero Image',
   width = 1000,
   height = 1000,
