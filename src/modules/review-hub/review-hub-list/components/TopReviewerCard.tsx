@@ -12,8 +12,6 @@ import Image from 'next/image'
 import { Ref, useCallback, useEffect, useRef, useState } from 'react'
 import apiReviewHub from '@/services/review-hub/api'
 
-// Removed unused Kol interface
-
 interface TopReviewerCardProps {
   productName?: string
   brandName?: string
@@ -55,6 +53,12 @@ const TopReviewerCard = ({
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+
+  // Detect iPhone to disable autoplay
+  const isIPhone = useCallback(() => {
+    // return true
+    return /iPhone|iPod|iPad/.test(navigator.userAgent)
+  }, [])
 
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!scrollContainerRef.current) return
@@ -108,24 +112,27 @@ const TopReviewerCard = ({
     [playingIndex]
   )
 
-  // Hover play/pause per video tile
-  const handleHoverStart = useCallback((index: number) => {
-    if (isDraggingRef.current) return
-    const target = videoRefs.current[index]
-    if (!target) return
-    // Pause others
-    videoRefs.current.forEach((video, i) => {
-      if (video && i !== index) {
-        try {
-          video.pause()
-        } catch { }
-      }
-    })
-    try {
-      target.play()
-      setPlayingIndex(index)
-    } catch { }
-  }, [])
+  // Hover play/pause per video tile (disabled for iPhone mode)
+  // const handleHoverStart = useCallback((index: number) => {
+  //   if (isDraggingRef.current) return
+  //   // Disable hover autoplay on iPhone
+  //   if (isIPhone()) return
+  //   
+  //   const target = videoRefs.current[index]
+  //   if (!target) return
+  //   // Pause others
+  //   videoRefs.current.forEach((video, i) => {
+  //     if (video && i !== index) {
+  //       try {
+  //         video.pause()
+  //       } catch { }
+  //     }
+  //   })
+  //   try {
+  //     target.play()
+  //     setPlayingIndex(index)
+  //   } catch { }
+  // }, [isIPhone])
 
 
   // Autoplay/pause based on viewport visibility
@@ -134,6 +141,9 @@ const TopReviewerCard = ({
     const firstVideoIndex = 0
     const first = videoRefs.current[firstVideoIndex]
     if (!first) return
+
+    // Disable autoplay on iPhone
+    if (isIPhone()) return
 
     if (isInView) {
       // Pause others just in case
@@ -159,7 +169,7 @@ const TopReviewerCard = ({
       })
       setPlayingIndex(null)
     }
-  }, [reviews, isInView])
+  }, [reviews, isInView, isIPhone])
 
   // Init reviews and pagination from data prop
   useEffect(() => {
@@ -299,8 +309,12 @@ const TopReviewerCard = ({
               <div
                 className="group relative cursor-pointer"
                 key={index}
-                onClick={() => handlePlayVideo(index)}
-                onMouseEnter={() => handleHoverStart(index)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  handlePlayVideo(index)
+                }}
+                // onMouseEnter={() => handleHoverStart(index)}
               // onMouseLeave={() => handleHoverEnd(index)}
               >
                 <div className="absolute top-1 right-1 flex items-center gap-0.5 bg-white rounded-full py-0.5 px-1">
@@ -312,7 +326,7 @@ const TopReviewerCard = ({
                     {kol.evaluate}
                   </span>
                 </div>
-                <div className="opacity-0 hover:opacity-100 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl">
+                <div className={`${isIPhone() ? (playingIndex === index ? 'opacity-0' : 'opacity-100') : 'opacity-0 hover:opacity-100'} z-10 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl`}>
                   {playingIndex === index ? (
                     <PauseIcon
                       weight="fill"
