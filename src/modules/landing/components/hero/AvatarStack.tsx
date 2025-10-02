@@ -10,11 +10,11 @@ const LiveAvatar: React.FC<{ src: string; alt?: string; small?: boolean }> = ({
 }) => {
   return (
     <div
-      className={`${small ? 'w-8' : 'w-10 md:w-14'} flex flex-col items-center`}
+      className={`${small ? 'w-8' : 'w-8 md:w-14'} flex flex-col items-center`}
     >
       <div
         className={`relative transform-gpu ${
-          small ? 'size-8 ' : 'size-10 md:size-14'
+          small ? 'size-8 ' : 'size-8 md:size-14'
         }`}
         style={{ willChange: 'transform' }}
       >
@@ -83,7 +83,7 @@ const LiveAvatar: React.FC<{ src: string; alt?: string; small?: boolean }> = ({
         </div>
       </div>
       {!small && (
-        <span className="mt-1 px-1 xl:px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] leading-none font-semibold uppercase tracking-wider">
+        <span className="hidden lg:block mt-1 px-1 xl:px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] leading-none font-semibold uppercase tracking-wider">
           live
         </span>
       )}
@@ -104,12 +104,12 @@ const AvatarStack = ({ small = false }: { small?: boolean }) => {
       ))}
       <div
         className={`${
-          small ? 'size-8' : 'size-10 md:size-14'
+          small ? 'size-8' : 'size-8 md:size-14'
         } bg-gray-900 rounded-full border-2 md:border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium`}
       >
         <p
           className={`${
-            small ? 'text-xs md:text-sm' : 'text-base md:text-xl'
+            small ? 'text-xs md:text-sm' : 'text-sm md:text-base'
           } font-medium`}
         >
           69+
