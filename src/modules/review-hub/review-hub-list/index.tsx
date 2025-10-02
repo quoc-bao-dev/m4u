@@ -6,10 +6,16 @@ import Influencer from './InfluencerSection'
 import NodataReviewhub from './NodataReviewhub'
 import RankingList from './RankingList'
 import TopReviewer from './TopReviewer'
+import { useCallback } from 'react'
 
 const ReviewHub = () => {
   const t = useTranslations('reviewHub')
   const { isLoading, data } = useGetDataReviewHub()
+  
+  const isIPhone = useCallback(() => {
+    // return true
+    return /iPhone|iPod|iPad/.test(navigator.userAgent)
+  }, [])
 
   return (
     <div className="px-0 md:px-8 lg:px-12 xl:px-20 pb-12 flex flex-col gap-6 xl:gap-12 items-center pt-[72px] min-h-screen rounded-b-4xl">
@@ -29,13 +35,13 @@ const ReviewHub = () => {
         </div>
       )}
 
-      <VideoWrapper
-        src="/image/background.mp4"
-        playbackRate={0.3}
-        className="absolute inset-0 -z-[1] w-full h-full object-cover pointer-events-none"
-      />
-
-      <div className="absolute inset-0 -z-[11] w-full h-full bg-gray-50" />
+      {isIPhone() ?
+        <div className="absolute inset-0 -z-[11] w-full h-full bg-gray-50" />
+        : <VideoWrapper
+          src="/image/background.mp4"
+          playbackRate={0.3}
+          className="absolute inset-0 -z-[1] w-full h-full object-cover pointer-events-none"
+        />}
     </div>
   )
 }
