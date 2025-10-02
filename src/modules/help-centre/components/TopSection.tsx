@@ -22,7 +22,7 @@ const TopSection = () => {
 
       <div className="flex flex-col md:flex-row md:gap-[20px] xl:gap-[80px] gap-6 py-6 md:py-[36px] px-0">
         {/* Left column: image collage */}
-        <div className="relative md:w-[50%]">
+        <div className="relative md:w-[50%] xl:w-[60%]">
           <div className="relative w-full pt-[77.31%]">
             <div className="absolute top-0 left-0 w-[36.75%]">
               <div className="relative w-full pt-[100%] rounded-[12.17%] border-[4px] border-white overflow-hidden shadow-sm">

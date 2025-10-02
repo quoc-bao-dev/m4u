@@ -1,62 +1,43 @@
 'use client'
+
+import { Skeleton } from '@/components/ui/skeleton'
 import { Container } from '@/core/components'
-import { IMAGES } from '@/core/constants/IMAGES'
+import { useGetHomePage } from '@/services/home/queries'
 import { useTranslations } from 'next-intl'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import ReviewCTACarousel from './ReviewCTACarousel'
 
 const ReviewCTASection = () => {
   const t = useTranslations('reviewCTA')
+  const { isLoading, data: homePage } = useGetHomePage()
 
-  const items = useMemo(
-    () => [
-      {
-        reviewerImage: IMAGES.reviewer1,
-        reviewerAlt: 'reviewer',
-        reviewerVideo:
-          'https://cdn2.videowise.com/converted/videos/1747066892278_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZTNm_h264cmobile.mp4',
-        productImage: IMAGES.product1,
-        productAlt: 'product',
-        brandName: 'MANYO',
-        productName: 'Panthetoin Deep Moisture Mask',
-        timeInfo: '09h 16m 30s',
-        progressPercentage: 70,
-        participationText: `70/100 ${t('participation')}`,
-        buttonText: t('registerTrial'),
-      },
-      {
-        reviewerImage: IMAGES.reviewer1,
-        reviewerAlt: 'reviewer',
-        reviewerVideo:
-          'https://cdn2.videowise.com/custom-videos/videos/1747066892926_wid_NjgyMjIwMGMzZjJiOTAwMDU4OGMxZWE4.mp4',
-        productImage: IMAGES.product1,
-        productAlt: 'product',
-        brandName: 'COSRX',
-        productName: 'Advance Snail 96 Mucin Power Essence',
-        timeInfo: '02h 45m 10s',
-        progressPercentage: 45,
-        participationText: `45/100 ${t('participation')}`,
-        buttonText: t('registerTrial'),
-      },
-      {
-        reviewerImage: IMAGES.reviewer1,
-        reviewerAlt: 'reviewer',
-        reviewerVideo:
-          'https://cdn2.videowise.com/custom-videos/videos/1747066889667_wid_NjgyMjIwMDkzZjJiOTAwMDU4OGMxYzJi.mp4',
-        productImage: IMAGES.product1,
-        productAlt: 'product',
-        brandName: 'INNISFREE',
-        productName: 'Green Tea Seed Serum',
-        timeInfo: '15h 02m 00s',
-        progressPercentage: 82,
-        participationText: `82/120 ${t('participation')}`,
-        buttonText: t('registerTrial'),
-      },
-    ],
-    [t]
-  )
+  const items = useMemo(() => {
+    const list = homePage?.list_review_new ?? []
+    return list.slice(0, 3).map((p: any) => {
+      const limit = Number(p?.limit_people) || 0
+      const joined = Number(p?.count_join) || 0
+      const progress =
+        limit > 0 ? Math.min(100, Math.max(0, (joined / limit) * 100)) : 0
+      const time =
+        p?.time_left_dd_hh_mm_ss && p?.time_left_dd_hh_mm_ss !== '0:00:00:00'
+          ? p.time_left_dd_hh_mm_ss
+          : ''
 
-  // carousel logic moved into child component
+      return {
+        reviewerImage: p?.image || '',
+        reviewerAlt: 'reviewer',
+        reviewerVideo: p?.video_review || undefined,
+        productImage: p?.image_product || '',
+        productAlt: p?.slug || 'product',
+        brandName: p?.code || 'Brand',
+        productName: p?.name || '',
+        timeInfo: time,
+        progressPercentage: progress,
+        participationText: `${joined}/${limit} ${t('participation')}`,
+        buttonText: t('registerTrial'),
+      }
+    })
+  }, [homePage, t])
 
   return (
     <>
@@ -79,7 +60,11 @@ const ReviewCTASection = () => {
               {/* Mobile: Center the carousel */}
               <div className="overflow-hidden  md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 w-full flex justify-center px-8 md:px-0">
                 <div className="overflow-hidden -ml-[300px] -mr-[300px] md:ml-0 md:mr-0">
-                  <ReviewCTACarousel items={items} />
+                  {isLoading ? (
+                    <Skeleton className="w-[900px] max-w-full md:h-[600px] h-[550px] rounded-3xl" />
+                  ) : (
+                    <ReviewCTACarousel items={items} />
+                  )}
                 </div>
               </div>
             </div>
