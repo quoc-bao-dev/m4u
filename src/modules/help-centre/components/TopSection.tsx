@@ -1,9 +1,9 @@
 'use client'
-import Image from 'next/image'
 import Container from '@/core/components/common/group/Container'
-import InfoItem from './InfoItem'
 import { useGetHelpCentre } from '@/services/help-centre/queries'
+import Image from 'next/image'
 import { stripFontSize } from '../utils/html'
+import InfoItem from './InfoItem'
 
 const TopSection = () => {
   const { data, isLoading } = useGetHelpCentre()
