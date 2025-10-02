@@ -53,7 +53,7 @@ const MyReviewTable = () => {
     dateEnd: dateRange.to
       ? moment(dateRange.to).format('DD/MM/YYYY')
       : undefined,
-    perPage: 5,
+    perPage: 10,
   })
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
