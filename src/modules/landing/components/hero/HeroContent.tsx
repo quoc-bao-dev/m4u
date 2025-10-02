@@ -42,7 +42,7 @@ const HeroContent = ({
           <div className="w-full">
             {/* Main Heading */}
             <div className="space-y-4 w-full">
-              <div className="text-[42px] md:text-[48px] lg:text-[64px] 2xl:text-[80px]">
+              <div className="text-[42px] md:text-[48px] lg:text-[60px] 2xl:text-[80px]">
                 {isLoading ? (
                   <Skeleton className="w-4/5 h-36" />
                 ) : (
