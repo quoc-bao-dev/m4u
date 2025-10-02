@@ -101,7 +101,7 @@ const Info = ({ data, isLoading }: { data: any, isLoading: boolean }) => {
             <Skeleton className="size-full rounded-2xl object-cover" />
           ) : (
             <Image
-              src={data?.list_images[activeIndex] ?? '/image/product/image-nodata.png'}
+              src={data?.list_images[activeIndex] ?? data?.image ?? '/image/product/image-nodata.png'}
               alt="top-reviewer"
               width={1000}
               height={1000}

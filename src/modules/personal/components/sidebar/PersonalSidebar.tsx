@@ -1,5 +1,6 @@
 'use client'
 
+import LanguageSwitcher from '@/core/components/layout/header/LanguageSwitcher'
 import UserAvatar from '@/core/components/UserAvatar'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { Link } from '@/locale'
@@ -270,36 +271,7 @@ const PersonalSidebar = () => {
                           {label}
                         </span>
                       </div>
-                      <div className="flex items-center gap-1 bg-greyscale-50 rounded-xl p-1">
-                        {languageOptions.map((lang) => (
-                          <button
-                            key={lang.id}
-                            onClick={() => switchLanguage(lang.id as Language)}
-                            className={`flex items-center border gap-1.5 px-1.5 py-1 rounded-lg transition-all duration-200 cursor-pointer ${
-                              getCurrentLanguage() === lang.id
-                                ? 'bg-white shadow-xs border-greyscale-200'
-                                : 'hover:bg-white/50 border-transparent'
-                            }`}
-                          >
-                            <Image
-                              src={lang.flag}
-                              alt={lang.name}
-                              width={100}
-                              height={100}
-                              className="rounded-full object-cover size-5"
-                            />
-                            <span
-                              className={`text-xs font-medium hidden 2xl:block ${
-                                getCurrentLanguage() === lang.id
-                                  ? 'text-greyscale-900'
-                                  : 'text-greyscale-600'
-                              }`}
-                            >
-                              {lang.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
+                      <LanguageSwitcher size="sm" />
                     </div>
                   )
                 }

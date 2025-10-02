@@ -8,7 +8,7 @@ import { Link } from '@/locale'
 
 const BottomSection = () => {
   const { data, isLoading } = useGetHelpCentre()
-
+console.log(data)
   return (
     <section className="pt-12">
       <Container>
@@ -43,7 +43,7 @@ const BottomSection = () => {
         <div className="relative w-full md:pt-[28.99%] pt-[40%]">
           <iframe
             className="absolute inset-0 w-full h-full"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d738.3328150457521!2d106.69852635459264!3d10.78104053469397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752fd24c4be867%3A0xea7d9cc2776f699!2sGalaxy%20Office%20-%20Cho%20thu%C3%AA%20V%C4%83n%20ph%C3%B2ng%20TPHCM!5e0!3m2!1svi!2s!4v1759140727919!5m2!1svi!2s"
+            src={data?.data?.link_goole_map}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

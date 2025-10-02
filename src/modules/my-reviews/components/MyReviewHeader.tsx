@@ -31,7 +31,7 @@ const MyReviewHeader = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col h-fit gap-4 md:flex-row md:items-center md:justify-between">
       <h2 className="text-[18px] xl:text-[24px] leading-7 font-bold text-greyscale-900 ">
         {t('myReviews.header.title', { default: 'My reviews' })}
       </h2>
