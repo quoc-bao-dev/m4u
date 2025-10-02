@@ -1,0 +1,820 @@
+{
+  "common": {
+    "home": "首页",
+    "about": "关于",
+    "contact": "联系",
+    "language": "语言",
+    "welcome": "欢迎使用我们的应用程序",
+    "reviewer": "评测者",
+    "product": "产品",
+    "share": "分享：",
+    "loadMore": "加载更多"
+  },
+  "navigation": {
+    "home": "首页",
+    "products": "产品",
+    "services": "服务",
+    "contact": "联系"
+  },
+  "hero": {
+    "viewNow": "立即查看",
+    "liveStream": {
+      "membersOnline": "在线成员",
+      "singleMoms": "评测者",
+      "participatingInGroup": "参与体验小组"
+    }
+  },
+  "donation": {
+    "donated": "已捐赠！",
+    "month": "月",
+    "day": "天",
+    "hour": "小时",
+    "individuals": "个人",
+    "justDonated": "刚刚向我们的社区捐款！",
+    "financialPublicNote": "*每月公开财务报表。"
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "捐赠与公益",
+      "description": "加入 M4U，通过产品与社区捐助支持单亲妈妈。"
+    },
+    "giveToday": {
+      "titleLead": "今天捐赠，",
+      "titleEnd": "改变明天",
+      "subtitle": "加入 M4U 基金，为单亲妈妈提供生活必需品与技能支持。"
+    },
+    "eventCampaign": {
+      "titleLead": "你的光芒，",
+      "titleEnd": "她的成长",
+      "desc": "每件产品都会拿出 5% 支持提升单亲妈妈的志愿项目——资助日常需求与技能培训。你去体验并评测，就是双重助力。"
+    },
+    "modalSection": {
+      "titleLead": "我们的公益基金模式：",
+      "titleEnd": "美丽因使命而生",
+      "desc": "我们的部分收入与您的社区捐助将直接注入 M4U 社区基金，专门用于支持越南的单亲母亲。",
+      "fundingSources": "资金来源",
+      "charityFund": "公益基金",
+      "discountOnProduct": "% 每件\n售出商品的折扣",
+      "commission": "% 来自推荐人/评测者/销售者的佣金",
+      "directDonations": "来自社区的\n直接捐赠",
+      "government": "政府",
+      "organizations": "组织",
+      "individuals": "个人"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "正在进行",
+        "coming": "即将开始"
+      },
+      "fundName": "M4U 公益基金",
+      "totalProducts": "产品总数",
+      "totalFundsConverted": "转化为基金总额"
+    },
+    "productCard": {
+      "contribution": "贡献"
+    }
+  },
+  "footer": {
+    "sitemap": "网站地图",
+    "home": "首页",
+    "joinTrial": "参与试用",
+    "newsfeed": "动态",
+    "newsEvents": "新闻与活动",
+    "account": "账户",
+    "copyright": "© 2025 — 版权 Mask4U。保留所有权利。"
+  },
+  "developing": {
+    "comingSoon": "敬请期待！",
+    "underDevelopment": "本页正在开发中，请稍后再来查看！",
+    "backToHome": "返回首页"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "撰写评测 立即获优惠",
+    "singleMomsJoined": "位单亲妈妈已加入",
+    "joinTitle": "加入",
+    "experienceTitle": "体验"
+  },
+  "topProduct": {
+    "top3Products": "三款热门产品",
+    "mostCared": "最受关注",
+    "reviews": "条评论",
+    "productName": "Panthetoin Deep Moisture Mask",
+    "registerCount": "注册数"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "权益与条款",
+    "benefits": "权益",
+    "terms": "条款",
+    "memberBenefits": "评测者会员权益",
+    "benefit1": "免费体验最热门的美妆产品。",
+    "benefit2": "通过你的推荐链接获得可观收入。",
+    "benefit3": "优先体验新品与限量款。",
+    "benefit4": "专家提供支持与指导，提升评测质量。",
+    "benefit5": "与社区连接，分享经验，共同学习。",
+    "placeholder1": "示例内容：等有真实数据后可替换。",
+    "placeholder2": "示例内容：参加活动的会员将获得更多福利。"
+  },
+  "filter": {
+    "title": "筛选",
+    "without": "不含",
+    "usage": "用途",
+    "skinType": "肌肤类型",
+    "ingredients": "成分",
+    "price": "价格",
+    "brand": "品牌",
+    "artificialFragrance": "人工香精",
+    "alcohol": "酒精",
+    "sulphates": "硫酸盐",
+    "animalDerived": "动物来源",
+    "silicone": "硅",
+    "deepMoisturizing": "深层保湿",
+    "oilControl": "控油与平衡",
+    "acneTreatment": "祛痘与舒缓",
+    "antiAging": "抗老与修复",
+    "whitening": "美白与提亮",
+    "drySkin": "干性皮肤",
+    "oilySkin": "油性皮肤",
+    "sensitiveSkin": "敏感性皮肤",
+    "combinationSkin": "混合性皮肤",
+    "normalSkin": "中性皮肤",
+    "acneSkin": "痘痘肌",
+    "clearAll": "清除全部",
+    "apply": "应用",
+    "aloeVera": "芦荟",
+    "collagen": "胶原蛋白",
+    "hyaluronicAcid": "透明质酸",
+    "teaTree": "茶树",
+    "gotuKola": "积雪草",
+    "reviews": "评论"
+  },
+  "reviewCTA": {
+    "title": "你还在等什么？",
+    "become": "成为一名",
+    "reviewerNow": "评测者吧！",
+    "registerTrial": "参与试用",
+    "participation": "参与"
+  },
+  "reviewHub": {
+    "title": "评测中心",
+    "description": "发现顶级评测者与精选产品",
+    "endorsedByTopReviewers": "获得顶级评测者认可",
+    "filters": {
+      "freeFrom": "不含",
+      "parabens": "对羟基苯甲酸酯",
+      "sulfates": "硫酸盐",
+      "phthalates": "邻苯二甲酸酯",
+      "fragrance": "香料",
+      "alcohol": "酒精",
+      "benefits": "功效",
+      "hydrating": "补水保湿",
+      "antiAging": "抗老",
+      "brightening": "提亮",
+      "acneFighting": "抗痘",
+      "soothing": "舒缓",
+      "skinType": "肌肤类型",
+      "oily": "油性",
+      "dry": "干性",
+      "combination": "混合性",
+      "sensitive": "敏感性",
+      "normal": "中性",
+      "keyIngredients": "关键成分",
+      "retinol": "视黄醇",
+      "vitaminC": "维生素C",
+      "hyaluronicAcid": "透明质酸",
+      "niacinamide": "烟酰胺",
+      "salicylicAcid": "水杨酸",
+      "rating": "评分",
+      "fiveStars": "5 星",
+      "fourStarsUp": "4 星及以上",
+      "threeStarsUp": "3 星及以上",
+      "twoStarsUp": "2 星及以上"
+    },
+    "searchPlaceholder": "搜索 ...",
+    "influencer": {
+      "titleLead": "将你对美妆的热爱",
+      "titleEnd": "变成收入！",
+      "subtitle": "注册免费试用产品，并通过你的评测赚取收益。",
+      "cta": "立即注册体验"
+    },
+    "kols": {
+      "sortBy": "排序方式",
+      "mostViewed": "最多浏览",
+      "filterBy": "筛选条件：",
+      "options": {
+        "latest": "最新",
+        "oldest": "最旧",
+        "mostViewed": "最多浏览",
+        "highestRated": "评分最高",
+        "mostLiked": "点赞最多"
+      },
+      "period": {
+        "all": "全部",
+        "today": "今天",
+        "week": "本周",
+        "month": "本月",
+        "year": "今年",
+        "allTime": "全时期"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "评测任意 3 款片状面膜",
+      "ribbonBottom": "有机会赢取 iPhone 16",
+      "dateLabel": "2025年10月01日",
+      "headline": "将公布获奖者",
+      "joinNow": "立即参加"
+    },
+    "card": {
+      "fundName": "M4U 公益基金",
+      "mobileDesc": "喜欢片状面膜吗？免费评测我们精选的任意 3 款面膜产品，并分享你的真实 ...",
+      "totalProducts": "产品总数",
+      "totalFundsConverted": "转化为基金总额"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "活动规则",
+        "eligibility": "参赛资格",
+        "newUserTask": "新用户任务"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "捐助明细",
+      "sponsor": "赞助商",
+      "product": "产品",
+      "totalPrizes": "奖项总数",
+      "totalPrizePool": "奖金池总额",
+      "comingSoon": "即将推出",
+      "registrationDate": "报名日期",
+      "endDate": "截止日期",
+      "joinNow": "立即参加"
+    },
+    "badge": {
+      "status": {
+        "happening": "正在进行",
+        "coming": "即将开始"
+      }
+    },
+    "filter": {
+      "tabs": { "all": "全部", "event": "活动", "challenge": "挑战" },
+      "filters": {
+        "all": "全部",
+        "upcoming": "即将开始",
+        "ongoing": "进行中",
+        "ended": "已结束"
+      },
+      "filterBy": "筛选条件：",
+      "searchPlaceholder": "搜索..."
+    },
+    "questions": {
+      "titleLead": "常见问答 ",
+      "titleTail": "与问题",
+      "perksTitle": "评测者会员的福利",
+      "intro": "加入后，你将享有独家权益：",
+      "bullets": {
+        "freeTrials": {
+          "label": "免费产品试用：",
+          "desc": "免费试用当下最热门的美妆精选。"
+        },
+        "earnings": {
+          "label": "可观收益：",
+          "desc": "通过你的推荐链接完成的每一笔符合条件的订单都能获得佣金。"
+        },
+        "earlyAccess": {
+          "label": "领先体验：",
+          "desc": "成为第一批试用新品和限量款的人。"
+        },
+        "support": {
+          "label": "支持与指导：",
+          "desc": "获取一步步的操作手册与专业技巧，提升你的评测并建立可信度。"
+        },
+        "community": {
+          "label": "社区：",
+          "desc": "与美妆爱好者相连，分享经验，共同学习。"
+        }
+      },
+      "placeholder1Title": "评测者会员的福利",
+      "placeholder1": "示例内容：数据可用时你可以替换为真实内容。",
+      "placeholder2Title": "评测者会员的福利",
+      "placeholder2": "示例内容：会员参与活动可获得更多权益。"
+    }
+  },
+  "product": {
+    "register": "参与试用",
+    "writeYourReview": "撰写你的评测",
+    "registerBtn": "立即注册",
+    "participation": "参与",
+    "reviews": "评论",
+    "slotsLeft": "仅剩 {count} 个名额",
+    "users": "用户",
+    "enrolledTrial": "已报名参加该产品的试用计划",
+    "views": "次浏览",
+    "filterBy": "筛选条件：",
+    "selectFilter": "选择筛选",
+    "viewAll": "查看全部",
+    "exploreSimilarProducts": "探索相似产品",
+    "honestReviews": "真实评测",
+    "fromRealUsers": "来自真实用户",
+    "noReviews": "此产品暂无评论。",
+    "viewReview": "查看评测"
+  },
+  "review": {
+    "rating": {
+      "excellent": "优秀"
+    }
+  },
+  "cart": {
+    "title": "试用购物车（{count} 件）",
+    "empty": "购物车为空",
+    "clearAll": "清空全部",
+    "viewDetails": "查看详情",
+    "addedToCart": "已加入购物车",
+    "alreadyInCart": "已在购物车中"
+  },
+  "rating": {
+    "excellent": "优秀",
+    "good": "良好",
+    "average": "一般",
+    "bad": "差",
+    "veryBad": "很差"
+  },
+  "timer": {
+    "days": "天",
+    "hours": "小时",
+    "minutes": "分",
+    "seconds": "秒"
+  },
+  "auth": {
+    "logoutSuccess": "已成功退出登录！",
+    "loginSuccess": "登录成功！",
+    "signIn": "登录",
+    "signingIn": "正在登录...",
+    "welcomeBack": "欢迎回来！请输入您的信息登录。",
+    "phoneNumber": "电话号码",
+    "enterPhoneNumber": "请输入您的电话号码",
+    "password": "密码",
+    "forgotPassword": "忘记密码？",
+    "rememberAccount": "记住账户",
+    "phoneRequired": "必须填写电话号码",
+    "passwordRequired": "必须填写密码",
+    "confirmLogoutTitle": "确认退出登录",
+    "confirmLogoutDesc": "确定要退出您的账户吗？",
+    "cancel": "取消",
+    "logout": "退出登录",
+    "forgot": {
+      "enterPhoneFirst": "在重置密码前请先输入电话号码",
+      "phone": {
+        "title": "忘记密码",
+        "desc": "请输入您的电话号码以接收验证码",
+        "submit": "发送 OTP",
+        "validation": {
+          "phoneRequired": "必须填写电话号码"
+        }
+      },
+      "otp": {
+        "title": "输入验证码",
+        "desc": "输入发送到 {phone} 的 {length} 位 OTP",
+        "sending": "正在发送...",
+        "sendSuccess": "OTP 已发送至您的手机号",
+        "sendFailed": "无法发送 OTP。请重试。",
+        "inputError": "请输入完整的 OTP 代码",
+        "confirm": "确认",
+        "checking": "正在验证...",
+        "invalid": "OTP 代码无效",
+        "verifyError": "OTP 验证失败。请重试。"
+      },
+      "reset": {
+        "title": "修改密码",
+        "desc": "请输入您的新密码",
+        "newPassword": "新密码",
+        "confirmPassword": "确认密码",
+        "submitting": "正在处理...",
+        "submit": "确认更改",
+        "success": "密码修改成功并已登录",
+        "saveFailed": "密码修改失败",
+        "loginFailed": "重新登录失败",
+        "passwordsNotMatch": "两次输入的密码不一致",
+        "validation": {
+          "passwordRequired": "必须填写新密码",
+          "confirmPasswordRequired": "必须确认密码"
+        }
+      }
+    }
+  },
+  "menu": {
+    "reviewerQuestion": "你是 M4U 的评测者吗？",
+    "reviewerOptions": {
+      "yes": "是的，我是会员",
+      "no": "还不是，帮我注册"
+    },
+    "section": {
+      "productCommunity": "产品与社区",
+      "settings": "设置",
+      "general": "通用",
+      "support": "支持"
+    },
+    "productCommunity": {
+      "trial-samples": "试用品",
+      "donation-charity": "捐赠与公益",
+      "review-hub": "评测中心",
+      "event": "活动"
+    },
+    "settings": {
+      "general": {
+        "language": "语言"
+      },
+      "support": {
+        "help-centre": "帮助中心",
+        "feedback-submission": "提交反馈"
+      }
+    },
+    "auth": {
+      "loadingUser": "正在加载用户信息...",
+      "unknown": "未知",
+      "unknownUser": "未知用户",
+      "joinedSince": "自 {date} 加入",
+      "membership": {
+        "gold": "黄金会员"
+      },
+      "stats": {
+        "referrals": "推荐",
+        "active": "活跃",
+        "accountBalance": "账户余额",
+        "points": "积分",
+        "commissionRevenue": "佣金收入",
+        "reviews": "评测"
+      },
+      "activity": {
+        "title": "我的活动",
+        "trialHistory": "试用报名历史",
+        "myReviews": "我的评测",
+        "referralList": "推荐列表",
+        "referralCode": "推荐计划",
+        "notification": "通知"
+      },
+      "account": {
+        "preferences": "账户偏好"
+      },
+      "logout": "退出登录"
+    }
+  },
+  "notification": {
+    "title": "通知",
+    "viewAll": "查看全部",
+    "viewDetail": "查看详情",
+    "nodata": {
+      "title": "尚无通知",
+      "desc": "当有更新时，你的通知会显示在这里。"
+    },
+    "tabs": {
+      "all": "全部",
+      "reviews": "评测",
+      "products": "产品"
+    },
+    "actions": {
+      "markReadAll": "全部标为已读",
+      "marking": "正在标记..."
+    },
+    "pagination": {
+      "prev": "上一页",
+      "next": "下一页",
+      "pageXofY": "第 {current} / {total} 页"
+    },
+    "relative": {
+      "now": "刚刚",
+      "minutes": "{count} 分钟前",
+      "hours": "{count} 小时前",
+      "days": "{count} 天前"
+    }
+  },
+  "trial": {
+    "form": {
+      "headerTitle": "注册获取试用品",
+      "headerSubtitle": "留下联系方式，我们会与您联系。",
+      "fields": {
+        "fullName": {
+          "label": "姓名",
+          "placeholder": "请输入您的姓名"
+        },
+        "phoneNumber": {
+          "label": "电话号码",
+          "placeholder": "请输入您的电话号码"
+        },
+        "dateOfBirth": {
+          "label": "出生日期",
+          "placeholder": "选择您的出生日期"
+        },
+        "address": { "label": "地址", "placeholder": "请输入您的地址" },
+        "gender": {
+          "label": "性别",
+          "options": { "female": "女", "male": "男", "other": "其他" }
+        }
+      },
+      "productSection": { "label": "试用产品" },
+      "submit": { "processing": "正在处理...", "continue": "继续" },
+      "validation": {
+        "fullNameMin": "请输入有效的姓名",
+        "phoneInvalid": "电话号码无效",
+        "genderRequired": "请选择性别",
+        "dobRequired": "请选择出生日期",
+        "addressMin": "请输入有效的地址"
+      },
+      "api": {
+        "registerFailed": "注册失败",
+        "registerError": "注册过程中发生错误"
+      }
+    },
+    "otp": {
+      "title": "输入验证码",
+      "desc": "输入发送到 {phone} 的 {length} 位 OTP",
+      "processing": "正在处理...",
+      "confirm": "确认",
+      "errors": {
+        "verifyFailed": "OTP 验证失败",
+        "verifyError": "OTP 验证过程中发生错误"
+      }
+    },
+    "success": {
+      "title": "注册成功！",
+      "message": "我们已收到您的申请。试用品将在接下来的几天内寄送至您的地址。"
+    }
+  },
+  "submitReview": {
+    "back": "返回",
+    "title": "准备好评测并赚取收入了吗？",
+    "shareReview": "分享你坦诚的评测",
+    "addVideo": "添加你的视频（必填）",
+    "addPhotos": "添加你的照片（选填）",
+    "dropFiles": "将文件拖到此处，或点击上传",
+    "rating": "评分",
+    "productQuality": "产品质量",
+    "overallExperience": "整体体验",
+    "absorbability": "吸收度",
+    "moisturization": "保湿度",
+    "skinBrightening": "提亮肤色",
+    "excellent": "优秀",
+    "tellUsWhatYouThink": "告诉我们你的想法",
+    "reviewTips": "评测小贴士",
+    "placeholder": "你最喜欢这款产品的什么？",
+    "submitReview": "提交评测",
+    "uploadSuccessfully": "上传成功",
+    "hasVideoReview": "含视频评测",
+    "reviewImage": "评测图片 {number}"
+  },
+  "dateRangePicker": {
+    "from": "从",
+    "to": "到",
+    "cancel": "取消",
+    "apply": "应用"
+  },
+  "myReviews": {
+    "header": {
+      "title": "我的评测",
+      "searchPlaceholder": "搜索产品、评测、日期等"
+    },
+    "history": {
+      "header": {
+        "title": "试用报名历史",
+        "searchPlaceholder": "搜索产品、评测、日期等"
+      },
+      "table": {
+        "headers": {
+          "orderId": "订单号",
+          "productInfo": "产品信息",
+          "review": "评测",
+          "reward": "奖励",
+          "dateTime": "日期时间",
+          "timeCreated": "创建时间",
+          "orderStatus": "订单状态",
+          "action": "操作"
+        },
+        "statuses": {
+          "completed": "已完成",
+          "pending": "待处理",
+          "cancelled": "已取消",
+          "processing": "处理中"
+        },
+        "actions": {
+          "review": "评测",
+          "edit": "编辑",
+          "viewDetails": "查看详情",
+          "viewReason": "查看原因",
+          "rewriteReview": "重写评测"
+        },
+        "error": {
+          "loadFailed": "加载评测历史时出错",
+          "tryLater": "请稍后再试"
+        },
+        "empty": {
+          "title": "未找到评测历史",
+          "desc": "当你完成评测后，历史记录将显示在这里。"
+        },
+        "mobile": {
+          "moreProducts": "+{count} 个产品",
+          "daysLeftToSubmit": "提交评测还剩 {count} 天"
+        }
+      },
+      "reasonModal": {
+        "title": "驳回原因",
+        "empty": "未提供原因。",
+        "close": "关闭"
+      }
+    }
+  },
+  "nodataReviewhub": {
+    "title": "开启你的美丽之旅！",
+    "description": "当你注册第一个产品后，你的试用历史就会出现在这里。操作很简单——注册即可获得免费产品、赚取佣金并领取专属优惠券。",
+    "registerButton": "注册免费试用",
+    "noData": "暂无数据"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "姓名至少需 2 个字符",
+        "phoneInvalid": "请输入有效的电话号码",
+        "genderRequired": "请选择性别",
+        "dobRequired": "必须填写出生日期",
+        "addressMin": "地址至少需 5 个字符",
+        "oldPasswordRequired": "必须填写当前密码",
+        "newPasswordMin": "新密码至少需 8 个字符",
+        "confirmPasswordRequired": "请确认新密码",
+        "passwordsDoNotMatch": "两次输入的密码不一致"
+      },
+      "fields": {
+        "fullName": {
+          "label": "姓名",
+          "placeholder": "请输入您的姓名"
+        },
+        "phoneNumber": {
+          "label": "电话号码",
+          "placeholder": "请输入您的电话号码"
+        },
+        "gender": {
+          "label": "性别",
+          "options": {
+            "female": "女",
+            "male": "男",
+            "other": "其他"
+          }
+        },
+        "dateOfBirth": {
+          "label": "出生日期",
+          "placeholder": "选择您的出生日期"
+        },
+        "address": {
+          "label": "地址",
+          "placeholder": "请输入您的地址"
+        },
+        "oldPassword": {
+          "label": "旧密码",
+          "placeholder": "请输入当前密码"
+        },
+        "newPassword": {
+          "label": "新密码",
+          "placeholder": "请输入新密码"
+        },
+        "confirmPassword": {
+          "label": "确认新密码",
+          "placeholder": "请确认您的新密码"
+        }
+      },
+      "buttons": {
+        "saveChanges": "保存更改",
+        "updatePhoto": "更新照片"
+      },
+      "sections": {
+        "general": "通用",
+        "security": "安全",
+        "accountPreferences": "账户偏好"
+      },
+      "helpers": {
+        "passwordRequirement": "密码至少 8 个字符",
+        "photoRequirement": "允许 *.jpeg, *.jpg, *.png, *.gif\n最大 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "accountPreferences": "账户偏好",
+    "form": {
+      "general": {
+        "title": "通用",
+        "updatePhoto": "更新照片",
+        "uploadNote": "允许 *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "最大 3.1 MB"
+      },
+      "security": {
+        "title": "安全"
+      },
+      "fields": {
+        "fullName": {
+          "label": "姓名",
+          "placeholder": "请输入您的姓名"
+        },
+        "phoneNumber": {
+          "label": "电话号码",
+          "placeholder": "请输入您的电话号码"
+        },
+        "gender": {
+          "label": "性别",
+          "options": {
+            "female": "女",
+            "male": "男",
+            "other": "其他"
+          }
+        },
+        "dateOfBirth": {
+          "label": "出生日期",
+          "placeholder": "选择您的出生日期"
+        },
+        "address": {
+          "label": "地址",
+          "placeholder": "请输入您的地址"
+        },
+        "oldPassword": {
+          "label": "旧密码",
+          "placeholder": "请输入旧密码"
+        },
+        "newPassword": {
+          "label": "新密码",
+          "placeholder": "请输入新密码",
+          "helperText": "密码至少 8 个字符"
+        },
+        "confirmPassword": {
+          "label": "确认新密码",
+          "placeholder": "请确认您的新密码",
+          "helperTextMatch": "密码一致"
+        }
+      },
+      "submit": {
+        "saveChanges": "保存更改",
+        "saving": "正在保存..."
+      },
+      "success": {
+        "updateAccount": "账户更新成功",
+        "updatePassword": "密码更新成功",
+        "updateAvatar": "头像更新成功"
+      },
+      "errors": {
+        "noToken": "未找到认证令牌。请重新登录。",
+        "updateFailed": "账户更新失败。请重试。",
+        "updatePasswordFailed": "密码更新失败。请重试。",
+        "updateAvatarFailed": "头像更新失败。",
+        "invalidFileType": "文件类型无效。请选择有效图片文件（JPEG、JPG、PNG、GIF）。",
+        "fileTooLarge": "文件过大。请选择小于 3.1 MB 的文件。"
+      },
+      "validation": {
+        "fullNameMin": "姓名至少需 2 个字符",
+        "phoneInvalid": "电话号码长度需在 8-15 个字符之间",
+        "genderRequired": "必须填写性别",
+        "dobRequired": "必须填写出生日期",
+        "addressMin": "地址至少需 5 个字符",
+        "oldPasswordRequired": "必须填写旧密码",
+        "newPasswordRequired": "必须填写新密码",
+        "newPasswordMin": "新密码至少需 8 个字符",
+        "confirmPasswordRequired": "必须确认密码",
+        "passwordsNotMatch": "两次输入的密码不一致"
+      }
+    }
+  },
+  "Referral": {
+    "title": "推荐计划",
+    "copy": "复制",
+    "copied": "已复制",
+    "referrals": "推荐",
+    "commissionRevenue": "佣金收入",
+    "friends": "好友",
+    "noData": {
+      "title": "暂无数据",
+      "desc": "你推荐的用户列表将在可用后显示在这里。分享你的推荐码开始吧。"
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "其他反馈",
+      "textareaPlaceholder": "若你还有更多想法，请在此输入……",
+      "maxImagesReached": "已达到最多 3 张图片",
+      "privacyPolicy": "我已阅读并接受《隐私政策》。",
+      "submitFeedback": "提交反馈",
+      "reasons": {
+        "interface": "界面",
+        "loadingSpeed": "加载速度",
+        "functionalManipulation": "功能操作",
+        "customService": "客服服务",
+        "other": "其他"
+      }
+    },
+    "modal": {
+      "thankYou": "非常感谢！",
+      "message": "我们会认真阅读每一条反馈，并持续为像你这样的用户改进产品。"
+    },
+    "select": {
+      "awesome": "太棒了——非常有帮助，运行良好！",
+      "satisfied": "满意——运行稳定，易于使用",
+      "okay": "一般——可用但不太流畅",
+      "needsImprovement": "需要改进——操作不够流畅",
+      "notGood": "不佳——仍有许多需要优化"
+    }
+  }
+}
