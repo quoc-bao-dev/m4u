@@ -1,0 +1,827 @@
+{
+  "common": {
+    "home": "หน้าแรก",
+    "about": "เกี่ยวกับ",
+    "contact": "ติดต่อ",
+    "language": "ภาษา",
+    "welcome": "ยินดีต้อนรับสู่แอปพลิเคชันของเรา",
+    "reviewer": "ผู้รีวิว",
+    "product": "สินค้า",
+    "share": "แชร์:",
+    "loadMore": "โหลดเพิ่มเติม"
+  },
+  "navigation": {
+    "home": "หน้าแรก",
+    "products": "สินค้า",
+    "services": "บริการ",
+    "contact": "ติดต่อ"
+  },
+  "hero": {
+    "viewNow": "ดูตอนนี้",
+    "liveStream": {
+      "membersOnline": "สมาชิกออนไลน์",
+      "singleMoms": "ผู้รีวิว",
+      "participatingInGroup": "กำลังเข้าร่วมกลุ่มทดลองประสบการณ์"
+    }
+  },
+  "donation": {
+    "donated": "บริจาคแล้ว!",
+    "month": "เดือน",
+    "day": "วัน",
+    "hour": "ชั่วโมง",
+    "individuals": "บุคคล",
+    "justDonated": "เพิ่งบริจาคให้ชุมชนของเรา!",
+    "financialPublicNote": "*เปิดเผยงบการเงินทุกเดือน"
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "การบริจาคและการกุศล",
+      "description": "เข้าร่วม M4U เพื่อสนับสนุนคุณแม่เลี้ยงเดี่ยวผ่านสินค้าและการสมทบจากชุมชน"
+    },
+    "giveToday": {
+      "titleLead": "ให้วันนี้,",
+      "titleEnd": "เปลี่ยนวันพรุ่งนี้",
+      "subtitle": "เข้าร่วมกองทุนของ M4U เพื่อสนับสนุนคุณแม่เลี้ยงเดี่ยวด้วยของจำเป็นและทักษะ"
+    },
+    "eventCampaign": {
+      "titleLead": "ความเปล่งประกายของคุณ,",
+      "titleEnd": "การเติบโตของเธอ",
+      "desc": "ทุก ๆ สินค้าจะสมทบ 5% ให้กับแคมเปญอาสาที่ช่วยยกระดับคุณแม่เลี้ยงเดี่ยว—ทั้งค่าใช้จ่ายประจำวันและโครงการพัฒนาทักษะ เมื่อคุณลองและรีวิว คุณได้ช่วยสองต่อ"
+    },
+    "modalSection": {
+      "titleLead": "โมเดลกองทุนการกุศลของเรา:",
+      "titleEnd": "ความงามเพื่อจุดมุ่งหมาย",
+      "desc": "รายได้ส่วนหนึ่งของเราและการสมทบจากชุมชนของคุณ ถูกส่งตรงเข้าสู่กองทุน M4U for Community เพื่อสนับสนุนคุณแม่เลี้ยงเดี่ยวในประเทศไทย",
+      "fundingSources": "แหล่งเงินทุน",
+      "charityFund": "กองทุนการกุศล",
+      "discountOnProduct": "% ส่วนลดสำหรับแต่ละ\nสินค้าที่ขาย",
+      "commission": "% ค่าคอมมิชชั่นจาก ผู้แนะนำ/ผู้รีวิว/ผู้ขาย",
+      "directDonations": "การบริจาคโดยตรง\nจากชุมชน",
+      "government": "รัฐบาล",
+      "organizations": "องค์กร",
+      "individuals": "บุคคล"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "กำลังจัด",
+        "coming": "เร็ว ๆ นี้"
+      },
+      "fundName": "กองทุนการกุศล M4U",
+      "totalProducts": "จำนวนสินค้า",
+      "totalFundsConverted": "ยอดเงินที่แปลงเป็นกองทุนรวม"
+    },
+    "productCard": {
+      "contribution": "การสมทบ"
+    }
+  },
+  "footer": {
+    "sitemap": "แผนผังเว็บไซต์",
+    "home": "หน้าแรก",
+    "joinTrial": "เข้าร่วมทดลอง",
+    "newsfeed": "ฟีดข่าว",
+    "newsEvents": "ข่าว & กิจกรรม",
+    "account": "บัญชี",
+    "copyright": "© 2025 — ลิขสิทธิ์ Mask4U สงวนลิขสิทธิ์"
+  },
+  "developing": {
+    "comingSoon": "เร็ว ๆ นี้!",
+    "underDevelopment": "หน้านี้อยู่ระหว่างการพัฒนา โปรดกลับมาตรวจสอบภายหลัง!",
+    "backToHome": "กลับสู่หน้าแรก"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "เขียนรีวิว รับข้อเสนอทันที",
+    "singleMomsJoined": " คุณแม่เลี้ยงเดี่ยวได้เข้าร่วมแล้ว",
+    "joinTitle": "เข้าร่วม",
+    "experienceTitle": "ประสบการณ์"
+  },
+  "topProduct": {
+    "top3Products": "3 อันดับสินค้ายอดนิยม",
+    "mostCared": "ที่ได้รับความสนใจมากที่สุด",
+    "reviews": "รีวิว",
+    "productName": "Panthetoin Deep Moisture Mask",
+    "registerCount": "จำนวนลงทะเบียน"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "สิทธิประโยชน์และข้อกำหนด",
+    "benefits": "สิทธิประโยชน์",
+    "terms": "ข้อกำหนด",
+    "memberBenefits": "สิทธิประโยชน์สำหรับสมาชิกผู้รีวิว",
+    "benefit1": "ทดลองสินค้าความงามฮิต ๆ ได้ฟรี",
+    "benefit2": "รายได้ที่น่าสนใจจากลิงก์แนะนำของคุณ",
+    "benefit3": "เข้าถึงสินค้าใหม่และลิมิเต็ดก่อนใคร",
+    "benefit4": "รับการสนับสนุนและคำแนะนำเพื่อยกระดับคุณภาพรีวิวจากผู้เชี่ยวชาญ",
+    "benefit5": "เชื่อมต่อกับชุมชนเพื่อแบ่งปันประสบการณ์และเรียนรู้ร่วมกัน",
+    "placeholder1": "เนื้อหาตัวอย่าง: คุณสามารถแทนที่ด้วยข้อมูลจริงเมื่อพร้อม",
+    "placeholder2": "เนื้อหาตัวอย่าง: สมาชิกจะได้รับสิทธิพิเศษเพิ่มเติมเมื่อเข้าร่วมกิจกรรม"
+  },
+  "filter": {
+    "title": "ตัวกรอง",
+    "without": "ไม่มี",
+    "usage": "การใช้งาน",
+    "skinType": "ประเภทผิว",
+    "ingredients": "ส่วนผสม",
+    "price": "ราคา",
+    "brand": "แบรนด์",
+    "artificialFragrance": "น้ำหอมสังเคราะห์",
+    "alcohol": "แอลกอฮอล์",
+    "sulphates": "ซัลเฟต",
+    "animalDerived": "สารจากสัตว์",
+    "silicone": "ซิลิโคน",
+    "deepMoisturizing": "ให้ความชุ่มชื้นล้ำลึก",
+    "oilControl": "ควบคุมความมัน & สมดุล",
+    "acneTreatment": "รักษาสิว & ปลอบประโลม",
+    "antiAging": "ชะลอวัย & ฟื้นฟู",
+    "whitening": "ผิวกระจ่างใส",
+    "drySkin": "ผิวแห้ง",
+    "oilySkin": "ผิวมัน",
+    "sensitiveSkin": "ผิวแพ้ง่าย",
+    "combinationSkin": "ผิวผสม",
+    "normalSkin": "ผิวปกติ",
+    "acneSkin": "ผิวเป็นสิวง่าย",
+    "clearAll": "ล้างทั้งหมด",
+    "apply": "นำไปใช้",
+    "aloeVera": "ว่านหางจระเข้",
+    "collagen": "คอลลาเจน",
+    "hyaluronicAcid": "กรดไฮยาลูโรนิก",
+    "teaTree": "ทีทรี",
+    "gotuKola": "ใบบัวบก",
+    "reviews": "รีวิว"
+  },
+  "reviewCTA": {
+    "title": "กำลังรออะไรอยู่?",
+    "become": "มาเป็น",
+    "reviewerNow": "ผู้รีวิวตอนนี้เลย!",
+    "registerTrial": "เข้าร่วมทดลอง",
+    "participation": "การเข้าร่วม"
+  },
+  "reviewHub": {
+    "title": "ศูนย์รวมรีวิว",
+    "description": "ค้นพบผู้รีวิวชั้นนำและสินค้าที่โดดเด่น",
+    "endorsedByTopReviewers": "ได้รับการรับรองโดยผู้รีวิวชั้นนำ",
+    "filters": {
+      "freeFrom": "ปราศจาก",
+      "parabens": "พาราเบน",
+      "sulfates": "ซัลเฟต",
+      "phthalates": "พทาเลต",
+      "fragrance": "น้ำหอม",
+      "alcohol": "แอลกอฮอล์",
+      "benefits": "ประโยชน์",
+      "hydrating": "ให้ความชุ่มชื้น",
+      "antiAging": "ชะลอวัย",
+      "brightening": "ผิวกระจ่างใส",
+      "acneFighting": "ต่อต้านสิว",
+      "soothing": "ปลอบประโลม",
+      "skinType": "ประเภทผิว",
+      "oily": "ผิวมัน",
+      "dry": "ผิวแห้ง",
+      "combination": "ผิวผสม",
+      "sensitive": "ผิวแพ้ง่าย",
+      "normal": "ผิวปกติ",
+      "keyIngredients": "ส่วนผสมสำคัญ",
+      "retinol": "เรตินอล",
+      "vitaminC": "วิตามินซี",
+      "hyaluronicAcid": "กรดไฮยาลูโรนิก",
+      "niacinamide": "ไนอะซินาไมด์",
+      "salicylicAcid": "กรดซาลิไซลิก",
+      "rating": "การให้คะแนน",
+      "fiveStars": "5 ดาว",
+      "fourStarsUp": "4 ดาวขึ้นไป",
+      "threeStarsUp": "3 ดาวขึ้นไป",
+      "twoStarsUp": "2 ดาวขึ้นไป"
+    },
+    "searchPlaceholder": "ค้นหา ...",
+    "influencer": {
+      "titleLead": "เปลี่ยนความหลงใหลในความงามของคุณ",
+      "titleEnd": "ให้กลายเป็นรายได้!",
+      "subtitle": "ลงทะเบียนทดลองสินค้าฟรีและสร้างรายได้จากรีวิวของคุณ",
+      "cta": "ลงทะเบียนทดลองตอนนี้"
+    },
+    "kols": {
+      "sortBy": "จัดเรียงตาม",
+      "mostViewed": "เข้าชมมากที่สุด",
+      "filterBy": "กรองตาม:",
+      "options": {
+        "latest": "ล่าสุด",
+        "oldest": "เก่าสุด",
+        "mostViewed": "เข้าชมมากที่สุด",
+        "highestRated": "ได้คะแนนสูงสุด",
+        "mostLiked": "ถูกใจมากที่สุด"
+      },
+      "period": {
+        "all": "ทั้งหมด",
+        "today": "วันนี้",
+        "week": "สัปดาห์นี้",
+        "month": "เดือนนี้",
+        "year": "ปีนี้",
+        "allTime": "ตลอดเวลา"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "รีวิวมาสก์ชีทใดก็ได้ 3 ชิ้น",
+      "ribbonBottom": "ลุ้นรับ iPhone 16",
+      "dateLabel": "01 ตุลาคม 2025",
+      "headline": "จะประกาศผู้ชนะ",
+      "joinNow": "เข้าร่วมทันที"
+    },
+    "card": {
+      "fundName": "กองทุนการกุศล M4U",
+      "mobileDesc": "ชอบมาสก์ชีทไหม? รีวิวผลิตภัณฑ์มาสก์ที่คัดสรรของเรา 3 ชิ้นได้ฟรี และแชร์ความเห็นอย่างจริงใจ ...",
+      "totalProducts": "จำนวนสินค้า",
+      "totalFundsConverted": "ยอดเงินแปลงเป็นกองทุน"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "กติกากิจกรรม",
+        "eligibility": "คุณสมบัติผู้เข้าร่วม",
+        "newUserTask": "งานสำหรับผู้ใช้ใหม่"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "รายละเอียดการสมทบ",
+      "sponsor": "ผู้สนับสนุน",
+      "product": "สินค้า",
+      "totalPrizes": "รางวัลรวม",
+      "totalPrizePool": "มูลค่ารางวัลรวม",
+      "comingSoon": "เร็ว ๆ นี้",
+      "registrationDate": "วันที่ลงทะเบียน",
+      "endDate": "วันที่สิ้นสุด",
+      "joinNow": "เข้าร่วมตอนนี้"
+    },
+    "badge": {
+      "status": {
+        "happening": "กำลังจัด",
+        "coming": "เร็ว ๆ นี้"
+      }
+    },
+    "filter": {
+      "tabs": {
+        "all": "ทั้งหมด",
+        "event": "กิจกรรม",
+        "challenge": "ความท้าทาย"
+      },
+      "filters": {
+        "all": "ทั้งหมด",
+        "upcoming": "ที่กำลังจะมาถึง",
+        "ongoing": "กำลังดำเนินการ",
+        "ended": "สิ้นสุดแล้ว"
+      },
+      "filterBy": "กรองตาม:",
+      "searchPlaceholder": "ค้นหา..."
+    },
+    "questions": {
+      "titleLead": "คำถามที่พบบ่อย ",
+      "titleTail": "& คำตอบ",
+      "perksTitle": "สิทธิพิเศษของสมาชิกผู้รีวิว",
+      "intro": "เมื่อคุณเข้าร่วม คุณจะได้รับสิทธิพิเศษดังนี้:",
+      "bullets": {
+        "freeTrials": {
+          "label": "ทดลองสินค้าได้ฟรี:",
+          "desc": "ลองสินค้าความงามยอดฮิตได้โดยไม่มีค่าใช้จ่าย"
+        },
+        "earnings": {
+          "label": "รายได้ที่น่าสนใจ:",
+          "desc": "รับค่าคอมมิชชั่นจากทุกคำสั่งซื้อที่ผ่านลิงก์แนะนำของคุณตามเงื่อนไข"
+        },
+        "earlyAccess": {
+          "label": "เข้าถึงก่อนใคร:",
+          "desc": "เป็นกลุ่มแรกที่ได้ทดลองสินค้าใหม่และลิมิเต็ด"
+        },
+        "support": {
+          "label": "การสนับสนุน & คำแนะนำ:",
+          "desc": "รับคู่มือและทิปส์จากมือโปรเพื่อพัฒนารีวิวของคุณ"
+        },
+        "community": {
+          "label": "ชุมชน:",
+          "desc": "เชื่อมต่อกับผู้รักความงาม แบ่งปันประสบการณ์และเรียนรู้ร่วมกัน"
+        }
+      },
+      "placeholder1Title": "สิทธิพิเศษของสมาชิกผู้รีวิว",
+      "placeholder1": "เนื้อหาตัวอย่าง: คุณสามารถแทนที่ด้วยข้อมูลจริงเมื่อพร้อม",
+      "placeholder2Title": "สิทธิพิเศษของสมาชิกผู้รีวิว",
+      "placeholder2": "เนื้อหาตัวอย่าง: สมาชิกจะได้รับสิทธิพิเศษเพิ่มเติมเมื่อเข้าร่วมกิจกรรม"
+    }
+  },
+  "product": {
+    "register": "เข้าร่วมทดลอง",
+    "writeYourReview": "เขียนรีวิวของคุณ",
+    "registerBtn": "ลงทะเบียนตอนนี้",
+    "participation": "การเข้าร่วม",
+    "reviews": "รีวิว",
+    "slotsLeft": "เหลือเพียง {count} สิทธิ์",
+    "users": "ผู้ใช้",
+    "enrolledTrial": "ได้ลงทะเบียนเข้าร่วมโปรแกรมทดลองของสินค้าแล้ว",
+    "views": "ยอดดู",
+    "filterBy": "กรองตาม:",
+    "selectFilter": "เลือกตัวกรอง",
+    "viewAll": "ดูทั้งหมด",
+    "exploreSimilarProducts": "สำรวจสินค้าที่คล้ายกัน",
+    "honestReviews": "รีวิวจริงใจ",
+    "fromRealUsers": "จากผู้ใช้จริง",
+    "noReviews": "ยังไม่มีรีวิวสำหรับสินค้านี้",
+    "viewReview": "ดูรีวิว"
+  },
+  "review": {
+    "rating": {
+      "excellent": "ยอดเยี่ยม"
+    }
+  },
+  "cart": {
+    "title": "ตะกร้าทดลอง ({count} รายการ)",
+    "empty": "ตะกร้าว่าง",
+    "clearAll": "ล้างทั้งหมด",
+    "viewDetails": "ดูรายละเอียด",
+    "addedToCart": "เพิ่มลงตะกร้าแล้ว",
+    "alreadyInCart": "มีในตะกร้าแล้ว"
+  },
+  "rating": {
+    "excellent": "ยอดเยี่ยม",
+    "good": "ดี",
+    "average": "ปานกลาง",
+    "bad": "แย่",
+    "veryBad": "แย่มาก"
+  },
+  "timer": {
+    "days": "วัน",
+    "hours": "ชม.",
+    "minutes": "นาที",
+    "seconds": "วิ"
+  },
+  "auth": {
+    "logoutSuccess": "ออกจากระบบสำเร็จ!",
+    "loginSuccess": "เข้าสู่ระบบสำเร็จ!",
+    "signIn": "เข้าสู่ระบบ",
+    "signingIn": "กำลังเข้าสู่ระบบ...",
+    "welcomeBack": "ยินดีต้อนรับกลับ! กรุณากรอกรายละเอียดเพื่อเข้าสู่ระบบ",
+    "phoneNumber": "หมายเลขโทรศัพท์",
+    "enterPhoneNumber": "ป้อนหมายเลขโทรศัพท์ของคุณ",
+    "password": "รหัสผ่าน",
+    "forgotPassword": "ลืมรหัสผ่าน?",
+    "rememberAccount": "จำบัญชี",
+    "phoneRequired": "ต้องระบุหมายเลขโทรศัพท์",
+    "passwordRequired": "ต้องระบุรหัสผ่าน",
+    "confirmLogoutTitle": "ยืนยันการออกจากระบบ",
+    "confirmLogoutDesc": "คุณแน่ใจหรือไม่ว่าต้องการออกจากบัญชีของคุณ?",
+    "cancel": "ยกเลิก",
+    "logout": "ออกจากระบบ",
+    "forgot": {
+      "enterPhoneFirst": "โปรดป้อนหมายเลขโทรศัพท์ก่อนรีเซ็ตรหัสผ่าน",
+      "phone": {
+        "title": "ลืมรหัสผ่าน",
+        "desc": "โปรดป้อนหมายเลขโทรศัพท์เพื่อรับรหัสยืนยัน",
+        "submit": "ส่ง OTP",
+        "validation": {
+          "phoneRequired": "ต้องระบุหมายเลขโทรศัพท์"
+        }
+      },
+      "otp": {
+        "title": "ป้อนรหัสยืนยัน",
+        "desc": "ป้อนรหัส OTP {length} หลักที่ส่งไปยังหมายเลข {phone}",
+        "sending": "กำลังส่ง...",
+        "sendSuccess": "ได้ส่ง OTP ไปยังหมายเลขโทรศัพท์ของคุณแล้ว",
+        "sendFailed": "ไม่สามารถส่ง OTP โปรดลองอีกครั้ง",
+        "inputError": "โปรดป้อนรหัส OTP ให้ครบถ้วน",
+        "confirm": "ยืนยัน",
+        "checking": "กำลังตรวจสอบ...",
+        "invalid": "รหัส OTP ไม่ถูกต้อง",
+        "verifyError": "การยืนยัน OTP ล้มเหลว โปรดลองอีกครั้ง"
+      },
+      "reset": {
+        "title": "เปลี่ยนรหัสผ่าน",
+        "desc": "โปรดป้อนรหัสผ่านใหม่ของคุณ",
+        "newPassword": "รหัสผ่านใหม่",
+        "confirmPassword": "ยืนยันรหัสผ่าน",
+        "submitting": "กำลังดำเนินการ...",
+        "submit": "ยืนยันการเปลี่ยน",
+        "success": "เปลี่ยนรหัสผ่านและเข้าสู่ระบบสำเร็จ",
+        "saveFailed": "เปลี่ยนรหัสผ่านไม่สำเร็จ",
+        "loginFailed": "เข้าสู่ระบบใหม่ไม่สำเร็จ",
+        "passwordsNotMatch": "รหัสผ่านไม่ตรงกัน",
+        "validation": {
+          "passwordRequired": "ต้องระบุรหัสผ่านใหม่",
+          "confirmPasswordRequired": "ต้องยืนยันรหัสผ่าน"
+        }
+      }
+    }
+  },
+  "menu": {
+    "reviewerQuestion": "คุณเป็นผู้รีวิวของ M4U หรือไม่?",
+    "reviewerOptions": {
+      "yes": "ใช่ ฉันเป็นสมาชิก",
+      "no": "ยังไม่เป็น สมัครเลย"
+    },
+    "section": {
+      "productCommunity": "สินค้า & ชุมชน",
+      "settings": "การตั้งค่า",
+      "general": "ทั่วไป",
+      "support": "สนับสนุน"
+    },
+    "productCommunity": {
+      "trial-samples": "ตัวอย่างทดลอง",
+      "donation-charity": "การบริจาคและการกุศล",
+      "review-hub": "ศูนย์รวมรีวิว",
+      "event": "กิจกรรม"
+    },
+    "settings": {
+      "general": {
+        "language": "ภาษา"
+      },
+      "support": {
+        "help-centre": "ศูนย์ช่วยเหลือ",
+        "feedback-submission": "ส่งข้อเสนอแนะ"
+      }
+    },
+    "auth": {
+      "loadingUser": "กำลังโหลดข้อมูลผู้ใช้...",
+      "unknown": "ไม่ทราบ",
+      "unknownUser": "ผู้ใช้ไม่ทราบ",
+      "joinedSince": "เข้าร่วมตั้งแต่ {date}",
+      "membership": {
+        "gold": "สมาชิกระดับทอง"
+      },
+      "stats": {
+        "referrals": "การแนะนำ",
+        "active": "ใช้งานอยู่",
+        "accountBalance": "ยอดเงินคงเหลือ",
+        "points": "คะแนน",
+        "commissionRevenue": "รายได้ค่าคอมมิชชั่น",
+        "reviews": "รีวิว"
+      },
+      "activity": {
+        "title": "กิจกรรมของฉัน",
+        "trialHistory": "ประวัติการลงทะเบียนทดลอง",
+        "myReviews": "รีวิวของฉัน",
+        "referralList": "รายชื่อผู้แนะนำ",
+        "referralCode": "โปรแกรมแนะนำเพื่อน",
+        "notification": "การแจ้งเตือน"
+      },
+      "account": {
+        "preferences": "ค่ากำหนดบัญชี"
+      },
+      "logout": "ออกจากระบบ"
+    }
+  },
+  "notification": {
+    "title": "การแจ้งเตือน",
+    "viewAll": "ดูทั้งหมด",
+    "viewDetail": "ดูรายละเอียด",
+    "nodata": {
+      "title": "ยังไม่มีการแจ้งเตือน",
+      "desc": "การแจ้งเตือนของคุณจะแสดงที่นี่เมื่อมีการอัปเดต"
+    },
+    "tabs": {
+      "all": "ทั้งหมด",
+      "reviews": "รีวิว",
+      "products": "สินค้า"
+    },
+    "actions": {
+      "markReadAll": "ทำเครื่องหมายว่าอ่านทั้งหมด",
+      "marking": "กำลังทำเครื่องหมาย..."
+    },
+    "pagination": {
+      "prev": "ก่อนหน้า",
+      "next": "ถัดไป",
+      "pageXofY": "หน้า {current} / {total}"
+    },
+    "relative": {
+      "now": "เมื่อสักครู่",
+      "minutes": "{count} นาทีที่ผ่านมา",
+      "hours": "{count} ชั่วโมงที่ผ่านมา",
+      "days": "{count} วันที่ผ่านมา"
+    }
+  },
+  "trial": {
+    "form": {
+      "headerTitle": "ลงทะเบียนรับสินค้าทดลอง",
+      "headerSubtitle": "ฝากรายละเอียดไว้ แล้วเราจะติดต่อคุณ",
+      "fields": {
+        "fullName": {
+          "label": "ชื่อ-นามสกุล",
+          "placeholder": "ป้อนชื่อ-นามสกุลของคุณ"
+        },
+        "phoneNumber": {
+          "label": "หมายเลขโทรศัพท์",
+          "placeholder": "ป้อนหมายเลขโทรศัพท์ของคุณ"
+        },
+        "dateOfBirth": {
+          "label": "วันเดือนปีเกิด",
+          "placeholder": "เลือกวันเดือนปีเกิดของคุณ"
+        },
+        "address": { "label": "ที่อยู่", "placeholder": "ป้อนที่อยู่ของคุณ" },
+        "gender": {
+          "label": "เพศ",
+          "options": { "female": "หญิง", "male": "ชาย", "other": "อื่น ๆ" }
+        }
+      },
+      "productSection": { "label": "สินค้าสำหรับทดลอง" },
+      "submit": {
+        "processing": "กำลังดำเนินการ...",
+        "continue": "ดำเนินการต่อ"
+      },
+      "validation": {
+        "fullNameMin": "โปรดป้อนชื่อ-นามสกุลที่ถูกต้อง",
+        "phoneInvalid": "หมายเลขโทรศัพท์ไม่ถูกต้อง",
+        "genderRequired": "โปรดเลือกเพศ",
+        "dobRequired": "โปรดเลือกวันเดือนปีเกิด",
+        "addressMin": "โปรดป้อนที่อยู่ที่ถูกต้อง"
+      },
+      "api": {
+        "registerFailed": "ลงทะเบียนไม่สำเร็จ",
+        "registerError": "เกิดข้อผิดพลาดระหว่างการลงทะเบียน"
+      }
+    },
+    "otp": {
+      "title": "ป้อนรหัสยืนยัน",
+      "desc": "ป้อนรหัส OTP {length} หลักที่ส่งไปยังหมายเลข {phone}",
+      "processing": "กำลังดำเนินการ...",
+      "confirm": "ยืนยัน",
+      "errors": {
+        "verifyFailed": "การยืนยัน OTP ล้มเหลว",
+        "verifyError": "เกิดข้อผิดพลาดระหว่างการยืนยัน OTP"
+      }
+    },
+    "success": {
+      "title": "ลงทะเบียนสำเร็จ!",
+      "message": "เราได้รับคำขอของคุณแล้ว สินค้าทดลองจะถูกจัดส่งไปยังที่อยู่ของคุณภายในไม่กี่วัน"
+    }
+  },
+  "submitReview": {
+    "back": "กลับ",
+    "title": "พร้อมรีวิวและสร้างรายได้หรือยัง?",
+    "shareReview": "แชร์รีวิวอย่างจริงใจของคุณ",
+    "addVideo": "เพิ่มวิดีโอของคุณ (บังคับ)",
+    "addPhotos": "เพิ่มรูปภาพของคุณ (ไม่บังคับ)",
+    "dropFiles": "วางไฟล์ของคุณที่นี่ หรือคลิกเพื่ออัปโหลด",
+    "rating": "การให้คะแนน",
+    "productQuality": "คุณภาพสินค้า",
+    "overallExperience": "ประสบการณ์โดยรวม",
+    "absorbability": "การซึมซาบ",
+    "moisturization": "การให้ความชุ่มชื้น",
+    "skinBrightening": "ผิวกระจ่างใส",
+    "excellent": "ยอดเยี่ยม",
+    "tellUsWhatYouThink": "บอกเราว่าคุณคิดอย่างไร",
+    "reviewTips": "เคล็ดลับการรีวิว",
+    "placeholder": "คุณชอบอะไรเกี่ยวกับสินค้านี้?",
+    "submitReview": "ส่งรีวิว",
+    "uploadSuccessfully": "อัปโหลดสำเร็จ",
+    "hasVideoReview": "มีวิดีโอรีวิว",
+    "reviewImage": "รูปรีวิว {number}"
+  },
+  "dateRangePicker": {
+    "from": "จาก",
+    "to": "ถึง",
+    "cancel": "ยกเลิก",
+    "apply": "นำไปใช้"
+  },
+  "myReviews": {
+    "header": {
+      "title": "รีวิวของฉัน",
+      "searchPlaceholder": "ค้นหาสินค้า รีวิว วันที่ ฯลฯ"
+    },
+    "history": {
+      "header": {
+        "title": "ประวัติการลงทะเบียนทดลอง",
+        "searchPlaceholder": "ค้นหาสินค้า รีวิว วันที่ ฯลฯ"
+      },
+      "table": {
+        "headers": {
+          "orderId": "รหัสคำสั่งซื้อ",
+          "productInfo": "ข้อมูลสินค้า",
+          "review": "รีวิว",
+          "reward": "รางวัล",
+          "dateTime": "วันที่และเวลา",
+          "timeCreated": "เวลาที่สร้าง",
+          "orderStatus": "สถานะคำสั่งซื้อ",
+          "action": "การดำเนินการ"
+        },
+        "statuses": {
+          "completed": "เสร็จสมบูรณ์",
+          "pending": "รอดำเนินการ",
+          "cancelled": "ยกเลิก",
+          "processing": "กำลังดำเนินการ"
+        },
+        "actions": {
+          "review": "รีวิว",
+          "edit": "แก้ไข",
+          "viewDetails": "ดูรายละเอียด",
+          "viewReason": "ดูสาเหตุ",
+          "rewriteReview": "เขียนรีวิวใหม่"
+        },
+        "error": {
+          "loadFailed": "เกิดข้อผิดพลาดในการโหลดประวัติรีวิว",
+          "tryLater": "โปรดลองอีกครั้งในภายหลัง"
+        },
+        "empty": {
+          "title": "ไม่พบประวัติรีวิว",
+          "desc": "ประวัติรีวิวของคุณจะแสดงที่นี่เมื่อคุณทำการรีวิวเสร็จสิ้น"
+        },
+        "mobile": {
+          "moreProducts": "+{count} สินค้า",
+          "daysLeftToSubmit": "เหลือ {count} วันในการส่งรีวิว"
+        }
+      },
+      "reasonModal": {
+        "title": "เหตุผลในการปฏิเสธ",
+        "empty": "ไม่มีเหตุผลที่ระบุ",
+        "close": "ปิด"
+      }
+    }
+  },
+  "nodataReviewhub": {
+    "title": "เริ่มต้นเส้นทางความงามของคุณ!",
+    "description": "ประวัติการทดลองสินค้าของคุณจะแสดงที่นี่เมื่อคุณลงทะเบียนสินค้าชิ้นแรกแล้ว เริ่มได้ง่าย ๆ — สมัครเพื่อรับสินค้าฟรี รับค่าคอมมิชชั่น และรับคูปองพิเศษ",
+    "registerButton": "ลงทะเบียนรับการทดลองฟรี",
+    "noData": "ยังไม่มีข้อมูล"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "ชื่อ-นามสกุลต้องยาวอย่างน้อย 2 อักษร",
+        "phoneInvalid": "โปรดกรอกหมายเลขโทรศัพท์ที่ถูกต้อง",
+        "genderRequired": "โปรดเลือกเพศ",
+        "dobRequired": "ต้องระบุวันเดือนปีเกิด",
+        "addressMin": "ที่อยู่ต้องยาวอย่างน้อย 5 อักษร",
+        "oldPasswordRequired": "ต้องระบุรหัสผ่านปัจจุบัน",
+        "newPasswordMin": "รหัสผ่านใหม่ต้องยาวอย่างน้อย 8 อักษร",
+        "confirmPasswordRequired": "โปรดยืนยันรหัสผ่านใหม่",
+        "passwordsDoNotMatch": "รหัสผ่านไม่ตรงกัน"
+      },
+      "fields": {
+        "fullName": {
+          "label": "ชื่อ-นามสกุล",
+          "placeholder": "ป้อนชื่อ-นามสกุลของคุณ"
+        },
+        "phoneNumber": {
+          "label": "หมายเลขโทรศัพท์",
+          "placeholder": "ป้อนหมายเลขโทรศัพท์ของคุณ"
+        },
+        "gender": {
+          "label": "เพศ",
+          "options": {
+            "female": "หญิง",
+            "male": "ชาย",
+            "other": "อื่น ๆ"
+          }
+        },
+        "dateOfBirth": {
+          "label": "วันเกิด",
+          "placeholder": "เลือกวันเดือนปีเกิดของคุณ"
+        },
+        "address": {
+          "label": "ที่อยู่",
+          "placeholder": "ป้อนที่อยู่ของคุณ"
+        },
+        "oldPassword": {
+          "label": "รหัสผ่านเดิม",
+          "placeholder": "ป้อนรหัสผ่านปัจจุบันของคุณ"
+        },
+        "newPassword": {
+          "label": "รหัสผ่านใหม่",
+          "placeholder": "ป้อนรหัสผ่านใหม่ของคุณ"
+        },
+        "confirmPassword": {
+          "label": "ยืนยันรหัสผ่านใหม่",
+          "placeholder": "ยืนยันรหัสผ่านใหม่ของคุณ"
+        }
+      },
+      "buttons": {
+        "saveChanges": "บันทึกการเปลี่ยนแปลง",
+        "updatePhoto": "อัปเดตรูปภาพ"
+      },
+      "sections": {
+        "general": "ทั่วไป",
+        "security": "ความปลอดภัย",
+        "accountPreferences": "ค่ากำหนดบัญชี"
+      },
+      "helpers": {
+        "passwordRequirement": "รหัสผ่านต้องมีอย่างน้อย 8 อักขระขึ้นไป",
+        "photoRequirement": "อนุญาตไฟล์ *.jpeg, *.jpg, *.png, *.gif\nขนาดไม่เกิน 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "accountPreferences": "ค่ากำหนดบัญชี",
+    "form": {
+      "general": {
+        "title": "ทั่วไป",
+        "updatePhoto": "อัปเดตรูปภาพ",
+        "uploadNote": "อนุญาตไฟล์ *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "ขนาดสูงสุด 3.1 MB"
+      },
+      "security": {
+        "title": "ความปลอดภัย"
+      },
+      "fields": {
+        "fullName": {
+          "label": "ชื่อ-นามสกุล",
+          "placeholder": "ป้อนชื่อ-นามสกุลของคุณ"
+        },
+        "phoneNumber": {
+          "label": "หมายเลขโทรศัพท์",
+          "placeholder": "ป้อนหมายเลขโทรศัพท์ของคุณ"
+        },
+        "gender": {
+          "label": "เพศ",
+          "options": {
+            "female": "หญิง",
+            "male": "ชาย",
+            "other": "อื่น ๆ"
+          }
+        },
+        "dateOfBirth": {
+          "label": "วันเกิด",
+          "placeholder": "เลือกวันเดือนปีเกิดของคุณ"
+        },
+        "address": {
+          "label": "ที่อยู่",
+          "placeholder": "ป้อนที่อยู่ของคุณ"
+        },
+        "oldPassword": {
+          "label": "รหัสผ่านเดิม",
+          "placeholder": "ป้อนรหัสผ่านเดิมของคุณ"
+        },
+        "newPassword": {
+          "label": "รหัสผ่านใหม่",
+          "placeholder": "ป้อนรหัสผ่านใหม่ของคุณ",
+          "helperText": "รหัสผ่านต้องมีอย่างน้อย 8 อักขระขึ้นไป"
+        },
+        "confirmPassword": {
+          "label": "ยืนยันรหัสผ่านใหม่",
+          "placeholder": "ยืนยันรหัสผ่านใหม่ของคุณ",
+          "helperTextMatch": "รหัสผ่านตรงกัน"
+        }
+      },
+      "submit": {
+        "saveChanges": "บันทึกการเปลี่ยนแปลง",
+        "saving": "กำลังบันทึก..."
+      },
+      "success": {
+        "updateAccount": "อัปเดตบัญชีสำเร็จ",
+        "updatePassword": "อัปเดตรหัสผ่านสำเร็จ",
+        "updateAvatar": "อัปเดตรูปประจำตัวสำเร็จ"
+      },
+      "errors": {
+        "noToken": "ไม่พบโทเค็นยืนยันตัวตน โปรดเข้าสู่ระบบอีกครั้ง",
+        "updateFailed": "อัปเดตบัญชีไม่สำเร็จ โปรดลองอีกครั้ง",
+        "updatePasswordFailed": "อัปเดตรหัสผ่านไม่สำเร็จ โปรดลองอีกครั้ง",
+        "updateAvatarFailed": "อัปเดตรูปประจำตัวไม่สำเร็จ",
+        "invalidFileType": "ประเภทไฟล์ไม่ถูกต้อง โปรดเลือกไฟล์รูปภาพที่ถูกต้อง (JPEG, JPG, PNG, GIF)",
+        "fileTooLarge": "ไฟล์มีขนาดใหญ่เกินไป โปรดเลือกไฟล์ที่มีขนาดไม่เกิน 3.1 MB"
+      },
+      "validation": {
+        "fullNameMin": "ชื่อ-นามสกุลต้องยาวอย่างน้อย 2 อักษร",
+        "phoneInvalid": "หมายเลขโทรศัพท์ต้องมี 8-15 อักขระ",
+        "genderRequired": "ต้องระบุเพศ",
+        "dobRequired": "ต้องระบุวันเดือนปีเกิด",
+        "addressMin": "ที่อยู่ต้องยาวอย่างน้อย 5 อักษร",
+        "oldPasswordRequired": "ต้องระบุรหัสผ่านเดิม",
+        "newPasswordRequired": "ต้องระบุรหัสผ่านใหม่",
+        "newPasswordMin": "รหัสผ่านใหม่ต้องยาวอย่างน้อย 8 อักษร",
+        "confirmPasswordRequired": "ต้องยืนยันรหัสผ่าน",
+        "passwordsNotMatch": "รหัสผ่านไม่ตรงกัน"
+      }
+    }
+  },
+  "Referral": {
+    "title": "โปรแกรมแนะนำเพื่อน",
+    "copy": "คัดลอก",
+    "copied": "คัดลอกแล้ว",
+    "referrals": "การแนะนำ",
+    "commissionRevenue": "รายได้ค่าคอมมิชชั่น",
+    "friends": "เพื่อน",
+    "noData": {
+      "title": "ยังไม่มีข้อมูล",
+      "desc": "รายชื่อผู้ใช้ที่คุณแนะนำจะแสดงที่นี่เมื่อพร้อม แชร์รหัสแนะนำของคุณเพื่อเริ่มต้น"
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "ข้อเสนอแนะเพิ่มเติม",
+      "textareaPlaceholder": "หากคุณมีสิ่งที่อยากเพิ่มเติม โปรดพิมพ์ที่นี่...",
+      "maxImagesReached": "ถึงจำนวนรูปภาพสูงสุด 3 รูปแล้ว",
+      "privacyPolicy": "ฉันได้อ่านและยอมรับนโยบายความเป็นส่วนตัว",
+      "submitFeedback": "ส่งข้อเสนอแนะ",
+      "reasons": {
+        "interface": "อินเทอร์เฟซ",
+        "loadingSpeed": "ความเร็วในการโหลด",
+        "functionalManipulation": "การทำงานของฟังก์ชัน",
+        "customService": "บริการลูกค้า",
+        "other": "อื่น ๆ"
+      }
+    },
+    "modal": {
+      "thankYou": "ขอบคุณมาก!",
+      "message": "เราจะอ่านทุกข้อเสนอแนะอย่างรอบคอบและพัฒนาผลิตภัณฑ์ให้ดียิ่งขึ้นสำหรับผู้ใช้เช่นคุณ"
+    },
+    "select": {
+      "awesome": "ยอดเยี่ยม - ช่วยได้มาก ใช้งานได้ดี!",
+      "satisfied": "พอใจ - ทำงานเสถียร ใช้งานง่าย",
+      "okay": "พอใช้ - ใช้ได้แต่ยังไม่ลื่นไหล",
+      "needsImprovement": "ควรปรับปรุง - การทำงานยังไม่ลื่นไหล",
+      "notGood": "ไม่ดี - ยังมีหลายส่วนที่ต้องปรับปรุง"
+    }
+  }
+}

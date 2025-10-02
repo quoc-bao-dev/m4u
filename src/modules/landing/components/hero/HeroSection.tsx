@@ -45,7 +45,8 @@ const HeroSection = () => {
   const [dotIndex, setDotIndex] = useState(0)
   const currentBanner = normalized?.[dotIndex] || {}
   const isBackground =
-    (currentBanner as any)?.is_background === 1 || (currentBanner as any)?.is_background === '1'
+    (currentBanner as any)?.is_background === 1 ||
+    (currentBanner as any)?.is_background === '1'
   return (
     <>
       <div className="relative h-[calc(var(--vh-initial,1vh)*100)] flex flex-col overflow-hidden">
@@ -66,7 +67,8 @@ const HeroSection = () => {
                       <Image
                         src={
                           isMobile
-                            ? (currentBanner as any)?.image_mobile || (currentBanner as any).image
+                            ? (currentBanner as any)?.image_mobile ||
+                              (currentBanner as any).image
                             : (currentBanner as any).image
                         }
                         alt="Hero Background"
@@ -85,15 +87,25 @@ const HeroSection = () => {
           >
             <Container className="h-full">
               <HeroContent
-                titleHtmlOverride={isBackground ? (currentBanner as any)?.title : undefined}
-                contentHtmlOverride={isBackground ? (currentBanner as any)?.content : undefined}
+                titleHtmlOverride={
+                  isBackground ? (currentBanner as any)?.title : undefined
+                }
+                contentHtmlOverride={
+                  isBackground ? (currentBanner as any)?.content : undefined
+                }
                 isBackground={isBackground}
                 banners={normalized}
                 currentIndex={dotIndex}
               />
-              <div className="absolute z-20 bottom-3 lg:bottom-6 left-6 md:left-8 lg:left-12 xl:left-20 flex gap-4 items-center">
+              <div className="absolute z-20 bottom-3 lg:bottom-6 right-6 md:right-8 lg:right-12 xl:right-20 flex gap-4 items-center">
                 <button
-                  onClick={() => setDotIndex((p) => (p - 1 + normalized.length) % Math.max(normalized.length, 1))}
+                  onClick={() =>
+                    setDotIndex(
+                      (p) =>
+                        (p - 1 + normalized.length) %
+                        Math.max(normalized.length, 1)
+                    )
+                  }
                   className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
                 >
                   <ArrowLeftIcon
@@ -102,7 +114,9 @@ const HeroSection = () => {
                   />
                 </button>
                 <button
-                  onClick={() => setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))}
+                  onClick={() =>
+                    setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))
+                  }
                   className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
                 >
                   <ArrowRightIcon
@@ -118,7 +132,10 @@ const HeroSection = () => {
                       key={i}
                       aria-label={`Go to slide ${i + 1}`}
                       onClick={() => setDotIndex(i)}
-                      className={'h-3 w-3 2xl:h-[18px] 2xl:w-[18px] rounded-full transition-all duration-300 ' + (dotIndex === i ? 'bg-[#FE6BBA] !w-10' : 'bg-white')}
+                      className={
+                        'h-3 w-3 2xl:h-[18px] 2xl:w-[18px] rounded-full transition-all duration-300 ' +
+                        (dotIndex === i ? 'bg-[#FE6BBA] !w-10' : 'bg-white')
+                      }
                     />
                   ))}
                 </div>

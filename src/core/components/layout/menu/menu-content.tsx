@@ -20,6 +20,7 @@ import AuthenticatedMenu, {
   AccountButton,
   LogoutButton,
 } from './authenticated-menu'
+import LanguageSwitcher from '../header/LanguageSwitcher'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [
@@ -289,7 +290,9 @@ const MenuContent = ({
               })}
 
               {/* Language Selector */}
-              <div className="flex items-center gap-1 bg-greyscale-50 rounded-xl p-1">
+
+              {/* Langue ver:1.0 */}
+              {/* <div className="flex items-center gap-1 bg-greyscale-50 rounded-xl p-1">
                 {languageOptions.map((lang) => (
                   <button
                     key={lang.id}
@@ -321,7 +324,14 @@ const MenuContent = ({
                     </span>
                   </button>
                 ))}
-              </div>
+              </div> */}
+
+              {/* Langue ver:2.0 */}
+              {/* TODO: fix langue */}
+              <LanguageSwitcher
+                size="sm"
+                placement={isAuthenticated ? 'bottom' : 'top'}
+              />
             </div>
             {/* Render account button only when authenticated */}
             {isAuthenticated && <AccountButton />}
