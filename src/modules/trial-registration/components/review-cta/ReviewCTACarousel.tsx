@@ -21,15 +21,21 @@ interface ReviewCTACarouselProps {
 }
 
 const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
-  // Infinite loop setup
-  const loopCount = 3
-  const baseBlockIndex = 1 // middle block
-  const extendedItems = useMemo(
-    () => Array.from({ length: loopCount }).flatMap(() => items),
-    [items]
-  )
+  // True infinite scroll setup: dynamically grow head/tail blocks
+  const baseBlockIndex = 1 // start centered
+  const [headBlocks, setHeadBlocks] = useState(1)
+  const [tailBlocks, setTailBlocks] = useState(1)
+  const extendedItems = useMemo(() => {
+    const totalBlocks = headBlocks + 1 + tailBlocks
+    return Array.from({ length: totalBlocks }).flatMap(() => items)
+  }, [items, headBlocks, tailBlocks])
   const [activeIndex, setActiveIndex] = useState(0)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const scrollEndTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const blockWidthRef = useRef<number>(0)
+  const pendingPrependAdjustRef = useRef<number | null>(null)
+  const hasMeasuredRef = useRef<boolean>(false)
+  const [isReady, setIsReady] = useState(false)
 
   const blockSize = items.length
   const getMiddleIndexForLogical = (logicalIndex: number) =>
@@ -60,14 +66,38 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
     setActiveIndex(clamped)
   }
 
+  // Prepare initial active index; actual scrolling waits until measurement is ready
+  useEffect(() => {
+    const startIndex = items.length * headBlocks
+    setActiveIndex(startIndex)
+  }, [items.length, headBlocks])
+
+  // Measure block width after layout
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    // Initialize to the middle block for seamless looping
-    const startIndex = items.length * baseBlockIndex
-    setActiveIndex(startIndex)
-    el.scrollLeft = getScrollLeftForIndex(startIndex)
-  }, [items.length])
+    const children = Array.from(el.children) as HTMLElement[]
+    if (children.length === 0) return
+    const start = headBlocks * blockSize
+    const end = start + blockSize - 1
+    const first = children[start] as HTMLElement | undefined
+    const last = children[end] as HTMLElement | undefined
+    if (first && last) {
+      const width = last.offsetLeft + last.clientWidth - first.offsetLeft
+      blockWidthRef.current = width
+      if (!hasMeasuredRef.current && width > 0) {
+        hasMeasuredRef.current = true
+        // After first stable measure, position to the middle without smooth behavior
+        const startIndex = items.length * headBlocks
+        el.scrollTo({
+          left: getScrollLeftForIndex(startIndex),
+          behavior: 'auto',
+        })
+        // Allow interactions and snapping after next frame to avoid thrash with image layout
+        requestAnimationFrame(() => setIsReady(true))
+      }
+    }
+  }, [extendedItems.length, headBlocks, blockSize])
 
   // Update active index based on scroll position
   useEffect(() => {
@@ -75,6 +105,7 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
     if (!el) return
 
     const handleScroll = () => {
+      if (!isReady) return
       const children = Array.from(el.children) as HTMLElement[]
       const containerCenter = el.clientWidth / 2
       const scrollLeft = el.scrollLeft
@@ -96,31 +127,64 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
         setActiveIndex(closestIndex)
       }
 
-      // Seamless loop repositioning to keep the scroll within the middle block
+      // Infinite grow: append/prepend blocks near edges
       const blockSize = items.length
-      if (closestIndex < blockSize) {
-        const target = closestIndex + blockSize
-        scrollToIndex(target, 'auto')
-      } else if (closestIndex >= blockSize * 2) {
-        const target = closestIndex - blockSize
-        scrollToIndex(target, 'auto')
+      const blockWidth = blockWidthRef.current
+      const totalScrollable = el.scrollWidth - el.clientWidth
+      const nearEnd = scrollLeft > totalScrollable - blockWidth * 0.75
+      const nearStart = scrollLeft < blockWidth * 0.75
+
+      if (nearEnd) {
+        setTailBlocks((v) => v + 1)
+      } else if (nearStart) {
+        // We will prepend and then adjust scrollLeft by +blockWidth on next frame
+        pendingPrependAdjustRef.current = el.scrollLeft + blockWidth
+        setHeadBlocks((v) => v + 1)
       }
+
+      // Snap to nearest after user stops scrolling (debounced)
+      if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current)
+      scrollEndTimerRef.current = setTimeout(() => {
+        scrollToIndex(closestIndex, 'smooth')
+      }, 90)
     }
 
     el.addEventListener('scroll', handleScroll)
     return () => el.removeEventListener('scroll', handleScroll)
-  }, [activeIndex])
+  }, [activeIndex, items.length, isReady])
+
+  // After prepending, compensate scrollLeft so position is preserved
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    if (pendingPrependAdjustRef.current != null) {
+      el.scrollTo({ left: pendingPrependAdjustRef.current, behavior: 'auto' })
+      pendingPrependAdjustRef.current = null
+    }
+  }, [headBlocks])
 
   return (
     <div className="relative w-full">
       <div
         ref={scrollRef}
-        className="flex items-center justify-start cursor-default select-none gap-4 md:gap-6 scroll-smooth md:h-[600px] h-[550px] overflow-x-auto px-4"
+        className="flex items-center justify-start cursor-default select-none gap-4 md:gap-6 md:h-[600px] h-[550px] overflow-x-auto px-4"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
-          scrollBehavior: 'smooth',
+          scrollBehavior: 'auto',
           WebkitOverflowScrolling: 'touch',
+        }}
+        role="listbox"
+        aria-label="Review carousel"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowRight') {
+            e.preventDefault()
+            if (isReady) scrollToIndex(activeIndex + 1)
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault()
+            if (isReady) scrollToIndex(activeIndex - 1)
+          }
         }}
       >
         {extendedItems.map((item, idx) => (
@@ -128,8 +192,8 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
             key={`cta-review-${idx}`}
             className={`flex-shrink-0 transition-all duration-500 ease-in-out ${
               activeIndex === idx
-                ? 'transform scale-110 md:scale-105 z-10'
-                : 'transform scale-90 md:scale-100'
+                ? 'transform scale-110 md:scale-110 z-10 opacity-100'
+                : 'transform scale-90 md:scale-95 opacity-80'
             }`}
           >
             <ReviewCard
@@ -151,6 +215,7 @@ const ReviewCTACarousel: React.FC<ReviewCTACarouselProps> = ({ items }) => {
               }}
               className="cursor-pointer select-none"
               onClick={() =>
+                isReady &&
                 scrollToIndex(getMiddleIndexForLogical(idx % blockSize))
               }
             />
