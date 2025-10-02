@@ -37,12 +37,12 @@ const HeroContent = ({
 
   return (
     <div className="relative flex flex-col lg:grid grid-cols-1 grid-rows-[1fr_auto] md:grid-rows-1 md:grid-cols-2 gap-4 lg:gap-12 h-full">
-      <div className="lg:space-y-8 h-fit lg:h-full md:py-10 lg:py-0">
-        <div className="flex items-center w-full md:h-full mt-20 md:mt-0">
+      <div className="lg:space-y-8 h-fit lg:h-full md:py-10 lg:py-0 2xl:pr-10">
+        <div className="flex  w-full md:h-full mt-20 xl:mt-28">
           <div className="w-full">
             {/* Main Heading */}
             <div className="space-y-4 w-full">
-              <div className="text-[42px] md:text-[48px] lg:text-[64px] xl:text-[72px] 2xl:text-[88px]">
+              <div className="text-[42px] md:text-[48px] lg:text-[64px] 2xl:text-[80px]">
                 {isLoading ? (
                   <Skeleton className="w-4/5 h-36" />
                 ) : (

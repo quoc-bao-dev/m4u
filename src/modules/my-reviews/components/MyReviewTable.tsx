@@ -58,6 +58,9 @@ const MyReviewTable = () => {
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const [hasUserScrolled, setHasUserScrolled] = useState(false)
+  const mobileSentinelRef = useRef<HTMLDivElement | null>(null)
+  const [hasUserScrolledMobile, setHasUserScrolledMobile] = useState(false)
 
   const rows = useMemo(() => {
     const pages = data?.pages ?? []
@@ -181,10 +184,22 @@ const MyReviewTable = () => {
     const sentinelEl = sentinelRef.current
     if (!rootEl || !sentinelEl) return
 
+    const onScroll = () => {
+      if (rootEl.scrollTop > 0 && !hasUserScrolled) {
+        setHasUserScrolled(true)
+      }
+    }
+    rootEl.addEventListener('scroll', onScroll)
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+        if (
+          entry.isIntersecting &&
+          hasUserScrolled &&
+          hasNextPage &&
+          !isFetchingNextPage
+        ) {
           fetchNextPage()
         }
       },
@@ -198,15 +213,50 @@ const MyReviewTable = () => {
     observer.observe(sentinelEl)
     return () => {
       observer.disconnect()
+      rootEl.removeEventListener('scroll', onScroll)
     }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage])
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, hasUserScrolled])
+
+  // Infinite scroll for mobile (viewport scroll)
+  useEffect(() => {
+    const sentinel = mobileSentinelRef.current
+    if (!sentinel) return
+
+    const onWindowScroll = () => {
+      if (window.scrollY > 0 && !hasUserScrolledMobile) {
+        setHasUserScrolledMobile(true)
+      }
+    }
+    window.addEventListener('scroll', onWindowScroll, { passive: true })
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (
+          entry.isIntersecting &&
+          hasUserScrolledMobile &&
+          hasNextPage &&
+          !isFetchingNextPage
+        ) {
+          fetchNextPage()
+        }
+      },
+      { root: null, rootMargin: '0px', threshold: 0.1 }
+    )
+    observer.observe(sentinel)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', onWindowScroll)
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage, hasUserScrolledMobile])
 
   useEffect(() => {
     refetch()
   }, [activeTab, searchQuery, dateRange.from, dateRange.to, refetch])
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full min-h-0">
       <InfoKolModal
         isOpen={isInfoOpen}
         onClose={() => setIsInfoOpen(false)}
@@ -218,8 +268,11 @@ const MyReviewTable = () => {
         reason={selectedReason || ''}
       />
       {/* Desktop table */}
-      <div className="hidden md:block  md:bg-white rounded-lg">
-        <div className="overflow-x-auto">
+      <div className="hidden md:flex md:flex-col md:bg-white rounded-lg h-full min-h-0">
+        <div
+          className="overflow-x-auto h-full flex-1 min-h-0 overflow-y-auto"
+          ref={scrollContainerRef}
+        >
           <table className="w-full text-left">
             {/* Table header */}
             <thead className="sticky top-0">
@@ -372,6 +425,8 @@ const MyReviewTable = () => {
                 ))}
             </tbody>
           </table>
+          {/* Sentinel for infinite scroll */}
+          <div ref={sentinelRef} className="h-6" />
         </div>
       </div>
 
@@ -512,6 +567,8 @@ const MyReviewTable = () => {
               </div>
             </div>
           ))}
+        {/* Mobile sentinel for infinite scroll */}
+        <div ref={mobileSentinelRef} className="h-6" />
       </div>
     </div>
   )
