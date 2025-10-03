@@ -3,9 +3,11 @@ import { Metadata } from "next";
 import he from 'he';
 import axiosInstance from "@/core/http/axiosInstance";
 
-async function getProductDetail(slug: string) {
+async function getProductDetail(slug: string, locale: string) {
   try {
-    const response = await axiosInstance.get(`products/getDetail/${slug}`);
+    const response = await axiosInstance.get(`products/getDetail/${slug}`, {
+      params: { _locale: locale }
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching product detail:", error);
@@ -20,7 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const { slug, locale } = await params;
-    const productData = await getProductDetail(slug);
+    const productData = await getProductDetail(slug, locale);
 
     if (!productData) {
       return {
