@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  BirthDayInput,
   DatePicker,
   Input,
   RadioGroup,
@@ -367,7 +368,7 @@ const UserGeneralForm = () => {
                   control={control}
                   render={({ field }) => (
                     <div className="lg:hidden w-full">
-                      <DatePicker
+                      <BirthDayInput
                         label={t('personal.form.fields.dateOfBirth.label')}
                         value={field.value}
                         onChange={field.onChange}
@@ -375,12 +376,8 @@ const UserGeneralForm = () => {
                         placeholder={t(
                           'personal.form.fields.dateOfBirth.placeholder'
                         )}
+                        error={errors.dateOfBirth?.message}
                       />
-                      {errors.dateOfBirth && (
-                        <p className="mt-1 text-xs text-red-600">
-                          {errors.dateOfBirth.message}
-                        </p>
-                      )}
                     </div>
                   )}
                 />
@@ -416,7 +413,7 @@ const UserGeneralForm = () => {
                   control={control}
                   render={({ field }) => (
                     <div className="w-full">
-                      <DatePicker
+                      <BirthDayInput
                         label={t('personal.form.fields.dateOfBirth.label')}
                         value={field.value}
                         onChange={field.onChange}
@@ -424,12 +421,8 @@ const UserGeneralForm = () => {
                         placeholder={t(
                           'personal.form.fields.dateOfBirth.placeholder'
                         )}
+                        error={errors.dateOfBirth?.message}
                       />
-                      {errors.dateOfBirth && (
-                        <p className="mt-1 text-xs text-red-600">
-                          {errors.dateOfBirth.message}
-                        </p>
-                      )}
                     </div>
                   )}
                 />

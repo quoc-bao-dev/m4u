@@ -1,6 +1,11 @@
 'use client'
 
-import { DatePicker, Input, RadioGroup } from '@/core/components/ui'
+import {
+  BirthDayInput,
+  DatePicker,
+  Input,
+  RadioGroup,
+} from '@/core/components/ui'
 import Button from '@/core/components/ui/button'
 import { useToast } from '@/core/hooks/useToast'
 import { withAlpha } from '@/core/utils'
@@ -191,7 +196,7 @@ const TrialRegistrationForm = ({
                 control={control}
                 render={({ field }) => (
                   <div className="w-full">
-                    <DatePicker
+                    <BirthDayInput
                       label={t('trial.form.fields.dateOfBirth.label')}
                       value={field.value}
                       onChange={(value) => field.onChange(value)}
@@ -199,12 +204,8 @@ const TrialRegistrationForm = ({
                       placeholder={t(
                         'trial.form.fields.dateOfBirth.placeholder'
                       )}
+                      error={errors.dateOfBirth?.message}
                     />
-                    {errors.dateOfBirth && (
-                      <p className="mt-1 text-xs text-red-600">
-                        {errors.dateOfBirth.message}
-                      </p>
-                    )}
                   </div>
                 )}
               />
