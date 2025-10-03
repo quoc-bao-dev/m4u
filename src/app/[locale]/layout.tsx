@@ -42,10 +42,13 @@ export async function generateMetadata({
       };
     }
 
-    const decodedTitle = productData.data.name;
-    const decodedContent = productData.data.ingredients[0].content;
+    // const decodedTitle = productData?.data?.name;
+    // const decodedContent = productData?.data?.ingredients[0]?.content;
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://m4u.amazingtrial.com';
+    const decodedTitle = "Mask for you";
+    const decodedContent = "Khám phá các sản phẩm chất lượng cao tại M4U";
+
+    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://maskforyou.vn';
     const canonicalUrl = locale === '' ? `${baseUrl}/product/${slug}` : `${baseUrl}/${locale}/product/${slug}`;
 
     return {
@@ -62,7 +65,7 @@ export async function generateMetadata({
         siteName: 'M4U',
         images: [
           {
-            url: '/image/meta/thumbnail.png',
+            url: '/image/meta/thumbnail1.png',
             width: 1200,
             height: 630,
             alt: decodedTitle,
@@ -75,7 +78,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: decodedTitle,
         description: decodedContent,
-        images: ['/image/meta/thumbnail.png'],
+        images: ['/image/meta/thumbnail1.png'],
       },
       robots: {
         index: true,
@@ -92,7 +95,7 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Mask for U",
+      title: "Mask for you",
       description: "Khám phá các sản phẩm chất lượng cao tại M4U",
     };
   }

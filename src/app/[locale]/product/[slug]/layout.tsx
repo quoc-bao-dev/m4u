@@ -3,9 +3,11 @@ import { Metadata } from "next";
 import he from 'he';
 import axiosInstance from "@/core/http/axiosInstance";
 
-async function getProductDetail(slug: string) {
+async function getProductDetail(slug: string, locale: string) {
   try {
-    const response = await axiosInstance.get(`products/getDetail/${slug}`);
+    const response = await axiosInstance.get(`products/getDetail/${slug}`, {
+      params: { _locale: locale }
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching product detail:", error);
@@ -20,7 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const { slug, locale } = await params;
-    const productData = await getProductDetail(slug);
+    const productData = await getProductDetail(slug, locale);
 
     if (!productData) {
       return {
@@ -53,7 +55,7 @@ export async function generateMetadata({
         siteName: 'M4U',
         images: [
           {
-            url: productData.data.image,
+            url: `${baseUrl}/image/meta/thumbnail1.png`,
             width: 1200,
             height: 630,
             alt: decodedTitle,
@@ -66,7 +68,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: decodedTitle,
         description: decodedContent,
-        images: [productData.data.image],
+        images: [`${baseUrl}/image/meta/thumbnail1.png`],
       },
       robots: {
         index: true,
