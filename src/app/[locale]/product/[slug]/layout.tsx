@@ -30,9 +30,13 @@ export async function generateMetadata({
     }
 
     const decodedTitle = he.decode(productData.data.name);
-    const decodedContent = he.decode(productData.data.ingredients[0].content);
+    // Decode HTML entities first, then strip HTML tags
+    const rawContent = he.decode(productData.data.ingredients[0]?.content || productData.data.content || '');
+    const cleanContent = rawContent.replace(/<[^>]*>/g, '').replace(/[\r\n]+/g, ' ').trim();
+    // Truncate to 160 chars for SEO meta description
+    const decodedContent = cleanContent.length > 160 ? cleanContent.substring(0, 160) + '...' : cleanContent;
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://m4u.amazingtrial.com';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://maskforyou.vn';
     const canonicalUrl = locale === '' ? `${baseUrl}/product/${slug}` : `${baseUrl}/${locale}/product/${slug}`;
 
     return {
