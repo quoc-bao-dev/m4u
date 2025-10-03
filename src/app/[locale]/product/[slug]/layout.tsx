@@ -1,20 +1,7 @@
-import { MainLayout } from '@/core/components'
-import axiosInstance from '@/core/http/axiosInstance'
-import { locales } from '@/locale/config'
-import { AppProvider } from '@/provider'
-import { Metadata } from 'next'
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
-import { ReactNode } from 'react'
-
-type Props = {
-  children: ReactNode
-  params: Promise<{ locale: string }>
-}
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }))
-}
+import { ReactNode } from "react";
+import { Metadata } from "next";
+import he from 'he';
+import axiosInstance from "@/core/http/axiosInstance";
 
 async function getProductDetail(slug: string) {
   try {
@@ -42,8 +29,8 @@ export async function generateMetadata({
       };
     }
 
-    const decodedTitle = productData.data.name;
-    const decodedContent = productData.data.ingredients[0].content;
+    const decodedTitle = he.decode(productData.data.name);
+    const decodedContent = he.decode(productData.data.ingredients[0].content);
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://m4u.amazingtrial.com';
     const canonicalUrl = locale === '' ? `${baseUrl}/product/${slug}` : `${baseUrl}/${locale}/product/${slug}`;
@@ -62,7 +49,7 @@ export async function generateMetadata({
         siteName: 'M4U',
         images: [
           {
-            url: '/image/meta/thumbnail.png',
+            url: productData.data.image,
             width: 1200,
             height: 630,
             alt: decodedTitle,
@@ -75,7 +62,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: decodedTitle,
         description: decodedContent,
-        images: ['/image/meta/thumbnail.png'],
+        images: [productData.data.image],
       },
       robots: {
         index: true,
@@ -92,23 +79,16 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Mask for U",
+      title: "Sản phẩm - M4U",
       description: "Khám phá các sản phẩm chất lượng cao tại M4U",
     };
   }
 }
 
-export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params
-
-  // Pass locale explicitly to getMessages
-  const messages = await getMessages({ locale })
-
-  return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <AppProvider>
-        <MainLayout>{children}</MainLayout>
-      </AppProvider>
-    </NextIntlClientProvider>
-  )
-}
+export default function ProductLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return children;
+} 
