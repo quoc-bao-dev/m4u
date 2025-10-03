@@ -4,13 +4,6 @@ import { z } from 'zod'
 export const createUserSecuritySchema = (t: (key: string) => string) =>
   z
     .object({
-      oldPassword: z
-        .string({
-          message: t('personal.form.validation.oldPasswordRequired'),
-        })
-        .min(1, {
-          message: t('personal.form.validation.oldPasswordRequired'),
-        }),
       newPassword: z
         .string({
           message: t('personal.form.validation.newPasswordRequired'),

@@ -1,17 +1,17 @@
 'use client'
 
 import { PasswordInput, SectionHeader } from '@/core/components/ui'
+import { useToast } from '@/core/hooks/useToast'
+import { tokenManager } from '@/core/http/axiosInstance'
+import { useUpdatePassword } from '@/services/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Info } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import { Controller, useForm } from 'react-hook-form'
 import {
   createUserSecuritySchema,
   type UserSecurityFormData,
 } from '../../schema'
-import { useUpdatePassword } from '@/services/user'
-import { useToast } from '@/core/hooks/useToast'
-import { tokenManager } from '@/core/http/axiosInstance'
-import { Info } from '@phosphor-icons/react'
 
 const UserSecurityForm = () => {
   const t = useTranslations()
@@ -29,7 +29,6 @@ const UserSecurityForm = () => {
     mode: 'onChange',
     resolver: zodResolver(schema),
     defaultValues: {
-      oldPassword: '',
       newPassword: '',
       confirmPassword: '',
     },
@@ -48,7 +47,6 @@ const UserSecurityForm = () => {
     try {
       const response = await updatePasswordMutation.mutateAsync({
         token,
-        password_old: data.oldPassword,
         password: data.newPassword,
       })
 
@@ -75,9 +73,7 @@ const UserSecurityForm = () => {
 
   // Check if all required fields have values
   const hasAllRequiredValues =
-    formValues.oldPassword?.trim() &&
-    formValues.newPassword?.trim() &&
-    formValues.confirmPassword?.trim()
+    formValues.newPassword?.trim() && formValues.confirmPassword?.trim()
 
   const doPasswordsMatch =
     formValues.newPassword === formValues.confirmPassword &&
@@ -96,24 +92,6 @@ const UserSecurityForm = () => {
 
       {/* Form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Old Password */}
-        <Controller
-          name="oldPassword"
-          control={control}
-          render={({ field }) => (
-            <div className="w-full">
-              <PasswordInput
-                label={t('personal.form.fields.oldPassword.label')}
-                placeholder={t('personal.form.fields.oldPassword.placeholder')}
-                value={field.value}
-                onChange={field.onChange}
-                required
-                error={errors.oldPassword?.message}
-              />
-            </div>
-          )}
-        />
-
         {/* New Password */}
         <Controller
           name="newPassword"

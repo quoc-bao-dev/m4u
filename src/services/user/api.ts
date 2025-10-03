@@ -17,7 +17,6 @@ export const userApi = {
 
   updatePassword: (data: {
     token: string
-    password_old: string
     password: string
     type?: string
   }) => {
