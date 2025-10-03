@@ -65,7 +65,7 @@ export async function generateMetadata({
         siteName: 'M4U',
         images: [
           {
-            url: '/image/meta/thumbnail1.png',
+            url: `${baseUrl}/image/meta/thumbnail1.png`,
             width: 1200,
             height: 630,
             alt: decodedTitle,
@@ -78,7 +78,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: decodedTitle,
         description: decodedContent,
-        images: ['/image/meta/thumbnail1.png'],
+        images: [`${baseUrl}/image/meta/thumbnail1.png`],
       },
       robots: {
         index: true,
