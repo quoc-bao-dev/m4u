@@ -732,7 +732,7 @@
         "uploadSize": "최대 크기: 3.1 MB"
       },
       "security": {
-        "title": "보안"
+        "title": "비밀번호 업데이트"
       },
       "fields": {
         "fullName": {

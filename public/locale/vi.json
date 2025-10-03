@@ -734,7 +734,7 @@
         "uploadSize": "Kích thước tối đa 3.1 MB"
       },
       "security": {
-        "title": "Bảo mật"
+        "title": "Cập nhật mật khẩu"
       },
       "fields": {
         "fullName": {

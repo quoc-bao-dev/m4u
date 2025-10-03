@@ -742,7 +742,7 @@
         "uploadSize": "ขนาดสูงสุด 3.1 MB"
       },
       "security": {
-        "title": "ความปลอดภัย"
+        "title": "อัปเดตรหัสผ่าน"
       },
       "fields": {
         "fullName": {
