@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-export const metadata: Metadata = {
-  title: 'M4U App',
-  description: 'Multi-language application with next-intl',
-}
+// export const metadata: Metadata = {
+//   title: 'M4U App',
+//   description: 'Multi-language application with next-intl',
+// }
 
 type Props = {
   children: ReactNode
