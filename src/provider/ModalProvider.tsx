@@ -12,6 +12,7 @@ import {
 } from '@/modules/trial-registration'
 import { FeedbackSuccessModal } from '@/modules/feedback/components'
 import { PropsWithChildren } from 'react'
+import AvatarCroperModal from '@/modules/personal/components/AvatarCroperModal'
 
 const ModalProvider = ({ children }: PropsWithChildren) => {
   return (
@@ -26,6 +27,7 @@ const ModalProvider = ({ children }: PropsWithChildren) => {
       <OTPForgotPassModal />
       <ForgotPassModal />
       <FeedbackSuccessModal />
+      <AvatarCroperModal />
     </>
   )
 }
