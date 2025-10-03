@@ -696,6 +696,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "Update Avatar",
+      "description": "Customize and align your avatar image to display beautifully on your profile.",
+      "zoom": "Zoom",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
     "accountPreferences": "Account preferences",
     "form": {
       "general": {

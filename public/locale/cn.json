@@ -696,6 +696,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "更新头像",
+      "description": "自定义和对齐您的头像图像，让它在您的个人资料中显示得最美观。",
+      "zoom": "缩放",
+      "cancel": "取消",
+      "save": "保存",
+      "saving": "保存中..."
+    },
     "accountPreferences": "账户偏好",
     "form": {
       "general": {

@@ -695,6 +695,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "Cập nhật ảnh đại diện",
+      "description": "Tùy chỉnh và căn chỉnh ảnh đại diện để hiển thị đẹp nhất trên hồ sơ của bạn.",
+      "zoom": "Zoom",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saving": "Đang lưu..."
+    },
     "accountPreferences": "Tùy chỉnh tài khoản",
     "form": {
       "general": {

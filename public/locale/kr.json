@@ -693,6 +693,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "프로필 사진 업데이트",
+      "description": "프로필에서 가장 아름답게 보이도록 아바타 이미지를 사용자 정의하고 정렬하세요.",
+      "zoom": "줌",
+      "cancel": "취소",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
     "accountPreferences": "계정 설정",
     "form": {
       "general": {
