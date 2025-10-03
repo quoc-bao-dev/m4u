@@ -5,7 +5,7 @@ import axiosInstance from "@/core/http/axiosInstance";
 
 async function getProductDetail(slug: string, locale: string) {
   try {
-    const response = await axiosInstance.get(`products/getDetail/${slug}`, {
+    const response = await axiosInstance.get(`/products/getDetailReview/${slug}`, {
       params: { _locale: locale }
     });
     return response.data;
@@ -39,7 +39,7 @@ export async function generateMetadata({
     const decodedContent = cleanContent.length > 160 ? cleanContent.substring(0, 160) + '...' : cleanContent;
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://maskforyou.vn';
-    const canonicalUrl = locale === '' ? `${baseUrl}/product/${slug}` : `${baseUrl}/${locale}/product/${slug}`;
+    const canonicalUrl = locale === '' ? `${baseUrl}/review-hub/${slug}` : `${baseUrl}/${locale}/review-hub/${slug}`;
 
     return {
       title: decodedTitle,
@@ -85,7 +85,7 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Sản phẩm - M4U",
+      title: "Review Hub - M4U",
       description: "Khám phá các sản phẩm chất lượng cao tại M4U",
     };
   }

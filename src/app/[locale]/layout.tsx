@@ -16,12 +16,14 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
 }
 
-async function getProductDetail(slug: string) {
+async function getProductDetail(locale: string) {
   try {
-    const response = await axiosInstance.get(`products/getDetail/${slug}`);
+    const response = await axiosInstance.get(`/getInfoContact`, {
+      params: { _locale: locale }
+    });
     return response.data;
   } catch (error) {
-    console.error("Error fetching product detail:", error);
+    console.error("Error fetching info contact:", error);
     return null;
   }
 }
@@ -32,37 +34,32 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   try {
-    const { slug, locale } = await params;
-    const productData = await getProductDetail(slug);
+    const { locale } = await params;
+    const infoContact = await getProductDetail(locale);
 
-    if (!productData) {
+    if (!infoContact) {
       return {
-        title: "Sản phẩm không tồn tại",
-        description: "Không tìm thấy sản phẩm bạn yêu cầu",
+        title: "Trang không tồn tại",
+        description: "Không tìm thấy trang bạn yêu cầu",
       };
     }
 
-    const decodedTitle = productData.data.name;
-    const decodedContent = productData.data.ingredients[0].content;
+    const decodedTitle = infoContact?.data?.title_thumbnal;
+    const decodedContent = infoContact?.data?.content_thumbnal;
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://m4u.amazingtrial.com';
-    const canonicalUrl = locale === '' ? `${baseUrl}/product/${slug}` : `${baseUrl}/${locale}/product/${slug}`;
-
+    const baseUrl = process.env.NEXT_PUBLIC_APP_DOMAIN || 'https://maskforyou.vn';
+    
     return {
       title: decodedTitle,
       description: decodedContent,
       metadataBase: new URL(baseUrl),
-      alternates: {
-        canonical: canonicalUrl,
-      },
       openGraph: {
         title: decodedTitle,
         description: decodedContent,
-        url: canonicalUrl,
         siteName: 'M4U',
         images: [
           {
-            url: '/image/meta/thumbnail.png',
+            url: infoContact?.data?.image_thumbnal,
             width: 1200,
             height: 630,
             alt: decodedTitle,
@@ -75,7 +72,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: decodedTitle,
         description: decodedContent,
-        images: ['/image/meta/thumbnail.png'],
+        images: [infoContact?.data?.image_thumbnal],
       },
       robots: {
         index: true,
@@ -92,7 +89,7 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Mask for U",
+      title: "Mask for you",
       description: "Khám phá các sản phẩm chất lượng cao tại M4U",
     };
   }
