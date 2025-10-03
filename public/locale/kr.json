@@ -8,7 +8,29 @@
     "reviewer": "리뷰어",
     "product": "제품",
     "share": "공유:",
-    "loadMore": "더 보기"
+    "loadMore": "더 보기",
+    "birthdayInput": {
+      "year": "년",
+      "month": "월",
+      "day": "일",
+      "selectYear": "연도 선택",
+      "selectMonth": "월 선택",
+      "selectDate": "생년월일 선택",
+      "months": {
+        "1": "1월",
+        "2": "2월",
+        "3": "3월",
+        "4": "4월",
+        "5": "5월",
+        "6": "6월",
+        "7": "7월",
+        "8": "8월",
+        "9": "9월",
+        "10": "10월",
+        "11": "11월",
+        "12": "12월"
+      }
+    }
   },
   "navigation": {
     "home": "홈",
@@ -693,6 +715,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "프로필 사진 업데이트",
+      "description": "프로필에서 가장 아름답게 보이도록 아바타 이미지를 사용자 정의하고 정렬하세요.",
+      "zoom": "줌",
+      "cancel": "취소",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
     "accountPreferences": "계정 설정",
     "form": {
       "general": {

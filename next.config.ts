@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
       '192.168.1.199',
       'admin.maskforyou.vn',
       'accounts.maskforyou.vn',
+      'admin.maskforyou.vn',
     ],
   },
   webpack(config) {

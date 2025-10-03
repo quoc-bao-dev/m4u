@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  BirthDayInput,
   DatePicker,
   Input,
   RadioGroup,
@@ -14,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CameraPlus } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
+import useAvatarCropper from '../../stores/useAvatarCropper'
 import { Controller, useForm } from 'react-hook-form'
 import { createUserGeneralSchema, type UserGeneralFormData } from '../../schema'
 
@@ -25,6 +27,7 @@ const UserGeneralForm = () => {
   const { showSuccess, showError } = useToast()
   const { user } = useAuth()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const avatarCropper = useAvatarCropper()
 
   const {
     control,
@@ -158,40 +161,51 @@ const UserGeneralForm = () => {
       return
     }
 
-    // Get token
-    const token = tokenManager.getAccessToken()
-    if (!token) {
-      showError(t('personal.form.errors.noToken'))
-      return
-    }
-
-    try {
-      const response = await updateAvatarMutation.mutateAsync({
-        token,
-        avatar: file,
+    // Open cropper modal with preview
+    const reader = new FileReader()
+    reader.onload = () => {
+      const imageSrc = reader.result as string
+      avatarCropper.open({
+        imageSrc,
+        onConfirm: async (blob: Blob) => {
+          const token = tokenManager.getAccessToken()
+          if (!token) {
+            showError(t('personal.form.errors.noToken'))
+            return
+          }
+          try {
+            const croppedFile = new File([blob], file.name || 'avatar.jpg', {
+              type: blob.type || 'image/jpeg',
+              lastModified: Date.now(),
+            })
+            const response = await updateAvatarMutation.mutateAsync({
+              token,
+              avatar: croppedFile,
+            })
+            if (response?.data?.result === true) {
+              showSuccess(t('personal.form.success.updateAvatar'))
+            } else {
+              showError(
+                response?.data?.message ||
+                  t('personal.form.errors.updateAvatarFailed')
+              )
+            }
+          } catch (error: any) {
+            const errorMessage =
+              error?.response?.data?.message ||
+              error?.message ||
+              t('personal.form.errors.updateAvatarFailed')
+            showError(errorMessage)
+            console.error('Update avatar failed:', error)
+          }
+        },
       })
+    }
+    reader.readAsDataURL(file)
 
-      // Check API response
-      if (response?.data?.result === true) {
-        showSuccess(t('personal.form.success.updateAvatar'))
-      } else {
-        showError(
-          response?.data?.message ||
-            t('personal.form.errors.updateAvatarFailed')
-        )
-      }
-    } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        t('personal.form.errors.updateAvatarFailed')
-      showError(errorMessage)
-      console.error('Update avatar failed:', error)
-    } finally {
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
-      }
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
   }
 
@@ -354,7 +368,7 @@ const UserGeneralForm = () => {
                   control={control}
                   render={({ field }) => (
                     <div className="lg:hidden w-full">
-                      <DatePicker
+                      <BirthDayInput
                         label={t('personal.form.fields.dateOfBirth.label')}
                         value={field.value}
                         onChange={field.onChange}
@@ -362,12 +376,8 @@ const UserGeneralForm = () => {
                         placeholder={t(
                           'personal.form.fields.dateOfBirth.placeholder'
                         )}
+                        error={errors.dateOfBirth?.message}
                       />
-                      {errors.dateOfBirth && (
-                        <p className="mt-1 text-xs text-red-600">
-                          {errors.dateOfBirth.message}
-                        </p>
-                      )}
                     </div>
                   )}
                 />
@@ -403,7 +413,7 @@ const UserGeneralForm = () => {
                   control={control}
                   render={({ field }) => (
                     <div className="w-full">
-                      <DatePicker
+                      <BirthDayInput
                         label={t('personal.form.fields.dateOfBirth.label')}
                         value={field.value}
                         onChange={field.onChange}
@@ -411,12 +421,8 @@ const UserGeneralForm = () => {
                         placeholder={t(
                           'personal.form.fields.dateOfBirth.placeholder'
                         )}
+                        error={errors.dateOfBirth?.message}
                       />
-                      {errors.dateOfBirth && (
-                        <p className="mt-1 text-xs text-red-600">
-                          {errors.dateOfBirth.message}
-                        </p>
-                      )}
                     </div>
                   )}
                 />

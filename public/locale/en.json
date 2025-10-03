@@ -8,7 +8,29 @@
     "reviewer": "reviewer",
     "product": "product",
     "share": "Share:",
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "birthdayInput": {
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "selectYear": "Select year",
+      "selectMonth": "Select month",
+      "selectDate": "Select date of birth",
+      "months": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    }
   },
   "navigation": {
     "home": "Home",
@@ -696,6 +718,14 @@
     }
   },
   "personal": {
+    "avatarCropper": {
+      "title": "Update Avatar",
+      "description": "Customize and align your avatar image to display beautifully on your profile.",
+      "zoom": "Zoom",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
     "accountPreferences": "Account preferences",
     "form": {
       "general": {
