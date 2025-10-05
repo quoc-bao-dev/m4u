@@ -22,7 +22,7 @@ const AccordionItem = ({
   return (
     <div
       className={cn(
-        'rounded-[16px] md:rounded-[24px] border border-gray-1000',
+        'rounded-[16px] md:rounded-[20px] border border-gray-1000 bg-white',
         className
       )}
     >
@@ -77,7 +77,7 @@ const AccordionItem = ({
 const ArrowIcon = ({ className }: { className?: string }) => {
   return (
     <svg
-      className={cn('w-4 h-4 md:w-6 md:h-6', className)}
+      className={cn('w-4 h-4 md:w-5 md:h-5', className)}
       width="24"
       height="24"
       viewBox="0 0 24 24"
