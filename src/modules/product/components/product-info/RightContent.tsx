@@ -108,7 +108,10 @@ const RightContent = ({
           >
             <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
               <h1 className="text-lg font-medium ">{ing.name}</h1>
-              <p dangerouslySetInnerHTML={{ __html: ing.content }} />
+              <p
+                dangerouslySetInnerHTML={{ __html: ing.content }}
+                className="text-base! leading-[150%]! md:leading-[170%]! pb-3"
+              />
             </div>
           </AccordionItem>
         ))}

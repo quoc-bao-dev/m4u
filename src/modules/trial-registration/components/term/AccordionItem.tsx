@@ -47,7 +47,7 @@ const AccordionItem = ({
           >
             <ArrowIcon />
           </span>
-          <span className="font-semibold text-gray-800  md:text-[24px]">
+          <span className="font-semibold text-gray-800 text-xl md:text-[24px]">
             {title}
           </span>
         </button>
@@ -66,7 +66,7 @@ const AccordionItem = ({
             : 0,
         }}
       >
-        <div className="px-3 md:px-6 pb-4 text-sm text-gray-700">
+        <div className="px-4 md:px-6 pb-4 text-sm text-gray-700">
           {children}
         </div>
       </div>
