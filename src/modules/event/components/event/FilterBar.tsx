@@ -61,7 +61,7 @@ const FilterBar = () => {
   }, [filterOptions])
 
   return (
-    <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-300 pb-0.5">
+    <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-300 ">
       {/* Top row on mobile: Tabs + Filter; On md+: only Tabs */}
       <div className="flex items-center justify-between gap-4">
         {/* Tabs */}
@@ -70,7 +70,7 @@ const FilterBar = () => {
             <button
               key={tab.id}
               className={
-                'relative pb-3 text-[18px] transition-colors  flex gap-2 items-center justify-center' +
+                'relative pb-5 text-[18px] transition-colors  flex gap-2 items-center justify-center' +
                 (activeTab === tab.id
                   ? 'text-gray-900 font-semibold'
                   : 'text-gray-400 hover:text-gray-600')
@@ -86,7 +86,7 @@ const FilterBar = () => {
                 {tab.count}
               </div>
               {activeTab === tab.id && (
-                <span className="absolute -bottom-[2px] left-0 right-0 h-[3px] rounded-t-full bg-pink-600" />
+                <span className="absolute -bottom-[0px] left-0 right-0 h-[6px] rounded-t bg-pink-600" />
               )}
             </button>
           ))}
