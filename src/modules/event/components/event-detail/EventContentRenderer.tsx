@@ -14,13 +14,25 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
 
     // Parse HTML content và tạo React elements
     const parseHtmlContent = (html: string) => {
+      const renderTextWithLineBreaks = (text: string) => {
+        if (!text) return null
+        const parts = text.split(/\r\n|\n|\r/g)
+        return parts.flatMap((part, idx) => {
+          const nodes: React.ReactNode[] = [part]
+          if (idx < parts.length - 1) {
+            nodes.push(<br key={`br-${Math.random()}`} />)
+          }
+          return nodes
+        })
+      }
+
       // Tạo một div tạm để parse HTML
       const tempDiv = document.createElement('div')
       tempDiv.innerHTML = html
 
       const parseNode = (node: Node): React.ReactNode => {
         if (node.nodeType === Node.TEXT_NODE) {
-          return node.textContent
+          return renderTextWithLineBreaks(node.textContent || '')
         }
 
         if (node.nodeType === Node.ELEMENT_NODE) {
