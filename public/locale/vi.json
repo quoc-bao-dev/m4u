@@ -273,13 +273,28 @@
       "comingSoon": "SẮP DIỄN RA",
       "registrationDate": "Ngày đăng ký",
       "endDate": "Ngày kết thúc",
-      "joinNow": "THAM GIA NGAY"
+      "joinNow": "THAM GIA NGAY",
+      "buttons": {
+        "joinNow": "THAM GIA NGAY",
+        "registerNotification": "SẮP DIỄN RA",
+        "eventEnded": "ĐÃ KẾT THÚC"
+      },
+      "titles": {
+        "eventHappening": "SỰ KIỆN ĐANG DIỄN RA",
+        "eventComing": "SỰ KIỆN SẮP BẮT ĐẦU",
+        "eventEnded": "SỰ KIỆN ĐÃ KẾT THÚC"
+      }
     },
     "badge": {
       "status": {
         "happening": "Đang diễn ra",
-        "coming": "Sắp diễn ra"
+        "coming": "Sắp diễn ra",
+        "ended": "Đã kết thúc"
       }
+    },
+    "relative": {
+      "title": "Sự kiện liên quan",
+      "loading": "Đang tải..."
     },
     "filter": {
       "tabs": { "all": "Tất cả", "event": "Sự kiện", "challenge": "Thử thách" },

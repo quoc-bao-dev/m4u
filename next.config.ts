@@ -32,6 +32,7 @@ const nextConfig: NextConfig = {
       'admin.maskforyou.vn',
       'accounts.maskforyou.vn',
       'admin.maskforyou.vn',
+      'services.maskforyou.vn',
     ],
   },
   webpack(config) {

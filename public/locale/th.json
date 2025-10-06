@@ -271,13 +271,28 @@
       "comingSoon": "เร็ว ๆ นี้",
       "registrationDate": "วันที่ลงทะเบียน",
       "endDate": "วันที่สิ้นสุด",
-      "joinNow": "เข้าร่วมตอนนี้"
+      "joinNow": "เข้าร่วมตอนนี้",
+      "buttons": {
+        "joinNow": "เข้าร่วมทันที",
+        "registerNotification": "เร็ว ๆ นี้",
+        "eventEnded": "สิ้นสุดแล้ว"
+      },
+      "titles": {
+        "eventHappening": "กิจกรรมกำลังดำเนินอยู่",
+        "eventComing": "กิจกรรมจะเริ่มเร็ว ๆ นี้",
+        "eventEnded": "กิจกรรมสิ้นสุดแล้ว"
+      }
     },
     "badge": {
       "status": {
         "happening": "กำลังจัด",
-        "coming": "เร็ว ๆ นี้"
+        "coming": "เร็ว ๆ นี้",
+        "ended": "สิ้นสุดแล้ว"
       }
+    },
+    "relative": {
+      "title": "กิจกรรมที่เกี่ยวข้อง",
+      "loading": "กำลังโหลด..."
     },
     "filter": {
       "tabs": {

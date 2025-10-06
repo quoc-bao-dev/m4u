@@ -1,6 +1,8 @@
 'use client'
 
 import Countdown from '../hero/Countdown'
+import { useLocale } from 'next-intl'
+import { mapToBCP47 } from '@/locale/utils'
 
 type Props = {
   time: string
@@ -10,11 +12,11 @@ type Props = {
   variant?: 'pink' | 'green' | 'gray'
 }
 
-const formatDateLabel = (iso: string) => {
+const formatDateLabel = (iso: string, locale: string) => {
   try {
     const d = new Date(iso)
     const dd = String(d.getDate()).padStart(2, '0')
-    const month = d.toLocaleString('en-US', { month: 'long' })
+    const month = d.toLocaleString(locale || 'en', { month: 'long' })
     const yyyy = d.getFullYear()
     return `${dd} ${month} ${yyyy}`
   } catch {
@@ -29,7 +31,8 @@ const SidebarAnnouncementCountdown = ({
   buttonText = 'JOIN NOW',
   variant = 'pink',
 }: Props) => {
-  const dateLabel = formatDateLabel(time)
+  const locale = useLocale()
+  const dateLabel = formatDateLabel(time, mapToBCP47(locale))
 
   return (
     <div className="relative w-full flex flex-col justify-between mx-auto">

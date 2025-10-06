@@ -271,13 +271,28 @@
       "comingSoon": "即将推出",
       "registrationDate": "报名日期",
       "endDate": "截止日期",
-      "joinNow": "立即参加"
+      "joinNow": "立即参加",
+      "buttons": {
+        "joinNow": "立即参加",
+        "registerNotification": "即将推出",
+        "eventEnded": "已结束"
+      },
+      "titles": {
+        "eventHappening": "活动进行中",
+        "eventComing": "活动即将开始",
+        "eventEnded": "活动已结束"
+      }
     },
     "badge": {
       "status": {
         "happening": "正在进行",
-        "coming": "即将开始"
+        "coming": "即将开始",
+        "ended": "已结束"
       }
+    },
+    "relative": {
+      "title": "相关活动",
+      "loading": "加载中..."
     },
     "filter": {
       "tabs": { "all": "全部", "event": "活动", "challenge": "挑战" },

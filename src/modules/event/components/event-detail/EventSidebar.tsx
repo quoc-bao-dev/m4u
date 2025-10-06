@@ -130,7 +130,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText={t('comingSoon')}
+              buttonText={t('buttons.registerNotification')}
               variant="green"
             />
           </div>
@@ -164,7 +164,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText={t('joinNow')}
+              buttonText={t('buttons.eventEnded')}
               variant="gray"
             />
           </div>
@@ -174,7 +174,7 @@ const EventSidebar = ({
               time={time}
               title={title}
               onJoin={onJoin}
-              buttonText={t('joinNow')}
+              buttonText={t('buttons.joinNow')}
               variant="pink"
             />
           </div>

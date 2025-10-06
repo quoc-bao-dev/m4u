@@ -1,18 +1,20 @@
 'use client'
 
-import Image from 'next/image'
-import EventFrame from '../event/EventFrame'
 import useEmblaCarousel from 'embla-carousel-react'
+import Image from 'next/image'
+import { useEffect, useMemo, useState } from 'react'
 import EventImage from './EventImage'
-import { useState } from 'react'
 
-const THUMBS = [
-  '/image/donation/event.jpg',
-  '/image/donation/event1.jpg',
-  '/image/donation/event2.jpg',
-]
+type EventContentProps = {
+  mainImage: string
+  images: Array<{
+    id: number
+    image: string
+    orderBy: number
+  }>
+}
 
-const EventContent = () => {
+const EventContent = ({ mainImage, images }: EventContentProps) => {
   const [emblaRef] = useEmblaCarousel({
     align: 'start',
     containScroll: 'trimSnaps',
@@ -20,21 +22,41 @@ const EventContent = () => {
     loop: true,
     duration: 25,
   })
-  const [selectedSrc, setSelectedSrc] = useState(THUMBS[0])
+
+  // Tạo danh sách hình ảnh bao gồm hình chính và các hình khác với useMemo
+  const allImages = useMemo(() => {
+    return [mainImage, ...images.map((img) => img.image)]
+  }, [mainImage, images])
+
+  const [selectedSrc, setSelectedSrc] = useState('')
+
+  // Cập nhật selectedSrc khi allImages thay đổi
+  useEffect(() => {
+    if (allImages.length > 0) {
+      setSelectedSrc(allImages[0])
+    }
+  }, [allImages])
+
+  // Debug function để kiểm tra click
+  const handleImageClick = (src: string) => {
+    console.log('Clicking image:', src)
+    setSelectedSrc(src)
+  }
+
   return (
     <div>
       <div className="">
         <EventImage src={selectedSrc} />
       </div>
       <div className="pt-2">
-        {/* làm carousel ở đây */}
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-3 items-center justify-center py-1">
-            {THUMBS.map((src) => (
+        {/* Carousel hình ảnh */}
+        <div className="overflow-x-auto" ref={emblaRef}>
+          <div className="flex gap-3 items-center justify-center- py-1 px-2">
+            {allImages.map((src, index) => (
               <div
-                key={src}
+                key={`${src}-${index}`}
                 className="flex-[0_0_auto]"
-                onClick={() => setSelectedSrc(src)}
+                onClick={() => handleImageClick(src)}
               >
                 <div
                   className={`relative size-[60px] md:size-[100px] xl:size-[150px] rounded-xl overflow-hidden cursor-pointer transition-shadow ${
@@ -45,7 +67,7 @@ const EventContent = () => {
                 >
                   <Image
                     src={src}
-                    alt=""
+                    alt={`Event image ${index + 1}`}
                     fill
                     sizes="150px"
                     className="object-cover"

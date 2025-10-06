@@ -1,47 +1,91 @@
 'use client'
 
 import { Select } from '@/core/components'
-import { useMemo, useState } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-
-const TABS = ['All', 'Event', 'Challenge'] as const
-type TabKey = (typeof TABS)[number]
-
-const FILTERS = ['All', 'Upcoming', 'Ongoing', 'Ended'] as const
-type FilterKey = (typeof FILTERS)[number]
-const FILTER_OPTIONS = FILTERS.map((f) => ({ label: f, value: f }))
+import { useGetInfoDataArticles } from '@/services/info'
+import { useFilterStore } from '../../stores/filterStore'
 
 const FilterBar = () => {
   const t = useTranslations('event.filter')
-  const [activeTab, setActiveTab] = useState<TabKey>('All')
-  const [search, setSearch] = useState('')
-  const [filterBy, setFilterBy] = useState<FilterKey>('All')
+  const { data: infoDataArticles } = useGetInfoDataArticles()
+  const { activeTab, search, filterBy, setActiveTab, setSearch, setFilterBy } =
+    useFilterStore()
+
+  // Local state for debounced search input
+  const [localSearch, setLocalSearch] = useState(search)
+
+  // Keep local input in sync if external store search changes
+  useEffect(() => {
+    setLocalSearch(search)
+  }, [search])
+
+  // Debounce updating the global store to limit API calls
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setSearch(localSearch)
+    }, 300)
+    return () => clearTimeout(id)
+  }, [localSearch, setSearch])
 
   const placeholder = useMemo(() => t('searchPlaceholder'), [t])
+
+  // Create tabs from API data
+  const tabs = useMemo(() => {
+    if (!infoDataArticles?.type_event_articles) return []
+    return infoDataArticles.type_event_articles.map((item) => ({
+      id: item.id,
+      name: item.name,
+      count: item.count,
+      color: item.color,
+    }))
+  }, [infoDataArticles?.type_event_articles])
+
+  // Create filter options from API data
+  const filterOptions = useMemo(() => {
+    if (!infoDataArticles?.list_status) return []
+    return infoDataArticles.list_status.map((item) => ({
+      id: item.id,
+      name: item.name + ' (' + item.count + ')',
+      color: item.color,
+    }))
+  }, [infoDataArticles?.list_status])
+
+  // Default select first filter option when available
+  useEffect(() => {
+    if (filterOptions.length === 0) return
+    const firstId = filterOptions[0].id
+    if (filterBy !== firstId) {
+      setFilterBy(firstId)
+    }
+  }, [filterOptions])
 
   return (
     <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-gray-300 pb-0.5">
       {/* Top row on mobile: Tabs + Filter; On md+: only Tabs */}
       <div className="flex items-center justify-between gap-4">
         {/* Tabs */}
-        <div className="flex items-center gap-6 relative pt-4">
-          {TABS.map((tab) => (
+        <div className="flex items-center gap-6 relative pt-4 overflow-x-auto overflow-y-hidden custom-scrollbar">
+          {tabs.map((tab) => (
             <button
-              key={tab}
+              key={tab.id}
               className={
-                'relative pb-3 text-[18px] transition-colors ' +
-                (activeTab === tab
+                'relative pb-3 text-[18px] transition-colors  flex gap-2 items-center justify-center' +
+                (activeTab === tab.id
                   ? 'text-gray-900 font-semibold'
                   : 'text-gray-400 hover:text-gray-600')
               }
-              onClick={() => setActiveTab(tab)}
+              onClick={() => setActiveTab(tab.id)}
             >
-              {tab === 'All'
-                ? t('tabs.all')
-                : tab === 'Event'
-                ? t('tabs.event')
-                : t('tabs.challenge')}
-              {activeTab === tab && (
+              <p className="truncate"> {tab.name}</p>
+
+              <div
+                className="ml-2 py-0.5 px-2 rounded-md text-sm font-medium"
+                style={{ backgroundColor: tab.color + '1A', color: tab.color }}
+              >
+                {tab.count}
+              </div>
+              {activeTab === tab.id && (
                 <span className="absolute -bottom-[2px] left-0 right-0 h-[3px] rounded-t-full bg-pink-600" />
               )}
             </button>
@@ -54,20 +98,14 @@ const FilterBar = () => {
             {t('filterBy')}
           </p>
           <Select
-            options={FILTER_OPTIONS.map((o) => ({
-              ...o,
-              label:
-                o.label === 'All'
-                  ? t('filters.all')
-                  : o.label === 'Upcoming'
-                  ? t('filters.upcoming')
-                  : o.label === 'Ongoing'
-                  ? t('filters.ongoing')
-                  : t('filters.ended'),
+            options={filterOptions.map((option) => ({
+              label: option.name,
+              value: option.id.toString(),
             }))}
-            value={filterBy}
-            onChange={(v) => setFilterBy((v as FilterKey) ?? 'All')}
+            value={filterBy.toString()}
+            onChange={(v) => setFilterBy(parseInt(v as string) || 0)}
             buttonClassName="min-w-[130px]"
+            className=""
           />
         </div>
       </div>
@@ -77,8 +115,8 @@ const FilterBar = () => {
         {/* search */}
         <div className="relative w-full max-w-[420px]">
           <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
             placeholder={placeholder}
             className="pl-10 border-0 outline-none"
           />
@@ -96,20 +134,13 @@ const FilterBar = () => {
         <div className="flex gap-4 items-center">
           <p className="text-gray-800 truncate">{t('filterBy')}</p>
           <Select
-            options={FILTER_OPTIONS.map((o) => ({
-              ...o,
-              label:
-                o.label === 'All'
-                  ? t('filters.all')
-                  : o.label === 'Upcoming'
-                  ? t('filters.upcoming')
-                  : o.label === 'Ongoing'
-                  ? t('filters.ongoing')
-                  : t('filters.ended'),
+            options={filterOptions.map((option) => ({
+              label: option.name,
+              value: option.id.toString(),
             }))}
-            value={filterBy}
-            onChange={(v) => setFilterBy((v as FilterKey) ?? 'All')}
-            buttonClassName="min-w-[130px]"
+            value={filterBy.toString()}
+            onChange={(v) => setFilterBy(parseInt(v as string) || 0)}
+            buttonClassName="min-w-[180px]"
           />
         </div>
       </div>
@@ -117,8 +148,8 @@ const FilterBar = () => {
       {/* Mobile full-width search below */}
       <div className="md:hidden relative w-full">
         <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={localSearch}
+          onChange={(e) => setLocalSearch(e.target.value)}
           placeholder={placeholder}
           className="pl-10 border-0 outline-none w-full"
         />

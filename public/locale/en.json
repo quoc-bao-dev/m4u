@@ -271,13 +271,28 @@
       "comingSoon": "COMING SOON",
       "registrationDate": "Registration date",
       "endDate": "End date",
-      "joinNow": "JOIN NOW"
+      "joinNow": "JOIN NOW",
+      "buttons": {
+        "joinNow": "JOIN NOW",
+        "registerNotification": "COMING SOON",
+        "eventEnded": "ENDED"
+      },
+      "titles": {
+        "eventHappening": "EVENT IN PROGRESS",
+        "eventComing": "EVENT STARTING SOON",
+        "eventEnded": "EVENT ENDED"
+      }
     },
     "badge": {
       "status": {
         "happening": "Happening",
-        "coming": "Coming soon"
+        "coming": "Coming soon",
+        "ended": "Ended"
       }
+    },
+    "relative": {
+      "title": "Related Events",
+      "loading": "Loading..."
     },
     "filter": {
       "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },

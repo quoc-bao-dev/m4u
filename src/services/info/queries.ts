@@ -11,3 +11,14 @@ export const useGetInfoContact = () => {
     queryFn: queryFn,
   })
 }
+
+export const useGetInfoDataArticles = () => {
+  const queryFn = async () => {
+    const response = await apiInfo.getInfoDataArticles()
+    return response.data
+  }
+  return useQuery({
+    queryKey: ['infoDataArticles'],
+    queryFn: queryFn,
+  })
+}

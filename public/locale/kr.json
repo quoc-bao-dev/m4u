@@ -271,13 +271,28 @@
       "comingSoon": "곧 진행",
       "registrationDate": "등록일",
       "endDate": "종료일",
-      "joinNow": "지금 참여하기"
+      "joinNow": "지금 참여하기",
+      "buttons": {
+        "joinNow": "지금 참여하기",
+        "registerNotification": "곧 공개",
+        "eventEnded": "종료"
+      },
+      "titles": {
+        "eventHappening": "이벤트 진행 중",
+        "eventComing": "이벤트 곧 시작",
+        "eventEnded": "이벤트 종료"
+      }
     },
     "badge": {
       "status": {
         "happening": "진행 중",
-        "coming": "곧 진행"
+        "coming": "곧 진행",
+        "ended": "종료됨"
       }
+    },
+    "relative": {
+      "title": "관련 이벤트",
+      "loading": "로딩 중..."
     },
     "filter": {
       "tabs": { "all": "전체", "event": "이벤트", "challenge": "챌린지" },

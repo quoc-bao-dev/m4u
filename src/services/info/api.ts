@@ -1,5 +1,6 @@
 import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
+import { InfoDataArticlesResponse } from './type'
 
 const apiInfo = {
   getInfoContact() {
@@ -7,7 +8,12 @@ const apiInfo = {
       baseURL: envConfig.adminUrl,
     })
   },
-  
+
+  getInfoDataArticles() {
+    return axiosInstance.get<InfoDataArticlesResponse>(`/info_data_articles`, {
+      baseURL: envConfig.serviceUrl,
+    })
+  },
 }
 
 export default apiInfo

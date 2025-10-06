@@ -134,7 +134,7 @@ const Select: React.FC<SelectProps> = ({
                   itemClassName
                 )}
               >
-                <span className="text-gray-700">{opt.label}</span>
+                <span className="text-gray-700 truncate">{opt.label}</span>
                 {isSelected && (
                   <Check className="w-4 h-4 text-pink-600" weight="bold" />
                 )}
