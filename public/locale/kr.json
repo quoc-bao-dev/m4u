@@ -112,7 +112,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "리뷰 작성하고 즉시 혜택 받기",
-    "singleMomsJoined": "명 이상의 한부모 가정이 참여했습니다",
+    "singleMomsJoined": " 명의 리뷰어가 참여했습니다",
     "joinTitle": "참여",
     "experienceTitle": "체험"
   },
@@ -857,6 +857,18 @@
       "okay": "괜찮음 - 사용 가능하지만 매우 부드럽지는 않음",
       "needsImprovement": "개선 필요 - 작동이 부드럽지 않음",
       "notGood": "좋지 않음 - 여전히 최적화할 것이 많음"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "고객",
+      "content": "리뷰를 불러오는 중...",
+      "address": "업데이트 중"
+    },
+    "defaults": {
+      "anonymous": "익명",
+      "noContent": "리뷰 내용이 없습니다.",
+      "noAddress": "주소가 업데이트되지 않음"
     }
   }
 }

@@ -1,15 +1,25 @@
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 
+interface HeroImageProps {
+  duration?: number
+  delay?: number
+  src?: string
+  alt?: string
+  width?: number
+  height?: number
+  className?: string
+}
+
 const HeroImage = ({
-  duration = 4,
+  duration = 4.5,
   delay = 0,
   src = '/image/trial/image-05.png?v=1',
   alt = 'Hero Image',
   width = 1000,
   height = 1000,
   className = 'w-full',
-}) => {
+}: HeroImageProps) => {
   const shouldReduce = useReducedMotion()
 
   if (shouldReduce) {

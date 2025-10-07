@@ -112,7 +112,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "撰写评测 立即获优惠",
-    "singleMomsJoined": "位单亲妈妈已加入",
+    "singleMomsJoined": " 位评测者已加入",
     "joinTitle": "加入",
     "experienceTitle": "体验"
   },
@@ -860,6 +860,18 @@
       "okay": "一般——可用但不太流畅",
       "needsImprovement": "需要改进——操作不够流畅",
       "notGood": "不佳——仍有许多需要优化"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "客户",
+      "content": "正在加载评价...",
+      "address": "正在更新"
+    },
+    "defaults": {
+      "anonymous": "匿名",
+      "noContent": "暂无评价内容。",
+      "noAddress": "地址未更新"
     }
   }
 }

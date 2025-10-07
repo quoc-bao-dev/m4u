@@ -114,7 +114,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "viết review nhận ngay ưu đãi",
-    "singleMomsJoined": " mẹ đơn thân đã tham gia",
+    "singleMomsJoined": " reviewer đã tham gia",
     "joinTitle": "Tham gia",
     "experienceTitle": "trải nghiệm"
   },
@@ -859,6 +859,18 @@
       "okay": "Ổn - Có thể sử dụng nhưng không mượt mà",
       "needsImprovement": "Cần cải thiện - Hoạt động không mượt mà",
       "notGood": "Không tốt - Vẫn còn nhiều điều cần tối ưu"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "Khách hàng",
+      "content": "Đang tải đánh giá...",
+      "address": "Đang cập nhật"
+    },
+    "defaults": {
+      "anonymous": "Ẩn danh",
+      "noContent": "Chưa có nội dung đánh giá.",
+      "noAddress": "Chưa cập nhật địa chỉ"
     }
   }
 }
