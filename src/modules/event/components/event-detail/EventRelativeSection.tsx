@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
 import EventCard from '../event/EventCard'
+import EventRelativeSectionSkeleton from '../event/EventCardSkeleton'
 
 const EventRelativeSection = () => {
   const [emblaRef] = useEmblaCarousel({ loop: true, align: 'start' })
@@ -55,16 +56,7 @@ const EventRelativeSection = () => {
   }, [relatedEvents])
 
   if (isDetailLoading || isLoading) {
-    return (
-      <section className="py-10">
-        <Container className="max-w-[1440px]">
-          <h3 className="text-[32px] md:text-[40px] font-extrabold text-greyscale-900 text-center">
-            {t('title')}
-          </h3>
-          <div className="pt-6 text-center">{t('loading')}</div>
-        </Container>
-      </section>
-    )
+    return <EventRelativeSectionSkeleton />
   }
 
   if (!mappedEvents.length) {

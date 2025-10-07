@@ -2,12 +2,20 @@
 
 import { LeftContent } from '../left-content'
 import { RightContent } from '../right-content'
+import ReferralSkeleton from './ReferralSkeleton'
+import { useReferralProgramQuery } from '@/services/referral-program/queries'
 import { useTranslations } from 'next-intl'
 
 const Referral = () => {
   const t = useTranslations('Referral')
+  const { isLoading } = useReferralProgramQuery()
+
+  if (isLoading) {
+    return <ReferralSkeleton />
+  }
+
   return (
-    <main className='h-full min-h-0 overflow-auto'>
+    <main className="h-full min-h-0 overflow-auto">
       <div className="py-2">
         <h1 className="text-2xl font-bold pb-1">{t('title')}</h1>
       </div>

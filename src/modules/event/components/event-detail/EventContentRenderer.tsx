@@ -7,10 +7,79 @@ type EventContentRendererProps = {
   htmlContent: string
 }
 
+// Utility function to normalize API data (string or HTML) into proper HTML format
+const normalizeApiData = (data: string): string => {
+  if (!data) return ''
+
+  // Check if data is already HTML by looking for HTML tags
+  const hasHtmlTags = /<[^>]+>/.test(data)
+
+  if (hasHtmlTags) {
+    // Data is HTML - clean and format it
+    return data
+      .replace(/\r\n|\n|\r/g, ' ') // Normalize line breaks
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim()
+  } else {
+    // Data is plain text - convert to HTML
+    const lines = data.split(/\r\n|\n|\r/)
+
+    // If single line, wrap in p tag
+    if (lines.length === 1) {
+      return `<p>${lines[0].trim()}</p>`
+    }
+
+    // Multiple lines - smart paragraph detection
+    const paragraphs: string[] = []
+    let currentParagraph: string[] = []
+
+    for (const line of lines) {
+      const trimmedLine = line.trim()
+
+      if (!trimmedLine) {
+        // Empty line - end current paragraph if exists
+        if (currentParagraph.length > 0) {
+          paragraphs.push(`<p>${currentParagraph.join(' ')}</p>`)
+          currentParagraph = []
+        }
+      } else {
+        // Check if line looks like a heading (starts with capital, short, no period)
+        if (
+          /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ]/.test(
+            trimmedLine
+          ) &&
+          trimmedLine.length < 100 &&
+          !trimmedLine.includes('.')
+        ) {
+          // End current paragraph if exists
+          if (currentParagraph.length > 0) {
+            paragraphs.push(`<p>${currentParagraph.join(' ')}</p>`)
+            currentParagraph = []
+          }
+          // Add as heading
+          paragraphs.push(`<h2>${trimmedLine}</h2>`)
+        } else {
+          currentParagraph.push(trimmedLine)
+        }
+      }
+    }
+
+    // Add remaining paragraph
+    if (currentParagraph.length > 0) {
+      paragraphs.push(`<p>${currentParagraph.join(' ')}</p>`)
+    }
+
+    return paragraphs.join('')
+  }
+}
+
 const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
   const parsedContent = useMemo(() => {
     if (!htmlContent) return null
+
+    // Normalize the API data first
+    const normalizedHtml = normalizeApiData(htmlContent)
 
     // Parse HTML content và tạo React elements
     const parseHtmlContent = (html: string) => {
@@ -69,7 +138,7 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
                 }
               }
               return (
-                <p key={Math.random()} className="text-gray-700 leading-7 mb-4">
+                <p key={Math.random()} className="text-gray-700 leading-7">
                   {Array.from(element.childNodes).map((child, index) =>
                     parseNode(child)
                   )}
@@ -92,7 +161,7 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
               return (
                 <h2
                   key={Math.random()}
-                  className="text-2xl font-bold text-gray-900 mt-8 mb-4"
+                  className="text-2xl font-semibold text-gray-900"
                 >
                   {Array.from(element.childNodes).map((child, index) =>
                     parseNode(child)
@@ -161,7 +230,7 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
               return (
                 <ul
                   key={Math.random()}
-                  className="list-disc pl-6 flex flex-col gap-4 text-gray-700 mb-4"
+                  className="list-disc pl-6 flex flex-col gap-4 text-gray-700"
                 >
                   {Array.from(element.children).map((child, index) =>
                     parseNode(child)
@@ -173,7 +242,7 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
               return (
                 <ol
                   key={Math.random()}
-                  className="list-decimal pl-6 flex flex-col gap-6 text-gray-700 mb-4"
+                  className="list-decimal pl-6 flex flex-col gap-6 text-gray-700"
                 >
                   {Array.from(element.children).map((child, index) =>
                     parseNode(child)
@@ -244,6 +313,27 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
             case 'br':
               return <br key={Math.random()} />
 
+            case 'blockquote':
+              return (
+                <blockquote
+                  key={Math.random()}
+                  className="border-l-4 border-pink-100 pl-4 italic text-gray-800 font-medium"
+                >
+                  {Array.from(element.childNodes).map((child, index) =>
+                    parseNode(child)
+                  )}
+                </blockquote>
+              )
+
+            case 'section':
+              return (
+                <section key={Math.random()} className="flex flex-col gap-4">
+                  {Array.from(element.childNodes).map((child, index) =>
+                    parseNode(child)
+                  )}
+                </section>
+              )
+
             default:
               return (
                 <div key={Math.random()}>
@@ -263,7 +353,7 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
       )
     }
 
-    return parseHtmlContent(htmlContent)
+    return parseHtmlContent(normalizedHtml)
   }, [htmlContent])
 
   if (!parsedContent) return null
