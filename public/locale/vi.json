@@ -255,6 +255,7 @@
       "fundName": "Quỹ từ thiện M4U",
       "mobileDesc": "Thích mặt nạ? Review 3 sản phẩm mặt nạ nổi bật của chúng tôi MIỄN PHÍ và chia sẻ cảm nhận chân thực ...",
       "totalProducts": "Tổng sản phẩm",
+      "totalPrizePool": "Tổng giải thưởng",
       "totalFundsConverted": "Tổng quỹ quy đổi"
     },
     "detail": {
@@ -270,7 +271,8 @@
       "product": "Sản phẩm",
       "totalPrizes": "Tổng giải thưởng",
       "totalPrizePool": "Tổng quỹ giải thưởng",
-      "comingSoon": "SẮP DIỄN RA",
+      "totalProducts": "Tổng sản phẩm",
+      ":comingSoon": "SẮP DIỄN RA",
       "registrationDate": "Ngày đăng ký",
       "endDate": "Ngày kết thúc",
       "joinNow": "THAM GIA NGAY",

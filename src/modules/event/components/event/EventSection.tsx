@@ -109,11 +109,18 @@ const EventSection = () => {
 
         date: formatDate(event.date_start_event),
         title: event.name,
-        productCount: event.total_product,
+        // TODO: map theo type_sponsor
+        productCount:
+          event.type_sponsor === 1
+            ? '-'
+            : event.type_sponsor === 2
+            ? event.total_product
+            : 0,
         fundAmount: formatAmount(event.prizes),
         imageSrc: event.image,
         background_color: event.background_color,
         sponsor: event.sponsor,
+        type_sponsor: event.type_sponsor,
         name_sponsor: event.name_sponsor,
         image_sponsor: event.image_sponsor,
         count_join: event.count_join,
@@ -147,6 +154,7 @@ const EventSection = () => {
                   date={event.date}
                   title={event.title}
                   productCount={event.productCount}
+                  typeSponsor={event.type_sponsor}
                   fundAmount={event.fundAmount}
                   imageSrc={event.imageSrc}
                   useServerBadge={true}

@@ -14,6 +14,7 @@ type EventCardProps = {
   imageSrc: string
   slug?: string
   // Server badge props
+  typeSponsor?: number
   idStatus?: number
   serverBadgeName?: string
   serverBadgeColor?: string
@@ -37,6 +38,7 @@ const EventCard = ({
   fundAmount,
   imageSrc,
   slug,
+  typeSponsor,
   idStatus,
   serverBadgeName,
   serverBadgeColor,
@@ -94,7 +96,7 @@ const EventCard = ({
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <p className="text-xs xl:text-sm font-normal text-greyscale-700 truncate">
-              {t('totalProducts')}
+              {typeSponsor === 1 ? t('totalPrizePool') : t('totalProducts')}
             </p>
             <p className="text-base lg:text-lg 2xl:text-2xl font-semibold text-orange-500">
               {productCount}

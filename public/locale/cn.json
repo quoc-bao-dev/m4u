@@ -253,6 +253,7 @@
       "fundName": "M4U 公益基金",
       "mobileDesc": "喜欢片状面膜吗？免费评测我们精选的任意 3 款面膜产品，并分享你的真实 ...",
       "totalProducts": "产品总数",
+      "totalPrizePool": "奖金池总额",
       "totalFundsConverted": "转化为基金总额"
     },
     "detail": {
@@ -268,6 +269,7 @@
       "product": "产品",
       "totalPrizes": "奖项总数",
       "totalPrizePool": "奖金池总额",
+      "totalProducts": "产品总数",
       "comingSoon": "即将推出",
       "registrationDate": "报名日期",
       "endDate": "截止日期",

@@ -109,12 +109,14 @@ const EventDetailSection = () => {
       // Thông tin tài chính
       prizes: {
         amount: event.prizes,
+        type_sponsor: event.type_sponsor,
         formattedAmount: formatAmount(event.prizes),
       },
 
       // Thống kê
       stats: {
-        totalProduct: event.total_product,
+        // TODO: map theo type_sponsor
+        totalProduct: event.type_sponsor === 1 ? '-' : event.total_product,
         countJoin: event.count_join,
         countView: event.count_view,
       },
@@ -145,8 +147,6 @@ const EventDetailSection = () => {
     }
   }, [eventDetail])
 
-  console.log('Mapped Event Data:', mappedEventData)
-
   // Show skeleton when loading
   if (isLoading) {
     return (
@@ -155,6 +155,7 @@ const EventDetailSection = () => {
       </Container>
     )
   }
+  console.log('Mapped Event Data:', mappedEventData)
 
   return (
     <Container className="max-w-[1440px] pt-[100px]">
@@ -204,6 +205,7 @@ const EventDetailSection = () => {
                   name: product.name,
                 }))}
                 totalPrizes={mappedEventData.stats.totalProduct}
+                typeSponsor={mappedEventData.prizes.type_sponsor}
                 totalPrizePool={mappedEventData.prizes.amount}
                 time={mappedEventData.time.endDate}
                 title={
@@ -269,6 +271,7 @@ const EventDetailSection = () => {
                   name: product.name,
                 }))}
                 totalPrizes={mappedEventData.stats.totalProduct}
+                typeSponsor={mappedEventData.prizes.type_sponsor}
                 totalPrizePool={mappedEventData.prizes.amount}
                 time={mappedEventData.time.endDate}
                 title={

@@ -253,6 +253,7 @@
       "fundName": "M4U 자선 기금",
       "mobileDesc": "마스크를 좋아하나요? 추천 마스크 3개를 무료로 체험하고 솔직한 리뷰를 공유하세요 ...",
       "totalProducts": "총 제품",
+      "totalPrizePool": "총 상금 풀",
       "totalFundsConverted": "총 기금 환산"
     },
     "detail": {
@@ -268,6 +269,7 @@
       "product": "제품",
       "totalPrizes": "총 상금 수",
       "totalPrizePool": "총 상금 풀",
+      "totalProducts": "총 제품",
       "comingSoon": "곧 진행",
       "registrationDate": "등록일",
       "endDate": "종료일",

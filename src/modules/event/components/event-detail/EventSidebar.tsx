@@ -11,7 +11,8 @@ type EventSidebarProps = {
   sponsorName?: string
   sponsorLogo?: string
   products?: ProductItem[]
-  totalPrizes?: number
+  totalPrizes?: number | string
+  typeSponsor?: number
   totalPrizePool?: number
   time?: string // ISO string for announcement time
   title?: string // headline text under date
@@ -36,8 +37,9 @@ const EventSidebar = ({
       name: 'Panthetoin Deep Moisture Mask',
     },
   ],
-  totalPrizes = 3,
-  totalPrizePool = 1234567,
+  totalPrizes,
+  typeSponsor,
+  totalPrizePool,
   time = '2025-10-01T00:00:00+07:00',
   title = 'WINNERS WILL BE ANNOUNCED',
   onJoin,
@@ -100,24 +102,28 @@ const EventSidebar = ({
         {/* Stats */}
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <p className="text-xs text-greyscale-700">{t('totalPrizes')}</p>
+            <p className="text-xs text-greyscale-700">
+              {typeSponsor === 1 ? t('totalPrizes') : t('totalProducts')}
+            </p>
             <p className="mt-1 text-xl font-semibold text-[16px] lg:text-xl text-orange-500">
-              {status === 'coming_soon' ? '-' : totalPrizes}
+              {/* {status === 'coming_soon' ? '-' : totalPrizes} */}
+              {totalPrizes}
             </p>
           </div>
           <div>
             <p className="text-xs text-greyscale-700">{t('totalPrizePool')}</p>
             <p className="mt-1 text-[16px] lg:text-xl font-semibold text-orange-500">
-              {status === 'coming_soon' ? (
+              {/* {status === 'coming_soon' ? (
                 <>
                   - <span className="text-sm underline">đ</span>
                 </>
               ) : (
-                <>
-                  {formatCurrency(totalPrizePool)}{' '}
-                  <span className="text-sm underline">đ</span>
-                </>
-              )}
+               
+              )} */}
+              <>
+                {formatCurrency(totalPrizePool || 0)}{' '}
+                <span className="text-sm underline">đ</span>
+              </>
             </p>
           </div>
         </div>

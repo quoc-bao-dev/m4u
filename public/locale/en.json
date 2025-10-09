@@ -253,6 +253,7 @@
       "fundName": "M4U charity fund",
       "mobileDesc": "Love sheet masks? Review any 3 of our featured mask products for FREE and share your honest ...",
       "totalProducts": "Total products",
+      "totalPrizePool": "Total Prize Pool",
       "totalFundsConverted": "Total funds converted"
     },
     "detail": {
@@ -268,6 +269,7 @@
       "product": "Product",
       "totalPrizes": "Total Prizes",
       "totalPrizePool": "Total Prize Pool",
+      "totalProducts": "Total Products",
       "comingSoon": "COMING SOON",
       "registrationDate": "Registration date",
       "endDate": "End date",

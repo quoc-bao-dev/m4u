@@ -5,7 +5,7 @@ import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
-import { useGetInfoContact } from '@/services/info/queries'
+import { useGetInfo, useGetInfoContact } from '@/services/info/queries'
 import { Link } from '@/locale'
 
 type FooterProps = {
@@ -15,7 +15,8 @@ type FooterProps = {
 const Footer = ({ className }: FooterProps) => {
   const t = useTranslations('footer')
   const { data: infoContact } = useGetInfoContact()
-  console.log(infoContact)
+
+  const { data: info } = useGetInfo()
   return (
     <div
       className={cn(
@@ -73,21 +74,18 @@ const Footer = ({ className }: FooterProps) => {
 
                   <div className="flex gap-6 text-sm">
                     <nav className="flex flex-col gap-2">
-                      <Link
-                        href="/"
-                        className='hover:underline cursor-pointer'
-                      >
+                      <Link href="/" className="hover:underline cursor-pointer">
                         {t('home')}
                       </Link>
                       <Link
                         href="/trial-registration"
-                        className='hover:underline cursor-pointer'
+                        className="hover:underline cursor-pointer"
                       >
                         {t('joinTrial')}
                       </Link>
                       <Link
                         href="/review-hub"
-                        className='hover:underline cursor-pointer'
+                        className="hover:underline cursor-pointer"
                       >
                         {t('newsfeed')}
                       </Link>
@@ -95,13 +93,13 @@ const Footer = ({ className }: FooterProps) => {
                     <nav className="flex flex-col gap-2">
                       <Link
                         href="/donation-charity"
-                        className='hover:underline cursor-pointer'
+                        className="hover:underline cursor-pointer"
                       >
                         {t('newsEvents')}
                       </Link>
                       <Link
                         href="/event"
-                        className='hover:underline cursor-pointer'
+                        className="hover:underline cursor-pointer"
                       >
                         {t('account')}
                       </Link>
@@ -112,10 +110,11 @@ const Footer = ({ className }: FooterProps) => {
 
               {/* Social (mobile) */}
               <div className="md:hidden flex items-center gap-4 pt-2">
+                {/* TODO: map social */}
                 <a
-                  href="#"
+                  href={info?.link_contact_instagram}
                   aria-label="Instagram"
-                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <svg
                     width="20"
@@ -136,10 +135,12 @@ const Footer = ({ className }: FooterProps) => {
                     <circle cx="18.2" cy="5.8" r="1.2" fill="currentColor" />
                   </svg>
                 </a>
+
+                {/* TODO: map social */}
                 <a
-                  href="#"
+                  href={info?.link_contact_facebook}
                   aria-label="Facebook"
-                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <svg
                     width="20"
@@ -167,10 +168,11 @@ const Footer = ({ className }: FooterProps) => {
             </div>
 
             <div className="hidden md:flex items-center gap-4">
+              {/* TODO: map social */}
               <a
-                href="#"
+                href={info?.link_contact_instagram}
                 aria-label="Instagram"
-                className="opacity-90 hover:opacity-100 transition-opacity"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
               >
                 <svg
                   width="20"
@@ -191,10 +193,12 @@ const Footer = ({ className }: FooterProps) => {
                   <circle cx="18.2" cy="5.8" r="1.2" fill="currentColor" />
                 </svg>
               </a>
+
+              {/* TODO: map social */}
               <a
-                href="#"
+                href={info?.link_contact_facebook}
                 aria-label="Facebook"
-                className="opacity-90 hover:opacity-100 transition-opacity"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
               >
                 <svg
                   width="20"

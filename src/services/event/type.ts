@@ -24,6 +24,7 @@ export interface Event {
   date_end_event: string
   time_left_dd_hh_mm_ss: string
   status_now: EventStatus
+  type_sponsor: 1 | 2
 }
 
 export interface EventListLink {
@@ -93,7 +94,9 @@ export interface EventDetailData {
   image: string
   image_sponsor: string | null
   name_sponsor: string | null
+  type_sponsor: 1 | 2
   sponsor: number
+
   prizes: number
   total_product: number
   type_event_articles: number
