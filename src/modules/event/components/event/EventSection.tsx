@@ -112,11 +112,11 @@ const EventSection = () => {
         // TODO: map theo type_sponsor
         productCount:
           event.type_sponsor === 1
-            ? '-'
+            ? event.prizes
             : event.type_sponsor === 2
             ? event.total_product
             : 0,
-        fundAmount: formatAmount(event.prizes),
+        fundAmount: formatAmount(event.total_money_prizes),
         imageSrc: event.image,
         background_color: event.background_color,
         sponsor: event.sponsor,

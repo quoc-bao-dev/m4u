@@ -43,8 +43,9 @@ const EventRelativeSection = () => {
         | 'ended',
       date: new Date(event.date_start_event).toLocaleDateString('en-GB'),
       title: event.name,
-      productCount: event.total_product,
-      fundAmount: event.prizes.toLocaleString(),
+      productCount:
+        event.type_sponsor === 1 ? event.prizes : event.total_product,
+      fundAmount: event.total_money_prizes.toLocaleString(),
       imageSrc: event.image,
       slug: event.slug,
       // Server badge props

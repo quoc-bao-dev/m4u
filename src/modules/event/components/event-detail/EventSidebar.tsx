@@ -100,7 +100,7 @@ const EventSidebar = ({
         <div className=" h-px bg-greyscale-200" />
 
         {/* Stats */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-1 xl:gap-6">
           <div>
             <p className="text-xs text-greyscale-700">
               {typeSponsor === 1 ? t('totalPrizes') : t('totalProducts')}

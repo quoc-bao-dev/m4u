@@ -17,6 +17,7 @@ export interface Event {
   name_sponsor: string | null
   sponsor: number
   prizes: number
+  total_money_prizes: number
   total_product: number
   type_event_articles: number
   slug: string
@@ -99,6 +100,7 @@ export interface EventDetailData {
 
   prizes: number
   total_product: number
+  total_money_prizes: number
   type_event_articles: number
   slug: string
   date_start_event: string

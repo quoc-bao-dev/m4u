@@ -108,7 +108,7 @@ const EventDetailSection = () => {
 
       // Thông tin tài chính
       prizes: {
-        amount: event.prizes,
+        amount: event.total_money_prizes,
         type_sponsor: event.type_sponsor,
         formattedAmount: formatAmount(event.prizes),
       },
@@ -116,7 +116,8 @@ const EventDetailSection = () => {
       // Thống kê
       stats: {
         // TODO: map theo type_sponsor
-        totalProduct: event.type_sponsor === 1 ? '-' : event.total_product,
+        totalProduct:
+          event.type_sponsor === 1 ? event.prizes : event.total_product,
         countJoin: event.count_join,
         countView: event.count_view,
       },
