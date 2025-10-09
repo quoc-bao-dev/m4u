@@ -1,16 +1,24 @@
 import { useLanguageSwitch } from '@/locale'
 import { useQuery } from '@tanstack/react-query'
 import { productApi } from './api'
+import { ProductFilterResponse } from './type'
 
-export const useGetProductList = () => {
+export const useGetProductList = ({
+  tag_product_filter,
+}: {
+  tag_product_filter?: string[]
+}) => {
   const { currentLocale } = useLanguageSwitch()
   const _locale = currentLocale
   const queryFn = async () => {
-    const response = await productApi.getProductList({ _local: _locale })
+    const response = await productApi.getProductList({
+      _local: _locale,
+      tag_product_filter,
+    })
     return response.data
   }
   return useQuery({
-    queryKey: ['product-list', _locale],
+    queryKey: ['product-list', _locale, tag_product_filter],
     queryFn: queryFn,
   })
 }
@@ -70,6 +78,19 @@ export const useGetTopThreeProducts = () => {
   }
   return useQuery({
     queryKey: ['product-top-three', _locale],
+    queryFn: queryFn,
+  })
+}
+
+export const useGetListProductsFilter = () => {
+  const { currentLocale } = useLanguageSwitch()
+  const _locale = currentLocale
+  const queryFn = async () => {
+    const response = await productApi.getListProductsFilter({ _local: _locale })
+    return response.data as ProductFilterResponse
+  }
+  return useQuery<ProductFilterResponse>({
+    queryKey: ['product-filters', _locale],
     queryFn: queryFn,
   })
 }
