@@ -19,6 +19,7 @@ export const productApi = {
       baseURL: envConfig.adminUrl,
       params: { _local, tag_product_filter },
     }),
+
   getProductRelationList: ({ _local, id }: { _local?: string; id: string }) =>
     axiosInstance.get<ProductListResponse>('products/getList?NotIsSig=1', {
       baseURL: envConfig.adminUrl,
