@@ -1,8 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
 import { IMAGES } from '@/core/constants/IMAGES'
+import { useGetProductDonationList } from '@/services/product-donation'
+import useEmblaCarousel from 'embla-carousel-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import ProductCard from './ProductCard'
 
 interface Product {
@@ -11,7 +12,7 @@ interface Product {
   productName: string
   contributionPercentage: number
   imageSrc: string
-  colorScheme: 'yellow' | 'pink' | 'blue' | 'green'
+  customColorHex?: string | null
 }
 
 const ProductCarouselEmbla = () => {
@@ -21,93 +22,37 @@ const ProductCarouselEmbla = () => {
     containScroll: 'trimSnaps',
     dragFree: true,
     slidesToScroll: 1,
-    duration: 40
+    duration: 40,
   })
 
   const [selectedIndex, setSelectedIndex] = useState(0)
 
+  const { data: products, isLoading } = useGetProductDonationList()
 
-  const originalProducts: Product[] = [
-    {
-      id: '1',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal2,
-      colorScheme: 'yellow'
-    },
-    {
-      id: '2',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
-      colorScheme: 'pink'
-    },
-    {
-      id: '3',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal3,
-      colorScheme: 'blue'
-    },
-    {
-      id: '4',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
-      colorScheme: 'green'
-    },
-    {
-      id: '5',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
-      colorScheme: 'pink'
-    },
-    {
-      id: '6',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal3,
-      colorScheme: 'blue'
-    },
-    {
-      id: '7',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
-      colorScheme: 'green'
-    },
-    {
-      id: '8',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal1,
-      colorScheme: 'pink'
-    },
-    {
-      id: '9',
-      brand: 'MANYO',
-      productName: 'Panthetoin Deep Moisture Mask',
-      contributionPercentage: 5,
-      imageSrc: IMAGES.deal3,
-      colorScheme: 'blue'
-    },
+  const mappedProducts: Product[] = useMemo(() => {
+    const list = (products?.data ?? []) as Array<any>
+    const data = list.map((item: any, index: number) => {
+      return {
+        id: String(item.id),
+        brand: item.code ?? '',
+        productName: item.name ?? '',
+        contributionPercentage: Number((item as any).contribute ?? 0),
+        imageSrc: item.image || IMAGES.deal1,
+        customColorHex: item.background_color ?? null,
+      }
+    })
 
-  ]
+    return [...data, ...data, ...data, ...data]
+  }, [products])
 
-  const scrollTo = useCallback((index: number) => {
-    if (emblaApi) {
-      emblaApi.scrollTo(index)
-    }
-  }, [emblaApi])
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) {
+        emblaApi.scrollTo(index)
+      }
+    },
+    [emblaApi]
+  )
 
   const onInit = useCallback(() => {
     // Embla initialized
@@ -138,30 +83,51 @@ const ProductCarouselEmbla = () => {
   return (
     <div className="w-full flex gap-6 items-end will-change-transform transform-gpu">
       <div className="flex-1 overflow-hidden will-change-transform transform-gpu">
-        <div className="-mt-[10%] lg:-mt-[5%] 2xl:-mt-[0%] embla will-change-transform transform-gpu" ref={emblaRef}>
+        <div
+          className="-mt-[10%] lg:-mt-[5%] 2xl:-mt-[0%] embla will-change-transform transform-gpu"
+          ref={emblaRef}
+        >
           <div className="embla__container flex items-end will-change-transform transform-gpu">
-            {originalProducts.map((product, index) => {
-              return (
+            {isLoading &&
+              Array.from({ length: 6 }).map((_, index) => (
                 <div
-                  key={product.id}
-                  className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
-                  onClick={() => handleCardClick(index)}
+                  key={`skeleton-${index}`}
+                  className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end will-change-transform transform-gpu`}
                 >
-                  <ProductCard
-                    brand={product.brand}
-                    productName={product.productName}
-                    contributionPercentage={product.contributionPercentage}
-                    imageSrc={product.imageSrc}
-                    scale={1}
-                    colorScheme={product.colorScheme}
-                    widthClass="w-[150px] lg:w-[280px]"
-                    variant={index === selectedIndex ? 'main' : 'item'}
-                    disableEnterAnimation={false}
-                    className={index === selectedIndex ? '' : ''}
-                  />
+                  <div className="w-[150px] lg:w-[280px] flex flex-col items-center">
+                    <div className="relative w-[90%] aspect-[265/298]">
+                      <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md" />
+                    </div>
+                    <div className="w-full mt-4 bg-gray-200 h-4 rounded animate-pulse" />
+                    <div className="w-3/4 mt-2 bg-gray-100 h-3 rounded animate-pulse" />
+                    <div className="w-full mt-3 h-6 bg-gray-200 rounded-b-md animate-pulse" />
+                  </div>
                 </div>
-              )
-            })}
+              ))}
+
+            {!isLoading &&
+              mappedProducts.map((product, index) => {
+                return (
+                  <div
+                    key={product.id}
+                    className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
+                    onClick={() => handleCardClick(index)}
+                  >
+                    <ProductCard
+                      brand={product.brand}
+                      productName={product.productName}
+                      contributionPercentage={product.contributionPercentage}
+                      imageSrc={product.imageSrc}
+                      scale={1}
+                      customColorHex={product.customColorHex || undefined}
+                      widthClass="w-[150px] lg:w-[280px]"
+                      variant={index === selectedIndex ? 'main' : 'item'}
+                      disableEnterAnimation={false}
+                      className={index === selectedIndex ? '' : ''}
+                    />
+                  </div>
+                )
+              })}
           </div>
         </div>
       </div>

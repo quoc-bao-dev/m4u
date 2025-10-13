@@ -109,7 +109,6 @@ const EventSection = () => {
 
         date: formatDate(event.date_start_event),
         title: event.name,
-        // TODO: map theo type_sponsor
         productCount:
           event.type_sponsor === 1
             ? event.prizes

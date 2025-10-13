@@ -11,10 +11,10 @@ interface ProductCardProps {
   imageSrc?: string
   className?: string
   scale?: number
-  colorScheme?: 'yellow' | 'pink' | 'blue' | 'green'
   widthClass?: string
   variant?: 'main' | 'item'
   disableEnterAnimation?: boolean
+  customColorHex?: string
 }
 
 const ProductCard = ({
@@ -24,10 +24,10 @@ const ProductCard = ({
   imageSrc = IMAGES.deal2,
   className = '',
   scale = 0.8,
-  colorScheme = 'yellow',
   widthClass = 'w-[400px]',
   variant = 'item',
   disableEnterAnimation = false,
+  customColorHex,
 }: ProductCardProps) => {
   const [isEnteringTop, setIsEnteringTop] = useState(false)
 
@@ -47,31 +47,8 @@ const ProductCard = ({
       setIsEnteringTop(false)
     }
   }, [variant, disableEnterAnimation])
-  // Color schemes
-  const colorSchemes = {
-    yellow: {
-      polygon: '#FCD34D',
-      card: 'bg-yellow-300',
-      bottom: 'bg-yellow-500',
-    },
-    pink: {
-      polygon: '#F472B6',
-      card: 'bg-pink-300',
-      bottom: 'bg-pink-500',
-    },
-    blue: {
-      polygon: '#60A5FA',
-      card: 'bg-blue-300',
-      bottom: 'bg-blue-500',
-    },
-    green: {
-      polygon: '#34D399',
-      card: 'bg-green-300',
-      bottom: 'bg-green-500',
-    },
-  }
-
-  const colors = colorSchemes[colorScheme]
+  // Use API color (customColorHex) exclusively; fallback to a neutral color
+  const colors = { polygon: customColorHex || '#E5E7EB', card: '', bottom: '' }
   const darkenHexToRgba = (hex: string, darkenFactor = 0.2, alpha = 0.3) => {
     const sanitized = hex.replace('#', '')
     const r = parseInt(sanitized.substring(0, 2), 16)
@@ -82,6 +59,7 @@ const ProductCard = ({
     const bd = Math.round(b * darkenFactor)
     return `rgba(${rd}, ${gd}, ${bd}, ${alpha})`
   }
+
   const insetShadow = `inset 0px -5.58px 4.18px 0px ${darkenHexToRgba(
     colors.polygon,
     0.5,
@@ -89,7 +67,7 @@ const ProductCard = ({
   )}`
   return (
     <div
-      className={`flex flex-col h-full justify-end items-center ${widthClass} ${className} will-change-transform transform-gpu`}
+      className={`flex flex-col h-full justify-end items-center  ${widthClass} ${className} will-change-transform transform-gpu`}
       data-variant={variant}
       style={{
         transform: `scale(${scale})`,
@@ -112,14 +90,19 @@ const ProductCard = ({
             alt={productName}
             width={1000}
             height={1000}
-            className="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-[265/298]"
+            className="p-10 object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-[265/298]"
           />
         </div>
       ) : null}
 
       <div
-        className={`w-full flex flex-col justify-center items-center rounded-t-lg rounded-b-[28px] ${colors.card} will-change-transform transform-gpu transition-transform duration-700`}
+        className={`relative w-full flex flex-col justify-center items-center rounded-t-lg rounded-b-[28px] bg-white will-change-transform transform-gpu transition-transform duration-700`}
+        // style={{ backgroundColor: customColorHex || '#F3F4F6' }}
       >
+        <div
+          className="absolute inset-0 opacity-20 rounded-lg -z-10"
+          style={{ backgroundColor: customColorHex || '#F3F4F6' }}
+        ></div>
         {variant === 'item' && (
           <div className="relative mt-6 w-[70%] aspect-[265/298] will-change-[transform,opacity] transform-gpu transition-all duration-500 ease-out">
             <PolygonBg
@@ -131,7 +114,7 @@ const ProductCard = ({
               alt={productName}
               width={1000}
               height={1000}
-              className="object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-[265/298] will-change-transform transform-gpu"
+              className="p-6 object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] aspect-[265/298] will-change-transform transform-gpu"
             />
           </div>
         )}
@@ -152,8 +135,11 @@ const ProductCard = ({
           </p>
         </div>
         <div
-          className={`p-1.5 lg:p-4 pt-[2px] lg:pt-1.5 w-full ${colors.bottom} rounded-b-[8px]`}
-          style={{ boxShadow: insetShadow }}
+          className={`p-1.5 lg:p-4 pt-[2px] lg:pt-1.5 w-full rounded-b-[8px]`}
+          style={{
+            boxShadow: insetShadow,
+            backgroundColor: customColorHex || '#E5E7EB',
+          }}
         >
           <p className={`text-[8px] lg:text-xl text-greyscale-700 text-center`}>
             <span className="font-bold">{contributionPercentage}% </span>{' '}

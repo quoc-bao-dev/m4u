@@ -12,7 +12,7 @@ export default function AnnouncementCountdownCard({
   onJoin = () => {},
 }) {
   return (
-    <div className="w-[467px] mx-auto scale-[70%] md:scale-[60%] lg:scale-[70%] xl:scale-[100%] md:origin-bottom-right">
+    <div className="w-[467px] mx-auto scale-[70%] md:scale-[60%] lg:scale-[70%] xl:scale-[100%] md:origin-bottom-right bg-white/80 px-6 md:min-w-[560px]">
       {/* Megaphone image */}
 
       {/* Countdown */}
@@ -41,7 +41,7 @@ export default function AnnouncementCountdownCard({
         </div>
         <div className="absolute left-1/2 -translate-x-1/2 translate-y-1/2 bottom-0">
           <div className="relative group">
-            <button className="bg-pink-600 text-white text-xl md:text-base font-semibold w-[345px] py-3 md:py-2 rounded-xl relative group-hover:bg-pink-600 transition-all duration-300">
+            <button className="cursor-pointer bg-pink-600 text-white text-xl md:text-base font-semibold w-[345px] py-3 md:py-2 rounded-xl relative group-hover:bg-pink-600 transition-all duration-300">
               {buttonText}
             </button>
             <div className="-z-10 absolute w-full h-full bg-pink-600/20 rounded-xl top-0 -rotate-[5deg] group-hover:bg-pink-600/50 transition-all duration-300"></div>

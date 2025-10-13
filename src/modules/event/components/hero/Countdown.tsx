@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { useEffect, useMemo, useState } from 'react'
+import { parseEventDateForCountdown, calculateTimeRemaining } from '../../utils'
 
 type CountdownProps = {
   targetDate: string
@@ -9,7 +10,12 @@ type CountdownProps = {
 
 export default function Countdown({ targetDate }: CountdownProps) {
   const t = useTranslations('timer')
-  const target = useMemo(() => new Date(targetDate).getTime(), [targetDate])
+
+  // Parse target date using util function
+  const target = useMemo(() => {
+    return parseEventDateForCountdown(targetDate)
+  }, [targetDate])
+
   const [now, setNow] = useState(() => Date.now())
 
   useEffect(() => {
@@ -17,11 +23,8 @@ export default function Countdown({ targetDate }: CountdownProps) {
     return () => clearInterval(id)
   }, [])
 
-  const diff = Math.max(0, target - now)
-  const totalMinutes = Math.floor(diff / (1000 * 60))
-  const days = Math.floor(totalMinutes / (60 * 24))
-  const hours = Math.floor((totalMinutes - days * 24 * 60) / 60)
-  const minutes = totalMinutes % 60
+  // Calculate time remaining using util function
+  const { days, hours, minutes } = calculateTimeRemaining(target, now)
 
   const NumberBox = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">

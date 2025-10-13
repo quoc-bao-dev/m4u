@@ -3,9 +3,19 @@
 import { Container } from '@/core/components'
 import { useTranslations } from 'next-intl'
 import AccordionItem from './AccordionItem'
+import { useGetTerms } from '@/services/term'
+import type { TermItem, TermResponse } from '@/services/term/type'
+import { useMemo } from 'react'
 
 const TermNBenefitSection = () => {
   const t = useTranslations('termBenefit')
+
+  const { data: terms, isLoading } = useGetTerms()
+
+  const termItems = useMemo<TermItem[]>(() => {
+    return (terms as TermResponse | undefined)?.data ?? []
+  }, [terms])
+
   return (
     <section className=" pb-[60px] md:py-[96px]">
       <Container className="space-y-3 px-3 xl:px-[200px]">
@@ -13,27 +23,38 @@ const TermNBenefitSection = () => {
           <span className="text-gray-900">{t('benefits')} </span> & {t('terms')}
         </h2>
 
-        <AccordionItem
-          title={t('memberBenefits')}
-          defaultOpen={true}
-          className="bg-white"
-        >
-          <ul className="list-disc space-y-2 pl-5">
-            <li>{t('benefit1')}</li>
-            <li>{t('benefit2')}</li>
-            <li>{t('benefit3')}</li>
-            <li>{t('benefit4')}</li>
-            <li>{t('benefit5')}</li>
-          </ul>
-        </AccordionItem>
+        {isLoading && (
+          <div className="space-y-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="bg-white rounded-xl p-5">
+                <div className="flex items-center justify-between">
+                  <div className="h-5 w-48 bg-gray-200 animate-pulse rounded" />
+                  <div className="h-5 w-5 bg-gray-200 animate-pulse rounded" />
+                </div>
+                <div className="mt-3 space-y-2">
+                  <div className="h-4 w-full bg-gray-100 animate-pulse rounded" />
+                  <div className="h-4 w-11/12 bg-gray-100 animate-pulse rounded" />
+                  <div className="h-4 w-10/12 bg-gray-100 animate-pulse rounded" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
-        <AccordionItem title={t('memberBenefits')} className="bg-white">
-          <p>{t('placeholder1')}</p>
-        </AccordionItem>
-
-        <AccordionItem title={t('memberBenefits')} className="bg-white">
-          <p>{t('placeholder2')}</p>
-        </AccordionItem>
+        {!isLoading &&
+          termItems.map((item: TermItem, index: number) => (
+            <AccordionItem
+              key={item.id}
+              title={item.title}
+              defaultOpen={index === 0}
+              className="bg-white"
+            >
+              <div
+                className="prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: item.content }}
+              />
+            </AccordionItem>
+          ))}
       </Container>
     </section>
   )

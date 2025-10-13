@@ -3,7 +3,7 @@ import type { LocalePrefix } from 'next-intl/routing'
 export const locales = ['vi', 'en', 'kr', 'th', 'cn'] as const
 export type Locale = (typeof locales)[number]
 
-export const defaultLocale: Locale = 'vi'
+export const defaultLocale: Locale = 'en'
 
 export const localePrefix: LocalePrefix<typeof locales> = 'always'
 

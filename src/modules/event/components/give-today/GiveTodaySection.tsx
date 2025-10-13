@@ -8,7 +8,7 @@ const GiveTodaySection = () => {
   return (
     <Section className=" py-8 md:py-14">
       <Container className="">
-        <div className="flex flex-col lg:flex-row items-center gap-6 xl:gap-10 rounded-3xl bg-[#FFFAED] pb-10 md:pb-0">
+        <div className="flex flex-col lg:flex-row items-center gap-6 xl:gap-10 rounded-[48px] overflow-hidden bg-[#FFFAED] pb-10 md:pb-0">
           {/* Left: Image */}
           <div
             className="relative w-full lg:w-1/2 overflow-hidden rounded-3xl max-w-[800px] "
