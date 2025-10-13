@@ -1,5 +1,6 @@
 import { MainLayout } from '@/core/components'
 import GeoLocationDetector from '@/core/components/GeoLocationDetector'
+import LanguageSelectorWrapper from '@/core/components/LanguageSelectorWrapper'
 import axiosInstance from '@/core/http/axiosInstance'
 import { locales } from '@/locale/config'
 import { AppProvider } from '@/provider'
@@ -107,8 +108,11 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AppProvider>
         <MainLayout>{children}</MainLayout>
+        <LanguageSelectorWrapper />
       </AppProvider>
-      <GeoLocationDetector />
+      {/* Language Selector - Hiển thị khi chưa chọn ngôn ngữ */}
+      {/* GeoLocation Detector - Tự động tắt khi LanguageSelector mở */}
+      {/* <GeoLocationDetector /> */}
     </NextIntlClientProvider>
   )
 }
