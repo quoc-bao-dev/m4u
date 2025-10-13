@@ -1,23 +1,35 @@
 import { Share } from '@/modules/product'
-import EventBadge from '../event/EventBadge'
+import EventServerBadge from '../event/EventServerBadge'
 
-const HeaderEvent = () => {
+type HeaderEventProps = {
+  name: string
+  content: string
+  date: string
+  status: {
+    id: number
+    name: string
+    color: string
+    type: 'coming' | 'happening' | 'ended'
+  }
+}
+
+const HeaderEvent = ({ name, content, date, status }: HeaderEventProps) => {
   return (
     <div className="">
       <div className="w-fit">
-        <EventBadge status="happening" />
+        <EventServerBadge
+          id={status.id}
+          name={status.name}
+          color={status.color}
+          showIcon={status.type === 'happening'}
+        />
       </div>
       <div className="pt-5">
-        <h1 className="text-title-sect font-bold leading-[120%]">
-          Mask-a-thon Challenge: Win an iPhone 16!
-        </h1>
-        <p className="pt-4">
-          Love sheet masks? Review any 3 of our featured mask products for FREE
-          and share your honest thoughts with the community.
-        </p>
+        <h1 className="text-title-sect font-bold leading-[120%]">{name}</h1>
+        <p className="pt-4">{content}</p>
       </div>
       <div className="pt-1 flex justify-between items-end">
-        <p className="text-gray-600">06/09/2025</p>
+        <p className="text-gray-600">{date}</p>
         <Share />
       </div>
     </div>

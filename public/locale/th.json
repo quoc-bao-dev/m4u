@@ -253,6 +253,7 @@
       "fundName": "กองทุนการกุศล M4U",
       "mobileDesc": "ชอบมาสก์ชีทไหม? รีวิวผลิตภัณฑ์มาสก์ที่คัดสรรของเรา 3 ชิ้นได้ฟรี และแชร์ความเห็นอย่างจริงใจ ...",
       "totalProducts": "จำนวนสินค้า",
+      "totalPrizePool": "มูลค่ารางวัลรวม",
       "totalFundsConverted": "ยอดเงินแปลงเป็นกองทุน"
     },
     "detail": {
@@ -268,16 +269,33 @@
       "product": "สินค้า",
       "totalPrizes": "รางวัลรวม",
       "totalPrizePool": "มูลค่ารางวัลรวม",
+      "totalProducts": "จำนวนสินค้า",
+
       "comingSoon": "เร็ว ๆ นี้",
       "registrationDate": "วันที่ลงทะเบียน",
       "endDate": "วันที่สิ้นสุด",
-      "joinNow": "เข้าร่วมตอนนี้"
+      "joinNow": "เข้าร่วมตอนนี้",
+      "buttons": {
+        "joinNow": "เข้าร่วมทันที",
+        "registerNotification": "เร็ว ๆ นี้",
+        "eventEnded": "สิ้นสุดแล้ว"
+      },
+      "titles": {
+        "eventHappening": "กิจกรรมกำลังดำเนินอยู่",
+        "eventComing": "กิจกรรมจะเริ่มเร็ว ๆ นี้",
+        "eventEnded": "กิจกรรมสิ้นสุดแล้ว"
+      }
     },
     "badge": {
       "status": {
         "happening": "กำลังจัด",
-        "coming": "เร็ว ๆ นี้"
+        "coming": "เร็ว ๆ นี้",
+        "ended": "สิ้นสุดแล้ว"
       }
+    },
+    "relative": {
+      "title": "กิจกรรมที่เกี่ยวข้อง",
+      "loading": "กำลังโหลด..."
     },
     "filter": {
       "tabs": {
@@ -852,6 +870,18 @@
       "okay": "พอใช้ - ใช้ได้แต่ยังไม่ลื่นไหล",
       "needsImprovement": "ควรปรับปรุง - การทำงานยังไม่ลื่นไหล",
       "notGood": "ไม่ดี - ยังมีหลายส่วนที่ต้องปรับปรุง"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "ลูกค้า",
+      "content": "กำลังโหลดรีวิว...",
+      "address": "กำลังอัปเดต"
+    },
+    "defaults": {
+      "anonymous": "ไม่ระบุชื่อ",
+      "noContent": "ไม่มีเนื้อหารีวิว",
+      "noAddress": "ยังไม่อัปเดตที่อยู่"
     }
   }
 }

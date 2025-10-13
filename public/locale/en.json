@@ -112,7 +112,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "write review get instant offers",
-    "singleMomsJoined": " single moms have joined",
+    "singleMomsJoined": " reviewers have joined",
     "joinTitle": "Join",
     "experienceTitle": "experience"
   },
@@ -253,6 +253,7 @@
       "fundName": "M4U charity fund",
       "mobileDesc": "Love sheet masks? Review any 3 of our featured mask products for FREE and share your honest ...",
       "totalProducts": "Total products",
+      "totalPrizePool": "Total Prize Pool",
       "totalFundsConverted": "Total funds converted"
     },
     "detail": {
@@ -268,16 +269,32 @@
       "product": "Product",
       "totalPrizes": "Total Prizes",
       "totalPrizePool": "Total Prize Pool",
+      "totalProducts": "Total Products",
       "comingSoon": "COMING SOON",
       "registrationDate": "Registration date",
       "endDate": "End date",
-      "joinNow": "JOIN NOW"
+      "joinNow": "JOIN NOW",
+      "buttons": {
+        "joinNow": "JOIN NOW",
+        "registerNotification": "COMING SOON",
+        "eventEnded": "ENDED"
+      },
+      "titles": {
+        "eventHappening": "EVENT IN PROGRESS",
+        "eventComing": "EVENT STARTING SOON",
+        "eventEnded": "EVENT ENDED"
+      }
     },
     "badge": {
       "status": {
         "happening": "Happening",
-        "coming": "Coming soon"
+        "coming": "Coming soon",
+        "ended": "Ended"
       }
+    },
+    "relative": {
+      "title": "Related Events",
+      "loading": "Loading..."
     },
     "filter": {
       "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },
@@ -845,6 +862,18 @@
       "okay": "Okay - Usable but not very smooth",
       "needsImprovement": "Needs improvement - Operation is not smooth",
       "notGood": "Not good - Still a lot to optimize"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "Customer",
+      "content": "Loading reviews...",
+      "address": "Updating"
+    },
+    "defaults": {
+      "anonymous": "Anonymous",
+      "noContent": "No review content available.",
+      "noAddress": "Address not updated"
     }
   }
 }

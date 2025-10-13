@@ -4,13 +4,20 @@ import {
   ProductDetailResponse,
   ProductListResponse,
   TopThreeProductsResponse,
+  ProductFilterResponse,
 } from './type'
 
 export const productApi = {
-  getProductList: ({ _local }: { _local?: string }) =>
+  getProductList: ({
+    _local,
+    tag_product_filter,
+  }: {
+    _local?: string
+    tag_product_filter?: string[]
+  }) =>
     axiosInstance.get<ProductListResponse>('products/getList', {
       baseURL: envConfig.adminUrl,
-      params: { _local },
+      params: { _local, tag_product_filter },
     }),
   getProductRelationList: ({ _local, id }: { _local?: string; id: string }) =>
     axiosInstance.get<ProductListResponse>('products/getList?NotIsSig=1', {
@@ -36,4 +43,14 @@ export const productApi = {
       baseURL: envConfig.adminUrl,
       params: { _local },
     }),
+
+  // Product filters
+  getListProductsFilter: ({ _local }: { _local?: string }) =>
+    axiosInstance.get<ProductFilterResponse>(
+      'products/get_list_products_filter',
+      {
+        baseURL: envConfig.adminUrl,
+        params: { _local },
+      }
+    ),
 }

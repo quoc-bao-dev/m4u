@@ -1,53 +1,52 @@
-import Image from 'next/image'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Review } from '@/services/banner-review-hub'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from '@/locale/hooks/useTranslation'
 
 // Config
 export const REVIEW_ROTATE_MS = 300000 // 5 phút, có thể điều chỉnh nếu cần
 export const REVIEW_FADE_MS = 500 // fade duration in ms
 
-const reviewsData: {
-  reviewerName: string
-  content: string
-  address: string
-  rating: number
-}[] = [
-  {
-    reviewerName: 'Linh Trần',
-    content:
-      'Thật sự bất ngờ! Mình đã được dùng thử sản phẩm xịn sò miễn phí, còn được học hỏi thêm nhiều kiến thức làm đẹp hữu ích. Rất recommend nha!',
-    address: 'Beauty Blogger tại TP.HCM',
-    rating: 5,
-  },
-  {
-    reviewerName: 'Minh Anh',
-    content:
-      'Ấn tượng với độ lành tính của mặt nạ M4U, không gây kích ứng dù da mình khá nhạy cảm. Mùi hương dịu nhẹ, rất dễ chịu.',
-    address: 'Content Creator tại Đà Nẵng',
-    rating: 5,
-  },
-  {
-    reviewerName: 'Thuỳ Dung',
-    content:
-      'Dùng mặt nạ xong thấy da căng bóng, lớp trang điểm hôm sau bám lâu và mịn hơn. Đặc biệt là kiểm soát dầu khá tốt, không bị cakey.',
-    address: 'Nhân viên văn phòng tại TP.HCM',
-    rating: 5,
-  },
-  {
-    reviewerName: 'Hải Nam',
-    content:
-      'Giá trị xứng đáng. Thành phần an toàn, dưỡng ẩm vừa đủ mà không gây bết dính. Mặt nạ M4U chắc chắn sẽ là lựa chọn lâu dài của mình.',
-    address: 'Freelancer tại Cần Thơ',
-    rating: 4,
-  },
-]
+interface TestimonialCardProps {
+  reviews?: Review[]
+}
 
-const TestimonialCard = () => {
+const TestimonialCard = ({ reviews }: TestimonialCardProps) => {
+  const { t } = useTranslation()
+
+  // Fallback data khi không có dữ liệu từ API
+  const fallbackReviews = useMemo(
+    () => [
+      {
+        reviewerName: t('testimonial.fallback.reviewerName'),
+        content: t('testimonial.fallback.content'),
+        address: t('testimonial.fallback.address'),
+        rating: 5,
+      },
+    ],
+    [t]
+  )
+
+  // Map dữ liệu từ API sang format cần thiết
+  const mappedReviews = useMemo(() => {
+    if (!reviews || reviews.length === 0) {
+      return fallbackReviews // Fallback về dữ liệu mặc định
+    }
+
+    return reviews.map((review) => ({
+      reviewerName:
+        review.client?.fullname || t('testimonial.defaults.anonymous'),
+      content: review.content_evaluate || t('testimonial.defaults.noContent'),
+      address: review.client?.address || t('testimonial.defaults.noAddress'),
+      rating: review.evaluate ?? 5,
+    }))
+  }, [reviews, t, fallbackReviews])
+
   const getRandomIndex = (excludeIndex: number | null = null) => {
-    if (reviewsData.length <= 1) return 0
-    let idx = Math.floor(Math.random() * reviewsData.length)
+    if (mappedReviews.length <= 1) return 0
+    let idx = Math.floor(Math.random() * mappedReviews.length)
     if (excludeIndex !== null) {
       while (idx === excludeIndex) {
-        idx = Math.floor(Math.random() * reviewsData.length)
+        idx = Math.floor(Math.random() * mappedReviews.length)
       }
     }
     return idx
@@ -56,7 +55,7 @@ const TestimonialCard = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(() =>
     getRandomIndex()
   )
-  const currentReview = reviewsData[currentIndex]
+  const currentReview = mappedReviews[currentIndex]
   const [isFading, setIsFading] = useState(false)
   const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -148,7 +147,7 @@ const TestimonialCard = () => {
 
       {/* Hidden measuring block */}
       <div className="invisible absolute -z-10 pointer-events-none w-full">
-        {reviewsData.map((review, i) => (
+        {mappedReviews.map((review, i) => (
           <p
             key={`measure-${i}`}
             ref={(el) => {

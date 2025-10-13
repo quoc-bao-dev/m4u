@@ -2,7 +2,7 @@
 import { BroadcastIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 
-export type EventStatus = 'happening' | 'coming'
+export type EventStatus = 'happening' | 'coming' | 'ended'
 
 type EventBagdeProps = {
   status: EventStatus
@@ -18,6 +18,11 @@ const makeStatusConfig = (t: ReturnType<typeof useTranslations>) =>
     coming: {
       label: t('event.badge.status.coming'),
       className: 'bg-[#2DD4BF]',
+      showIcon: false,
+    },
+    ended: {
+      label: t('event.badge.status.ended'),
+      className: 'bg-gray-500',
       showIcon: false,
     },
   } as const)

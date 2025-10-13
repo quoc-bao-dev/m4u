@@ -112,7 +112,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "撰写评测 立即获优惠",
-    "singleMomsJoined": "位单亲妈妈已加入",
+    "singleMomsJoined": " 位评测者已加入",
     "joinTitle": "加入",
     "experienceTitle": "体验"
   },
@@ -253,6 +253,7 @@
       "fundName": "M4U 公益基金",
       "mobileDesc": "喜欢片状面膜吗？免费评测我们精选的任意 3 款面膜产品，并分享你的真实 ...",
       "totalProducts": "产品总数",
+      "totalPrizePool": "奖金池总额",
       "totalFundsConverted": "转化为基金总额"
     },
     "detail": {
@@ -268,16 +269,32 @@
       "product": "产品",
       "totalPrizes": "奖项总数",
       "totalPrizePool": "奖金池总额",
+      "totalProducts": "产品总数",
       "comingSoon": "即将推出",
       "registrationDate": "报名日期",
       "endDate": "截止日期",
-      "joinNow": "立即参加"
+      "joinNow": "立即参加",
+      "buttons": {
+        "joinNow": "立即参加",
+        "registerNotification": "即将推出",
+        "eventEnded": "已结束"
+      },
+      "titles": {
+        "eventHappening": "活动进行中",
+        "eventComing": "活动即将开始",
+        "eventEnded": "活动已结束"
+      }
     },
     "badge": {
       "status": {
         "happening": "正在进行",
-        "coming": "即将开始"
+        "coming": "即将开始",
+        "ended": "已结束"
       }
+    },
+    "relative": {
+      "title": "相关活动",
+      "loading": "加载中..."
     },
     "filter": {
       "tabs": { "all": "全部", "event": "活动", "challenge": "挑战" },
@@ -845,6 +862,18 @@
       "okay": "一般——可用但不太流畅",
       "needsImprovement": "需要改进——操作不够流畅",
       "notGood": "不佳——仍有许多需要优化"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "客户",
+      "content": "正在加载评价...",
+      "address": "正在更新"
+    },
+    "defaults": {
+      "anonymous": "匿名",
+      "noContent": "暂无评价内容。",
+      "noAddress": "地址未更新"
     }
   }
 }

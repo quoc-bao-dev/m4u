@@ -1,7 +1,9 @@
 'use client'
 
+import { useProductFilterGroups } from '@/services/product'
 import { useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
+import { useProductFilterStore } from '../../stores/useProductFilterStore'
 
 type FilterOption = {
   id: string
@@ -86,78 +88,15 @@ const Section = ({
 }
 
 const FilterSidebar = () => {
-  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const selected = useProductFilterStore((s) => s.selectedIds)
+  const toggle = useProductFilterStore((s) => s.toggle)
   const t = useTranslations('filter')
 
-  const groups = useMemo(
-    () => [
-      {
-        id: 'without',
-        title: t('without'),
-        options: [
-          { id: 'huong-lieu', label: t('artificialFragrance'), count: 6 },
-          { id: 'con', label: t('alcohol'), count: 9 },
-          { id: 'sulphates', label: t('sulphates'), count: 8 },
-          { id: 'goc-dong-vat', label: t('animalDerived'), count: 8 },
-          { id: 'silicone', label: t('silicone'), count: 24 },
-        ],
-      },
-      {
-        id: 'usage',
-        title: t('usage'),
-        options: [
-          { id: 'duong-am-sau', label: t('deepMoisturizing'), count: 6 },
-          { id: 'kiem-dau', label: t('oilControl'), count: 9 },
-          { id: 'tri-mun', label: t('acneTreatment'), count: 8 },
-          { id: 'chong-lao-hoa', label: t('antiAging'), count: 6 },
-          { id: 'duong-trang', label: t('whitening'), count: 13 },
-        ],
-      },
-      {
-        id: 'skin',
-        title: t('skinType'),
-        options: [
-          { id: 'da-kho', label: t('drySkin'), count: 6 },
-          { id: 'da-dau', label: t('oilySkin'), count: 9 },
-          { id: 'da-nhay-cam', label: t('sensitiveSkin'), count: 13 },
-          { id: 'da-hon-hop', label: t('combinationSkin'), count: 8 },
-          { id: 'da-thuong', label: t('normalSkin'), count: 8 },
-          { id: 'da-mun', label: t('acneSkin'), count: 24 },
-        ],
-      },
-      {
-        id: 'ingredients',
-        title: t('ingredients'),
-        options: [
-          { id: 'nha-dam', label: t('aloeVera'), count: 6 },
-          { id: 'collagen', label: t('collagen'), count: 9 },
-          { id: 'ha', label: t('hyaluronicAcid'), count: 8 },
-          { id: 'tram-tra', label: t('teaTree'), count: 6 },
-          { id: 'rau-ma', label: t('gotuKola'), count: 24 },
-        ],
-      },
-      {
-        id: 'rating',
-        title: t('reviews'),
-        options: [
-          { id: '5', label: '5.0', count: 6 },
-          { id: '4', label: '4.0', count: 9 },
-          { id: '3', label: '3.0', count: 8 },
-          { id: '2', label: '2.0', count: 6 },
-          { id: '1', label: '1.0', count: 24 },
-        ],
-      },
-    ],
-    [t]
-  )
+  const { groups: groupsRaw, isLoading } = useProductFilterGroups()
+  const groups = useMemo<FilterGroup[]>(() => groupsRaw, [groupsRaw])
 
   const handleToggle = (id: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
+    toggle(id)
   }
 
   return (
@@ -168,14 +107,33 @@ const FilterSidebar = () => {
           <span className="font-bold text-xl text-gray-900">{t('title')}</span>
         </div>
         <div className="divide-y">
-          {groups.map((g) => (
-            <Section
-              key={g.id}
-              group={g}
-              values={selected}
-              onToggle={handleToggle}
-            />
-          ))}
+          {isLoading ? (
+            <div className="animate-pulse">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="py-4">
+                  <div className="h-4 w-40 bg-gray-200 rounded mb-4" />
+                  <div className="space-y-3">
+                    {[0, 1, 2, 3, 4].map((j) => (
+                      <div key={j} className="flex items-center gap-3">
+                        <span className="w-4 h-4 rounded border border-gray-200 bg-gray-100" />
+                        <div className="h-3 w-32 bg-gray-200 rounded" />
+                        <div className="h-3 w-8 bg-gray-100 rounded ml-auto" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            groups.map((g) => (
+              <Section
+                key={g.id}
+                group={g}
+                values={selected}
+                onToggle={handleToggle}
+              />
+            ))
+          )}
         </div>
       </div>
     </aside>

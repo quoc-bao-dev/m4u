@@ -114,7 +114,7 @@
   },
   "trialHero": {
     "writeReviewGetOffer": "viết review nhận ngay ưu đãi",
-    "singleMomsJoined": " mẹ đơn thân đã tham gia",
+    "singleMomsJoined": " reviewer đã tham gia",
     "joinTitle": "Tham gia",
     "experienceTitle": "trải nghiệm"
   },
@@ -255,6 +255,7 @@
       "fundName": "Quỹ từ thiện M4U",
       "mobileDesc": "Thích mặt nạ? Review 3 sản phẩm mặt nạ nổi bật của chúng tôi MIỄN PHÍ và chia sẻ cảm nhận chân thực ...",
       "totalProducts": "Tổng sản phẩm",
+      "totalPrizePool": "Tổng giải thưởng",
       "totalFundsConverted": "Tổng quỹ quy đổi"
     },
     "detail": {
@@ -270,16 +271,32 @@
       "product": "Sản phẩm",
       "totalPrizes": "Tổng giải thưởng",
       "totalPrizePool": "Tổng quỹ giải thưởng",
-      "comingSoon": "SẮP DIỄN RA",
+      "totalProducts": "Tổng sản phẩm",
+      ":comingSoon": "SẮP DIỄN RA",
       "registrationDate": "Ngày đăng ký",
       "endDate": "Ngày kết thúc",
-      "joinNow": "THAM GIA NGAY"
+      "joinNow": "THAM GIA NGAY",
+      "buttons": {
+        "joinNow": "THAM GIA NGAY",
+        "registerNotification": "SẮP DIỄN RA",
+        "eventEnded": "ĐÃ KẾT THÚC"
+      },
+      "titles": {
+        "eventHappening": "SỰ KIỆN ĐANG DIỄN RA",
+        "eventComing": "SỰ KIỆN SẮP BẮT ĐẦU",
+        "eventEnded": "SỰ KIỆN ĐÃ KẾT THÚC"
+      }
     },
     "badge": {
       "status": {
         "happening": "Đang diễn ra",
-        "coming": "Sắp diễn ra"
+        "coming": "Sắp diễn ra",
+        "ended": "Đã kết thúc"
       }
+    },
+    "relative": {
+      "title": "Sự kiện liên quan",
+      "loading": "Đang tải..."
     },
     "filter": {
       "tabs": { "all": "Tất cả", "event": "Sự kiện", "challenge": "Thử thách" },
@@ -844,6 +861,18 @@
       "okay": "Ổn - Có thể sử dụng nhưng không mượt mà",
       "needsImprovement": "Cần cải thiện - Hoạt động không mượt mà",
       "notGood": "Không tốt - Vẫn còn nhiều điều cần tối ưu"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "Khách hàng",
+      "content": "Đang tải đánh giá...",
+      "address": "Đang cập nhật"
+    },
+    "defaults": {
+      "anonymous": "Ẩn danh",
+      "noContent": "Chưa có nội dung đánh giá.",
+      "noAddress": "Chưa cập nhật địa chỉ"
     }
   }
 }

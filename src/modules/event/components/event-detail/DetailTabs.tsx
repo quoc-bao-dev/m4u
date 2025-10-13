@@ -38,7 +38,7 @@ const DetailTabs = ({
           >
             {tab}
             {active === tab && (
-              <span className="absolute -bottom-[2px] left-0 right-0 h-[3px] rounded-t-full bg-pink-600" />
+              <span className="absolute -bottom-[2px] left-0 right-0 h-[6px] rounded-t-full bg-pink-600" />
             )}
           </button>
         ))}

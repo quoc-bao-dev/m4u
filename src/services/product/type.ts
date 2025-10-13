@@ -100,3 +100,28 @@ export interface TopThreeProductsResponse {
   result: boolean
   data: TopThreeProductItem[]
 }
+
+// Product filter types
+export interface ProductFilterChildItem {
+  id: number
+  id_parent: number
+  name: string
+  level: number
+  active: number
+  created_at: string
+  updated_at: string
+  total_product: number
+}
+
+export interface ProductFilterItem {
+  id: number
+  id_parent: number
+  name: string
+  level: number
+  active: number
+  created_at: string
+  updated_at: string
+  child: ProductFilterChildItem[]
+}
+
+export type ProductFilterResponse = ProductFilterItem[]

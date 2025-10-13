@@ -11,7 +11,7 @@ const HeroSection = () => {
   const t = useTranslations('event.hero')
   return (
     <>
-      <section className="relative md:h-[100svh] pt-[100px] lg:pt-0">
+      <section className="relative md:h-[100svh] pt-[100px] lg:pt-0 overflow-hidden">
         <div className="w-full absolute top-0 -z-10">
           <img
             src="/image/event/image-blur-01.png"

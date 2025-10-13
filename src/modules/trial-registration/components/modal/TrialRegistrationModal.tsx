@@ -58,7 +58,7 @@ const TrialRegistrationModal = () => {
               )}
             >
               <Image
-                src={'/image/trial/image-modal-01.jpg'}
+                src={productImage ?? '/image/trial/image-modal-01.jpg'}
                 alt="trial"
                 height={600}
                 width={600}

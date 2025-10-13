@@ -15,7 +15,7 @@ const EventFrame = ({ children, className }: EventFrameProps) => {
       }`}
     >
       <div
-        className="relative bg-pink-300 rounded-lg w-full aspect-[56/30]"
+        className="relative bg-white rounded-lg w-full aspect-[56/30]"
         style={{
           WebkitMaskImage: 'url(/image/donation/mask.png)',
           maskImage: 'url(/image/donation/mask.png)',
