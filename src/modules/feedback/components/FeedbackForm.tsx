@@ -62,13 +62,6 @@ const FeedbackForm = ({
   }
   const reasons = getReasonsFromApi()
 
-  // Debug: kiểm tra dữ liệu improveFeedbackData khi thay đổi
-  useEffect(() => {
-    if (improveFeedbackData) {
-      // console.log('improveFeedbackData', improveFeedbackData)
-    }
-  }, [improveFeedbackData])
-
   // Reset selectedReasons khi selectedFeedback thay đổi
   const handleFeedbackChange = (feedback: number) => {
     setSelectedFeedback(feedback)
@@ -120,7 +113,6 @@ const FeedbackForm = ({
   const handleSubmit = () => {
     // Kiểm tra checkbox đã được tích chưa
     if (!agree) {
-      console.log('Please agree to privacy policy before submitting feedback')
       return
     }
 
@@ -129,9 +121,6 @@ const FeedbackForm = ({
 
     // Kiểm tra người dùng đã chọn ít nhất một lý do chưa
     if (keyMainValues.length === 0) {
-      console.log(
-        'Please select at least one improvement reason before submitting feedback'
-      )
       return
     }
 
@@ -143,13 +132,9 @@ const FeedbackForm = ({
       file: uploadedImages.length > 0 ? uploadedImages : undefined,
     }
 
-    // console.log('submitData', submitData)
-
     // Gọi API để gửi feedback
     sendFeedbackMutation.mutate(submitData, {
       onSuccess: (data) => {
-        console.log('Feedback sent successfully:', data)
-        // Reset form data
         setSelectedReasons([])
         setAgree(false)
         setSelectedFeedback(5)

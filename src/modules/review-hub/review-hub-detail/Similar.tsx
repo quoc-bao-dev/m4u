@@ -32,8 +32,15 @@ const sideImages: SideImage[] = [
   },
 ]
 
-const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, isError: boolean }) => {
-  console.log(data)
+const Similar = ({
+  data,
+  isLoading,
+  isError,
+}: {
+  data: any
+  isLoading: boolean
+  isError: boolean
+}) => {
   const { isMobile, isTablet } = useDevice()
   const tProduct = useTranslations('product')
   const firstVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
@@ -60,18 +67,25 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
               href={`/review-hub/${product.slug}`}
               className="group flex flex-col lg:flex-row gap-3 lg:gap-5 w-full"
             >
-              <div className='bg-white rounded-3xl w-full aspect-square xl:aspect-auto lg:h-[324px] xl:h-[475px] 2xl:h-[610px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300'>
-                <div className="relative rounded-3xl h-full"
-                  style={{ backgroundColor: withAlpha(product.background_color, 0.1) }}
+              <div className="bg-white rounded-3xl w-full aspect-square xl:aspect-auto lg:h-[324px] xl:h-[475px] 2xl:h-[610px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300">
+                <div
+                  className="relative rounded-3xl h-full"
+                  style={{
+                    backgroundColor: withAlpha(product.background_color, 0.1),
+                  }}
                 >
                   <div className="bg-white absolute bottom-3 left-3 right-3 flex flex-col gap-1 lg:gap-2 rounded-2xl p-4 xl:p-6">
                     <h2 className="text-sm xl:text-base font-bold text-greyscale-900">
                       {product.code}
                     </h2>
-                    <h3 className="text-base xl:text-2xl lg:leading-[100%] font-normal text-greyscale-900 group-hover:text-[var(--hover-color)] transition-colors duration-300"
-                      style={{
-                        '--hover-color': product.background_color
-                      } as React.CSSProperties & { '--hover-color': string }}>
+                    <h3
+                      className="text-base xl:text-2xl lg:leading-[100%] font-normal text-greyscale-900 group-hover:text-[var(--hover-color)] transition-colors duration-300"
+                      style={
+                        {
+                          '--hover-color': product.background_color,
+                        } as React.CSSProperties & { '--hover-color': string }
+                      }
+                    >
                       {product.name}
                     </h3>
                     <div className="flex items-center gap-3">
@@ -130,7 +144,9 @@ const Similar = ({ data, isLoading, isError }: { data: any, isLoading: boolean, 
                         // Pause tất cả video khác trong cùng một product
                         sideImages.forEach((_, otherIndex) => {
                           if (otherIndex !== index) {
-                            const videoElement = document.querySelector(`video[data-product-id="${product.id}"][data-index="${otherIndex}"]`) as HTMLVideoElement
+                            const videoElement = document.querySelector(
+                              `video[data-product-id="${product.id}"][data-index="${otherIndex}"]`
+                            ) as HTMLVideoElement
                             if (videoElement) {
                               videoElement.pause()
                             }

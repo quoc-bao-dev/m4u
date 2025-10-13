@@ -8,7 +8,6 @@ import { Link } from '@/locale'
 
 const BottomSection = () => {
   const { data, isLoading } = useGetHelpCentre()
-console.log(data)
   return (
     <section className="pt-12">
       <Container>

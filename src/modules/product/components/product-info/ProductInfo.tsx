@@ -39,7 +39,6 @@ const ProductInfo = () => {
   }, [productDetail])
 
   const detail = productDetail?.data
-  console.log(detail)
   const images = (() => {
     const merged = [
       ...(detail?.image ? [detail.image] : []),

@@ -39,7 +39,6 @@ const EventContent = ({ mainImage, images }: EventContentProps) => {
 
   // Debug function để kiểm tra click
   const handleImageClick = (src: string) => {
-    console.log('Clicking image:', src)
     setSelectedSrc(src)
   }
 

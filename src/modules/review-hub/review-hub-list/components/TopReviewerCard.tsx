@@ -33,7 +33,6 @@ const TopReviewerCard = ({
   topReview = 1,
   isRightColumn = false,
 }: TopReviewerCardProps) => {
-  console.log(data)
   const tProduct = useTranslations('product')
 
   const { isMobile } = useDevice()
@@ -91,7 +90,7 @@ const TopReviewerCard = ({
         try {
           target.pause()
           setPlayingIndex(null)
-        } catch { }
+        } catch {}
         return
       }
 
@@ -100,14 +99,14 @@ const TopReviewerCard = ({
         if (video && i !== index) {
           try {
             video.pause()
-          } catch { }
+          } catch {}
         }
       })
 
       try {
         target.play()
         setPlayingIndex(index)
-      } catch { }
+      } catch {}
     },
     [playingIndex]
   )
@@ -117,7 +116,7 @@ const TopReviewerCard = ({
   //   if (isDraggingRef.current) return
   //   // Disable hover autoplay on iPhone
   //   if (isIPhone()) return
-  //   
+  //
   //   const target = videoRefs.current[index]
   //   if (!target) return
   //   // Pause others
@@ -133,7 +132,6 @@ const TopReviewerCard = ({
   //     setPlayingIndex(index)
   //   } catch { }
   // }, [isIPhone])
-
 
   // Autoplay/pause based on viewport visibility
   useEffect(() => {
@@ -151,20 +149,20 @@ const TopReviewerCard = ({
         if (video && i !== firstVideoIndex) {
           try {
             video.pause()
-          } catch { }
+          } catch {}
         }
       })
       try {
         first.play()
         setPlayingIndex(firstVideoIndex)
-      } catch { }
+      } catch {}
     } else {
       // Pause all when out of view
       videoRefs.current.forEach((video) => {
         if (video) {
           try {
             video.pause()
-          } catch { }
+          } catch {}
         }
       })
       setPlayingIndex(null)
@@ -197,7 +195,9 @@ const TopReviewerCard = ({
       })
       const payload = response?.data?.data
       const nextReviews = payload?.review?.data || payload?.data || []
-      const nextLastPage = Number(payload?.review?.last_page || payload?.last_page || lastPage)
+      const nextLastPage = Number(
+        payload?.review?.last_page || payload?.last_page || lastPage
+      )
       setReviews((prev) => [...prev, ...nextReviews])
       setCurrentPage(nextPage)
       setLastPage(nextLastPage)
@@ -223,10 +223,14 @@ const TopReviewerCard = ({
       href={`/review-hub/${data?.slug}`}
       className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-5 w-full border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
-      <div className='hidden xl:block flex-shrink-0 lg:size-[160px] xl:size-[250px] 2xl:size-[300px] rounded-3xl'
-        style={{
-          backgroundColor: withAlpha(data?.background_color || '#fff', 0.1)
-        } as React.CSSProperties}>
+      <div
+        className="hidden xl:block flex-shrink-0 lg:size-[160px] xl:size-[250px] 2xl:size-[300px] rounded-3xl"
+        style={
+          {
+            backgroundColor: withAlpha(data?.background_color || '#fff', 0.1),
+          } as React.CSSProperties
+        }
+      >
         <Image
           src={data?.image || IMAGES.topProduct}
           alt="top-reviewer"
@@ -252,16 +256,30 @@ const TopReviewerCard = ({
               </span>
             )}
             <div className="flex flex-col gap-2 2xl:gap-3 pr-2">
-              <h3 className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900 transition-colors duration-300 group-hover:text-[var(--topreview-color)]"
-                style={{
-                  "--topreview-color": withAlpha(data?.background_color || '#F59E0B', 1)
-                } as React.CSSProperties}>
+              <h3
+                className="text-[10px] lg:text-sm 2xl:text-base font-bold text-greyscale-900 transition-colors duration-300 group-hover:text-[var(--topreview-color)]"
+                style={
+                  {
+                    '--topreview-color': withAlpha(
+                      data?.background_color || '#F59E0B',
+                      1
+                    ),
+                  } as React.CSSProperties
+                }
+              >
                 {data?.code || brandName}
               </h3>
-              <p className="text-sm lg:text-base xl:text-xl 2xl:text-2xl leading-[100%] text-greyscale-900 transition-colors duration-300 group-hover:text-[var(--topreview-color)]"
-                style={{
-                  "--topreview-color": withAlpha(data?.background_color || '#F59E0B', 1)
-                } as React.CSSProperties}>
+              <p
+                className="text-sm lg:text-base xl:text-xl 2xl:text-2xl leading-[100%] text-greyscale-900 transition-colors duration-300 group-hover:text-[var(--topreview-color)]"
+                style={
+                  {
+                    '--topreview-color': withAlpha(
+                      data?.background_color || '#F59E0B',
+                      1
+                    ),
+                  } as React.CSSProperties
+                }
+              >
                 {data?.name || productName}
               </p>
               <div className="flex items-center gap-1 2xl:gap-3 pt-0 xl:pt-1 2xl:pt-2">
@@ -274,15 +292,23 @@ const TopReviewerCard = ({
                   <span className="text-greyscale-900 font-medium">
                     {data?.average_star || rating}{' '}
                   </span>
-                  ({data?.quantity_reviews || reviewCount} {tProduct('reviews')})
+                  ({data?.quantity_reviews || reviewCount} {tProduct('reviews')}
+                  )
                 </p>
               </div>
             </div>
           </div>
-          <div className='xl:hidden size-[120px] lg:size-[160px] object-cover rounded-xl'
-            style={{
-              backgroundColor: withAlpha(data?.background_color || '#fff', 0.1)
-            } as React.CSSProperties}>
+          <div
+            className="xl:hidden size-[120px] lg:size-[160px] object-cover rounded-xl"
+            style={
+              {
+                backgroundColor: withAlpha(
+                  data?.background_color || '#fff',
+                  0.1
+                ),
+              } as React.CSSProperties
+            }
+          >
             <Image
               src={data?.image || IMAGES.topProduct}
               alt="top-reviewer"
@@ -297,8 +323,9 @@ const TopReviewerCard = ({
           <div className="absolute z-[2] top-0 right-0 w-10 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
           <div
             ref={scrollContainerRef}
-            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
-              }`}
+            className={`flex gap-2 2xl:gap-3 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
+              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+            }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={endDrag}
@@ -315,7 +342,7 @@ const TopReviewerCard = ({
                   handlePlayVideo(index)
                 }}
                 // onMouseEnter={() => handleHoverStart(index)}
-              // onMouseLeave={() => handleHoverEnd(index)}
+                // onMouseLeave={() => handleHoverEnd(index)}
               >
                 <div className="absolute top-1 right-1 flex items-center gap-0.5 bg-white rounded-full py-0.5 px-1">
                   <StarIcon
@@ -326,7 +353,15 @@ const TopReviewerCard = ({
                     {kol.evaluate}
                   </span>
                 </div>
-                <div className={`${isIPhone() ? (playingIndex === index ? 'opacity-0' : 'opacity-100') : 'opacity-0 hover:opacity-100'} z-10 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl`}>
+                <div
+                  className={`${
+                    isIPhone()
+                      ? playingIndex === index
+                        ? 'opacity-0'
+                        : 'opacity-100'
+                      : 'opacity-0 hover:opacity-100'
+                  } z-10 transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-xl`}
+                >
                   {playingIndex === index ? (
                     <PauseIcon
                       weight="fill"
@@ -352,7 +387,10 @@ const TopReviewerCard = ({
                         el.setAttribute('x5-video-player-type', 'h5')
                         el.setAttribute('x-webkit-airplay', 'allow')
                         // Restrict fullscreen and remote playback via attributes as a best-effort
-                        el.setAttribute('controlslist', 'nofullscreen noremoteplayback nodownload noplaybackrate')
+                        el.setAttribute(
+                          'controlslist',
+                          'nofullscreen noremoteplayback nodownload noplaybackrate'
+                        )
                         el.setAttribute('disablepictureinpicture', 'true')
                       } catch {}
                     }

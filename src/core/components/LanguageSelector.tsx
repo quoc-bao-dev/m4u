@@ -87,11 +87,27 @@ export default function LanguageSelector({
 
   const handleLanguageSelect = (locale: string) => {
     setSelectedLocale(locale)
+    try {
+      // Set cookie to persist language selection across sessions
+      document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=${
+        60 * 60 * 24 * 365
+      }; samesite=lax`
+    } catch (e) {
+      // no-op
+    }
     onLanguageSelect(locale)
   }
 
   const handleClose = () => {
     // Nếu người dùng đóng mà không chọn, skip
+    try {
+      // Set cookie to persist language selection across sessions
+      document.cookie = `NEXT_LOCALE=${'en'}; path=/; max-age=${
+        60 * 60 * 24 * 365
+      }; samesite=lax`
+    } catch (e) {
+      // no-op
+    }
     handleLanguageSelect('en')
     // if (!selectedLocale) {
     //   onSkip()

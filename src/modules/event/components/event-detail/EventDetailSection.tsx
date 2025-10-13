@@ -155,7 +155,6 @@ const EventDetailSection = () => {
       </Container>
     )
   }
-  console.log('Mapped Event Data:', mappedEventData)
 
   return (
     <Container className="max-w-[1440px] pt-[100px]">

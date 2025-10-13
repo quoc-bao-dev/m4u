@@ -73,13 +73,6 @@ export default function GeoLocationDetector() {
       return
     }
 
-    if (config.debug) {
-      console.log(
-        'GeoLocationDetector: Starting detection with config:',
-        config
-      )
-    }
-
     if (config.mode === 'auto') {
       handleAutoMode()
     } else if (config.mode === 'ui') {
@@ -110,9 +103,7 @@ export default function GeoLocationDetector() {
         }
         return
       }
-    } catch (error) {
-      console.log('Auto detection failed, using fallback')
-    }
+    } catch (error) {}
 
     // Fallback logic
     const fallbackLocale = getFallbackLocale()

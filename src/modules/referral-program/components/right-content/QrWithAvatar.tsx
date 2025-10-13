@@ -14,7 +14,6 @@ const QrWithAvatar = ({
   name?: string
 }) => {
   const logoSize = size * 0.24 // avatar chiếm 20% QR (trừ padding)
-  console.log(name)
 
   return (
     <div

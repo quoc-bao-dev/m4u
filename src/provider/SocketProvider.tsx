@@ -36,8 +36,6 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
     })
 
     createdSocket.on('connect', () => {
-      console.log('[connect success]', createdSocket)
-
       createdSocket.emit('connectedData', {
         user_id: user?.id?.toString(),
         user_name: user?.fullname,

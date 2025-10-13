@@ -264,7 +264,6 @@ const EventContentRenderer = ({ htmlContent }: EventContentRendererProps) => {
               const alt = element.getAttribute('alt') || ''
               const width = element.getAttribute('width') || '1280'
               const height = element.getAttribute('height') || '720'
-              console.log('[src] ', src)
               if (failedImages.has(src)) {
                 return null
               }

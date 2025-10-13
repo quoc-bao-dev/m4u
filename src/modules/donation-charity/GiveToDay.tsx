@@ -4,8 +4,6 @@ import { useTranslations } from 'next-intl'
 
 const GiveToDay = () => {
   const t = useTranslations('donationCharity.giveToday')
-  console.log(t('titleLead'))
-
   return (
     <div className="px-3 md:px-0 w-full">
       <div className="container-custom">

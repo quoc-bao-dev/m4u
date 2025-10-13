@@ -43,22 +43,6 @@ const HistoryTable = () => {
 
   const nav = useNavigate()
 
-  // Log bộ lọc ra console
-  useEffect(() => {
-    console.log('🔍 Current filters:', {
-      activeTab,
-      searchQuery,
-      dateRange: {
-        from: dateRange.from
-          ? moment(dateRange.from).format('DD/MM/YYYY')
-          : undefined,
-        to: dateRange.to
-          ? moment(dateRange.to).format('DD/MM/YYYY')
-          : undefined,
-      },
-    })
-  }, [activeTab, searchQuery, dateRange])
-
   // Infinite query with default perPage = 5
   const {
     data,

@@ -204,7 +204,6 @@ export default function ModalDemoPage() {
                   }}
                   onComplete={(value) => {
                     setPinComplete(true)
-                    console.log('PIN completed:', value)
                   }}
                   className="gap-3"
                   inputClassName="w-14 h-14 text-2xl"
