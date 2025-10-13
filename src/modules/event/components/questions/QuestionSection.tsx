@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl'
 
 const QuestionSection = () => {
   const t = useTranslations('event.questions')
+
+  // TODO: map api here
   return (
     <section className=" pb-[60px] md:py-[96px]">
       <Container className="space-y-3 xl:px-[200px]">
@@ -14,6 +16,7 @@ const QuestionSection = () => {
           {t('titleTail')}
         </h2>
 
+        {/* // TODO: map api here */}
         <AccordionItem
           title={t('perksTitle')}
           defaultOpen={true}
@@ -45,11 +48,9 @@ const QuestionSection = () => {
             </ul>
           </div>
         </AccordionItem>
-
         <AccordionItem title={t('placeholder1Title')} className="bg-white">
           <p>{t('placeholder1')}</p>
         </AccordionItem>
-
         <AccordionItem title={t('placeholder2Title')} className="bg-white">
           <p>{t('placeholder2')}</p>
         </AccordionItem>

@@ -115,7 +115,6 @@ const EventDetailSection = () => {
 
       // Thống kê
       stats: {
-        // TODO: map theo type_sponsor
         totalProduct:
           event.type_sponsor === 1 ? event.prizes : event.total_product,
         countJoin: event.count_join,
@@ -252,7 +251,7 @@ const EventDetailSection = () => {
           </div>
         </div>
         <div className="col-span-1 hidden lg:block lg:col-span-4 ">
-          <div className="sticky lg:top-10 2xl:top-20">
+          <div className="sticky lg:top-10 2xl:top-20 pb-10">
             {/* ===== Event Sidebar Desktop ===== */}
             {mappedEventData && (
               <EventSidebar

@@ -1,6 +1,11 @@
 import { envConfig } from '@/core/config'
 import axiosInstance from '@/core/http/axiosInstance'
-import { EventListResponse, EventListParams, EventDetailResponse } from './type'
+import {
+  EventListResponse,
+  EventListParams,
+  EventDetailResponse,
+  InfoBannerEventResponse,
+} from './type'
 
 export const eventApi = {
   getEventList: (params: EventListParams) =>
@@ -21,5 +26,10 @@ export const eventApi = {
   getEventDetail: (slug: string) =>
     axiosInstance.get<EventDetailResponse>(`api_list_detail/${slug}`, {
       baseURL: envConfig.serviceUrl,
+    }),
+
+  getInfoBannerEvent: () =>
+    axiosInstance.get<InfoBannerEventResponse>('getInfoBannerEvent', {
+      baseURL: envConfig.adminUrl,
     }),
 }

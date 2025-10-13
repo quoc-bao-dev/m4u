@@ -1,6 +1,10 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { eventApi } from './api'
-import { EventListParams, EventListResponse } from './type'
+import {
+  EventListParams,
+  EventListResponse,
+  InfoBannerEventResponse,
+} from './type'
 
 export const useGetEventList = (
   params: EventListParams = {},
@@ -28,6 +32,19 @@ export const useGetEventDetail = (slug: string) => {
     queryKey: ['event-detail', slug],
     queryFn: queryFn,
     enabled: !!slug,
+  })
+}
+
+export const useGetInfoBannerEvent = (options?: { enabled?: boolean }) => {
+  const queryFn = async () => {
+    const response = await eventApi.getInfoBannerEvent()
+    return response.data
+  }
+
+  return useQuery<InfoBannerEventResponse>({
+    queryKey: ['info-banner-event'],
+    queryFn: queryFn,
+    enabled: options?.enabled ?? true,
   })
 }
 
