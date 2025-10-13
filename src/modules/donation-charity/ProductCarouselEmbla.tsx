@@ -31,8 +31,7 @@ const ProductCarouselEmbla = () => {
 
   const mappedProducts: Product[] = useMemo(() => {
     const list = (products?.data ?? []) as Array<any>
-
-    return list.map((item: any, index: number) => {
+    const data = list.map((item: any, index: number) => {
       return {
         id: String(item.id),
         brand: item.code ?? '',
@@ -42,6 +41,8 @@ const ProductCarouselEmbla = () => {
         customColorHex: item.background_color ?? null,
       }
     })
+
+    return [...data, ...data, ...data, ...data]
   }, [products])
 
   const scrollTo = useCallback(
@@ -119,7 +120,7 @@ const ProductCarouselEmbla = () => {
                       imageSrc={product.imageSrc}
                       scale={1}
                       customColorHex={product.customColorHex || undefined}
-                      widthClass="w-[150px] lg:w-[380px]"
+                      widthClass="w-[150px] lg:w-[280px]"
                       variant={index === selectedIndex ? 'main' : 'item'}
                       disableEnterAnimation={false}
                       className={index === selectedIndex ? '' : ''}

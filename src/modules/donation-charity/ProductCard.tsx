@@ -60,8 +60,6 @@ const ProductCard = ({
     return `rgba(${rd}, ${gd}, ${bd}, ${alpha})`
   }
 
-  console.log(darkenHexToRgba(colors.polygon, 0.5, 0.3))
-
   const insetShadow = `inset 0px -5.58px 4.18px 0px ${darkenHexToRgba(
     colors.polygon,
     0.5,
@@ -102,7 +100,7 @@ const ProductCard = ({
         // style={{ backgroundColor: customColorHex || '#F3F4F6' }}
       >
         <div
-          className="absolute inset-0 opacity-10 rounded-lg -z-10"
+          className="absolute inset-0 opacity-20 rounded-lg -z-10"
           style={{ backgroundColor: customColorHex || '#F3F4F6' }}
         ></div>
         {variant === 'item' && (
