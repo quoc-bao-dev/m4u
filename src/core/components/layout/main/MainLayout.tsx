@@ -5,6 +5,8 @@ import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
+import LanguageSelector from '@/core/components/LanguageSelector'
+import { useLanguageSelector } from '@/core/hooks/useLanguageSelector'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -20,6 +22,15 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
+
+  // Language selector hook
+  const {
+    isOpen: isLanguageSelectorOpen,
+    isInitialized,
+    handleClose: handleLanguageSelectorClose,
+    handleLanguageSelect,
+    handleSkip,
+  } = useLanguageSelector()
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -96,6 +107,16 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
       {/* Cart Icon - Fixed position */}
       <CartIcon />
+
+      {/* Language Selector - Hiển thị khi chưa chọn ngôn ngữ */}
+      {isInitialized && (
+        <LanguageSelector
+          isOpen={isLanguageSelectorOpen}
+          onClose={handleLanguageSelectorClose}
+          onLanguageSelect={handleLanguageSelect}
+          onSkip={handleSkip}
+        />
+      )}
     </div>
   )
 }

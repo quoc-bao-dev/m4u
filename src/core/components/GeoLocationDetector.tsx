@@ -6,6 +6,7 @@ import { locales, defaultLocale } from '@/locale/config'
 import LanguageSelector from './LanguageSelector'
 import GeoLocationPermission from './GeoLocationPermission'
 import { useGeoLocation } from '@/core/hooks/useGeoLocation'
+import { useLanguageSelector } from '@/core/hooks/useLanguageSelector'
 import {
   getConfigForEnvironment,
   getConfigForMode,
@@ -48,6 +49,9 @@ export default function GeoLocationDetector() {
   const pathname = usePathname()
   const { isDetecting, error, detectLocation } = useGeoLocation()
 
+  // Kiểm tra xem LanguageSelector có đang mở không
+  const { isOpen: isLanguageSelectorOpen } = useLanguageSelector()
+
   // Kiểm tra xem đã có locale trong URL chưa
   const hasLocaleInPath = locales.some((locale) =>
     pathname.startsWith(`/${locale}`)
@@ -56,6 +60,11 @@ export default function GeoLocationDetector() {
   useEffect(() => {
     // Kiểm tra nếu tính năng bị disable
     if (!config.enabled) {
+      return
+    }
+
+    // Nếu LanguageSelector đang mở, không chạy GeoLocationDetector
+    if (isLanguageSelectorOpen) {
       return
     }
 
@@ -76,7 +85,7 @@ export default function GeoLocationDetector() {
     } else if (config.mode === 'ui') {
       handleUIMode()
     }
-  }, [hasLocaleInPath])
+  }, [hasLocaleInPath, isLanguageSelectorOpen])
 
   const handleAutoMode = async () => {
     try {
@@ -216,6 +225,11 @@ export default function GeoLocationDetector() {
     setShowLanguageSelector(true)
   }
 
+  // Không render gì nếu LanguageSelector đang mở
+  if (isLanguageSelectorOpen) {
+    return null
+  }
+
   //   // Không render gì nếu đã có locale trong URL
   //   if (hasLocaleInPath) {
   //     return null
@@ -257,6 +271,8 @@ export default function GeoLocationDetector() {
       {/* Language Selector */}
       {config.uiMode.showLanguageSelector && (
         <LanguageSelector
+          onLanguageSelect={() => {}}
+          onSkip={handleSkipLocation}
           isOpen={showLanguageSelector}
           onClose={() => setShowLanguageSelector(false)}
         />

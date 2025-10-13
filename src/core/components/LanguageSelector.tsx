@@ -1,48 +1,45 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
-import { locales, localeNames, defaultLocale } from '@/locale/config'
+import { locales, localeNames } from '@/locale/config'
+import { LANGUAGE_SELECTOR_CONFIG } from '@/core/config/languageSelector'
 
 interface LanguageSelectorProps {
   isOpen: boolean
   onClose: () => void
+  onLanguageSelect: (locale: string) => void
+  onSkip: () => void
 }
 
 export default function LanguageSelector({
   isOpen,
   onClose,
+  onLanguageSelect,
+  onSkip,
 }: LanguageSelectorProps) {
   const [selectedLocale, setSelectedLocale] = useState<string>('')
-  const router = useRouter()
-  const pathname = usePathname()
 
   const handleLanguageSelect = (locale: string) => {
     setSelectedLocale(locale)
-
-    // Lưu preference vào localStorage
-    localStorage.setItem('user-locale-preference', locale)
-
-    // Redirect đến locale được chọn
-    const newPath = pathname.replace(/^\/[^\/]+/, `/${locale}`)
-    router.replace(newPath)
-
-    onClose()
+    onLanguageSelect(locale)
   }
 
   const handleClose = () => {
-    // Nếu người dùng đóng mà không chọn, sử dụng default locale
+    // Nếu người dùng đóng mà không chọn, skip
     if (!selectedLocale) {
-      localStorage.setItem('user-locale-preference', 'skip')
-      router.replace(`/${defaultLocale}`)
+      onSkip()
+    } else {
+      onClose()
     }
-    onClose()
   }
 
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center"
+      style={{ zIndex: LANGUAGE_SELECTOR_CONFIG.zIndex }}
+    >
       <div className="bg-white rounded-lg p-6 max-w-md mx-4 text-center">
         <h3 className="text-lg font-semibold mb-4">Chọn ngôn ngữ của bạn</h3>
         <p className="text-greyscale-600 mb-6">
@@ -68,12 +65,20 @@ export default function LanguageSelector({
           ))}
         </div>
 
-        <button
-          onClick={handleClose}
-          className="mt-4 text-greyscale-500 hover:text-greyscale-700 underline text-sm font-medium"
-        >
-          Đóng
-        </button>
+        <div className="mt-4 flex gap-3 justify-center">
+          <button
+            onClick={handleClose}
+            className="text-greyscale-500 hover:text-greyscale-700 underline text-sm font-medium"
+          >
+            Đóng
+          </button>
+          <button
+            onClick={onSkip}
+            className="text-greyscale-500 hover:text-greyscale-700 underline text-sm font-medium"
+          >
+            Bỏ qua
+          </button>
+        </div>
       </div>
     </div>
   )
