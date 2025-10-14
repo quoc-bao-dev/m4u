@@ -5,10 +5,11 @@ import { Logo } from '@/core/components'
 import { IMAGES } from '@/core/constants/IMAGES'
 import { useDevice } from '@/core/hooks'
 import { Link } from '@/locale'
+import { useGetDonationsAndCharity } from '@/services/donations-and-charity'
 import { useGetHomePage } from '@/services/home/queries'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import CountUp from 'react-countup'
 // Dữ liệu KOLs - có thể dễ dàng thay đổi
 const kols = [
@@ -23,8 +24,13 @@ const kols = [
   { id: 9, image: IMAGES.kol2 },
 ]
 
+type KOLsDisplayProps = {
+  content: string
+  isLoading?: boolean
+}
+
 // Component KOLs Display
-const KOLsDisplay = () => {
+const KOLsDisplay = ({ content, isLoading = false }: KOLsDisplayProps) => {
   const t = useTranslations('donation')
   return (
     <div className="flex flex-col items-center justify-center">
@@ -61,13 +67,23 @@ const KOLsDisplay = () => {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-1">
-          <p className="text-white text-sm xl:text-base">
-            <span className="font-bold">69K+ {t('individuals')}</span>{' '}
-            {t('justDonated')}
-          </p>
-          <span className="text-pink-100 text-xs">
+          {isLoading ? (
+            <>
+              <span className="block w-56 h-3 bg-white/40 rounded animate-pulse" />
+              <span className="block w-40 h-3 bg-white/30 rounded animate-pulse" />
+            </>
+          ) : (
+            <p
+              className="text-white text-sm xl:text-base text-center"
+              dangerouslySetInnerHTML={{ __html: content ?? '' }}
+            >
+              {/* <span className="font-bold">69K+ {t('individuals')}</span>{' '}
+              {t('justDonated')} */}
+            </p>
+          )}
+          {/* <span className="text-pink-100 text-xs">
             {t('financialPublicNote')}
-          </span>
+          </span> */}
         </div>
       </div>
     </div>
@@ -134,6 +150,13 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section8
   const { isMobile, isTablet } = useDevice()
+
+  const { data: donationsAndCharity, isLoading: isDACLoading } =
+    useGetDonationsAndCharity()
+
+  const content = useMemo(() => {
+    return donationsAndCharity?.data?.section1
+  }, [donationsAndCharity])
 
   // quan sát khi component vào viewport
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -266,17 +289,25 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
       <div className="lg:hidden relative flex flex-col justify-center items-center lg:gap-6 gap-2 w-[90%] lg:w-[464px]">
         {renderHeartDecorations('mobile')}
 
-        {isLoading ? (
+        {(isHero ? isDACLoading : isLoading) ? (
           <Skeleton className="w-3/5 h-20" />
         ) : (
           <div
             className="text-2xl lg:text-[40px]/[110%] font-bold text-greyscale-700 text-center"
-            dangerouslySetInnerHTML={{ __html: data?.title ?? '' }}
+            dangerouslySetInnerHTML={{
+              __html: isHero ? content?.title ?? '' : data?.title ?? '',
+            }}
           />
         )}
 
         <div className="flex flex-col items-center gap-1 lg:gap-3">
-          {renderCountUp(Number(data?.subtitle ?? 0))}
+          {isHero && isDACLoading ? (
+            <Skeleton className="w-40 h-6" />
+          ) : (
+            renderCountUp(
+              Number((isHero ? content?.money_charity : data?.subtitle) ?? 0)
+            )
+          )}
           <p className="text-sm lg:text-base text-greyscale-700">
             {t('donated')}
           </p>
@@ -301,12 +332,14 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
         <div className="hidden relative lg:flex flex-col justify-center items-center lg:gap-6 gap-2 w-[90%] lg:w-[464px]">
           {renderHeartDecorations('desktop')}
 
-          {isLoading ? (
+          {(isHero ? isDACLoading : isLoading) ? (
             <Skeleton className="w-4/5 h-32" />
           ) : (
             <div
-              className="text-2xl lg:text-[40px]/[110%] font-semibold text-greyscale-700 text-center"
-              dangerouslySetInnerHTML={{ __html: data?.title ?? '' }}
+              className="text-2xl lg:text-[40px]/[110%] font-semibold text-center"
+              dangerouslySetInnerHTML={{
+                __html: isHero ? content?.title ?? '' : data?.title ?? '',
+              }}
             />
           )}
 
@@ -324,7 +357,10 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
                 {data?.title_button}
               </Link>
             ) : (
-              <KOLsDisplay />
+              <KOLsDisplay
+                content={content?.content_share ?? ''}
+                isLoading={isDACLoading}
+              />
             )}
           </div>
         </div>
@@ -351,7 +387,7 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
             {data?.title_button}
           </Link>
         ) : (
-          <KOLsDisplay />
+          <KOLsDisplay content={content?.content_share ?? ''} />
         )}
       </div>
     </div>

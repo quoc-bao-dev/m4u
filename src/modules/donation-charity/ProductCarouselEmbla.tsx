@@ -5,6 +5,8 @@ import { useGetProductDonationList } from '@/services/product-donation'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import ProductCard from './ProductCard'
+import { useDonationCharityStore } from './stores'
+import { cloneProductsForCarousel } from './utils'
 
 interface Product {
   id: string
@@ -13,6 +15,7 @@ interface Product {
   contributionPercentage: number
   imageSrc: string
   customColorHex?: string | null
+  key?: string
 }
 
 const ProductCarouselEmbla = () => {
@@ -26,6 +29,7 @@ const ProductCarouselEmbla = () => {
   })
 
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const { setActiveProductId } = useDonationCharityStore()
 
   const { data: products, isLoading } = useGetProductDonationList()
 
@@ -41,9 +45,17 @@ const ProductCarouselEmbla = () => {
         customColorHex: item.background_color ?? null,
       }
     })
-
-    return [...data, ...data, ...data, ...data]
+    // Sử dụng utils để clone mảng cho carousel
+    return cloneProductsForCarousel(data, 4)
   }, [products])
+
+  // Set active product ID khi selectedIndex thay đổi
+  useEffect(() => {
+    if (mappedProducts.length > 0 && selectedIndex < mappedProducts.length) {
+      const activeProduct = mappedProducts[selectedIndex]
+      setActiveProductId(activeProduct.id)
+    }
+  }, [selectedIndex, mappedProducts, setActiveProductId])
 
   const scrollTo = useCallback(
     (index: number) => {
@@ -109,7 +121,7 @@ const ProductCarouselEmbla = () => {
               mappedProducts.map((product, index) => {
                 return (
                   <div
-                    key={product.id}
+                    key={product.key}
                     className={`embla__slide mr-3 xl:mr-6 flex-shrink-0 flex justify-end items-end cursor-pointer will-change-transform transform-gpu`}
                     onClick={() => handleCardClick(index)}
                   >

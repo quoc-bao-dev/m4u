@@ -13,8 +13,9 @@ import {
   UsersFourIcon,
 } from '@phosphor-icons/react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { useGetDonationsAndCharity } from '@/services/donations-and-charity'
 
 const Line = ({ className }: { className?: string }) => (
   <svg
@@ -57,18 +58,43 @@ const LineHorizontal = ({
 const ModalSection = () => {
   const t = useTranslations('donationCharity.modalSection')
 
+  const { data: donationsAndCharity, isLoading } = useGetDonationsAndCharity()
+
+  const content = useMemo(() => {
+    return donationsAndCharity?.data?.section2
+  }, [donationsAndCharity])
+
   return (
     <div className="py-12 xl:p-24 2xl:px-40 w-full h-full flex flex-col items-center justify-center gap-5 xl:gap-10">
-      <div className="px-3 xl:px-0 flex flex-col xl:flex-row items-center justify-center gap-4 xl:gap-10">
-        <h2 className="text-center xl:text-left text-2xl xl:text-5xl 2xl:text-[64px] 2xl:leading-[100%] font-bold text-greyscale-400">
-          <span className="text-gradient-blue-black whitespace-nowrap">
+      <div className="w-full  px-3 xl:px-0 flex flex-col xl:flex-row items-center justify-center gap-4 xl:gap-10">
+        <h2
+          className="w-[90%] md:w-[50%] text-center xl:text-left text-2xl xl:text-5xl 2xl:text-[64px] 2xl:leading-[100%] font-bold"
+          {...(!isLoading && content?.title
+            ? { dangerouslySetInnerHTML: { __html: content.title } }
+            : {})}
+        >
+          {isLoading || !content?.title ? (
+            <span className="inline-block w-3/4 h-8 xl:h-12 bg-gray-200 rounded animate-pulse" />
+          ) : null}
+          {/* <span className="text-gradient-blue-black whitespace-nowrap">
             {t('titleLead')}
           </span>{' '}
           <br />
-          {t('titleEnd')}
+          {t('titleEnd')} */}
         </h2>
-        <p className="text-center xl:text-left text-base xl:text-2xl text-greyscale-700">
-          {t('desc')}
+        <p
+          className=" flex-1 text-center xl:text-left text-base xl:text-2xl text-greyscale-700"
+          {...(!isLoading && content?.content
+            ? { dangerouslySetInnerHTML: { __html: content.content } }
+            : {})}
+        >
+          {isLoading || !content?.content ? (
+            <>
+              <span className="block w-full h-4 bg-gray-200 rounded animate-pulse mb-2" />
+              <span className="block w-5/6 h-4 bg-gray-200 rounded animate-pulse" />
+            </>
+          ) : null}
+          {/* {t('desc')} */}
         </p>
       </div>
       <div className="flex flex-col justify-center items-center gap-0 xl:gap-4 2xl:gap-6 w-full">
