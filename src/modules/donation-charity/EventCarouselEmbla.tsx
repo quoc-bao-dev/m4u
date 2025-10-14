@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import EventCard from '@/modules/event/components/event/EventCard'
 import { useDonationCharityStore } from './stores'
 import { cloneEventsForCarousel } from './utils'
+import { Link } from '@/locale'
 
 type EventItem = {
   id: string
@@ -160,20 +161,22 @@ const EventCarouselEmbla = () => {
                     className="embla__slide mr-4 pb-5 flex-shrink-0 flex-[0_0_auto] basis-[66.666%] sm:basis-[60%] md:basis-1/2 xl:basis-[calc(100%/3-14px)]"
                     onClick={() => scrollTo(index)}
                   >
-                    <EventCard
-                      status={e.status}
-                      date={e.date}
-                      title={e.title}
-                      productCount={e.productCount}
-                      fundAmount={e.fundAmount}
-                      imageSrc={e.imageSrc}
-                      slug={e.slug}
-                      typeSponsor={e.typeSponsor}
-                      idStatus={e.idStatus}
-                      serverBadgeName={e.serverBadgeName}
-                      serverBadgeColor={e.serverBadgeColor}
-                      useServerBadge={e.useServerBadge}
-                    />
+                    <Link href={`/event/${e.slug}`}>
+                      <EventCard
+                        status={e.status}
+                        date={e.date}
+                        title={e.title}
+                        productCount={e.productCount}
+                        fundAmount={e.fundAmount}
+                        imageSrc={e.imageSrc}
+                        slug={e.slug}
+                        typeSponsor={e.typeSponsor}
+                        idStatus={e.idStatus}
+                        serverBadgeName={e.serverBadgeName}
+                        serverBadgeColor={e.serverBadgeColor}
+                        useServerBadge={e.useServerBadge}
+                      />
+                    </Link>
                   </div>
                 ))}
           </div>
