@@ -107,7 +107,7 @@ const Similar = ({
                     alt="product"
                     width={1000}
                     height={1000}
-                    className="size-full p-10 object-contain rounded-3xl"
+                    className="size-full object-cover rounded-3xl "
                   />
                 </div>
               </div>
