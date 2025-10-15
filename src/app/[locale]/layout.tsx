@@ -108,11 +108,8 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AppProvider>
         <MainLayout>{children}</MainLayout>
-        <LanguageSelectorWrapper />
+        {/* <LanguageSelectorWrapper /> */}
       </AppProvider>
-      {/* Language Selector - Hiển thị khi chưa chọn ngôn ngữ */}
-      {/* GeoLocation Detector - Tự động tắt khi LanguageSelector mở */}
-      {/* <GeoLocationDetector /> */}
     </NextIntlClientProvider>
   )
 }

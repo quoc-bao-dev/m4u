@@ -11,5 +11,5 @@ export default async function RootPage() {
   const localeToUse = (
     isSupported ? savedLocale : defaultLocale
   ) as typeof defaultLocale
-  redirect(`/${localeToUse}`)
+  redirect(`/${defaultLocale}`)
 }
