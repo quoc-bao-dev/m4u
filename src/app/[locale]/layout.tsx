@@ -1,4 +1,5 @@
 import { MainLayout } from '@/core/components'
+import LocaleCookieSetter from '@/core/components/LocaleCookieSetter'
 import LanguageSelectorWrapper from '@/core/components/LanguageSelectorWrapper'
 import axiosInstance from '@/core/http/axiosInstance'
 import { locales } from '@/locale/config'
@@ -107,9 +108,12 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AppProvider>
         <MainLayout>{children}</MainLayout>
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <LanguageSelectorWrapper />
-        </Suspense>
+        </Suspense> */}
+
+        {/* Set cookie NEXT_LOCALE theo locale hiện tại */}
+        <LocaleCookieSetter locale={locale} />
       </AppProvider>
     </NextIntlClientProvider>
   )

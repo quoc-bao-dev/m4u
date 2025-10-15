@@ -14,5 +14,6 @@ export default async function RootPage() {
   }
 
   // No saved or unsupported locale → redirect to default with a flag to show selector
-  redirect(`/${defaultLocale}?selectLanguage=1`)
+  // redirect(`/${defaultLocale}?selectLanguage=1`)
+  redirect(`/${defaultLocale}`)
 }
