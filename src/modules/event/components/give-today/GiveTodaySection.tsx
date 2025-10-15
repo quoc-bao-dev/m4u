@@ -2,8 +2,10 @@
 import { Container, Section } from '@/core/components'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { useGetInfoBannerEvent } from '@/services/event'
 
 const GiveTodaySection = () => {
+  const { data: infoBannerEvent } = useGetInfoBannerEvent()
   const t = useTranslations('donationCharity.giveToday')
   return (
     <Section className=" py-8 md:py-14">
@@ -15,7 +17,7 @@ const GiveTodaySection = () => {
             style={{ aspectRatio: '845/600' }}
           >
             <Image
-              src="/image/event/image-03.png"
+              src={infoBannerEvent?.data.image_footer_banner_event!}
               alt="influencer"
               fill
               className="object-cover"
@@ -25,12 +27,22 @@ const GiveTodaySection = () => {
 
           {/* Right: Content */}
           <div className="w-full md:flex-1 md:max-w-[620px] text-center md:text-left">
-            <p className="text-[24px] lg:text-[40px] 2xl:text-[64px] font-bold leading-tight text-[#0F172A]">
-              <span className="text-gray-400">{t('titleLead')}</span>{' '}
-              {t('titleEnd')} 🫶🏻
+            <p
+              className="text-[24px] lg:text-[40px] 2xl:text-[64px] font-bold leading-tight text-[#0F172A]"
+              dangerouslySetInnerHTML={{
+                __html: infoBannerEvent?.data.banner_event.footer_title!,
+              }}
+            >
+              {/* <span className="text-gray-400">{t('titleLead')}</span>{' '}
+              {t('titleEnd')} 🫶🏻 */}
             </p>
-            <p className="mt-4 text-gray-600 text-base sm:text-lg">
-              {t('subtitle')}
+            <p
+              className="mt-4 text-gray-600 text-base sm:text-lg"
+              dangerouslySetInnerHTML={{
+                __html: infoBannerEvent?.data.banner_event.footer_content!,
+              }}
+            >
+              {/* {t('subtitle')} */}
             </p>
           </div>
         </div>

@@ -122,12 +122,15 @@ export interface BannerEvent {
   name: string
   title_one: string
   title_two: string
+  footer_title: string
+  footer_content: string
 }
 
 export interface InfoBannerEventData {
   info_event: Event
   banner_event: BannerEvent
   image_banner_event: string
+  image_footer_banner_event: string
 }
 
 export interface InfoBannerEventResponse {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { defaultLocale } from '@/locale/config'
 import { LANGUAGE_SELECTOR_CONFIG } from '@/core/config/languageSelector'
 
@@ -10,6 +10,7 @@ export function useLanguageSelector() {
   const [isInitialized, setIsInitialized] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   // Khởi tạo ngay lập tức nếu được cấu hình
   useEffect(() => {
@@ -29,6 +30,23 @@ export function useLanguageSelector() {
     }
 
     const checkAndShowLanguageSelector = () => {
+      // Ưu tiên query flag để bật popup ngay (sau redirect từ "/")
+      const shouldForceOpen = searchParams?.get('selectLanguage') === '1'
+
+      // Nếu URL đã có prefix locale (/vi, /en, /kr, /th, /cn)
+      // và KHÔNG có flag ép mở, thì không bật popup
+      if (
+        !shouldForceOpen &&
+        (pathname?.startsWith('/vi') ||
+          pathname?.startsWith('/en') ||
+          pathname?.startsWith('/kr') ||
+          pathname?.startsWith('/th') ||
+          pathname?.startsWith('/cn'))
+      ) {
+        setIsInitialized(true)
+        return
+      }
+
       // Kiểm tra localStorage để xem người dùng đã chọn ngôn ngữ chưa
       const userLocalePreference = localStorage.getItem(
         'user-locale-preference'
@@ -36,6 +54,7 @@ export function useLanguageSelector() {
 
       // Nếu chưa có preference hoặc preference là 'skip' và cho phép hiển thị sau skip
       const shouldShow =
+        shouldForceOpen ||
         !userLocalePreference ||
         (userLocalePreference === 'skip' &&
           LANGUAGE_SELECTOR_CONFIG.showAfterSkip)
@@ -45,17 +64,21 @@ export function useLanguageSelector() {
         if (LANGUAGE_SELECTOR_CONFIG.showImmediately) {
           setIsOpen(true)
         } else {
-          // Logic cũ: chỉ hiển thị khi ở trang gốc
-          const isAtRoot =
-            pathname === '/' ||
-            (!pathname.startsWith('/vi') &&
-              !pathname.startsWith('/en') &&
-              !pathname.startsWith('/kr') &&
-              !pathname.startsWith('/th') &&
-              !pathname.startsWith('/cn'))
-
-          if (isAtRoot) {
+          // Nếu có flag, mở ngay; nếu không, chỉ hiển thị khi ở trang gốc
+          if (shouldForceOpen) {
             setIsOpen(true)
+          } else {
+            const isAtRoot =
+              pathname === '/' ||
+              (!pathname.startsWith('/vi') &&
+                !pathname.startsWith('/en') &&
+                !pathname.startsWith('/kr') &&
+                !pathname.startsWith('/th') &&
+                !pathname.startsWith('/cn'))
+
+            if (isAtRoot) {
+              setIsOpen(true)
+            }
           }
         }
       }
@@ -78,7 +101,7 @@ export function useLanguageSelector() {
     }
 
     setIsInitialized(true)
-  }, [pathname])
+  }, [pathname, searchParams])
 
   const handleClose = () => {
     setIsOpen(false)

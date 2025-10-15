@@ -1,5 +1,4 @@
 import { MainLayout } from '@/core/components'
-import GeoLocationDetector from '@/core/components/GeoLocationDetector'
 import LanguageSelectorWrapper from '@/core/components/LanguageSelectorWrapper'
 import axiosInstance from '@/core/http/axiosInstance'
 import { locales } from '@/locale/config'
@@ -7,7 +6,7 @@ import { AppProvider } from '@/provider'
 import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 type Props = {
   children: ReactNode
@@ -108,7 +107,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AppProvider>
         <MainLayout>{children}</MainLayout>
-        {/* <LanguageSelectorWrapper /> */}
+        <Suspense fallback={null}>
+          <LanguageSelectorWrapper />
+        </Suspense>
       </AppProvider>
     </NextIntlClientProvider>
   )

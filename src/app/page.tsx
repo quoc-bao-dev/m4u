@@ -8,8 +8,11 @@ export default async function RootPage() {
   const savedLocale = cookieStore.get('NEXT_LOCALE')?.value
   const isSupported =
     savedLocale && (locales as readonly string[]).includes(savedLocale)
-  const localeToUse = (
-    isSupported ? savedLocale : defaultLocale
-  ) as typeof defaultLocale
-  redirect(`/${defaultLocale}`)
+
+  if (isSupported) {
+    redirect(`/${savedLocale}`)
+  }
+
+  // No saved or unsupported locale → redirect to default with a flag to show selector
+  redirect(`/${defaultLocale}?selectLanguage=1`)
 }
