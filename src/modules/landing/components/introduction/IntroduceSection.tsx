@@ -3,7 +3,6 @@ import { BlurCircle2 } from '@/core/components/animated/blur'
 import BlurCircle1 from '@/core/components/animated/blur/BlurCircle1'
 import BeautyReviewerSection from './BeautyReviewerContnent'
 import ReviewerCarousel from './ReviewerCarouselGif'
-// import ReviewerCarousel from './ReviewerCarousel'
 
 const IntroduceSection = () => {
   return (
@@ -11,7 +10,7 @@ const IntroduceSection = () => {
       <Section
         background={
           <div className="relative z-0">
-            <BlurCircle1
+            {/* <BlurCircle1
               className="absolute top-[-200px] right-[-30%]"
               animation={{
                 duration: 1,
@@ -22,7 +21,7 @@ const IntroduceSection = () => {
               animation={{
                 duration: 1,
               }}
-            />
+            /> */}
           </div>
         }
       >

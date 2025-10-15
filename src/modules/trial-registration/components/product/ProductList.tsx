@@ -1,0 +1,105 @@
+'use client'
+
+import { Skeleton } from '@/components/ui/skeleton'
+import { Link } from '@/locale'
+import { useGetProductList } from '@/services/product'
+import { useMemo } from 'react'
+import { useProductFilterStore } from '../../stores/useProductFilterStore'
+import NoData from './NoData'
+import ProductCard from './ProductCard'
+import ScrollRevealCard from './ScrollRevealCard'
+
+export default function ProductList() {
+  const selectedIdsSet = useProductFilterStore((s) => s.selectedIds)
+  const selectedFilterIds = useMemo(
+    () => Array.from(selectedIdsSet),
+    [selectedIdsSet]
+  )
+
+  const { data: productList, isLoading } = useGetProductList({
+    tag_product_filter: selectedFilterIds,
+  })
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4  gap-5">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div key={index} className="bg-gray-50 rounded-3xl">
+            <div className="relative shadow-[0px_4px_24px_0px_#0000000F] rounded-3xl h-fit select-none w-full">
+              <div className="rounded-t-3xl relative overflow-hidden w-full">
+                <div className="absolute top-4 left-4 flex items-center gap-1 bg-white rounded-full py-0.5 px-1.5 text-base font-medium">
+                  <Skeleton className="h-5 w-16" />
+                </div>
+                <Skeleton className="w-full h-[200px] md:h-[220px] xl:h-[300px] rounded-t-3xl" />
+                <div className="h-[54px]" />
+              </div>
+              <div className="p-4 sm:p-5 flex flex-col gap-2 rounded-b-3xl w-full">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-5 w-3/4" />
+                <div className="py-1">
+                  <Skeleton className="h-1.5 w-full" />
+                </div>
+                <Skeleton className="h-4 w-40" />
+                <Skeleton className="h-10 w-40 rounded-full mt-2" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  const items = (productList?.data ?? []).map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    brand: p.code || 'Brand',
+    productName: p.name,
+    participation: Number(p.count_join),
+    limitPeople: Number(p.limit_people),
+    image: p.image,
+    imageAlt: p.slug,
+    rate: p.average_star || 5,
+    bgColor: p.color_header,
+    hex: p.background_color,
+    isSig: p.isSig,
+    evaluate: p.evaluate,
+    video_review: p.video_review,
+    id_review: p.id_review,
+    time:
+      p.time_left_dd_hh_mm_ss && p.time_left_dd_hh_mm_ss !== '0:00:00:00'
+        ? p.time_left_dd_hh_mm_ss
+        : undefined,
+  }))
+
+  if (!items || items.length === 0) {
+    return <NoData />
+  }
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 xl:gap-5">
+      {items.map((p, index) => (
+        <ScrollRevealCard key={index} delay={index * 0.1} duration={0.6}>
+          <Link href={`/product/${p.slug}`} className="h-full">
+            <ProductCard
+              id={p.id}
+              brand={p.brand}
+              productName={p.productName}
+              participation={p.participation}
+              limitPeople={p.limitPeople}
+              image={p.image}
+              imageAlt={p.imageAlt}
+              rate={p.rate}
+              bgColor={p.bgColor!}
+              hex={p.hex!}
+              time={p.time!}
+              isSig={p.isSig}
+              evaluate={p.evaluate}
+              video_review={p.video_review}
+              id_review={p.id_review}
+            />
+          </Link>
+        </ScrollRevealCard>
+      ))}
+    </div>
+  )
+}

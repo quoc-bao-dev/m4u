@@ -1,0 +1,59 @@
+import { envConfig } from '@/core/config'
+import axiosInstance from '@/core/http/axiosInstance'
+import { ReviewHistoryListResponse } from './type'
+
+export const apiReview = {
+  getListReviewHistory: ({
+    activeTab,
+    searchQuery,
+    dateStart,
+    dateEnd,
+    per_page,
+    current_page,
+  }: {
+    activeTab?: string
+    searchQuery?: string
+    dateStart?: string
+    dateEnd?: string
+    per_page?: number
+    current_page?: number
+  }) =>
+    axiosInstance.post<ReviewHistoryListResponse>(
+      '/list_review',
+      {
+        search: searchQuery,
+        status: activeTab,
+        date_start_sign_up: dateStart,
+        date_end_sign_up: dateEnd,
+        per_page,
+        current_page,
+      },
+      {
+        baseURL: envConfig.adminUrl,
+      }
+    ),
+
+  getTypeEvaluate: () =>
+    axiosInstance.get<any>('/type_evaluate', { baseURL: envConfig.adminUrl }),
+
+  getProductReview: (id_review: number) =>
+    axiosInstance.get<any>(`/get_product_review/${id_review}`, {
+      baseURL: envConfig.adminUrl,
+    }),
+
+  getProductReviewPublic: (id_review: number) =>
+    axiosInstance.get<any>(`/get_product_review_public/${id_review}`, {
+      baseURL: envConfig.adminUrl,
+    }),
+
+  getListProductReview: (id_review: number) =>
+    axiosInstance.get<any>(`/get_list_product_review/${id_review}`, {
+      baseURL: envConfig.adminUrl,
+    }),
+
+  submitReview: (id_review_product: number, data: FormData) =>
+    axiosInstance.post<any>(`/submitReview/${id_review_product}`, data, {
+      baseURL: envConfig.adminUrl,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
+}

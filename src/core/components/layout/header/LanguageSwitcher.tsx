@@ -1,30 +1,100 @@
 'use client'
 
-import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useGetLanguageCurrent } from '@/services/language/queries'
 import Image from 'next/image'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-const LanguageSwitcher = () => {
-  const { currentLocale, availableLocales, localeNames, switchLanguage } =
-    useLanguageSwitch()
+type LanguageSwitcherSize = 'sm' | 'md' | 'lg'
+type LanguageSwitcherPlacement = 'top' | 'bottom'
+
+interface LanguageSwitcherProps {
+  /** Kích thước hiển thị; 'md' giữ nguyên giao diện hiện tại */
+  size?: LanguageSwitcherSize
+  /** Vị trí popup so với nút */
+  placement?: LanguageSwitcherPlacement
+}
+
+const LanguageSwitcher = ({
+  size = 'md',
+  placement = 'bottom',
+}: LanguageSwitcherProps) => {
+  const { currentLocale, localeNames, switchLanguage } = useLanguageSwitch()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
+
+  const { data: languageCurrent } = useGetLanguageCurrent()
+
+  // ----- Size styles (md giữ nguyên class gốc) -----
+  const styles = useMemo(() => {
+    const map: Record<
+      LanguageSwitcherSize,
+      {
+        btnGap: string
+        btnPadX: string
+        btnPadY: string
+        labelText: string
+        flagSize: string
+        chevronSize: string
+        listWidth: string
+        itemPad: string
+        itemGap: string
+        checkIconSize: string
+      }
+    > = {
+      sm: {
+        btnGap: 'gap-1',
+        btnPadX: 'md:px-3',
+        btnPadY: 'py-1.5',
+        labelText: 'hidden md:block text-sm font-medium',
+        flagSize: 'size-[24px] md:size-[28px]',
+        chevronSize: 'size-4',
+        listWidth: 'w-44',
+        itemPad: 'px-3 py-1.5',
+        itemGap: 'gap-2',
+        checkIconSize: 'size-4',
+      },
+      md: {
+        // KHÔNG thay đổi giao diện hiện tại
+        btnGap: 'gap-1 md:gap-3',
+        btnPadX: 'md:px-4',
+        btnPadY: 'py-2',
+        labelText: 'hidden md:block text-base md:text-lg font-medium',
+        flagSize: 'size-[28px] md:size-[32px]',
+        chevronSize: 'size-5',
+        listWidth: 'w-48',
+        itemPad: 'px-4 py-2',
+        itemGap: 'gap-3',
+        checkIconSize: 'size-5',
+      },
+      lg: {
+        btnGap: 'gap-2 md:gap-4',
+        btnPadX: 'md:px-5',
+        btnPadY: 'py-2.5',
+        labelText: 'hidden md:block text-lg md:text-xl font-medium',
+        flagSize: 'size-[32px] md:size-[36px]',
+        chevronSize: 'size-6',
+        listWidth: 'w-56',
+        itemPad: 'px-5 py-2.5',
+        itemGap: 'gap-3.5',
+        checkIconSize: 'size-6',
+      },
+    }
+    return map[size]
+  }, [size])
 
   const currentLabel = useMemo(
     () => localeNames[currentLocale],
     [currentLocale, localeNames]
   )
 
-  const handleSelect = (
-    target: Language | (typeof availableLocales)[number]
-  ) => {
-    switchLanguage(target)
+  const handleSelect = (language: any) => {
+    switchLanguage(language.code)
     setIsOpen(false)
   }
 
   useEffect(() => {
     if (!isOpen) return
-
     const handlePointerDown = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node | null
       if (
@@ -35,17 +105,12 @@ const LanguageSwitcher = () => {
         setIsOpen(false)
       }
     }
-
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false)
-      }
+      if (event.key === 'Escape') setIsOpen(false)
     }
-
     document.addEventListener('mousedown', handlePointerDown)
     document.addEventListener('touchstart', handlePointerDown)
     document.addEventListener('keydown', handleKeyDown)
-
     return () => {
       document.removeEventListener('mousedown', handlePointerDown)
       document.removeEventListener('touchstart', handlePointerDown)
@@ -53,35 +118,37 @@ const LanguageSwitcher = () => {
     }
   }, [isOpen])
 
-  // Mapping flags to locales
-  const flagMap = {
-    vi: '/image/flag/image-01.png',
-    en: '/image/flag/image-02.png',
-    ko: '/image/flag/image-03.png',
-  } as const
+  // Get current language data from API
+  const currentLanguageData = useMemo(() => {
+    return languageCurrent?.find((lang: any) => lang.code === currentLocale)
+  }, [languageCurrent, currentLocale])
+
+  // ----- Popup placement classes -----
+  const popupPositionClass =
+    placement === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'
 
   return (
     <div ref={containerRef} className="relative">
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="inline-flex items-center gap-1 md:gap-3 rounded-full md:px-4 py-2 text-gray-800 hover:bg-gray-50"
+        className={`inline-flex items-center ${styles.btnGap} rounded-full ${styles.btnPadX} ${styles.btnPadY} text-gray-800 hover:bg-gray-50`}
       >
-        <span className="hidden md:block text-base md:text-lg font-medium">
-          {currentLabel}
+        <span className={styles.labelText}>
+          {currentLanguageData?.name_website || currentLabel}
         </span>
         <Image
-          src={flagMap[currentLocale]}
-          alt={`${currentLabel} flag`}
-          width={20}
-          height={20}
-          className="rounded-full object-cover size-[28px] md:size-[32px]"
+          src={currentLanguageData?.image || '/image/flag/image-01.png'}
+          alt={`${currentLanguageData?.name || currentLabel} flag`}
+          width={200}
+          height={200}
+          className={`rounded-full object-cover ${styles.flagSize}`}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className={`size-5 transition-transform ${
+          className={`${styles.chevronSize} transition-transform ${
             isOpen ? 'rotate-180' : ''
           }`}
         >
@@ -94,32 +161,36 @@ const LanguageSwitcher = () => {
       </button>
 
       {isOpen && (
-        <ul className="absolute right-0 mt-2 w-48 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg">
-          {availableLocales.map((loc) => (
-            <li key={loc}>
+        <ul
+          className={`absolute right-0 ${popupPositionClass} ${styles.listWidth} overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg z-50`}
+        >
+          {languageCurrent?.map((lang: any) => (
+            <li key={lang.id}>
               <button
                 type="button"
-                onClick={() => handleSelect(loc)}
-                className={`flex w-full items-center justify-between px-4 py-2 text-left hover:bg-gray-50 ${
-                  currentLocale === loc ? 'bg-gray-50 font-semibold' : ''
+                onClick={() => handleSelect(lang)}
+                className={`flex w-full items-center justify-between ${
+                  styles.itemPad
+                } text-left hover:bg-gray-50 ${
+                  currentLocale === lang.code ? 'bg-gray-50 font-semibold' : ''
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className={`flex items-center ${styles.itemGap}`}>
                   <Image
-                    src={flagMap[loc]}
-                    alt={`${localeNames[loc]} flag`}
+                    src={lang?.image}
+                    alt={lang?.name}
                     width={20}
                     height={20}
                     className="rounded-full object-cover"
                   />
-                  <span>{localeNames[loc]}</span>
+                  <span>{lang?.name_website}</span>
                 </div>
-                {currentLocale === loc && (
+                {currentLocale === lang.code && (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="size-5 text-emerald-600"
+                    className={`${styles.checkIconSize} text-emerald-600`}
                   >
                     <path
                       fillRule="evenodd"

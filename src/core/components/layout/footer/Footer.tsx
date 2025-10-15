@@ -1,25 +1,35 @@
-import Link from 'next/link'
-
+'use client'
 import { Logo } from '@/core/components/brand'
 import { Container, Grid } from '@/core/components/common'
 import { cn } from '@/core/utils'
 import WaterMark from './WaterMark'
 import { memo } from 'react'
+import { useTranslations } from 'next-intl'
+import { useGetInfo, useGetInfoContact } from '@/services/info/queries'
+import { Link } from '@/locale'
 
 type FooterProps = {
   className?: string
 }
 
 const Footer = ({ className }: FooterProps) => {
+  const t = useTranslations('footer')
+  const { data: infoContact } = useGetInfoContact()
+
+  const { data: info } = useGetInfo()
   return (
-    <div className={cn(`bg-[#3B82F6] text-white ${className} overflow-hidden`)}>
+    <div
+      className={cn(
+        `bg-[#3B82F6] text-white ${className} overflow-hidden pt-[100px]`
+      )}
+    >
       {/* TOOO: check scroll */}
       {/* <div className="hidden md:block absolute bottom-[-145px] -translate-x-1/2 left-[50%]">
         <WaterMark />
       </div> */}
 
-      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center">
-        <div className="-mb-[145px] ">
+      <div className="hidden absolute bottom-0 w-full overflow-hidden md:flex justify-center pointer-events-none">
+        <div className="-mb-[145px] pointer-events-none">
           <WaterMark />
         </div>
       </div>
@@ -36,16 +46,16 @@ const Footer = ({ className }: FooterProps) => {
                 <div className="flex flex-col gap-2 text-sm md:text-[13px] lg:text-sm opacity-90">
                   <div className="flex flex-col md:flex-row md:items-center gap-1 lg:gap-6">
                     <span className="max-w-[200px]">
-                      1901 Thornridge Cir. Shiloh, Hawaii 81063
+                      {infoContact?.address}
                     </span>
                     {/* <span className="hidden md:inline-block">•</span> */}
-                    <span className="truncate">+1 891 989-11-91</span>
+                    <span className="truncate">{infoContact?.phone}</span>
                     {/* <span className="hidden md:inline-block">•</span> */}
                     <a
                       href="mailto:hello@logoipsum.com"
                       className="hover:opacity-100 hover:underline"
                     >
-                      hello@logoipsum.com
+                      {infoContact?.email}
                     </a>
                   </div>
                 </div>
@@ -58,43 +68,40 @@ const Footer = ({ className }: FooterProps) => {
                 <div className="flex gap-5 flex-col">
                   <div className="grid items-baseline justify-between">
                     <h4 className="text-xs tracking-[0.12em] font-semibold uppercase opacity-80">
-                      Sitemap
+                      {t('sitemap')}
                     </h4>
                   </div>
 
-                  <div className="flex gap-5 text-sm">
+                  <div className="flex gap-6 text-sm">
                     <nav className="flex flex-col gap-2">
-                      <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
-                      >
-                        Trang chủ
+                      <Link href="/" className="hover:underline cursor-pointer">
+                        {t('home')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/trial-registration"
+                        className="hover:underline cursor-pointer"
                       >
-                        Tham gia dùng thử
+                        {t('joinTrial')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/review-hub"
+                        className="hover:underline cursor-pointer"
                       >
-                        Newsfeed
+                        {t('newsfeed')}
                       </Link>
                     </nav>
                     <nav className="flex flex-col gap-2">
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/donation-charity"
+                        className="hover:underline cursor-pointer"
                       >
-                        Tin tức & Sự kiện
+                        {t('newsEvents')}
                       </Link>
                       <Link
-                        href="#"
-                        className="opacity-90 hover:opacity-100 transition-opacity"
+                        href="/event"
+                        className="hover:underline cursor-pointer"
                       >
-                        Tài khoản
+                        {t('account')}
                       </Link>
                     </nav>
                   </div>
@@ -103,10 +110,11 @@ const Footer = ({ className }: FooterProps) => {
 
               {/* Social (mobile) */}
               <div className="md:hidden flex items-center gap-4 pt-2">
+                {/* TODO: map social */}
                 <a
-                  href="#"
+                  href={info?.link_contact_instagram}
                   aria-label="Instagram"
-                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <svg
                     width="20"
@@ -127,10 +135,12 @@ const Footer = ({ className }: FooterProps) => {
                     <circle cx="18.2" cy="5.8" r="1.2" fill="currentColor" />
                   </svg>
                 </a>
+
+                {/* TODO: map social */}
                 <a
-                  href="#"
+                  href={info?.link_contact_facebook}
                   aria-label="Facebook"
-                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
                 >
                   <svg
                     width="20"
@@ -153,15 +163,16 @@ const Footer = ({ className }: FooterProps) => {
           {/* Bottom: copyright */}
           <div className="flex justify-between">
             <div className="flex items-center justify-between pt-2 text-xs text-gray-100 opacity-80">
-              <p>© 2025 — Copyright Mask4U. All rights reserved.</p>
+              <p>{t('copyright')}</p>
               <div className="hidden md:flex items-center gap-4" />
             </div>
 
             <div className="hidden md:flex items-center gap-4">
+              {/* TODO: map social */}
               <a
-                href="#"
+                href={info?.link_contact_instagram}
                 aria-label="Instagram"
-                className="opacity-90 hover:opacity-100 transition-opacity"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
               >
                 <svg
                   width="20"
@@ -182,10 +193,12 @@ const Footer = ({ className }: FooterProps) => {
                   <circle cx="18.2" cy="5.8" r="1.2" fill="currentColor" />
                 </svg>
               </a>
+
+              {/* TODO: map social */}
               <a
-                href="#"
+                href={info?.link_contact_facebook}
                 aria-label="Facebook"
-                className="opacity-90 hover:opacity-100 transition-opacity"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
               >
                 <svg
                   width="20"

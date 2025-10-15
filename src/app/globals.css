@@ -1,4 +1,6 @@
+/* tải font Krona One và viết class font cho nó */
 @import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Krona+One:wght@400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -10,7 +12,11 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-primary: 'TikTok Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-krona: 'Krona One', ui-sans-serif, system-ui, sans-serif;
 
+  --camaron: #FF8092;
+  
+  --color-greyscale-50: #F6F7F9;
   --color-greyscale-100: #f3f4f6;
   --color-greyscale-200: #E5E7EB;
   --color-greyscale-300: #d1d5db;
@@ -27,20 +33,34 @@
 
   --color-pink-100: #FFF0F8;
   --color-pink-200: #FFE1F1;
+  --color-pink-300: #FFC4E3;
+  --color-pink-400: #FEA6D6;
+  --color-pink-500: #FE89C8;
   --color-pink-600: #FE6BBA;
 
   --color-green-100: #E8FBF5;
   --color-green-200: #D1F7EA;
   --color-green-500: #48DDAD;
   --color-green-600: #1AD598;
+  --color-green-700: #15AA7A;
   --color-green-800: #10805B;
 
+  --color-indigo-500: #777DF5;
   --color-indigo-600: #555CF3;
 
   --color-orange-100: #FEF0ED;
+  --color-orange-500: #F5846E;
+  --color-orange-600: #F97316;
 
+  --color-yellow-100: #FFFAED;
   --color-yellow-300: #FDEAB7;
+  --color-yellow-500: #FBD56E;
   --color-yellow-600: #FACA4A;
+
+  --color-red-600: #F47690;
+  
+  --text-6xl: 4rem;
+
   --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -87,6 +107,34 @@
 
 body {
   font-family: var(--font-primary);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.6) transparent;
+}
+
+.scrollbar-stable {
+  scrollbar-gutter: stable both-edges;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 139, 0.6);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(75, 85, 99, 0.8);
 }
 
 .scroll-hidden::-webkit-scrollbar {
@@ -173,6 +221,22 @@ body {
 
 /* Safe Area Utilities */
 @layer utilities {
+  .text-title {
+    @apply text-[42px] md:text-[48px] lg:text-[64px] xl:text-[80px] 2xl:text-[96px];
+  }
+
+  .text-desc {
+    @apply text-base lg:text-[20px] xl:text-[24px] 2xl:text-[36px];
+  }
+
+  .text-title-sect {
+    @apply text-[24px] md:text-[42px] lg:text-[54px] xl:text-[64px];
+  }
+
+  .container-custom {
+    @apply px-0 md:px-8 lg:px-12 xl:px-20 2xl:px-24 w-full mx-auto;
+  }
+
   .safe-area-padding {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -204,5 +268,179 @@ body {
   .safe-area-y {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Scroll hint chevrons */
+@keyframes scroll-chevron {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@layer utilities {
+  .chevron {
+    width: 22px;
+    height: 22px;
+    border-right: 3px solid rgb(55 65 81 / 0.8);
+    border-bottom: 3px solid rgb(55 65 81 / 0.8);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+  .chevron-light {
+    border-color: rgb(156 163 175 / 0.5);
+  }
+  .animate-scroll-chevron {
+    animation: scroll-chevron 1.6s ease-in-out infinite;
+  }
+  
+  /* Text Gradient Utilities */
+  .text-gradient-blue-black {
+    background: linear-gradient(to right, #000087, #000000);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .border-gradient-button {
+    --border-radius: 9999px;
+    --border-width: 1.8px;
+    --border-width-hover: 2px;
+    --border-color: white;
+    --border-inset-hover: 0px;
+
+    position: relative;
+    border: none; /* Đảm bảo không có border mặc định */
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    z-index: 0;
+
+    /* Viền gradient chạy quanh */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: inherit;
+      padding: var(--border-width);
+      background: conic-gradient(
+        from var(--border-angle),
+        #0254c5 0%,
+        transparent 25%,
+        rgba(3, 110, 234, 0.2) 50%,
+        transparent 75%,
+        #0254c5 100%
+      );
+      
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor; /* hoặc destination-out */
+      z-index: -1;
+      /* // animation: moveGradient 2s linear infinite; */
+      animation: borderMove 2s linear infinite;
+    }
+  }
+  
+  /* Property declaration for border gradient angle animation */
+  @property --border-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  /* Animation for border gradient */
+  @keyframes borderMove {
+    0% {
+      --border-angle: 0deg;
+    }
+    100% {
+      --border-angle: 360deg;
+    }
+  }
+
+  /* Dynamic border gradient button */
+  .border-gradient-button-dynamic {
+    --border-radius: 9999px;
+    --border-width: 1.8px;
+    --border-width-hover: 2px;
+    --border-color: white;
+    --border-inset-hover: 0px;
+    --accent-color: #FF8500;
+    --border-angle: 0deg;
+
+    position: relative;
+    border: none;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    z-index: 0;
+
+    /* Viền gradient chạy quanh */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0px;
+      border-radius: inherit;
+      padding: var(--border-width);
+      background: conic-gradient(
+        from var(--border-angle),
+        var(--accent-color) 0%,
+        transparent 25%,
+        color-mix(in srgb, var(--accent-color) 20%, transparent) 50%,
+        transparent 75%,
+        var(--accent-color) 100%
+      );
+      
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor;
+      z-index: -1;
+      animation: borderMove 2s linear infinite;
+    }
+  }
+
+  /* Krona One Font Utility */
+  .font-krona {
+    font-family: var(--font-krona);
+  }
+}
+
+.hero-title {
+  font-size: 24px;
+}
+
+.hero-subtitle {
+  font-size: 12px;
+}
+
+.hero-image {
+  width: 50%;
+  height: 50%;
+}
+
+@media (min-height: 600px) {
+  .hero-title {
+    font-size: inherit;
+  }
+
+  .hero-subtitle {
+    font-size: inherit;
+  }
+
+  .hero-image {
+    width: inherit;
+    height: inherit;
   }
 }

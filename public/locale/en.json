@@ -4,12 +4,876 @@
     "about": "About",
     "contact": "Contact",
     "language": "Language",
-    "welcome": "Welcome to our application"
+    "welcome": "Welcome to our application",
+    "reviewer": "reviewer",
+    "product": "product",
+    "share": "Share:",
+    "loadMore": "Load more",
+    "birthdayInput": {
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "selectYear": "Select year",
+      "selectMonth": "Select month",
+      "selectDate": "Select date of birth",
+      "months": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    }
   },
   "navigation": {
     "home": "Home",
     "products": "Products",
     "services": "Services",
     "contact": "Contact"
+  },
+  "hero": {
+    "viewNow": "View Now",
+    "liveStream": {
+      "membersOnline": "Members online",
+      "singleMoms": "Reviewer",
+      "participatingInGroup": "participating in experience group"
+    }
+  },
+  "donation": {
+    "donated": "Donated!",
+    "month": "month",
+    "day": "day",
+    "hour": "hour",
+    "individuals": "individuals",
+    "justDonated": "just donated to our community!",
+    "financialPublicNote": "*Financial statements are made public every month."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "Donation & Charity",
+      "description": "Join M4U in supporting single moms through products and community contributions."
+    },
+    "giveToday": {
+      "titleLead": "Give today,",
+      "titleEnd": "change a tomorrow",
+      "subtitle": "Join M4U’s fund supporting single moms with essentials and skills."
+    },
+    "eventCampaign": {
+      "titleLead": "Your Glow,",
+      "titleEnd": "Her Growth",
+      "desc": "Each product contributes 5% to volunteer campaigns that uplift single moms—funding daily needs and skills programs. When you try & review, you help twice."
+    },
+    "modalSection": {
+      "titleLead": "Our Charity Fund Model:",
+      "titleEnd": "Beauty for a Purpose",
+      "desc": "A portion of our revenue and your community contributions are channeled directly into the M4U for Community Fund, dedicated to supporting single mothers in Vietnam.",
+      "fundingSources": "Funding Sources",
+      "charityFund": "Charity Fund",
+      "discountOnProduct": "% discount on each\nproduct sold",
+      "commission": "% commission from Referrer/ Reviewer/Seller",
+      "directDonations": "Direct donations\nfrom the community",
+      "government": "Government",
+      "organizations": "Organizations",
+      "individuals": "Individuals"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "Happening",
+        "coming": "Coming soon"
+      },
+      "fundName": "M4U charity fund",
+      "totalProducts": "Total products",
+      "totalFundsConverted": "Total funds converted"
+    },
+    "productCard": {
+      "contribution": "contribution"
+    }
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Home",
+    "joinTrial": "Join Trial",
+    "newsfeed": "Newsfeed",
+    "newsEvents": "News & Events",
+    "account": "Account",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+  },
+  "developing": {
+    "comingSoon": "Coming Soon!",
+    "underDevelopment": "This page is under development, please check back later!",
+    "backToHome": "Back to Home"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "write review get instant offers",
+    "singleMomsJoined": " reviewers have joined",
+    "joinTitle": "Join",
+    "experienceTitle": "experience"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 products",
+    "mostCared": "most cared about",
+    "reviews": "reviews",
+    "productName": "Panthetoin Deep Moisture Mask",
+    "registerCount": "Register count"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "Benefits & Terms",
+    "benefits": "Benefits",
+    "terms": "Terms",
+    "memberBenefits": "Reviewer Member Benefits",
+    "benefit1": "Free experience of the hottest beauty products.",
+    "benefit2": "Attractive income from your referral links.",
+    "benefit3": "Priority access to new and limited products.",
+    "benefit4": "Support and guidance to improve review quality from experts.",
+    "benefit5": "Connect with community to share experiences and learn from each other.",
+    "placeholder1": "Sample content: You can replace with real content when data is available.",
+    "placeholder2": "Sample content: Members receive additional benefits when participating in activities."
+  },
+  "filter": {
+    "title": "Filter",
+    "without": "Without",
+    "usage": "Usage",
+    "skinType": "Skin Type",
+    "ingredients": "Ingredients",
+    "price": "Price",
+    "brand": "Brand",
+    "artificialFragrance": "Artificial Fragrance",
+    "alcohol": "Alcohol",
+    "sulphates": "Sulphates",
+    "animalDerived": "Animal Derived",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Deep Moisturizing",
+    "oilControl": "Oil Control & Balance",
+    "acneTreatment": "Acne Treatment & Soothing",
+    "antiAging": "Anti-aging & Recovery",
+    "whitening": "Whitening & Brightening",
+    "drySkin": "Dry Skin",
+    "oilySkin": "Oily Skin",
+    "sensitiveSkin": "Sensitive Skin",
+    "combinationSkin": "Combination Skin",
+    "normalSkin": "Normal Skin",
+    "acneSkin": "Acne-prone Skin",
+    "clearAll": "Clear All",
+    "apply": "Apply",
+    "aloeVera": "Aloe Vera",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tea Tree",
+    "gotuKola": "Gotu Kola",
+    "reviews": "reviews"
+  },
+  "reviewCTA": {
+    "title": "What are you waiting for?",
+    "become": "Become a",
+    "reviewerNow": "reviewer now!",
+    "registerTrial": "Join the trial",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub",
+    "description": "Discover top reviewers and featured products",
+    "endorsedByTopReviewers": "Endorsed by top reviewers",
+    "filters": {
+      "freeFrom": "Free From",
+      "parabens": "Parabens",
+      "sulfates": "Sulfates",
+      "phthalates": "Phthalates",
+      "fragrance": "Fragrance",
+      "alcohol": "Alcohol",
+      "benefits": "Benefits",
+      "hydrating": "Hydrating",
+      "antiAging": "Anti-aging",
+      "brightening": "Brightening",
+      "acneFighting": "Acne Fighting",
+      "soothing": "Soothing",
+      "skinType": "Skin Type",
+      "oily": "Oily",
+      "dry": "Dry",
+      "combination": "Combination",
+      "sensitive": "Sensitive",
+      "normal": "Normal",
+      "keyIngredients": "Key Ingredients",
+      "retinol": "Retinol",
+      "vitaminC": "Vitamin C",
+      "hyaluronicAcid": "Hyaluronic Acid",
+      "niacinamide": "Niacinamide",
+      "salicylicAcid": "Salicylic Acid",
+      "rating": "Rating",
+      "fiveStars": "5 stars",
+      "fourStarsUp": "4 stars and up",
+      "threeStarsUp": "3 stars and up",
+      "twoStarsUp": "2 stars and up"
+    },
+    "searchPlaceholder": "Search ...",
+    "influencer": {
+      "titleLead": "Turn your passion for beauty",
+      "titleEnd": "into income!",
+      "subtitle": "Register to try free products and earn from your reviews.",
+      "cta": "Register to experience now"
+    },
+    "kols": {
+      "sortBy": "Sort by",
+      "mostViewed": "Most viewed",
+      "filterBy": "Filter by:",
+      "options": {
+        "latest": "Latest",
+        "oldest": "Oldest",
+        "mostViewed": "Most viewed",
+        "highestRated": "Highest rated",
+        "mostLiked": "Most liked"
+      },
+      "period": {
+        "all": "All",
+        "today": "Today",
+        "week": "This week",
+        "month": "This month",
+        "year": "This year",
+        "allTime": "All time"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "Review any 3 sheet masks",
+      "ribbonBottom": "chance to win an iPhone 16",
+      "dateLabel": "01 October 2025",
+      "headline": "WINNERS WILL BE ANNOUNCED",
+      "joinNow": "JOIN NOW"
+    },
+    "card": {
+      "fundName": "M4U charity fund",
+      "mobileDesc": "Love sheet masks? Review any 3 of our featured mask products for FREE and share your honest ...",
+      "totalProducts": "Total products",
+      "totalPrizePool": "Total Prize Pool",
+      "totalFundsConverted": "Total funds converted"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "Event Rules",
+        "eligibility": "Eligibility",
+        "newUserTask": "New User Task"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "Contribution Details",
+      "sponsor": "Sponsor",
+      "product": "Product",
+      "totalPrizes": "Total Prizes",
+      "totalPrizePool": "Total Prize Pool",
+      "totalProducts": "Total Products",
+      "comingSoon": "COMING SOON",
+      "registrationDate": "Registration date",
+      "endDate": "End date",
+      "joinNow": "JOIN NOW",
+      "buttons": {
+        "joinNow": "JOIN NOW",
+        "registerNotification": "COMING SOON",
+        "eventEnded": "ENDED"
+      },
+      "titles": {
+        "eventHappening": "EVENT IN PROGRESS",
+        "eventComing": "EVENT STARTING SOON",
+        "eventEnded": "EVENT ENDED"
+      }
+    },
+    "badge": {
+      "status": {
+        "happening": "Happening",
+        "coming": "Coming soon",
+        "ended": "Ended"
+      }
+    },
+    "relative": {
+      "title": "Related Events",
+      "loading": "Loading..."
+    },
+    "filter": {
+      "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },
+      "filters": {
+        "all": "All",
+        "upcoming": "Upcoming",
+        "ongoing": "Ongoing",
+        "ended": "Ended"
+      },
+      "filterBy": "Filter by:",
+      "searchPlaceholder": "Search..."
+    },
+    "questions": {
+      "titleLead": "Frequently Asked ",
+      "titleTail": "& Questions",
+      "perksTitle": "Perks of a reviewer member",
+      "intro": "When you join, you’ll enjoy exclusive perks:",
+      "bullets": {
+        "freeTrials": {
+          "label": "Free product trials:",
+          "desc": "Try today’s hottest beauty picks at no cost."
+        },
+        "earnings": {
+          "label": "Attractive earnings:",
+          "desc": "Earn commission on every eligible order made via your referral link."
+        },
+        "earlyAccess": {
+          "label": "Early access:",
+          "desc": "Be among the first to test new and limited releases from leading brands."
+        },
+        "support": {
+          "label": "Support & guidance:",
+          "desc": "Get step-by-step playbooks and pro tips to level up your reviews and build credibility."
+        },
+        "community": {
+          "label": "Community:",
+          "desc": "Connect with beauty lovers, share experiences, and learn together."
+        }
+      },
+      "placeholder1Title": "Perks of a reviewer member",
+      "placeholder1": "Sample content: You can replace with real content when data is available.",
+      "placeholder2Title": "Perks of a reviewer member",
+      "placeholder2": "Sample content: Members receive additional benefits when participating in activities."
+    }
+  },
+  "product": {
+    "register": "Join the trial",
+    "writeYourReview": "Write your review",
+    "registerBtn": "Register now",
+    "participation": "participation",
+    "reviews": "reviews",
+    "slotsLeft": "Only {count} slots left",
+    "users": "users",
+    "enrolledTrial": "enrolled in the product's trial program",
+    "views": "views",
+    "filterBy": "Filter by:",
+    "selectFilter": "Select filter",
+    "viewAll": "View all",
+    "exploreSimilarProducts": "Explore Similar Products",
+    "honestReviews": "Honest Reviews",
+    "fromRealUsers": "From Real Users",
+    "noReviews": "No reviews for this product.",
+    "viewReview": "View review"
+  },
+  "review": {
+    "rating": {
+      "excellent": "Excellent"
+    }
+  },
+  "cart": {
+    "title": "Trial Cart ({count} items)",
+    "empty": "Cart is empty",
+    "clearAll": "Clear All",
+    "viewDetails": "View Details",
+    "addedToCart": "Added to cart",
+    "alreadyInCart": "Already in cart"
+  },
+  "rating": {
+    "excellent": "Excellent",
+    "good": "Good",
+    "average": "Average",
+    "bad": "Bad",
+    "veryBad": "Very Bad"
+  },
+  "timer": {
+    "days": "day",
+    "hours": "hr",
+    "minutes": "min",
+    "seconds": "sec"
+  },
+  "auth": {
+    "logoutSuccess": "Logged out successfully!",
+    "loginSuccess": "Login successful!",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "welcomeBack": "Welcome back! Enter your details to sign in.",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter your phone number",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberAccount": "Remember Account",
+    "phoneRequired": "Phone number is required",
+    "passwordRequired": "Password is required",
+    "confirmLogoutTitle": "Confirm Logout",
+    "confirmLogoutDesc": "Are you sure you want to log out of your account?",
+    "cancel": "Cancel",
+    "logout": "Logout",
+    "forgot": {
+      "enterPhoneFirst": "Please enter your phone number before resetting password",
+      "phone": {
+        "title": "Forgot Password",
+        "desc": "Please enter your phone number to receive verification code",
+        "submit": "Send OTP",
+        "validation": {
+          "phoneRequired": "Phone number is required"
+        }
+      },
+      "otp": {
+        "title": "Enter verification code",
+        "desc": "Enter the {length}-digit OTP sent to phone {phone}",
+        "sending": "Sending...",
+        "sendSuccess": "OTP has been sent to your phone number",
+        "sendFailed": "Unable to send OTP. Please try again.",
+        "inputError": "Please enter the full OTP code",
+        "confirm": "Confirm",
+        "checking": "Verifying...",
+        "invalid": "Invalid OTP code",
+        "verifyError": "OTP verification failed. Please try again."
+      },
+      "reset": {
+        "title": "Change Password",
+        "desc": "Please enter your new password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm password",
+        "submitting": "Processing...",
+        "submit": "Confirm change",
+        "success": "Password changed and logged in successfully",
+        "saveFailed": "Password change failed",
+        "loginFailed": "Re-login failed",
+        "passwordsNotMatch": "Passwords do not match",
+        "validation": {
+          "passwordRequired": "New password is required",
+          "confirmPasswordRequired": "Confirm password is required"
+        }
+      }
+    }
+  },
+  "menu": {
+    "reviewerQuestion": "Are you an M4U's reviewer?",
+    "reviewerOptions": {
+      "yes": "Yes, I'm a member",
+      "no": "Not yet, sign me up"
+    },
+    "section": {
+      "productCommunity": "Product & Community",
+      "settings": "Settings",
+      "general": "General",
+      "support": "Support"
+    },
+    "productCommunity": {
+      "trial-samples": "Trial samples",
+      "donation-charity": "Donation & Charity",
+      "review-hub": "Review hub",
+      "event": "Event"
+    },
+    "settings": {
+      "general": {
+        "language": "Language"
+      },
+      "support": {
+        "help-centre": "Help centre",
+        "feedback-submission": "Feedback Submission"
+      }
+    },
+    "auth": {
+      "loadingUser": "Loading user information...",
+      "unknown": "Unknown",
+      "unknownUser": "Unknown User",
+      "joinedSince": "Joined since {date}",
+      "membership": {
+        "gold": "Gold membership"
+      },
+      "stats": {
+        "referrals": "Referrals",
+        "active": "Active",
+        "accountBalance": "Account Balance",
+        "points": "Points",
+        "commissionRevenue": "Commission Revenue",
+        "reviews": "Reviews"
+      },
+      "activity": {
+        "title": "My activity",
+        "trialHistory": "Trial registration history",
+        "myReviews": "My reviews",
+        "referralList": "Referral List",
+        "referralCode": "Referral Program",
+        "notification": "Notification"
+      },
+      "account": {
+        "preferences": "Account Preferences"
+      },
+      "logout": "Log out"
+    }
+  },
+  "notification": {
+    "title": "Notification",
+    "viewAll": "View all",
+    "viewDetail": "View detail",
+    "nodata": {
+      "title": "No notifications yet",
+      "desc": "Your notifications will appear here when there are updates."
+    },
+    "tabs": {
+      "all": "All",
+      "reviews": "Reviews",
+      "products": "Products"
+    },
+    "actions": {
+      "markReadAll": "Mark Read All",
+      "marking": "Marking..."
+    },
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "pageXofY": "Page {current} / {total}"
+    },
+    "relative": {
+      "now": "Just now",
+      "minutes": "{count} minutes ago",
+      "hours": "{count} hours ago",
+      "days": "{count} days ago"
+    }
+  },
+  "trial": {
+    "form": {
+      "headerTitle": "Register for a Product Sample",
+      "headerSubtitle": "Leave your details and we'll contact you.",
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "dateOfBirth": {
+          "label": "Date of Birth",
+          "placeholder": "Select your date of birth"
+        },
+        "address": { "label": "Address", "placeholder": "Enter your address" },
+        "gender": {
+          "label": "Gender",
+          "options": { "female": "Female", "male": "Male", "other": "Other" }
+        }
+      },
+      "productSection": { "label": "Product for Trial" },
+      "submit": { "processing": "Processing...", "continue": "Continue" },
+      "validation": {
+        "fullNameMin": "Please enter a valid full name",
+        "phoneInvalid": "Invalid phone number",
+        "genderRequired": "Please select a gender",
+        "dobRequired": "Please select your date of birth",
+        "addressMin": "Please enter a valid address"
+      },
+      "api": {
+        "registerFailed": "Registration failed",
+        "registerError": "An error occurred during registration"
+      }
+    },
+    "otp": {
+      "title": "Enter verification code",
+      "desc": "Enter the {length}-digit OTP sent to phone {phone}",
+      "processing": "Processing...",
+      "confirm": "Confirm",
+      "errors": {
+        "verifyFailed": "OTP verification failed",
+        "verifyError": "An error occurred during OTP verification"
+      }
+    },
+    "success": {
+      "title": "Successfully registered!",
+      "message": "We've received your application. Your trial product will be shipped to your address within the next few days."
+    }
+  },
+  "submitReview": {
+    "back": "Back",
+    "title": "Ready to review and earn?",
+    "shareReview": "Share your honest review",
+    "addVideo": "Add your video (required)",
+    "addPhotos": "Add your photos (optional)",
+    "dropFiles": "Drop your files here, or click to upload",
+    "rating": "Rating",
+    "productQuality": "Product quality",
+    "overallExperience": "Overall experience",
+    "absorbability": "Absorbability",
+    "moisturization": "Moisturization",
+    "skinBrightening": "Skin brightening",
+    "excellent": "Excellent",
+    "tellUsWhatYouThink": "Tell us what you think",
+    "reviewTips": "Review tips",
+    "placeholder": "What did you love about this product?",
+    "submitReview": "Submit review",
+    "uploadSuccessfully": "Upload successfully",
+    "hasVideoReview": "Has video review",
+    "reviewImage": "Review image {number}"
+  },
+  "dateRangePicker": {
+    "from": "From",
+    "to": "To",
+    "cancel": "Cancel",
+    "apply": "Apply"
+  },
+  "myReviews": {
+    "header": {
+      "title": "My Reviews",
+      "searchPlaceholder": "Search product, review, date, etc"
+    },
+    "history": {
+      "header": {
+        "title": "Trial registration history",
+        "searchPlaceholder": "Search product, review, date, etc"
+      },
+      "table": {
+        "headers": {
+          "orderId": "Order ID",
+          "productInfo": "Product Info",
+          "review": "Review",
+          "reward": "Reward",
+          "dateTime": "Date time",
+          "timeCreated": "Time created",
+          "orderStatus": "Order Status",
+          "action": "Action"
+        },
+        "statuses": {
+          "completed": "Completed",
+          "pending": "Pending",
+          "cancelled": "Cancelled",
+          "processing": "Processing"
+        },
+        "actions": {
+          "review": "Review",
+          "edit": "Edit",
+          "viewDetails": "View details",
+          "viewReason": "View reason",
+          "rewriteReview": "Rewrite review"
+        },
+        "error": {
+          "loadFailed": "Error loading review history",
+          "tryLater": "Please try again later"
+        },
+        "empty": {
+          "title": "No review history found",
+          "desc": "Your review history will appear here when you complete reviews."
+        },
+        "mobile": {
+          "moreProducts": "+{count} products",
+          "daysLeftToSubmit": "{count} days left to submit your review"
+        }
+      },
+      "reasonModal": {
+        "title": "Rejection reason",
+        "empty": "No reason provided.",
+        "close": "Close"
+      }
+    }
+  },
+  "nodataReviewhub": {
+    "title": "Start your beauty journey!",
+    "description": "Your history of product trials will appear here once you register for your first product. It's easy to get started—sign up to get free products, earn commissions, and claim exclusive vouchers.",
+    "registerButton": "Register for a Free Trial",
+    "noData": "No data yet"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "Full name must be at least 2 characters",
+        "phoneInvalid": "Please enter a valid phone number",
+        "genderRequired": "Please select your gender",
+        "dobRequired": "Date of birth is required",
+        "addressMin": "Address must be at least 5 characters",
+        "oldPasswordRequired": "Current password is required",
+        "newPasswordMin": "New password must be at least 8 characters",
+        "confirmPasswordRequired": "Please confirm your new password",
+        "passwordsDoNotMatch": "Passwords do not match"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "gender": {
+          "label": "Gender",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "dateOfBirth": {
+          "label": "D.O.B",
+          "placeholder": "Select your date of birth"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "oldPassword": {
+          "label": "Old password",
+          "placeholder": "Enter your current password"
+        },
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "buttons": {
+        "saveChanges": "Save changes",
+        "updatePhoto": "Update photo"
+      },
+      "sections": {
+        "general": "General",
+        "security": "Security",
+        "accountPreferences": "Account preferences"
+      },
+      "helpers": {
+        "passwordRequirement": "Password must be minimum 8+ characters",
+        "photoRequirement": "Allowed *.jpeg, *.jpg, *.png, *.gif\nMax size of 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "avatarCropper": {
+      "title": "Update Avatar",
+      "description": "Customize and align your avatar image to display beautifully on your profile.",
+      "zoom": "Zoom",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "accountPreferences": "Account preferences",
+    "form": {
+      "general": {
+        "title": "General",
+        "updatePhoto": "Update photo",
+        "uploadNote": "Allowed *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "Max size of 3.1 MB"
+      },
+      "security": {
+        "title": "Update password"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "Enter your full name"
+        },
+        "phoneNumber": {
+          "label": "Phone Number",
+          "placeholder": "Enter your phone number"
+        },
+        "gender": {
+          "label": "Gender",
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
+        },
+        "dateOfBirth": {
+          "label": "D.O.B",
+          "placeholder": "Select your date of birth"
+        },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
+        "oldPassword": {
+          "label": "Old password",
+          "placeholder": "Enter your old password"
+        },
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password",
+          "helperText": "Password must be minimum 8+ characters"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password",
+          "helperTextMatch": "Passwords match"
+        }
+      },
+      "submit": {
+        "saveChanges": "Save changes",
+        "saving": "Saving..."
+      },
+      "success": {
+        "updateAccount": "Account updated successfully",
+        "updatePassword": "Password updated successfully",
+        "updateAvatar": "Avatar updated successfully"
+      },
+      "errors": {
+        "noToken": "Authentication token not found. Please login again.",
+        "updateFailed": "Failed to update account. Please try again.",
+        "updatePasswordFailed": "Failed to update password. Please try again.",
+        "updateAvatarFailed": "Failed to update avatar. Please try again.",
+        "invalidFileType": "Invalid file type. Please select a valid image file (JPEG, JPG, PNG, GIF).",
+        "fileTooLarge": "File size too large. Please select a file smaller than 3.1 MB."
+      },
+      "validation": {
+        "fullNameMin": "Full name must be at least 2 characters",
+        "phoneInvalid": "Phone number must be between 8-15 characters",
+        "genderRequired": "Gender is required",
+        "dobRequired": "Date of birth is required",
+        "addressMin": "Address must be at least 5 characters",
+        "oldPasswordRequired": "Old password is required",
+        "newPasswordRequired": "New password is required",
+        "newPasswordMin": "New password must be at least 8 characters",
+        "confirmPasswordRequired": "Confirm password is required",
+        "passwordsNotMatch": "Passwords do not match"
+      }
+    }
+  },
+  "Referral": {
+    "title": "Referral Program",
+    "copy": "Copy",
+    "copied": "Copied",
+    "referrals": "Referrals",
+    "commissionRevenue": "Commission Revenue",
+    "friends": "Friends",
+    "noData": {
+      "title": "No data yet",
+      "desc": "The list of users you referred will appear here once available. Share your referral code to get started."
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "Additional feedback",
+      "textareaPlaceholder": "If you have more to add, please type it here...",
+      "maxImagesReached": "Maximum 3 images reached",
+      "privacyPolicy": "I have read and accept the Privacy Policy.",
+      "submitFeedback": "Submit Feedback",
+      "reasons": {
+        "interface": "Interface",
+        "loadingSpeed": "Loading speed",
+        "functionalManipulation": "Functional manipulation",
+        "customService": "Custom service",
+        "other": "Other"
+      }
+    },
+    "modal": {
+      "thankYou": "Thank you so much!",
+      "message": "We will read every feedback carefully and continue to improve the product for users like you."
+    },
+    "select": {
+      "awesome": "Awesome - Very helpful, works great!",
+      "satisfied": "Satisfied - Stable operation, easy to use",
+      "okay": "Okay - Usable but not very smooth",
+      "needsImprovement": "Needs improvement - Operation is not smooth",
+      "notGood": "Not good - Still a lot to optimize"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "Customer",
+      "content": "Loading reviews...",
+      "address": "Updating"
+    },
+    "defaults": {
+      "anonymous": "Anonymous",
+      "noContent": "No review content available.",
+      "noAddress": "Address not updated"
+    }
   }
 }

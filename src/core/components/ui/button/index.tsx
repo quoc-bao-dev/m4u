@@ -23,8 +23,8 @@ const Button: React.FC<ButtonProps> = ({
   children,
   size = 'md',
   variant = 'primary',
-  startIcon: _startIcon,
-  endIcon: _endIcon,
+  // startIcon: _startIcon,
+  // endIcon: _endIcon,
   onClick,
   className = '',
   disabled = false,
@@ -39,13 +39,18 @@ const Button: React.FC<ButtonProps> = ({
   const sizeClasses = {
     xs: 'text-responsive-sm',
     sm: 'text-responsive-sm',
-    md: 'text-base',
+    md: 'text-sm xl:text-base',
+  }
+  const sizePaddingClasses = {
+    xs: 'py-2 xl:py-3 px-5',
+    sm: 'py-3 xl:py-4 px-5',
+    md: 'py-3 xl:py-5.5 px-5',
   }
 
   // Variant Classes
   const variantClasses = {
     primary:
-      'bg-pink-100 text-pink-600 shadow-theme-xs hover:bg-pink-600/20 disabled:bg-pink-500',
+      'bg-pink-100 text-pink-600 shadow-theme-xs hover:bg-pink-600/20 disabled:bg-pink-600/20',
     outline:
       'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300',
     outlineSecondary:
@@ -58,10 +63,10 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <motion.button
-      className={`inline-flex items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 cursor-pointer ${className} ${
+      className={`inline-flex w-fit items-center justify-center font-semibold gap-3 rounded-full transition-all duration-300 p-1 pr-3 ${className} ${
         sizeClasses[size]
       } ${variantClasses[variant]} ${
-        disabled ? 'cursor-not-allowed opacity-50' : ''
+        disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
       }`}
       onClick={onClick}
       disabled={disabled}
@@ -70,19 +75,21 @@ const Button: React.FC<ButtonProps> = ({
       initial="initial" // Trạng thái ban đầu
     >
       {/* {startIcon && <span className="flex items-center">{startIcon}</span>} */}
-      <span className="rounded-full py-5.5 px-5 bg-pink-600 text-white">
+      <span
+        className={`rounded-full w-full ${sizePaddingClasses[size]} bg-pink-600 text-white`}
+      >
         {children}
       </span>
       {/* {endIcon && <span className="flex items-center">{endIcon}</span>} */}
       <motion.div
         variants={{
           initial: { x: 0 }, // Vị trí ban đầu
-          hover: { x: 6 } // Di chuyển sang phải 8px khi hover
+          hover: { x: 6 }, // Di chuyển sang phải 8px khi hover
         }}
-        transition={{ 
-          type: "spring", 
-          stiffness: 400, 
-          damping: 17 
+        transition={{
+          type: 'spring',
+          stiffness: 400,
+          damping: 17,
         }} // Hiệu ứng spring mượt mà
       >
         <ArrowRightIcon weight="bold" className="size-7" />

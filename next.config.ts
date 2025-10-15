@@ -26,7 +26,14 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    domains: ['bds.fmrp.vn', '192.168.1.178'],
+    domains: [
+      'm4u-admin.fmrp.vn',
+      '192.168.1.199',
+      'admin.maskforyou.vn',
+      'accounts.maskforyou.vn',
+      'admin.maskforyou.vn',
+      'services.maskforyou.vn',
+    ],
   },
   webpack(config) {
     // Fallback cho khi không dùng turbopack

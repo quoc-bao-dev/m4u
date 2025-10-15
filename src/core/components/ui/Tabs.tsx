@@ -1,0 +1,132 @@
+'use client'
+
+import { ReactNode } from 'react'
+
+export type TabItem = {
+  key: string
+  label: string
+  count?: number
+  color?: string
+}
+
+export interface TabsProps {
+  items: TabItem[]
+  activeKey?: string
+  onChange?: (key: string) => void
+  className?: string
+  loading?: boolean
+  loadingSkeletonCount?: number
+  activeIndicatorColor?: string
+  countBackgroundColor?: string
+  renderTabContent?: (tab: TabItem, isActive: boolean) => ReactNode
+  rightElement?: ReactNode
+}
+
+const Tabs = ({
+  items,
+  activeKey,
+  onChange,
+  className,
+  loading = false,
+  loadingSkeletonCount = 5,
+  activeIndicatorColor = '#FE6BBA',
+  countBackgroundColor,
+  renderTabContent,
+  rightElement,
+}: TabsProps) => {
+  const handleClick = (key: string) => {
+    onChange?.(key)
+  }
+
+  // Skeleton loading state
+  if (loading) {
+    return (
+      <div className={`w-full border-b border-gray-300 ${className ?? ''}`}>
+        <div className="flex items-center gap-10 relative pt-4 overflow-x-auto custom-scrollbar">
+          {Array.from({ length: loadingSkeletonCount }).map((_, index) => (
+            <div key={index} className="relative pb-3 animate-pulse">
+              <div className="flex items-center gap-2">
+                <div className="h-6 bg-gray-200 rounded w-20"></div>
+                <div className="h-6 w-8 bg-gray-200 rounded-md"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`w-full relative ${className ?? ''}`}>
+      <div className="absolute bottom-0 h-[1.5px] bg-gray-200 w-full"></div>
+      <div className="flex items-center justify-between relative pt-4">
+        <div className="flex items-center gap-10 overflow-x-auto overflow-y-hidden custom-scrollbar">
+          {items.map((tab) => {
+            const isActive = activeKey === tab.key
+
+            // Use custom render function if provided
+            if (renderTabContent) {
+              return (
+                <button
+                  key={tab.key}
+                  className="relative pb-3 transition-colors cursor-pointer"
+                  onClick={() => handleClick(tab.key)}
+                >
+                  {renderTabContent(tab, isActive)}
+                  {isActive && (
+                    <span
+                      className="absolute z-10 -bottom-[2px] left-0 right-0 h-[6px] rounded-t-full"
+                      style={{ backgroundColor: activeIndicatorColor }}
+                    />
+                  )}
+                </button>
+              )
+            }
+
+            // Default tab rendering
+            return (
+              <button
+                key={tab.key}
+                className={
+                  'relative pb-3 text-[14px] transition-colors cursor-pointer ' +
+                  (isActive
+                    ? 'text-gray-900 font-bold'
+                    : 'text-gray-500 font-medium')
+                }
+                onClick={() => handleClick(tab.key)}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span className="truncate">{tab.label}</span>
+                  {typeof tab.count === 'number' && (
+                    <span
+                      className="inline-flex py-0.5 min-w-5 items-center justify-center rounded-[6px] px-[6px] text-[12px] font-bold"
+                      style={{
+                        color: tab.color || activeIndicatorColor,
+                        backgroundColor: `${
+                          tab.color || activeIndicatorColor
+                        }1A`, // 10% opacity
+                      }}
+                    >
+                      {tab.count}
+                    </span>
+                  )}
+                </span>
+                {isActive && (
+                  <span
+                    className="absolute z-10 -bottom-[2px] left-0 right-0 h-[6px] rounded-t-[3px]"
+                    style={{ backgroundColor: activeIndicatorColor }}
+                  />
+                )}
+              </button>
+            )
+          })}
+        </div>
+        {rightElement && (
+          <div className="flex-shrink-0 ml-4">{rightElement}</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default Tabs
