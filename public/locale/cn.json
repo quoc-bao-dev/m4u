@@ -598,6 +598,7 @@
     "reviewTips": "评测小贴士",
     "placeholder": "你最喜欢这款产品的什么？",
     "submitReview": "提交评测",
+    "submitting": "提交中...",
     "uploadSuccessfully": "上传成功",
     "hasVideoReview": "含视频评测",
     "reviewImage": "评测图片 {number}"

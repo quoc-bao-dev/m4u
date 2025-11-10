@@ -396,7 +396,15 @@ const SubmitReview = ({ id }: { id: number }) => {
         </div>
 
         {/* Cột phải - tỷ lệ 915/1312 ≈ 69.7% */}
-        <div className="lg:flex-[915] h-fit p-0 lg:p-4 xl:p-10 rounded-none lg:rounded-3xl flex flex-col gap-4 xl:gap-6 bg-transparent lg:bg-white shadow-none lg:shadow-[0px_0px_60px_0px_rgba(0,0,0,0.1)]">
+        <div className="relative lg:flex-[915] h-fit p-0 lg:p-4 xl:p-10 rounded-none lg:rounded-3xl flex flex-col gap-4 xl:gap-6 bg-transparent lg:bg-white shadow-none lg:shadow-[0px_0px_60px_0px_rgba(0,0,0,0.1)]">
+          {isPending && (
+            <div className="absolute inset-0 z-10 bg-white/60 backdrop-blur-[1px] rounded-none lg:rounded-3xl flex items-center justify-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="size-8 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+                <p className="text-sm font-medium text-greyscale-700">{t('submitting')}</p>
+              </div>
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span
@@ -739,7 +747,14 @@ const SubmitReview = ({ id }: { id: number }) => {
           </div>
           <div className="flex justify-center xl:justify-start pb-6 xl:pb-0">
             <Button onClick={handleSubmit} disabled={isPending}>
-              {t('submitReview')}
+              {isPending ? (
+                <span className="inline-flex items-center gap-2">
+                  <span className="size-4 border-2 border-white/80 border-t-transparent rounded-full animate-spin" />
+                  {t('submitting')}
+                </span>
+              ) : (
+                t('submitReview')
+              )}
             </Button>
           </div>
         </div>
