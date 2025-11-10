@@ -598,6 +598,7 @@
     "reviewTips": "Review tips",
     "placeholder": "What did you love about this product?",
     "submitReview": "Submit review",
+    "submitting": "Submitting...",
     "uploadSuccessfully": "Upload successfully",
     "hasVideoReview": "Has video review",
     "reviewImage": "Review image {number}"

@@ -597,6 +597,7 @@
     "reviewTips": "Mẹo review",
     "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
     "submitReview": "Gửi đánh giá",
+    "submitting": "Đang tải lên...",
     "uploadSuccessfully": "Tải lên thành công",
     "hasVideoReview": "Đã có video review",
     "reviewImage": "Ảnh đánh giá {number}"

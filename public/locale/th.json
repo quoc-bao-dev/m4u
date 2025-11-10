@@ -606,6 +606,7 @@
     "reviewTips": "เคล็ดลับการรีวิว",
     "placeholder": "คุณชอบอะไรเกี่ยวกับสินค้านี้?",
     "submitReview": "ส่งรีวิว",
+    "submitting": "กำลังดำเนินการ...",
     "uploadSuccessfully": "อัปโหลดสำเร็จ",
     "hasVideoReview": "มีวิดีโอรีวิว",
     "reviewImage": "รูปรีวิว {number}"
