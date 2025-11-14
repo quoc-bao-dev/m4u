@@ -252,7 +252,7 @@ const Deal: React.FC = () => {
                           </h3>
                           <div className="py-1">
                             <div className="relative w-full h-1.5">
-                              <div className="relative" style={{ width: `${deal?.count_join / deal?.limit_people * 100}%` }}>
+                              <div className="relative" style={{ width: `${deal?.count_join / deal?.limit_people * 100}%`, maxWidth: '100%' }}>
                                 <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]" />
                                 <Lightning className="size-5 xl:size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
                               </div>
