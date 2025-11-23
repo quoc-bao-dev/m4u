@@ -35,7 +35,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const tProduct = useTranslations('product')
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const { ref: cardRef, isNearViewport } = useNearViewport<HTMLDivElement>({
-    distance: 1200,
+    distance: isMobile ? 2000 : 400,
   })
   const { isAuthenticated } = useAuth()
   const { openCart } = useCartIconStore()
@@ -75,19 +75,31 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   }, [data?.video_review, data?.video_review_render])
 
   // Ưu tiên load video khi component gần viewport
-  // useEffect(() => {
-  //   const vid = videoRef.current
-  //   if (!vid || !data?.video_review) return
+  // Đặc biệt quan trọng trên mobile vì browser thường ignore preload="auto"
+  useEffect(() => {
+    const vid = videoRef.current
+    if (!vid || !data?.video_review) return
 
-  //   if (isNearViewport) {
-  //     // Force load video khi gần viewport để ưu tiên load trước
-  //     // readyState: 0=HAVE_NOTHING, 1=HAVE_METADATA, 2=HAVE_CURRENT_DATA, 3=HAVE_FUTURE_DATA, 4=HAVE_ENOUGH_DATA
-  //     // Nếu video chưa có đủ data để phát (readyState < 4), force load
-  //     if (vid.readyState < 4) {
-  //       vid.load()
-  //     }
-  //   }
-  // }, [isNearViewport, data?.video_review, data?.video_review_render])
+    if (isNearViewport) {
+      // Trên mobile, browser thường ignore preload="auto" để tiết kiệm data
+      // Nên cần force load bằng JavaScript
+      // readyState: 0=HAVE_NOTHING, 1=HAVE_METADATA, 2=HAVE_CURRENT_DATA, 3=HAVE_FUTURE_DATA, 4=HAVE_ENOUGH_DATA
+
+      // Nếu video chưa có đủ data để phát (readyState < 4), force load
+      if (vid.readyState < 4) {
+        // Đặc biệt trên mobile, cần set preload trước khi load
+        if (isMobile) {
+          vid.setAttribute('preload', 'auto')
+        }
+        vid.load()
+      }
+    } else {
+      // Khi xa viewport, set preload="none" để tiết kiệm bandwidth
+      if (isMobile && vid.readyState < 1) {
+        vid.setAttribute('preload', 'none')
+      }
+    }
+  }, [isNearViewport, data?.video_review, data?.video_review_render, isMobile])
 
   // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
   useEffect(() => {
