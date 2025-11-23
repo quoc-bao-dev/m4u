@@ -33,7 +33,30 @@ export const useNearViewport = <T extends HTMLElement = HTMLElement>(
     const element = ref.current
     if (!element) return
 
-    // Sử dụng rootMargin để mở rộng vùng detect 400px từ mọi phía
+    // Helper function để check manually (quan trọng trên mobile)
+    const checkIfNearViewport = () => {
+      const rect = element.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const viewportWidth = window.innerWidth
+
+      // Check xem element có nằm trong viewport mở rộng không
+      const isNear =
+        rect.bottom >= -distance &&
+        rect.top <= viewportHeight + distance &&
+        rect.right >= -distance &&
+        rect.left <= viewportWidth + distance
+
+      return isNear
+    }
+
+    // Check ban đầu ngay khi mount (quan trọng trên mobile)
+    const initialCheck = checkIfNearViewport()
+    if (initialCheck) {
+      setIsNearViewport(true)
+      onNearViewport?.()
+    }
+
+    // Sử dụng rootMargin để mở rộng vùng detect từ mọi phía
     const rootMargin = `${distance}px`
 
     const observer = new IntersectionObserver(
@@ -57,8 +80,34 @@ export const useNearViewport = <T extends HTMLElement = HTMLElement>(
 
     observer.observe(element)
 
+    // Thêm scroll listener để đảm bảo hoạt động đúng trên mobile
+    // (IntersectionObserver có thể delay trên mobile)
+    let scrollTimeout: NodeJS.Timeout
+    let currentState = initialCheck
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        const near = checkIfNearViewport()
+        if (near !== currentState) {
+          currentState = near
+          setIsNearViewport(near)
+          if (near) {
+            onNearViewport?.()
+          } else {
+            onFarFromViewport?.()
+          }
+        }
+      }, 50)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll, { passive: true })
+
     return () => {
       observer.unobserve(element)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+      clearTimeout(scrollTimeout)
     }
   }, [distance, onNearViewport, onFarFromViewport])
 

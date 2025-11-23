@@ -80,7 +80,21 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     const vid = videoRef.current
     if (!vid || !data?.video_review) return
 
-    if (isNearViewport) {
+    // Helper để check xem card có gần viewport không (manual check cho mobile)
+    const checkIfNearViewport = () => {
+      const card = cardRef.current
+      if (!card) return false
+      const rect = card.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const distance = isMobile ? 4000 : 400
+      return rect.bottom >= -distance && rect.top <= viewportHeight + distance
+    }
+
+    // Check manual (quan trọng trên mobile vì IntersectionObserver có thể delay)
+    const manualCheck = checkIfNearViewport()
+    const shouldPreload = isNearViewport || manualCheck
+
+    if (shouldPreload) {
       // Trên mobile, browser thường ignore preload="auto" để tiết kiệm data
       // Nên cần force load bằng JavaScript
       // readyState: 0=HAVE_NOTHING, 1=HAVE_METADATA, 2=HAVE_CURRENT_DATA, 3=HAVE_FUTURE_DATA, 4=HAVE_ENOUGH_DATA
@@ -89,7 +103,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       if (vid.readyState < 4) {
         // Đặc biệt trên mobile, cần set preload trước khi load
         if (isMobile) {
-          vid.setAttribute('preload', 'auto')
+          vid.setAttribute('preload', 'metadata')
         }
         vid.load()
       }
