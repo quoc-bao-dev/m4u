@@ -40,7 +40,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const { addItem, isItemInCart } = useCartStore()
   const { open: openModalRegistration } = useModalRegistration()
 
-  const { formatted: formattedTime, isEnded } = useCountdown(data?.time_left_dd_hh_mm_ss)
+  const { formatted: formattedTime, isEnded } = useCountdown(
+    data?.time_left_dd_hh_mm_ss
+  )
 
   const [isOpen, setIsOpen] = useState(false)
   // Chỉ phát video khi card active; còn lại tạm dừng và reset
@@ -48,11 +50,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     const vid = videoRef.current
     if (!vid) return
     if (isActive) {
-      vid.play().catch(() => { })
+      vid.play().catch(() => {})
     } else {
       try {
         vid.pause()
-      } catch { }
+      } catch {}
     }
   }, [isActive])
 
@@ -64,15 +66,15 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
     const renderFirstFrame = async () => {
       try {
         vid.muted = true
-          // đảm bảo inline trên iOS
-          ; (vid as any).playsInline = true
+        // đảm bảo inline trên iOS
+        ;(vid as any).playsInline = true
         // buộc trình duyệt render frame đầu: play rồi pause ngay
         // await vid.play()
         vid.pause()
         try {
           vid.currentTime = 0.001
-        } catch { }
-      } catch { }
+        } catch {}
+      } catch {}
     }
 
     const onLoaded = () => {
@@ -134,7 +136,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         >
           <video
             ref={videoRef}
-            src={data?.video_review}
+            src={data?.video_review_render ?? data?.video_review}
             className="w-full h-full object-cover"
             muted
             loop
@@ -149,7 +151,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           {/* Hình ảnh sản phẩm */}
           <Link
             href={`/review-hub/${data?.slug}`}
-            className="w-[60px] xl:w-20 aspect-[80/100] flex-shrink-0">
+            className="w-[60px] xl:w-20 aspect-[80/100] flex-shrink-0"
+          >
             <Image
               src={data?.image_product}
               alt={productAlt || tProduct('participation')}
@@ -166,8 +169,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
               <h3 className="text-[10px] xl:text-sm font-bold text-greyscale-900">
                 {data?.code}
               </h3>
-              {(!isEnded && !isDdHhMmSsZero(data?.time_left_dd_hh_mm_ss)) && (
-                <p className="text-[10px] xl:text-sm text-greyscale-600">{formattedTime}</p>
+              {!isEnded && !isDdHhMmSsZero(data?.time_left_dd_hh_mm_ss) && (
+                <p className="text-[10px] xl:text-sm text-greyscale-600">
+                  {formattedTime}
+                </p>
               )}
             </div>
 
@@ -184,7 +189,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
               <div className="relative w-full h-1.5">
                 <div
                   className="relative"
-                  style={{ width: `${data?.count_join / data?.limit_people * 100}%`, maxWidth: '100%' }}
+                  style={{
+                    width: `${(data?.count_join / data?.limit_people) * 100}%`,
+                    maxWidth: '100%',
+                  }}
                 >
                   <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]"></div>
                   <Lightning className="size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
@@ -196,7 +204,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
 
             {/* Text participation */}
             <p className="text-xs xl:text-sm text-greyscale-700">
-              {data?.count_join}/{data?.limit_people} {tProduct('participation')}
+              {data?.count_join}/{data?.limit_people}{' '}
+              {tProduct('participation')}
             </p>
 
             {
@@ -217,12 +226,23 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                   setIsOpen(true)
                 }}
                 className="transform-gpu border-gradient-button-dynamic bg-white w-fit py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
-                style={{
-                  color: data?.background_color,
-                  transition: 'all 300ms ease',
-                  boxShadow: `0px 2px 4px ${withAlpha(data?.background_color, 0.26)}, -2px -2px 8px ${withAlpha(data?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(data?.background_color, 0.7)} inset`,
-                  '--accent-color': data?.background_color,
-                } as React.CSSProperties}
+                style={
+                  {
+                    color: data?.background_color,
+                    transition: 'all 300ms ease',
+                    boxShadow: `0px 2px 4px ${withAlpha(
+                      data?.background_color,
+                      0.26
+                    )}, -2px -2px 8px ${withAlpha(
+                      data?.background_color,
+                      0.7
+                    )} inset, 2px 2px 8px -5px ${withAlpha(
+                      data?.background_color,
+                      0.7
+                    )} inset`,
+                    '--accent-color': data?.background_color,
+                  } as React.CSSProperties
+                }
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = data?.background_color
                   e.currentTarget.style.color = '#fff'
@@ -232,7 +252,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                   e.currentTarget.style.color = data?.background_color
                 }}
               >
-                <span className="truncate text-xs sm:text-base/[21px] ">{tProduct('viewReview')}</span>
+                <span className="truncate text-xs sm:text-base/[21px] ">
+                  {tProduct('viewReview')}
+                </span>
                 {/* <PenIcon /> */}
               </button>
             }
