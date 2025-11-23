@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
-import { useDevice, useToast } from '@/core/hooks'
+import { useDevice, useToast, useNearViewport } from '@/core/hooks'
 import { withAlpha } from '@/core/utils'
 import { Link, useTranslation } from '@/locale'
 import { useCountdown } from '@/core/hooks/useCountdown'
@@ -34,6 +34,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const { t } = useTranslation()
   const tProduct = useTranslations('product')
   const videoRef = useRef<HTMLVideoElement | null>(null)
+  const { ref: cardRef, isNearViewport } = useNearViewport<HTMLDivElement>({
+    distance: 1200,
+  })
   const { isAuthenticated } = useAuth()
   const { openCart } = useCartIconStore()
   const { showSuccess } = useToast()
@@ -45,18 +48,46 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   )
 
   const [isOpen, setIsOpen] = useState(false)
+  const [showThumbnail, setShowThumbnail] = useState(true)
+  const [videoLoaded, setVideoLoaded] = useState(false)
+
   // Chỉ phát video khi card active; còn lại tạm dừng và reset
   useEffect(() => {
     const vid = videoRef.current
     if (!vid) return
     if (isActive) {
       vid.play().catch(() => {})
+      // Khi video bắt đầu phát, ẩn thumbnail nếu video đã load
+      if (videoLoaded) {
+        setShowThumbnail(false)
+      }
     } else {
       try {
         vid.pause()
       } catch {}
     }
-  }, [isActive])
+  }, [isActive, videoLoaded])
+
+  // Reset state khi video src thay đổi
+  useEffect(() => {
+    setShowThumbnail(true)
+    setVideoLoaded(false)
+  }, [data?.video_review, data?.video_review_render])
+
+  // Ưu tiên load video khi component gần viewport
+  // useEffect(() => {
+  //   const vid = videoRef.current
+  //   if (!vid || !data?.video_review) return
+
+  //   if (isNearViewport) {
+  //     // Force load video khi gần viewport để ưu tiên load trước
+  //     // readyState: 0=HAVE_NOTHING, 1=HAVE_METADATA, 2=HAVE_CURRENT_DATA, 3=HAVE_FUTURE_DATA, 4=HAVE_ENOUGH_DATA
+  //     // Nếu video chưa có đủ data để phát (readyState < 4), force load
+  //     if (vid.readyState < 4) {
+  //       vid.load()
+  //     }
+  //   }
+  // }, [isNearViewport, data?.video_review, data?.video_review_render])
 
   // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
   useEffect(() => {
@@ -74,6 +105,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
         try {
           vid.currentTime = 0.001
         } catch {}
+        // Video đã load được, ẩn thumbnail
+        setVideoLoaded(true)
+        setShowThumbnail(false)
       } catch {}
     }
 
@@ -81,17 +115,42 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       renderFirstFrame()
     }
 
+    const onError = () => {
+      // Video không load được, giữ thumbnail
+      setVideoLoaded(false)
+      setShowThumbnail(true)
+    }
+
+    const onCanPlay = () => {
+      // Video có thể phát được, ẩn thumbnail
+      setVideoLoaded(true)
+      setShowThumbnail(false)
+    }
+
+    const onLoadedMetadata = () => {
+      // Khi metadata load xong, thử render frame đầu
+      if (vid.readyState >= 2) {
+        renderFirstFrame()
+      }
+    }
+
     vid.addEventListener('loadeddata', onLoaded)
-    vid.addEventListener('loadedmetadata', onLoaded)
+    vid.addEventListener('loadedmetadata', onLoadedMetadata)
+    vid.addEventListener('error', onError)
+    vid.addEventListener('canplay', onCanPlay)
+
+    // Kiểm tra nếu video đã sẵn sàng
     if (vid.readyState >= 2) {
       renderFirstFrame()
     }
 
     return () => {
       vid.removeEventListener('loadeddata', onLoaded)
-      vid.removeEventListener('loadedmetadata', onLoaded)
+      vid.removeEventListener('loadedmetadata', onLoadedMetadata)
+      vid.removeEventListener('error', onError)
+      vid.removeEventListener('canplay', onCanPlay)
     }
-  }, [data?.video_review])
+  }, [data?.video_review, data?.video_review_render])
 
   const handleRegistration = (e: any) => {
     if (e && typeof e.stopPropagation === 'function') {
@@ -123,12 +182,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <>
       <div
+        ref={cardRef}
         onClick={onClick}
         className={`h-fit shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}
       >
         {/* Hình ảnh reviewer */}
         <motion.div
-          className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl"
+          className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl relative"
           animate={{
             height: isActive ? (isMobile ? 300 : 450) : isMobile ? 250 : 342,
           }}
@@ -142,8 +202,21 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
             loop
             playsInline
             autoPlay={isActive}
-            preload="auto"
+            preload={isNearViewport ? 'auto' : 'none'}
+            // poster={data?.image_product}
           />
+          {/* Thumbnail mặc định khi video chưa load được */}
+          {/* {showThumbnail && data?.image_product && (
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={data.image_product}
+                alt={productAlt || tProduct('participation')}
+                fill
+                className="object-cover"
+                priority={false}
+              />
+            </div>
+          )} */}
         </motion.div>
 
         {/* Nội dung card */}
