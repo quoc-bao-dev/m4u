@@ -1,20 +1,24 @@
 'use client'
-import { Lightning } from '@/icons'
-import { ArrowRightIcon } from '@phosphor-icons/react'
-import Image from 'next/image'
-import { useTranslations } from 'next-intl'
-import { motion } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
-import { useDevice, useToast, useNearViewport } from '@/core/hooks'
-import { withAlpha } from '@/core/utils'
-import { Link, useTranslation } from '@/locale'
+import dynamic from 'next/dynamic'
+import { useDevice, useToast } from '@/core/hooks'
 import { useCountdown } from '@/core/hooks/useCountdown'
+import { withAlpha } from '@/core/utils'
 import { isDdHhMmSsZero } from '@/core/utils/time'
+import { Lightning } from '@/icons'
+import { Link, useTranslation } from '@/locale'
 import { useAuth } from '@/modules/auth'
+import InfoKolModal from '@/modules/review-hub/review-hub-detail/components/InfoKolModal'
 import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
 import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
-import InfoKolModal from '@/modules/review-hub/review-hub-detail/components/InfoKolModal'
+import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import React, { useState } from 'react'
+
+const ReviewVideo = dynamic(() => import('./ReviewVideo'), {
+  ssr: false,
+})
 interface ReviewCardProps {
   productAlt?: string
   className?: string
@@ -33,10 +37,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const { isMobile } = useDevice()
   const { t } = useTranslation()
   const tProduct = useTranslations('product')
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const { ref: cardRef, isNearViewport } = useNearViewport<HTMLDivElement>({
-    distance: isMobile ? 2000 : 400,
-  })
+  const videoSrc = data?.video_review_render ?? data?.video_review
+  const thumbnailSrc = data?.small_image_video_review ?? data?.image_product
+  const shouldPlayVideo = Boolean(isActive && videoSrc)
   const { isAuthenticated } = useAuth()
   const { openCart } = useCartIconStore()
   const { showSuccess } = useToast()
@@ -48,135 +51,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   )
 
   const [isOpen, setIsOpen] = useState(false)
-  const [showThumbnail, setShowThumbnail] = useState(true)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-
-  // Chỉ phát video khi card active; còn lại tạm dừng và reset
-  useEffect(() => {
-    const vid = videoRef.current
-    if (!vid) return
-    if (isActive) {
-      vid.play().catch(() => {})
-      // Khi video bắt đầu phát, ẩn thumbnail nếu video đã load
-      if (videoLoaded) {
-        setShowThumbnail(false)
-      }
-    } else {
-      try {
-        vid.pause()
-      } catch {}
-    }
-  }, [isActive, videoLoaded])
-
-  // Reset state khi video src thay đổi
-  useEffect(() => {
-    setShowThumbnail(true)
-    setVideoLoaded(false)
-  }, [data?.video_review, data?.video_review_render])
-
-  // Ưu tiên load video khi component gần viewport
-  // Đặc biệt quan trọng trên mobile vì browser thường ignore preload="auto"
-  useEffect(() => {
-    const vid = videoRef.current
-    if (!vid || !data?.video_review) return
-
-    // Helper để check xem card có gần viewport không (manual check cho mobile)
-    const checkIfNearViewport = () => {
-      const card = cardRef.current
-      if (!card) return false
-      const rect = card.getBoundingClientRect()
-      const viewportHeight = window.innerHeight
-      const distance = isMobile ? 4000 : 400
-      return rect.bottom >= -distance && rect.top <= viewportHeight + distance
-    }
-
-    // Check manual (quan trọng trên mobile vì IntersectionObserver có thể delay)
-    const manualCheck = checkIfNearViewport()
-    const shouldPreload = isNearViewport || manualCheck
-
-    if (shouldPreload) {
-      // Trên mobile, browser thường ignore preload="auto" để tiết kiệm data
-      // Nên cần force load bằng JavaScript
-      // readyState: 0=HAVE_NOTHING, 1=HAVE_METADATA, 2=HAVE_CURRENT_DATA, 3=HAVE_FUTURE_DATA, 4=HAVE_ENOUGH_DATA
-
-      // Nếu video chưa có đủ data để phát (readyState < 4), force load
-      if (vid.readyState < 4) {
-        // Đặc biệt trên mobile, cần set preload trước khi load
-        if (isMobile) {
-          vid.setAttribute('preload', 'metadata')
-        }
-        vid.load()
-      }
-    } else {
-      // Khi xa viewport, set preload="none" để tiết kiệm bandwidth
-      if (isMobile && vid.readyState < 1) {
-        vid.setAttribute('preload', 'none')
-      }
-    }
-  }, [isNearViewport, data?.video_review, data?.video_review_render, isMobile])
-
-  // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
-  useEffect(() => {
-    const vid = videoRef.current
-    if (!vid || !data?.video_review) return
-
-    const renderFirstFrame = async () => {
-      try {
-        vid.muted = true
-        // đảm bảo inline trên iOS
-        ;(vid as any).playsInline = true
-        // buộc trình duyệt render frame đầu: play rồi pause ngay
-        // await vid.play()
-        vid.pause()
-        try {
-          vid.currentTime = 0.001
-        } catch {}
-        // Video đã load được, ẩn thumbnail
-        setVideoLoaded(true)
-        setShowThumbnail(false)
-      } catch {}
-    }
-
-    const onLoaded = () => {
-      renderFirstFrame()
-    }
-
-    const onError = () => {
-      // Video không load được, giữ thumbnail
-      setVideoLoaded(false)
-      setShowThumbnail(true)
-    }
-
-    const onCanPlay = () => {
-      // Video có thể phát được, ẩn thumbnail
-      setVideoLoaded(true)
-      setShowThumbnail(false)
-    }
-
-    const onLoadedMetadata = () => {
-      // Khi metadata load xong, thử render frame đầu
-      if (vid.readyState >= 2) {
-        renderFirstFrame()
-      }
-    }
-
-    vid.addEventListener('loadeddata', onLoaded)
-    vid.addEventListener('loadedmetadata', onLoadedMetadata)
-    vid.addEventListener('error', onError)
-    vid.addEventListener('canplay', onCanPlay)
-
-    // Kiểm tra nếu video đã sẵn sàng
-    if (vid.readyState >= 2) {
-      renderFirstFrame()
-    }
-
-    return () => {
-      vid.removeEventListener('loadeddata', onLoaded)
-      vid.removeEventListener('loadedmetadata', onLoadedMetadata)
-      vid.removeEventListener('error', onError)
-      vid.removeEventListener('canplay', onCanPlay)
-    }
-  }, [data?.video_review, data?.video_review_render])
 
   const handleRegistration = (e: any) => {
     if (e && typeof e.stopPropagation === 'function') {
@@ -208,7 +82,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   return (
     <>
       <div
-        ref={cardRef}
         onClick={onClick}
         className={`h-fit shadow-[0px_4px_24px_0px_#0000000F] flex flex-col rounded-3xl ${className}`}
       >
@@ -220,29 +93,25 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           }}
           transition={{ type: 'spring', stiffness: 140, damping: 18 }}
         >
-          <video
-            ref={videoRef}
-            src={data?.video_review_render ?? data?.video_review}
-            className="w-full h-full object-cover"
-            muted
-            loop
-            playsInline
-            autoPlay={isActive}
-            preload={isNearViewport ? 'auto' : 'none'}
-            // poster={data?.image_product}
-          />
-          {/* Thumbnail mặc định khi video chưa load được */}
-          {/* {showThumbnail && data?.image_product && (
-            <div className="absolute inset-0 w-full h-full">
+          <div className="relative h-full w-full">
+            {thumbnailSrc && (
               <Image
-                src={data.image_product}
+                src={thumbnailSrc}
                 alt={productAlt || tProduct('participation')}
                 fill
                 className="object-cover"
                 priority={false}
               />
-            </div>
-          )} */}
+            )}
+            {shouldPlayVideo && videoSrc && (
+              <ReviewVideo
+                key={videoSrc}
+                src={videoSrc}
+                poster={thumbnailSrc}
+                className="pointer-events-none"
+              />
+            )}
+          </div>
         </motion.div>
 
         {/* Nội dung card */}
@@ -308,15 +177,6 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
             </p>
 
             {
-              // data?.isSig === null ?
-              // <button
-              //   className="flex items-center justify-between gap-2 pt-3 text-pink-600 hover:text-pink-700 group transition-all duration-300 text-sm font-semibold cursor-pointer"
-              //   onClick={handleRegistration}
-              // >
-              //   {tProduct('register')}
-              //   <ArrowRightIcon weight="bold" className="size-4 text-pink-600 group-hover:text-pink-700 transition-all duration-300" />
-              // </button>
-              // :
               <button
                 type="button"
                 onClick={(e) => {

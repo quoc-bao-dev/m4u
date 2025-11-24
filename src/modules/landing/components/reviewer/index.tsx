@@ -33,8 +33,6 @@ const Reviewer = () => {
     [baseItems]
   )
 
-  console.log({ loopedItems })
-
   const baseLength = baseItems.length
   const middleStart = baseLength * Math.floor(LOOP_TIMES / 2)
 
