@@ -7,6 +7,7 @@ interface ReviewVideoProps {
   poster?: string
   className?: string
   autoPlay?: boolean
+  onReadyChange?: (ready: boolean) => void
 }
 
 const ReviewVideo: React.FC<ReviewVideoProps> = ({
@@ -14,6 +15,7 @@ const ReviewVideo: React.FC<ReviewVideoProps> = ({
   poster,
   className = '',
   autoPlay = true,
+  onReadyChange,
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [objectUrl, setObjectUrl] = useState<string | null>(null)
@@ -104,6 +106,13 @@ const ReviewVideo: React.FC<ReviewVideoProps> = ({
       video.removeEventListener('error', handleError)
     }
   }, [objectUrl, autoPlay])
+
+  useEffect(() => {
+    onReadyChange?.(isReady)
+    return () => {
+      onReadyChange?.(false)
+    }
+  }, [isReady, onReadyChange])
 
   return (
     <div className={`absolute inset-0 ${className}`}>

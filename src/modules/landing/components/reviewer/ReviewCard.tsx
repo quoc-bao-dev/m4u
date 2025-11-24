@@ -14,7 +14,7 @@ import useModalRegistration from '@/modules/trial-registration/stores/useModalRe
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ReviewVideo = dynamic(() => import('./ReviewVideo'), {
   ssr: false,
@@ -51,6 +51,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   )
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isVideoReady, setIsVideoReady] = useState(false)
+
+  useEffect(() => {
+    if (!shouldPlayVideo) {
+      setIsVideoReady(false)
+    }
+  }, [shouldPlayVideo, videoSrc])
 
   const handleRegistration = (e: any) => {
     if (e && typeof e.stopPropagation === 'function') {
@@ -99,8 +106,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                 src={thumbnailSrc}
                 alt={productAlt || tProduct('participation')}
                 fill
-                className="object-cover"
-                priority={false}
+                loading="eager"
+                priority
+                sizes="(min-width:1280px) 410px, 280px"
+                className={`object-cover transition-opacity duration-300 ${
+                  isVideoReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
               />
             )}
             {shouldPlayVideo && videoSrc && (
@@ -109,6 +120,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                 src={videoSrc}
                 poster={thumbnailSrc}
                 className="pointer-events-none"
+                onReadyChange={setIsVideoReady}
               />
             )}
           </div>
