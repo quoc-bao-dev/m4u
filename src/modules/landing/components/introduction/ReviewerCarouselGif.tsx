@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useState, memo } from 'react'
 import ReviewerAvatar from './ReviewerAvatar'
-import { useGetViewReviewer } from '@/services/home/queries'
+import { useGetHomePage, useGetViewReviewer } from '@/services/home/queries'
+import { Container } from '@/core/components'
 
 // Local animation config for this component
 // const LOCAL_ANIMATION = {
@@ -23,6 +24,7 @@ const LOCAL_ANIMATION = {
 } as const
 
 type ReviewerCarouselProps = {
+  content?: string
   fadeDuration?: number
   intervalMs?: number
   ease?: 'linear' | 'easeIn' | 'easeOut' | 'easeInOut'
@@ -75,8 +77,8 @@ const MemoizedReviewerAvatar = memo(
           isFading
             ? { opacity: [1, opacity], x: [0, translateX] }
             : isEntering
-              ? { opacity: [opacity, 1], x: [resolvedAppearFromX, 0] }
-              : { opacity: 1, x: 0 }
+            ? { opacity: [opacity, 1], x: [resolvedAppearFromX, 0] }
+            : { opacity: 1, x: 0 }
         }
         transition={
           isFading || isEntering
@@ -90,7 +92,9 @@ const MemoizedReviewerAvatar = memo(
           imageClassName={imageClassName}
           src={displayReviewer.avatar || displayReviewer.src}
           name={displayReviewer.fullname || displayReviewer.name}
-          jobTitle={displayReviewer.count_review || displayReviewer.jobTitle || 0}
+          jobTitle={
+            displayReviewer.count_review || displayReviewer.jobTitle || 0
+          }
           labelPosition={labelPosition}
         />
       </motion.div>
@@ -161,6 +165,7 @@ const ReviewerCarousel = memo(
     opacity = LOCAL_ANIMATION.opacity,
     translateX = LOCAL_ANIMATION.translateX,
     appearFromX,
+    content,
   }: ReviewerCarouselProps) => {
     const [offset, setOffset] = useState(0)
     const [isFading, setIsFading] = useState(false)
@@ -192,7 +197,13 @@ const ReviewerCarousel = memo(
       per_page: 10,
       current_page: 1,
     })
+
     const hasData = Array.isArray(viewReviewer) && viewReviewer.length > 0
+    const { data: homePage } = useGetHomePage()
+    const contentJoin =
+      typeof homePage?.section2?.content_join === 'string'
+        ? homePage.section2.content_join
+        : ''
 
     useEffect(() => {
       if (!hasData) return
@@ -200,56 +211,71 @@ const ReviewerCarousel = memo(
       return () => clearInterval(intervalId)
     }, [handleAnimationCycle, intervalMs, hasData])
 
-    if(!isLoading && !hasData) return null
+    if (!isLoading && !hasData) return null
 
     return (
-      <div
-        className="py-3 relative"
-        role="region"
-        aria-label="Reviewer carousel"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/image/reviewer-carousel/carousel.gif"
-          className="h-full w-auto object-cover absolute top-0 left-0"
-          alt="Animated background showing reviewer testimonials"
-          loading="lazy"
-        />
+      <div className="">
+        <div
+          className="py-3 relative"
+          role="region"
+          aria-label="Reviewer carousel"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/image/reviewer-carousel/carousel.gif"
+            className="h-full w-auto object-cover absolute top-0 left-0"
+            alt="Animated background showing reviewer testimonials"
+            loading="lazy"
+          />
 
-        <div className="relative whitespace-nowrap mx-auto aspect-[16/4] bg-red-100/0 w-[300px] md:w-[700px] lg:w-[1000px] xl:w-[1200px] 2xl:w-[1500px] h-full flex items-center justify-center">
-          {!hasData
-            ? REVIEWER_CONFIGS.map((config, index) => (
-                <div key={`sk-${index}`} className={config.className}>
-                  <div className="flex flex-col items-center gap-2">
-                    {config.labelPosition === 'top' && (
-                      <div className="w-16 md:w-24 h-3 md:h-4 bg-greyscale-200 rounded animate-pulse" />
-                    )}
-                    <div className={`rounded-full bg-greyscale-200 animate-pulse ${config.imageClassName}`} />
-                    {config.labelPosition === 'bottom' && (
-                      <div className="w-20 md:w-28 h-3 md:h-4 bg-greyscale-200 rounded animate-pulse" />
-                    )}
+          <div className="relative whitespace-nowrap mx-auto aspect-[16/4] bg-red-100/0 w-[300px] md:w-[700px] lg:w-[1000px] xl:w-[1200px] 2xl:w-[1500px] h-full flex items-center justify-center">
+            {!hasData
+              ? REVIEWER_CONFIGS.map((config, index) => (
+                  <div key={`sk-${index}`} className={config.className}>
+                    <div className="flex flex-col items-center gap-2">
+                      {config.labelPosition === 'top' && (
+                        <div className="w-16 md:w-24 h-3 md:h-4 bg-greyscale-200 rounded animate-pulse" />
+                      )}
+                      <div
+                        className={`rounded-full bg-greyscale-200 animate-pulse ${config.imageClassName}`}
+                      />
+                      {config.labelPosition === 'bottom' && (
+                        <div className="w-20 md:w-28 h-3 md:h-4 bg-greyscale-200 rounded animate-pulse" />
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))
-            : REVIEWER_CONFIGS.map((config, index) => (
-                <MemoizedReviewerAvatar
-                  key={`reviewer-${index}`}
-                  reviewer={viewReviewer}
-                  index={index}
-                  offset={offset}
-                  isFading={isFading}
-                  isEntering={isEntering}
-                  fadeDuration={fadeDuration}
-                  ease={ease}
-                  opacity={opacity}
-                  translateX={translateX}
-                  resolvedAppearFromX={resolvedAppearFromX}
-                  className={config.className}
-                  imageClassName={config.imageClassName}
-                  labelPosition={config.labelPosition}
-                />
-              ))}
+                ))
+              : REVIEWER_CONFIGS.map((config, index) => (
+                  <MemoizedReviewerAvatar
+                    key={`reviewer-${index}`}
+                    reviewer={viewReviewer}
+                    index={index}
+                    offset={offset}
+                    isFading={isFading}
+                    isEntering={isEntering}
+                    fadeDuration={fadeDuration}
+                    ease={ease}
+                    opacity={opacity}
+                    translateX={translateX}
+                    resolvedAppearFromX={resolvedAppearFromX}
+                    className={config.className}
+                    imageClassName={config.imageClassName}
+                    labelPosition={config.labelPosition}
+                  />
+                ))}
+          </div>
         </div>
+
+        {contentJoin && (
+          <div className="mt-0">
+            <Container>
+              <div
+                className="text-center text-base md:text-lg lg:text-[48px] max-w-[260px] lg:max-w-[680px] mx-auto mt-6 lg:mt-0 text-greyscale-700 leading-relaxed font-bold"
+                dangerouslySetInnerHTML={{ __html: contentJoin }}
+              />
+            </Container>
+          </div>
+        )}
       </div>
     )
   }
