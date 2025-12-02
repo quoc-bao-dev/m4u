@@ -1,0 +1,385 @@
+import { ChatMessageItem } from '@/services/chat-bot'
+import { useState } from 'react'
+import { useHandleNext } from '../hooks'
+import { chatStore } from '../store/chatStore'
+
+const IMAGE_AVATAR = '/chat-bot/Avatar.png'
+
+type MessageProps = ChatMessageItem
+
+const formatHtmlContent = (html?: string) => {
+  if (!html) return ''
+
+  return html
+    .replace(
+      /<ul[^>]*>/gi,
+      '<ul style="font-family: var(--font-primary); font-size: 11px; line-height: 1.5; color: #525252; list-style: disc; padding-left: 1rem; margin: 0;">'
+    )
+    .replace(/<\/ul>/gi, '</ul>')
+    .replace(
+      /<li[^>]*>/gi,
+      '<li style="margin-bottom: 3px; list-style: disc;">'
+    )
+    .replace(/<\/li>/gi, '</li>')
+}
+
+const Message = ({
+  message,
+  event_show,
+  event_app,
+  options,
+  is_multiple,
+  next,
+  type_send,
+  products,
+  id,
+}: MessageProps) => {
+  if (
+    (event_app === 'products_filter' || event_show === 'select') &&
+    options?.length
+  ) {
+    if (is_multiple === 1) {
+      return (
+        <MultiSelectTab
+          question={message}
+          options={options}
+          next={next as string}
+          messageId={id}
+        />
+      )
+    }
+    return <SelectTab question={message} options={options} messageId={id} />
+  }
+
+  if (event_app === 'result_products_filter') {
+    return (
+      <div className="flex">
+        <div className="flex-1">
+          <div className="bg-[#FFF0F7] rounded-[24px] p-4">
+            <p className="text-sm text-center w-[80%] mx-auto">{message}</p>
+
+            {/* tag */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              {products?.tags.map((tag) => (
+                <div
+                  key={tag.name}
+                  className="bg-[#DBEBFF] rounded-[8px] px-2 py-1"
+                >
+                  <p className="text-xs text-[#303437] font-medium">
+                    {tag.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* product info */}
+            <div className="flex items-center pt-3">
+              <div className="pt-[18px] px-[12px] pb-[16px] rounded-[12px] bg-white">
+                <div className="w-full aspect-[251/129] rounded-[8px] overflow-hidden">
+                  <img
+                    src={products?.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="text-[#171717] text-[12px] pt-3 font-medium">
+                  {products?.name}
+                </div>
+
+                <div className="pt-3 flex flex-col gap-2">
+                  {products?.ingredients.map((ingredient) => (
+                    <div key={ingredient.id}>
+                      <p className="text-[#525252] font-medium text-[12px]">
+                        {ingredient.title ?? ingredient.name}
+                      </p>
+                      <div
+                        className="text-[11px] pt-1"
+                        dangerouslySetInnerHTML={{
+                          __html: formatHtmlContent(ingredient.content),
+                        }}
+                      ></div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-[18px] flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
+                  >
+                    Đăng ký dùng thử
+                  </button>
+                  <button
+                    type="button"
+                    className="flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
+                  >
+                    Mua ngay
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  if (type_send == 1) {
+    return (
+      <div className="flex justify-end">
+        <div className="bg-[#DB5B9A] text-white rounded-t-[24px] rounded-l-[24px] px-4 py-2 max-w-[276px]">
+          <p className="text-sm">{message}</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex gap-2">
+      <img src={IMAGE_AVATAR} alt="" className="size-[35px] object-contain" />
+      <div className="flex-1">
+        <div className="bg-[#FFF0F7] rounded-b-[24px] rounded-r-[24px] p-4">
+          <p className="text-sm">{message}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Message
+
+type SelectTabProps = {
+  question: string
+  options: NonNullable<ChatMessageItem['options']>
+  messageId: number
+}
+
+const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
+  const { handleNext } = useHandleNext()
+  const {
+    message: storeMessages,
+    setMessageActive,
+    setMessageSelectedOptionIds,
+  } = chatStore()
+
+  const currentMessage = storeMessages.find((item) => item.id === messageId)
+  const isMessageActive = currentMessage?.active ?? true
+
+  const [selectedOptionId, setSelectedOptionId] = useState<number | null>(
+    () => {
+      const ids = currentMessage?.selectedOptionIds
+      if (ids && ids.length > 0) return ids[0]
+      return null
+    }
+  )
+
+  const onOptionClick = (next: string, optionId: number) => () => {
+    if (!isMessageActive) return
+
+    setSelectedOptionId(optionId)
+    setMessageSelectedOptionIds(messageId, [optionId])
+    setMessageActive(messageId, false)
+    handleNext(next)
+  }
+
+  return (
+    <div className="w-fit">
+      <div className="bg-[#FFF0F7] rounded-[24px] p-4 w-fit">
+        <p className="text-sm w-fit">{question}</p>
+        <div className="pt-2 flex flex-wrap gap-2 w-fit">
+          {options.map((option) => {
+            const isSelected = selectedOptionId === option.id
+            const isActive = isSelected && !isMessageActive
+            const iconSrc =
+              isActive && option.icon_active ? option.icon : option.icon_active
+            const isDisabled = !isMessageActive
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                onClick={onOptionClick(option.next, option.id)}
+                disabled={isDisabled}
+                className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${
+                  isActive
+                    ? 'bg-[#F466AA] text-white'
+                    : 'bg-white text-[#525252]'
+                } ${isDisabled ? 'opacity-90- cursor-not-allowed' : ''}`}
+              >
+                {iconSrc && (
+                  <img
+                    src={iconSrc}
+                    alt=""
+                    className="size-[22px] rounded-full"
+                  />
+                )}
+                <p className="text-xs py-0.5">{option.name}</p>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+type MultiSelectTabProps = {
+  question: string
+  options: NonNullable<ChatMessageItem['options']>
+  next: string
+  messageId: number
+}
+
+const MultiSelectTab = ({
+  question,
+  options,
+  next,
+  messageId,
+}: MultiSelectTabProps) => {
+  const { handleNext } = useHandleNext()
+  const {
+    message: storeMessages,
+    setMessageActive,
+    setMessageSelectedOptionIds,
+  } = chatStore()
+
+  const currentMessage = storeMessages.find((item) => item.id === messageId)
+  const isMessageActive = currentMessage?.active ?? true
+
+  const [selectedOptionIds, setSelectedOptionIds] = useState<number[]>(() => {
+    return currentMessage?.selectedOptionIds ?? []
+  })
+
+  const onOptionClick = (optionId: number) => () => {
+    if (!isMessageActive) return
+
+    setSelectedOptionIds((prev) => {
+      let nextSelected: number[]
+      if (prev.includes(optionId)) {
+        nextSelected = prev.filter((id) => id !== optionId)
+      } else {
+        nextSelected = [...prev, optionId]
+      }
+      setMessageSelectedOptionIds(messageId, nextSelected)
+      return nextSelected
+    })
+  }
+
+  const handleSubmit = () => {
+    if (!isMessageActive) return
+
+    if (selectedOptionIds.length === 0 || !next || typeof next !== 'string') {
+      return
+    }
+
+    // Lấy giá trị từ các option đã chọn
+    // Theo demo: value > id > key > name > content
+    // Trong type hiện tại chỉ có id và name, nên dùng id
+    const selectedValues = selectedOptionIds
+      .map((optionId) => {
+        const option = options.find((opt) => opt.id === optionId)
+        // Ưu tiên: value > id > key > name > content
+        // Vì type không có value/key/content, dùng id
+        return option?.id?.toString() || ''
+      })
+      .filter(Boolean)
+
+    if (selectedValues.length === 0) return
+
+    // Xây dựng query string: id[]=value1&id[]=value2...
+    const queryParam = selectedValues
+      .map((value) => `id[]=${encodeURIComponent(value)}`)
+      .join('&')
+
+    // Ghép vào URL
+    let url = next
+    if (url.indexOf('?') === -1) {
+      url += '?' + queryParam
+    } else {
+      url += '&' + queryParam
+    }
+
+    handleNext(url)
+    setMessageActive(messageId, false)
+  }
+
+  const hasSelection = selectedOptionIds.length > 0
+
+  return (
+    <div className="w-fit">
+      <div className="bg-[#FFF0F7] rounded-[24px] p-4 w-fit">
+        <p className="text-sm w-fit">{question}</p>
+        <div className="flex items-end flex-col gap-2">
+          {/* ==== options ==== */}
+          <div className="pt-2 flex flex-wrap gap-2">
+            {options.map((option) => {
+              const isSelected = selectedOptionIds.includes(option.id)
+              const iconSrc =
+                isSelected && option.icon_active
+                  ? option.icon_active
+                  : option.icon
+
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={onOptionClick(option.id)}
+                  disabled={!isMessageActive}
+                  className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${
+                    isSelected
+                      ? 'bg-[#F466AA] text-white'
+                      : 'bg-white text-[#525252]'
+                  } ${
+                    !isMessageActive ? 'opacity-90- cursor-not-allowed' : ''
+                  }`}
+                >
+                  {iconSrc && (
+                    <img
+                      src={iconSrc}
+                      alt=""
+                      className="size-[22px] rounded-full"
+                    />
+                  )}
+
+                  <p className="text-xs py-0.5">{option.name}</p>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* ==== icon send ==== */}
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!hasSelection || !isMessageActive}
+            className={`flex items-center justify-center size-[32px] rounded-lg transition-colors flex-shrink-0 ${
+              hasSelection && isMessageActive
+                ? 'bg-[#F466AA] text-white cursor-pointer'
+                : 'bg-[#A3A3A3] text-white cursor-not-allowed'
+            }`}
+          >
+            {iconSend}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const iconSend = (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M14.6667 1.33334L7.33334 8.66667M14.6667 1.33334L10 14.6667L7.33334 8.66667M14.6667 1.33334L1.33334 6.00001L7.33334 8.66667"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)

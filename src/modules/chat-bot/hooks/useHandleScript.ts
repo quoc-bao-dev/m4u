@@ -1,0 +1,62 @@
+import axiosInstance from '@/core/http/axiosInstance'
+import { ChatMessageResponse, useChatSession } from '@/services/chat-bot'
+import { useCallback, useRef } from 'react'
+import { chatStore } from '../store/chatStore'
+
+const PENDING_TIME = 3000
+
+const delay = (ms: number = PENDING_TIME) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
+
+export const useHandleScript = () => {
+  const { setIsChatBotTyping, addMessage } = chatStore()
+  const { data: chatSession } = useChatSession()
+
+  const fetchMessage = useCallback(
+    async (url: string) => {
+      const response = await axiosInstance.get<ChatMessageResponse>(url, {
+        params: {
+          vsession: chatSession?.vsession,
+          isweb: 1,
+        },
+      })
+      return response.data
+    },
+    [chatSession?.vsession]
+  )
+
+  const handleScriptRef = useRef<
+    ((data: ChatMessageResponse) => Promise<void>) | null
+  >(null)
+
+  const handleScript = useCallback(
+    async (data: ChatMessageResponse) => {
+      console.log(data)
+
+      // add message
+      setIsChatBotTyping(false)
+      addMessage(data.data)
+
+      const next = data?.next
+
+      if (next && typeof next === 'string') {
+        setIsChatBotTyping(true)
+        await delay()
+        const nextResponse = await fetchMessage(next)
+        if (handleScriptRef.current) {
+          await handleScriptRef.current(nextResponse)
+        }
+      } else {
+        console.log('end')
+      }
+    },
+    [fetchMessage, setIsChatBotTyping, addMessage]
+  )
+
+  handleScriptRef.current = handleScript
+
+  return {
+    handleScript,
+    fetchMessage,
+  }
+}
