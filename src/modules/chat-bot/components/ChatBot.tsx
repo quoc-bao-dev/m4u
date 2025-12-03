@@ -303,17 +303,17 @@ function ChatBot() {
 
   // Calculate bottom position based on scroll (mobile only)
   // scrollY = 0 → bottom = 150px, scrollY tăng → bottom giảm xuống 80px
-  const getMobileButtonBottom = () => {
-    if (!isMobile) return 150
-    // Khi scrollY = 0 → bottom = 150px
-    // Khi scrollY >= 200px → bottom = 80px
-    // Giữa đó: linear interpolation
-    const maxScroll = 200 // Điểm scroll mà bottom đạt 80px
-    const minBottom = 80
-    const maxBottom = 150
-    const scrollRatio = Math.min(scrollY / maxScroll, 1)
-    return maxBottom - scrollRatio * (maxBottom - minBottom)
-  }
+  // const getMobileButtonBottom = () => {
+  //   if (!isMobile) return 150
+  //   // Khi scrollY = 0 → bottom = 150px
+  //   // Khi scrollY >= 200px → bottom = 80px
+  //   // Giữa đó: linear interpolation
+  //   const maxScroll = 200 // Điểm scroll mà bottom đạt 80px
+  //   const minBottom = 80
+  //   const maxBottom = 150
+  //   const scrollRatio = Math.min(scrollY / maxScroll, 1)
+  //   return maxBottom - scrollRatio * (maxBottom - minBottom)
+  // }
 
   // Mobile drawer version
   if (isMobile) {
@@ -323,7 +323,7 @@ function ChatBot() {
         {!isChatOpen && (
           <div
             className="fixed right-4 z-50 md:hidden transition-all duration-300 ease-out"
-            style={{ bottom: `${getMobileButtonBottom()}px` }}
+            style={{ bottom: `20px` }}
           >
             <div className="relative">
               <button
