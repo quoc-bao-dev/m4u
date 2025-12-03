@@ -188,7 +188,8 @@ function ChatBot() {
           if (
             lastMessage.next &&
             typeof lastMessage.next === 'string' &&
-            lastMessage.event === 'text'
+            lastMessage.event === 'text' &&
+            lastMessage.event_app !== 'event_restart'
           ) {
             const nextResponse = await fetchMessage(lastMessage.next)
             handleScript(nextResponse)

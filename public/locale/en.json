@@ -884,6 +884,7 @@
     "restartSurvey": "Restart survey",
     "registerTrial": "Register for trial",
     "buyNow": "Buy now",
-    "active": "Active"
+    "active": "Active",
+    "featureInDevelopment": "This feature is under development. Please check back later."
   }
 }

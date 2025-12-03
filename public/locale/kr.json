@@ -881,6 +881,7 @@
     "restartSurvey": "설문 다시 시작",
     "registerTrial": "체험 신청",
     "buyNow": "지금 구매",
-    "active": "활성"
+    "active": "활성",
+    "featureInDevelopment": "해당 기능은 개발 중입니다. 나중에 다시 이용해 주세요."
   }
 }

@@ -883,6 +883,7 @@
     "restartSurvey": "Làm lại khảo sát",
     "registerTrial": "Đăng ký dùng thử",
     "buyNow": "Mua ngay",
-    "active": "Đang hoạt động"
+    "active": "Đang hoạt động",
+    "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau."
   }
 }
