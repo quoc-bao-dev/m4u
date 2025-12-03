@@ -56,7 +56,7 @@ const GreetingBubble = ({
   if (!displayText) return null
 
   return (
-    <div className="absolute top-0 left-0 -translate-x-[87%]">
+    <div className="absolute -top-3 right-[90%] md:right-[80%] ">
       <div className="px-3 py-1 rounded-t-[12px] rounded-l-[12px] bg-[#F466AA] text-white">
         <p className="text-sm leading-[24px] font-medium truncate">
           {displayText}
