@@ -31,15 +31,13 @@ export const useHandleScript = () => {
 
   const handleScript = useCallback(
     async (data: ChatMessageResponse) => {
-      console.log(data)
-
       // add message
       setIsChatBotTyping(false)
       addMessage(data.data)
 
       const next = data?.next
 
-      if (next && typeof next === 'string') {
+      if (next && typeof next === 'string' && data.end_to_reset !== 1) {
         setIsChatBotTyping(true)
         await delay()
         const nextResponse = await fetchMessage(next)
@@ -47,7 +45,6 @@ export const useHandleScript = () => {
           await handleScriptRef.current(nextResponse)
         }
       } else {
-        console.log('end')
       }
     },
     [fetchMessage, setIsChatBotTyping, addMessage]
@@ -58,5 +55,6 @@ export const useHandleScript = () => {
   return {
     handleScript,
     fetchMessage,
+    delay,
   }
 }

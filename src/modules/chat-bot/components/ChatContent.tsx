@@ -1,11 +1,10 @@
-import { RefObject, useEffect, useRef } from 'react'
-
 import { ChatMessageItem } from '@/services/chat-bot'
-
+import { useTranslations } from 'next-intl'
+import { RefObject, useEffect, useRef } from 'react'
 import { chatStore } from '../store/chatStore'
+import styles from './ChatContent.module.css'
 import Message from './Message'
 import TypingMessage from './TypingMessage'
-import styles from './ChatContent.module.css'
 
 const IMAGE_AVATAR = '/chat-bot/Avatar.png'
 
@@ -22,6 +21,8 @@ function ChatContent({
 }: ChatContentProps) {
   const bottomRef = useRef<HTMLDivElement | null>(null)
   const hasActivatedRef = useRef(false)
+  const isFirstScrollRef = useRef(true)
+  const t = useTranslations('chatBot')
 
   const { message: messages, isChatBotTyping } = chatStore()
 
@@ -49,8 +50,22 @@ function ChatContent({
     if (!isActive) return
     if (!hasActivatedRef.current) return
 
-    scrollToBottom('smooth')
+    // Lần đầu scroll instant, các lần sau smooth
+    const behavior = isFirstScrollRef.current ? 'auto' : 'smooth'
+    scrollToBottom(behavior)
+
+    // Đánh dấu đã scroll lần đầu
+    if (isFirstScrollRef.current) {
+      isFirstScrollRef.current = false
+    }
   }, [messages, isChatBotTyping, isActive])
+
+  // Reset first scroll flag khi isActive thay đổi
+  useEffect(() => {
+    if (isActive) {
+      isFirstScrollRef.current = true
+    }
+  }, [isActive])
 
   // Xử lý riêng lần đầu chuyển tab sang màn hình chat:
   // chờ animation slide hoàn thành rồi mới scroll để tránh bị giật
@@ -61,9 +76,10 @@ function ChatContent({
     hasActivatedRef.current = true
 
     const timeout = window.setTimeout(() => {
-      // Lần đầu có thể dùng 'auto' hoặc 'smooth' đều được,
-      // chọn 'smooth' để giữ trải nghiệm mượt mà
-      scrollToBottom('smooth')
+      // Lần đầu scroll instant để hiển thị ngay lập tức
+      scrollToBottom('auto')
+      // Đánh dấu đã scroll lần đầu
+      isFirstScrollRef.current = false
     }, 550) // khớp với duration 500ms của transition + một chút buffer
 
     return () => {
@@ -72,9 +88,9 @@ function ChatContent({
   }, [isActive])
 
   return (
-    <div className="h-full flex flex-col bg-[#FAFAFA] rounded-[16px]">
+    <div className="h-full flex flex-col bg-[#FAFAFA] md:rounded-[16px]">
       {/* ===== chat box header ===== */}
-      <div className="px-6 py-4 bg-white flex justify-between items-center rounded-t-[16px] shadow-[0px_3px_14.1px_0px_#0000000F]">
+      <div className="px-6 py-4 bg-white flex justify-between items-center md:rounded-t-[16px] shadow-[0px_3px_14.1px_0px_#0000000F]">
         {/* ==== chat bot info ==== */}
         <div className="flex gap-2 items-center">
           <img
@@ -88,7 +104,7 @@ function ChatContent({
 
             <div className="flex items-center gap-1 ">
               <div className="size-[8px] rounded-full bg-[#1DAC8E]"></div>
-              <p className="text-[#72777A] text-xs">Đang hoạt động</p>
+              <p className="text-[#72777A] text-xs">{t('active')}</p>
             </div>
           </div>
         </div>
@@ -136,7 +152,7 @@ function ChatContent({
         {/* ==== chat content ==== */}
         <div className="px-5 py-4 flex flex-col gap-3">
           {/* ==== messsage item ==== */}
-          {messages.map((item: ChatMessageItem, index: number) => (
+          {messages.map((item: ChatMessageItem) => (
             <Message key={item?.id} {...item} />
           ))}
 

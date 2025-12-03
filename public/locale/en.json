@@ -877,5 +877,12 @@
       "noContent": "No review content available.",
       "noAddress": "Address not updated"
     }
+  },
+  "chatBot": {
+    "greeting": "Hello, I'm Packbot",
+    "startSurvey": "Start survey",
+    "registerTrial": "Register for trial",
+    "buyNow": "Buy now",
+    "active": "Active"
   }
 }

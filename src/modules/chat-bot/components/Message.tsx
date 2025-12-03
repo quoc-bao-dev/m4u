@@ -1,6 +1,7 @@
 import { ChatMessageItem } from '@/services/chat-bot'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
-import { useHandleNext } from '../hooks'
+import { useHandleNext, useHandleScript } from '../hooks'
 import { chatStore } from '../store/chatStore'
 
 const IMAGE_AVATAR = '/chat-bot/Avatar.png'
@@ -11,6 +12,7 @@ const formatHtmlContent = (html?: string) => {
   if (!html) return ''
 
   return html
+    .replace(/&nbsp;/gi, '')
     .replace(
       /<ul[^>]*>/gi,
       '<ul style="font-family: var(--font-primary); font-size: 11px; line-height: 1.5; color: #525252; list-style: disc; padding-left: 1rem; margin: 0;">'
@@ -33,9 +35,16 @@ const Message = ({
   type_send,
   products,
   id,
+  event,
 }: MessageProps) => {
+  const t = useTranslations('chatBot')
+
+  if (event_show === 'select' || event === 'select') {
+    return <SelectTextMessage message={message} options={options} />
+  }
+
   if (
-    (event_app === 'products_filter' || event_show === 'select') &&
+    (event_app === 'products_filter' || event_show === 'products_filter') &&
     options?.length
   ) {
     if (is_multiple === 1) {
@@ -108,13 +117,13 @@ const Message = ({
                     type="button"
                     className="w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
                   >
-                    Đăng ký dùng thử
+                    {t('registerTrial')}
                   </button>
                   <button
                     type="button"
                     className="flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
                   >
-                    Mua ngay
+                    {t('buyNow')}
                   </button>
                 </div>
               </div>
@@ -147,6 +156,62 @@ const Message = ({
 }
 
 export default Message
+
+type SelectTextMessageProps = {
+  message: string
+  options?: NonNullable<ChatMessageItem['options']>
+}
+
+const SelectTextMessage = ({ message, options }: SelectTextMessageProps) => {
+  const { handleNext } = useHandleNext()
+  const { delay } = useHandleScript()
+
+  const { clearMessages, setIsChatBotTyping } = chatStore()
+
+  const handleClick = async (
+    option: NonNullable<ChatMessageItem['options']>[number]
+  ) => {
+    if (option.active_start === 1) {
+      setIsChatBotTyping(true)
+      await delay()
+      clearMessages()
+    }
+
+    if (option.end_to_reset === 1) {
+      clearMessages()
+    }
+
+    // Log các key active_start và end_to_reset để debug flow
+    console.log('SelectTextMessage option meta:', {
+      active_start: option.active_start,
+      end_to_reset: option.end_to_reset,
+    })
+
+    if (option.next) {
+      handleNext(option.next)
+    }
+  }
+
+  return (
+    <div className="flex-1 w-fit">
+      <div className="bg-[#FFF0F7] rounded-b-[24px] rounded-r-[24px] p-4 w-fit">
+        <p className="text-sm w-fit">{message}</p>
+      </div>
+      <div className="pt-2 flex gap-3">
+        {options?.map((option) => (
+          <button
+            key={option.id}
+            type="button"
+            onClick={() => handleClick(option)}
+            className="text-left text-sm w-fit bg-[#FFF0F7] rounded-[24px] px-4 py-2 hover:bg-[#F466AA] hover:text-white transition-colors"
+          >
+            {option.content ?? option.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 type SelectTabProps = {
   question: string
@@ -204,7 +269,11 @@ const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
                   isActive
                     ? 'bg-[#F466AA] text-white'
                     : 'bg-white text-[#525252]'
-                } ${isDisabled ? 'opacity-90- cursor-not-allowed' : ''}`}
+                } ${
+                  isDisabled
+                    ? 'opacity-90- cursor-not-allowed'
+                    : 'cursor-pointer'
+                }`}
               >
                 {iconSrc && (
                   <img
@@ -213,7 +282,9 @@ const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
                     className="size-[22px] rounded-full"
                   />
                 )}
-                <p className="text-xs py-0.5">{option.name}</p>
+                <p className="text-xs py-0.5">
+                  {option.content ?? option.name}
+                </p>
               </button>
             )
           })}
@@ -330,7 +401,9 @@ const MultiSelectTab = ({
                       ? 'bg-[#F466AA] text-white'
                       : 'bg-white text-[#525252]'
                   } ${
-                    !isMessageActive ? 'opacity-90- cursor-not-allowed' : ''
+                    !isMessageActive
+                      ? 'opacity-90- cursor-not-allowed'
+                      : 'cursor-pointer'
                   }`}
                 >
                   {iconSrc && (
@@ -341,7 +414,9 @@ const MultiSelectTab = ({
                     />
                   )}
 
-                  <p className="text-xs py-0.5">{option.name}</p>
+                  <p className="text-xs py-0.5">
+                    {option.content ?? option.name}
+                  </p>
                 </button>
               )
             })}

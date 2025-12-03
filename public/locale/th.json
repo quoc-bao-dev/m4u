@@ -885,5 +885,12 @@
       "noContent": "ไม่มีเนื้อหารีวิว",
       "noAddress": "ยังไม่อัปเดตที่อยู่"
     }
+  },
+  "chatBot": {
+    "greeting": "สวัสดีครับ ผมคือ Packbot",
+    "startSurvey": "เริ่มแบบสำรวจ",
+    "registerTrial": "ลงทะเบียนทดลองใช้",
+    "buyNow": "ซื้อเลย",
+    "active": "กำลังใช้งาน"
   }
 }

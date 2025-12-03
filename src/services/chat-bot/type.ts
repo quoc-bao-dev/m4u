@@ -64,7 +64,7 @@ export type ChatMessageItem = {
   show_move_event: string | null
   is_function: string | null
   language_default: string
-  option_filter: string | null
+  option_filter: unknown
   id_product: number | null
   is_multiple: number
   hidden: number
@@ -86,16 +86,33 @@ export type ChatHistoryResponse = {
 }
 export type ChatMessageOption = {
   id: number
-  icon: string
-  icon_active: string
+  id_script?: number
   name: string
+  level?: number
+  link?: string | null
+  content: string | null
+  language?: string
+  file?: string | null
+  type_send?: number
+  event_show?: string
+  event_app?: string | null
+  show_move_event?: string | null
+  id_event_app?: number | null
+  active_start?: number
+  end_to_reset?: number
+  end_to_web?: number
+  seconds_to_wait?: number
   next: string
+  start?: number
+  icon?: string
+  icon_active?: string
 }
 
 export type ChatMessageResponse = {
   result: boolean
   data: ChatMessageItem
   next: string | null | boolean
+  end_to_reset?: 0 | 1
 }
 
 // Info script (Packbot introduction)

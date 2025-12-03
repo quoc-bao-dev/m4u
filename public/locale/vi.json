@@ -876,5 +876,12 @@
       "noContent": "Chưa có nội dung đánh giá.",
       "noAddress": "Chưa cập nhật địa chỉ"
     }
+  },
+  "chatBot": {
+    "greeting": "Packbot xin chào",
+    "startSurvey": "Bắt đầu khảo sát",
+    "registerTrial": "Đăng ký dùng thử",
+    "buyNow": "Mua ngay",
+    "active": "Đang hoạt động"
   }
 }

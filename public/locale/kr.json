@@ -874,5 +874,12 @@
       "noContent": "리뷰 내용이 없습니다.",
       "noAddress": "주소가 업데이트되지 않음"
     }
+  },
+  "chatBot": {
+    "greeting": "안녕하세요, 팩봇입니다",
+    "startSurvey": "설문 시작",
+    "registerTrial": "체험 신청",
+    "buyNow": "지금 구매",
+    "active": "활성"
   }
 }
