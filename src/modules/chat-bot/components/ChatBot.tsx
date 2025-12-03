@@ -32,6 +32,7 @@ function ChatBot() {
   const [hasStartedBefore, setHasStartedBefore] = useState(false)
   const [isDrawerAnimating, setIsDrawerAnimating] = useState(false)
   const [hiddenMessageGreeting, setHiddenMessageGreeting] = useState(true)
+  const [scrollY, setScrollY] = useState(0)
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const chatBoxRef = useRef<HTMLDivElement>(null)
@@ -189,6 +190,24 @@ function ChatBot() {
     }
   }, [isChatOpen, isMobile])
 
+  // Track scroll position on mobile to adjust button position
+  useEffect(() => {
+    if (!isMobile || isChatOpen) return
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
+    // Set initial scroll position
+    setScrollY(window.scrollY)
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isMobile, isChatOpen])
+
   // first load message - chỉ gọi khi tab ChatContent đang active
   useEffect(() => {
     const handler = async () => {
@@ -282,13 +301,30 @@ function ChatBot() {
     localStorage.setItem(CHATBOT_OPENED_KEY, 'true')
   }
 
+  // Calculate bottom position based on scroll (mobile only)
+  // scrollY = 0 → bottom = 150px, scrollY tăng → bottom giảm xuống 80px
+  const getMobileButtonBottom = () => {
+    if (!isMobile) return 150
+    // Khi scrollY = 0 → bottom = 150px
+    // Khi scrollY >= 200px → bottom = 80px
+    // Giữa đó: linear interpolation
+    const maxScroll = 200 // Điểm scroll mà bottom đạt 80px
+    const minBottom = 80
+    const maxBottom = 150
+    const scrollRatio = Math.min(scrollY / maxScroll, 1)
+    return maxBottom - scrollRatio * (maxBottom - minBottom)
+  }
+
   // Mobile drawer version
   if (isMobile) {
     return (
       <>
         {/* ====== Floating Button (Mobile) ====== */}
         {!isChatOpen && (
-          <div className="fixed bottom-[150px] right-4 z-50 md:hidden">
+          <div
+            className="fixed right-4 z-50 md:hidden transition-all duration-300 ease-out"
+            style={{ bottom: `${getMobileButtonBottom()}px` }}
+          >
             <div className="relative">
               <button
                 type="button"
