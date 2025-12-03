@@ -172,9 +172,9 @@ const SelectTextMessage = ({ message, options }: SelectTextMessageProps) => {
     option: NonNullable<ChatMessageItem['options']>[number]
   ) => {
     if (option.active_start === 1) {
+      clearMessages()
       setIsChatBotTyping(true)
       await delay()
-      clearMessages()
     }
 
     if (option.end_to_reset === 1) {
