@@ -1,7 +1,8 @@
 import { ChatMessageItem } from '@/services/chat-bot'
+import { useToast } from '@/core/hooks'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useHandleNext, useHandleScript } from '../hooks'
 import { useAuth } from '@/modules/auth/stores/useAuth'
 import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
@@ -48,6 +49,7 @@ const Message = ({
   const t = useTranslations('chatBot')
   const locale = useLocale()
   const router = useRouter()
+  const { showInfo } = useToast()
   const { isAuthenticated } = useAuth()
   const addProductToCart = useCartStore((state) => state.addItem)
   const isItemInCart = useCartStore((state) => state.isItemInCart)
@@ -118,6 +120,10 @@ const Message = ({
       }
     }
 
+    const handleBuyNow = () => {
+      showInfo(t('featureInDevelopment'))
+    }
+
     return (
       <div className="flex">
         <div className="flex-1">
@@ -179,6 +185,7 @@ const Message = ({
                   </button>
                   <button
                     type="button"
+                    onClick={handleBuyNow}
                     className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
                   >
                     {t('buyNow')}
@@ -213,7 +220,7 @@ const Message = ({
   )
 }
 
-export default Message
+export default memo(Message)
 
 type RestartSurveyMessageProps = {
   message: string
@@ -228,16 +235,25 @@ const RestartSurveyMessage = ({
 }: RestartSurveyMessageProps) => {
   const t = useTranslations('chatBot')
   const { handleNext } = useHandleNext()
-  const { message: storeMessages, setMessageActive } = chatStore()
+  const {
+    message: storeMessages,
+    setMessageActive,
+    clearMessages,
+    setIsChatBotTyping,
+  } = chatStore()
+
+  const { delay } = useHandleScript()
 
   const currentMessage = storeMessages.find((item) => item.id === messageId)
   const isMessageActive = currentMessage?.active ?? true
 
-  const handleRestart = () => {
+  const handleRestart = async () => {
     if (!isMessageActive) return
-
     if (!next || typeof next !== 'string') return
     setMessageActive(messageId, false)
+    clearMessages()
+    setIsChatBotTyping(true)
+    await delay()
     handleNext(next)
   }
 

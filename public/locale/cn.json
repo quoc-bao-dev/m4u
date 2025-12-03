@@ -884,6 +884,7 @@
     "restartSurvey": "重新开始问卷",
     "registerTrial": "注册试用",
     "buyNow": "立即购买",
-    "active": "在线"
+    "active": "在线",
+    "featureInDevelopment": "该功能正在开发中，请稍后再试。"
   }
 }
