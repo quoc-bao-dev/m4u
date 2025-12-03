@@ -23,7 +23,9 @@ function ChatBot() {
   const locale = useLocale()
   const { isMobile } = useDevice()
   const t = useTranslations('chatBot')
-  const greeting = t('greeting')
+  const greetingMessages = [t('greetingIntro'), t('greetingSuggest')]
+  const [greetingIndex, setGreetingIndex] = useState(0)
+  const greeting = greetingMessages[greetingIndex]
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [showChatContent, setShowChatContent] = useState(false)
   const [hasStartedBefore, setHasStartedBefore] = useState(false)
@@ -79,6 +81,22 @@ function ChatBot() {
       setHiddenMessageGreeting(false)
     }, DELAY_TIME)
   }, [])
+
+  // Luân phiên nội dung greeting:
+  // - Lần đầu: "Tôi là Packbot AI."
+  // - Lần sau: "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn."
+  // - Sau đó lặp lại
+  useEffect(() => {
+    if (hiddenMessageGreeting) return
+
+    const intervalId = window.setInterval(() => {
+      setGreetingIndex((prev) => (prev + 1) % greetingMessages.length)
+    }, LOOP_TIME)
+
+    return () => {
+      window.clearInterval(intervalId)
+    }
+  }, [hiddenMessageGreeting, greetingMessages.length])
 
   const { setIsChatBotTyping, updateMessageById, setMessages } = chatStore()
   const { data: chatSession } = useChatSession()

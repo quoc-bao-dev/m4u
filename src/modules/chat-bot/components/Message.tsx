@@ -92,6 +92,10 @@ const Message = ({
   if (event_app === 'result_products_filter') {
     const handleRegisterTrial = () => {
       if (!products) return
+      // Đóng chat box sau khi chuyển hướng sang trang sản phẩm
+      if (onClose) {
+        onClose()
+      }
 
       if (!isAuthenticated) {
         openModalRegistration({
@@ -113,11 +117,6 @@ const Message = ({
       const targetLocale = locale || 'vi'
       const slug = products.slug || String(products.id)
       router.push(`/${targetLocale}/product/${slug}`)
-
-      // Đóng chat box sau khi chuyển hướng sang trang sản phẩm
-      if (onClose) {
-        onClose()
-      }
     }
 
     const handleBuyNow = () => {
@@ -381,7 +380,7 @@ const SelectTextMessage = ({
               type="button"
               onClick={() => handleClick(option)}
               disabled={isDisabled}
-              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors ${
+              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors cursor-pointer ${
                 isSelected ? 'bg-[#F466AA] text-white' : 'bg-[#FFF0F7]'
               } ${
                 isDisabled
