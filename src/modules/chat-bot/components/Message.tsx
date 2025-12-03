@@ -1,12 +1,19 @@
 import { ChatMessageItem } from '@/services/chat-bot'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useHandleNext, useHandleScript } from '../hooks'
+import { useAuth } from '@/modules/auth/stores/useAuth'
+import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
+import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
+import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { chatStore } from '../store/chatStore'
 
 const IMAGE_AVATAR = '/chat-bot/Avatar.png'
 
-type MessageProps = ChatMessageItem
+type MessageProps = ChatMessageItem & {
+  onClose?: () => void
+}
 
 const formatHtmlContent = (html?: string) => {
   if (!html) return ''
@@ -36,11 +43,31 @@ const Message = ({
   products,
   id,
   event,
+  onClose,
 }: MessageProps) => {
   const t = useTranslations('chatBot')
+  const locale = useLocale()
+  const router = useRouter()
+  const { isAuthenticated } = useAuth()
+  const addProductToCart = useCartStore((state) => state.addItem)
+  const isItemInCart = useCartStore((state) => state.isItemInCart)
+  const openCart = useCartIconStore((state) => state.openCart)
+  const openModalRegistration = useModalRegistration((state) => state.open)
+
+  if (event_app === 'event_restart') {
+    return (
+      <RestartSurveyMessage
+        message={message}
+        next={typeof next === 'string' ? next : null}
+        messageId={id}
+      />
+    )
+  }
 
   if (event_show === 'select' || event === 'select') {
-    return <SelectTextMessage message={message} options={options} />
+    return (
+      <SelectTextMessage message={message} options={options} messageId={id} />
+    )
   }
 
   if (
@@ -61,6 +88,36 @@ const Message = ({
   }
 
   if (event_app === 'result_products_filter') {
+    const handleRegisterTrial = () => {
+      if (!products) return
+
+      if (!isAuthenticated) {
+        openModalRegistration({
+          productId: products.id,
+          productImage: products.image,
+          productName: products.name,
+          productBrand: products.code,
+          productColor: products.color_header ?? undefined,
+        })
+        return
+      }
+
+      if (!isItemInCart(products.id)) {
+        addProductToCart(products.id)
+      }
+
+      openCart()
+
+      const targetLocale = locale || 'vi'
+      const slug = products.slug || String(products.id)
+      router.push(`/${targetLocale}/product/${slug}`)
+
+      // Đóng chat box sau khi chuyển hướng sang trang sản phẩm
+      if (onClose) {
+        onClose()
+      }
+    }
+
     return (
       <div className="flex">
         <div className="flex-1">
@@ -115,13 +172,14 @@ const Message = ({
                 <div className="pt-[18px] flex items-center gap-2">
                   <button
                     type="button"
-                    className="w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
+                    onClick={handleRegisterTrial}
+                    className="cursor-pointer w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
                   >
                     {t('registerTrial')}
                   </button>
                   <button
                     type="button"
-                    className="flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
+                    className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
                   >
                     {t('buyNow')}
                   </button>
@@ -157,20 +215,119 @@ const Message = ({
 
 export default Message
 
+type RestartSurveyMessageProps = {
+  message: string
+  next?: string | null
+  messageId: number
+}
+
+const RestartSurveyMessage = ({
+  message,
+  next,
+  messageId,
+}: RestartSurveyMessageProps) => {
+  const t = useTranslations('chatBot')
+  const { handleNext } = useHandleNext()
+  const { message: storeMessages, setMessageActive } = chatStore()
+
+  const currentMessage = storeMessages.find((item) => item.id === messageId)
+  const isMessageActive = currentMessage?.active ?? true
+
+  const handleRestart = () => {
+    if (!isMessageActive) return
+
+    if (!next || typeof next !== 'string') return
+    setMessageActive(messageId, false)
+    handleNext(next)
+  }
+
+  return (
+    <div className="bg-[#FFF0F7] rounded-b-[24px] rounded-r-[24px] p-4 w-fit">
+      <p className="text-sm w-fit">{message}</p>
+
+      <div className="pt-3">
+        <button
+          type="button"
+          onClick={handleRestart}
+          disabled={!isMessageActive}
+          className={`bg-white py-2 px-4 rounded-full text-sm text-[#525252] font-medium text-center flex items-center gap-2 w-fit transition-colors ${
+            isMessageActive
+              ? 'cursor-pointer hover:bg-[#F2F2F2]'
+              : 'cursor-not-allowed opacity-70'
+          }`}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2.72563 4.94252C3.46675 3.66345 4.64746 2.6973 6.0479 2.22397C7.44835 1.75064 8.97309 1.8024 10.3382 2.3696C11.7034 2.9368 12.8158 3.98078 13.4685 5.30717C14.1212 6.63356 14.2696 8.15194 13.8861 9.5796C13.5026 11.0073 12.6133 12.2469 11.3838 13.0677C10.1544 13.8885 8.66849 14.2345 7.2029 14.0413C5.7373 13.8481 4.39187 13.1288 3.41711 12.0174C2.44236 10.9061 1.90472 9.47832 1.9043 8.00005"
+              stroke="#525252"
+              strokeWidth="0.952381"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M5.71363 4.9524H2.66602V1.90479"
+              stroke="#525252"
+              strokeWidth="0.952381"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+
+          <p className="text-sm font-medium">{t('restartSurvey')}</p>
+        </button>
+      </div>
+    </div>
+  )
+}
+
 type SelectTextMessageProps = {
   message: string
   options?: NonNullable<ChatMessageItem['options']>
+  messageId: number
 }
 
-const SelectTextMessage = ({ message, options }: SelectTextMessageProps) => {
+const SelectTextMessage = ({
+  message,
+  options,
+  messageId,
+}: SelectTextMessageProps) => {
   const { handleNext } = useHandleNext()
   const { delay } = useHandleScript()
 
-  const { clearMessages, setIsChatBotTyping } = chatStore()
+  const {
+    clearMessages,
+    setIsChatBotTyping,
+    message: storeMessages,
+    setMessageActive,
+    setMessageSelectedOptionIds,
+  } = chatStore()
+
+  const currentMessage = storeMessages.find((item) => item.id === messageId)
+  const isMessageActive = currentMessage?.active ?? true
+
+  const [selectedOptionId, setSelectedOptionId] = useState<number | null>(
+    () => {
+      const ids = currentMessage?.selectedOptionIds
+      if (ids && ids.length > 0) return ids[0]
+      return null
+    }
+  )
 
   const handleClick = async (
     option: NonNullable<ChatMessageItem['options']>[number]
   ) => {
+    if (!isMessageActive) return
+
+    setSelectedOptionId(option.id)
+    setMessageSelectedOptionIds(messageId, [option.id])
+    setMessageActive(messageId, false)
+
     if (option.active_start === 1) {
       clearMessages()
       setIsChatBotTyping(true)
@@ -197,17 +354,29 @@ const SelectTextMessage = ({ message, options }: SelectTextMessageProps) => {
       <div className="bg-[#FFF0F7] rounded-b-[24px] rounded-r-[24px] p-4 w-fit">
         <p className="text-sm w-fit">{message}</p>
       </div>
-      <div className="pt-2 flex gap-3">
-        {options?.map((option) => (
-          <button
-            key={option.id}
-            type="button"
-            onClick={() => handleClick(option)}
-            className="text-left text-sm w-fit bg-[#FFF0F7] rounded-[24px] px-4 py-2 hover:bg-[#F466AA] hover:text-white transition-colors"
-          >
-            {option.content ?? option.name}
-          </button>
-        ))}
+      <div className="pt-2 flex gap-3 flex-wrap">
+        {options?.map((option) => {
+          const isSelected = selectedOptionId === option.id
+          const isDisabled = !isMessageActive
+
+          return (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => handleClick(option)}
+              disabled={isDisabled}
+              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors ${
+                isSelected ? 'bg-[#F466AA] text-white' : 'bg-[#FFF0F7]'
+              } ${
+                isDisabled
+                  ? 'opacity-70 cursor-not-allowed'
+                  : 'hover:bg-[#F466AA] hover:text-white'
+              }`}
+            >
+              {option.content ?? option.name}
+            </button>
+          )
+        })}
       </div>
     </div>
   )

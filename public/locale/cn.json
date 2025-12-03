@@ -881,6 +881,7 @@
   "chatBot": {
     "greeting": "你好，我是Packbot",
     "startSurvey": "开始调查",
+    "restartSurvey": "重新开始问卷",
     "registerTrial": "注册试用",
     "buyNow": "立即购买",
     "active": "在线"

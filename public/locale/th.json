@@ -889,6 +889,7 @@
   "chatBot": {
     "greeting": "สวัสดีครับ ผมคือ Packbot",
     "startSurvey": "เริ่มแบบสำรวจ",
+    "restartSurvey": "ทำแบบสำรวจอีกครั้ง",
     "registerTrial": "ลงทะเบียนทดลองใช้",
     "buyNow": "ซื้อเลย",
     "active": "กำลังใช้งาน"

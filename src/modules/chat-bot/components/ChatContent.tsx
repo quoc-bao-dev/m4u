@@ -153,7 +153,7 @@ function ChatContent({
         <div className="px-5 py-4 flex flex-col gap-3">
           {/* ==== messsage item ==== */}
           {messages.map((item: ChatMessageItem) => (
-            <Message key={item?.id} {...item} />
+            <Message key={item?.id} {...item} onClose={onClose} />
           ))}
 
           {/* ==== typing indicator ==== */}

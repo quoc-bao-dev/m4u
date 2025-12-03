@@ -33,7 +33,8 @@ export const useHandleScript = () => {
     async (data: ChatMessageResponse) => {
       // add message
       setIsChatBotTyping(false)
-      addMessage(data.data)
+      const nextLink = data.end_to_reset === 1 ? data?.next : undefined
+      addMessage(data.data, nextLink as string)
 
       const next = data?.next
 

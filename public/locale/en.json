@@ -881,6 +881,7 @@
   "chatBot": {
     "greeting": "Hello, I'm Packbot",
     "startSurvey": "Start survey",
+    "restartSurvey": "Restart survey",
     "registerTrial": "Register for trial",
     "buyNow": "Buy now",
     "active": "Active"

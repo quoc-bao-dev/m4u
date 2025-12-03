@@ -10,7 +10,7 @@ type ChatStoreType = {
   isChatBotTyping: boolean
 
   // action
-  addMessage: (message: any) => void
+  addMessage: (message: any, next?: string) => void
   setIsChatBotTyping: (isChatBotTyping: boolean) => void
   setMessageActive: (id: number, active: boolean) => void
   setMessageSelectedOptionIds: (id: number, selectedOptionIds: number[]) => void
@@ -53,11 +53,16 @@ export const chatStore = create<ChatStoreType>((set) => {
   return {
     message: [],
     isChatBotTyping: false,
-    addMessage: (message) =>
+    addMessage: (message, next?: string) =>
       set((state) => ({
         message: [
           ...state.message,
-          { ...message, active: true, selectedOptionIds: [] },
+          {
+            ...message,
+            active: true,
+            selectedOptionIds: [],
+            next: next ?? message.next,
+          },
         ],
       })),
     setIsChatBotTyping: (isChatBotTyping) => set({ isChatBotTyping }),

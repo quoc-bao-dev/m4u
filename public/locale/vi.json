@@ -880,6 +880,7 @@
   "chatBot": {
     "greeting": "Packbot xin chào",
     "startSurvey": "Bắt đầu khảo sát",
+    "restartSurvey": "Làm lại khảo sát",
     "registerTrial": "Đăng ký dùng thử",
     "buyNow": "Mua ngay",
     "active": "Đang hoạt động"
