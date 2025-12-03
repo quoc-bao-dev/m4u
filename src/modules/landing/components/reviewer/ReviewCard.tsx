@@ -1,20 +1,24 @@
 'use client'
-import { Lightning } from '@/icons'
-import { ArrowRightIcon } from '@phosphor-icons/react'
-import Image from 'next/image'
-import { useTranslations } from 'next-intl'
-import { motion } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useDevice, useToast } from '@/core/hooks'
-import { withAlpha } from '@/core/utils'
-import { Link, useTranslation } from '@/locale'
 import { useCountdown } from '@/core/hooks/useCountdown'
+import { withAlpha } from '@/core/utils'
 import { isDdHhMmSsZero } from '@/core/utils/time'
+import { Lightning } from '@/icons'
+import { Link, useTranslation } from '@/locale'
 import { useAuth } from '@/modules/auth'
+import InfoKolModal from '@/modules/review-hub/review-hub-detail/components/InfoKolModal'
 import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
 import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
 import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
-import InfoKolModal from '@/modules/review-hub/review-hub-detail/components/InfoKolModal'
+import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
+
+const ReviewVideo = dynamic(() => import('./ReviewVideo'), {
+  ssr: false,
+})
 interface ReviewCardProps {
   productAlt?: string
   className?: string
@@ -33,63 +37,27 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
   const { isMobile } = useDevice()
   const { t } = useTranslation()
   const tProduct = useTranslations('product')
-  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const videoSrc = data?.video_review_render ?? data?.video_review
+  const thumbnailSrc = data?.small_image_video_review ?? data?.image_product
+  const shouldPlayVideo = Boolean(isActive && videoSrc)
   const { isAuthenticated } = useAuth()
   const { openCart } = useCartIconStore()
   const { showSuccess } = useToast()
   const { addItem, isItemInCart } = useCartStore()
   const { open: openModalRegistration } = useModalRegistration()
 
-  const { formatted: formattedTime, isEnded } = useCountdown(data?.time_left_dd_hh_mm_ss)
+  const { formatted: formattedTime, isEnded } = useCountdown(
+    data?.time_left_dd_hh_mm_ss
+  )
 
   const [isOpen, setIsOpen] = useState(false)
-  // Chỉ phát video khi card active; còn lại tạm dừng và reset
+  const [isVideoReady, setIsVideoReady] = useState(false)
+
   useEffect(() => {
-    const vid = videoRef.current
-    if (!vid) return
-    if (isActive) {
-      vid.play().catch(() => { })
-    } else {
-      try {
-        vid.pause()
-      } catch { }
+    if (!shouldPlayVideo) {
+      setIsVideoReady(false)
     }
-  }, [isActive])
-
-  // Hiển thị khung hình đầu tiên của chính video trên iOS/iPadOS
-  useEffect(() => {
-    const vid = videoRef.current
-    if (!vid || !data?.video_review) return
-
-    const renderFirstFrame = async () => {
-      try {
-        vid.muted = true
-          // đảm bảo inline trên iOS
-          ; (vid as any).playsInline = true
-        // buộc trình duyệt render frame đầu: play rồi pause ngay
-        // await vid.play()
-        vid.pause()
-        try {
-          vid.currentTime = 0.001
-        } catch { }
-      } catch { }
-    }
-
-    const onLoaded = () => {
-      renderFirstFrame()
-    }
-
-    vid.addEventListener('loadeddata', onLoaded)
-    vid.addEventListener('loadedmetadata', onLoaded)
-    if (vid.readyState >= 2) {
-      renderFirstFrame()
-    }
-
-    return () => {
-      vid.removeEventListener('loadeddata', onLoaded)
-      vid.removeEventListener('loadedmetadata', onLoaded)
-    }
-  }, [data?.video_review])
+  }, [shouldPlayVideo, videoSrc])
 
   const handleRegistration = (e: any) => {
     if (e && typeof e.stopPropagation === 'function') {
@@ -126,22 +94,36 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
       >
         {/* Hình ảnh reviewer */}
         <motion.div
-          className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl"
+          className="w-[280px] xl:w-[410px] overflow-hidden rounded-t-3xl relative"
           animate={{
             height: isActive ? (isMobile ? 300 : 450) : isMobile ? 250 : 342,
           }}
           transition={{ type: 'spring', stiffness: 140, damping: 18 }}
         >
-          <video
-            ref={videoRef}
-            src={data?.video_review}
-            className="w-full h-full object-cover"
-            muted
-            loop
-            playsInline
-            autoPlay={isActive}
-            preload="auto"
-          />
+          <div className="relative h-full w-full">
+            {thumbnailSrc && (
+              <Image
+                src={thumbnailSrc}
+                alt={productAlt || tProduct('participation')}
+                fill
+                loading="eager"
+                priority
+                sizes="(min-width:1280px) 410px, 280px"
+                className={`object-cover transition-opacity duration-300 ${
+                  isVideoReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+              />
+            )}
+            {shouldPlayVideo && videoSrc && (
+              <ReviewVideo
+                key={videoSrc}
+                src={videoSrc}
+                poster={thumbnailSrc}
+                className="pointer-events-none"
+                onReadyChange={setIsVideoReady}
+              />
+            )}
+          </div>
         </motion.div>
 
         {/* Nội dung card */}
@@ -149,7 +131,8 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
           {/* Hình ảnh sản phẩm */}
           <Link
             href={`/review-hub/${data?.slug}`}
-            className="w-[60px] xl:w-20 aspect-[80/100] flex-shrink-0">
+            className="w-[60px] xl:w-20 aspect-[80/100] flex-shrink-0"
+          >
             <Image
               src={data?.image_product}
               alt={productAlt || tProduct('participation')}
@@ -166,8 +149,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
               <h3 className="text-[10px] xl:text-sm font-bold text-greyscale-900">
                 {data?.code}
               </h3>
-              {(!isEnded && !isDdHhMmSsZero(data?.time_left_dd_hh_mm_ss)) && (
-                <p className="text-[10px] xl:text-sm text-greyscale-600">{formattedTime}</p>
+              {!isEnded && !isDdHhMmSsZero(data?.time_left_dd_hh_mm_ss) && (
+                <p className="text-[10px] xl:text-sm text-greyscale-600">
+                  {formattedTime}
+                </p>
               )}
             </div>
 
@@ -184,7 +169,10 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
               <div className="relative w-full h-1.5">
                 <div
                   className="relative"
-                  style={{ width: `${data?.count_join / data?.limit_people * 100}%` }}
+                  style={{
+                    width: `${(data?.count_join / data?.limit_people) * 100}%`,
+                    maxWidth: '100%',
+                  }}
                 >
                   <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-[#FF9800] via-[#EF6C00] to-[#FF8500]"></div>
                   <Lightning className="size-6 absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2" />
@@ -196,19 +184,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
 
             {/* Text participation */}
             <p className="text-xs xl:text-sm text-greyscale-700">
-              {data?.count_join}/{data?.limit_people} {tProduct('participation')}
+              {data?.count_join}/{data?.limit_people}{' '}
+              {tProduct('participation')}
             </p>
 
             {
-              // data?.isSig === null ?
-              // <button
-              //   className="flex items-center justify-between gap-2 pt-3 text-pink-600 hover:text-pink-700 group transition-all duration-300 text-sm font-semibold cursor-pointer"
-              //   onClick={handleRegistration}
-              // >
-              //   {tProduct('register')}
-              //   <ArrowRightIcon weight="bold" className="size-4 text-pink-600 group-hover:text-pink-700 transition-all duration-300" />
-              // </button>
-              // :
               <button
                 type="button"
                 onClick={(e) => {
@@ -217,12 +197,23 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                   setIsOpen(true)
                 }}
                 className="transform-gpu border-gradient-button-dynamic bg-white w-fit py-2 px-3 sm:py-4 sm:px-5 md:py-2 md:px-5 rounded-full cursor-pointer flex items-center gap-3"
-                style={{
-                  color: data?.background_color,
-                  transition: 'all 300ms ease',
-                  boxShadow: `0px 2px 4px ${withAlpha(data?.background_color, 0.26)}, -2px -2px 8px ${withAlpha(data?.background_color, 0.7)} inset, 2px 2px 8px -5px ${withAlpha(data?.background_color, 0.7)} inset`,
-                  '--accent-color': data?.background_color,
-                } as React.CSSProperties}
+                style={
+                  {
+                    color: data?.background_color,
+                    transition: 'all 300ms ease',
+                    boxShadow: `0px 2px 4px ${withAlpha(
+                      data?.background_color,
+                      0.26
+                    )}, -2px -2px 8px ${withAlpha(
+                      data?.background_color,
+                      0.7
+                    )} inset, 2px 2px 8px -5px ${withAlpha(
+                      data?.background_color,
+                      0.7
+                    )} inset`,
+                    '--accent-color': data?.background_color,
+                  } as React.CSSProperties
+                }
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = data?.background_color
                   e.currentTarget.style.color = '#fff'
@@ -232,7 +223,9 @@ const ReviewCard: React.FC<ReviewCardProps> = ({
                   e.currentTarget.style.color = data?.background_color
                 }}
               >
-                <span className="truncate text-xs sm:text-base/[21px] ">{tProduct('viewReview')}</span>
+                <span className="truncate text-xs sm:text-base/[21px] ">
+                  {tProduct('viewReview')}
+                </span>
                 {/* <PenIcon /> */}
               </button>
             }

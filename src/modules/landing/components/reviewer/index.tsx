@@ -32,6 +32,7 @@ const Reviewer = () => {
     () => Array.from({ length: LOOP_TIMES }).flatMap(() => baseItems),
     [baseItems]
   )
+
   const baseLength = baseItems.length
   const middleStart = baseLength * Math.floor(LOOP_TIMES / 2)
 
@@ -317,6 +318,7 @@ const Reviewer = () => {
             </p>
           )}
         </div>
+        {/* Desktop Content */}
         <div className="hidden xl:flex gap-4 items-center">
           <button
             onClick={() => scrollByCard(-1)}
@@ -370,6 +372,7 @@ const Reviewer = () => {
         )}
       </div>
 
+      {/* Tablet Content */}
       <div className="xl:hidden flex gap-4 items-center">
         <button
           onClick={() => scrollByCard(-1)}

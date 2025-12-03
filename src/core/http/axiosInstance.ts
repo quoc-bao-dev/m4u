@@ -7,6 +7,7 @@ import axios, {
 import { envConfig } from '../config'
 import { locales, defaultLocale } from '@/locale/config'
 
+const TIMEOUT = 180000 // 3 minutes
 const ACCESS_TOKEN_KEY = 'accessToken'
 const REFRESH_TOKEN_KEY = 'refreshToken'
 
@@ -46,7 +47,7 @@ export const tokenManager = {
 // Create axios instance
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: envConfig.adminUrl,
-  timeout: 10000, // 10 seconds
+  timeout: TIMEOUT, // 3 minutes
   headers: {
     'Content-Type': 'application/json',
   },

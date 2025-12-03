@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packbot API Simulator (Bootstrap 3)</title>
+
+    <!-- Tải Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Tải jQuery (cần cho Bootstrap 3 và AJAX) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Tải Bootstrap 3 JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        /* CSS tùy chỉnh để làm giao diện giống ảnh demo */
+        body {
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        /* 1. Mô phỏng màn hình điện thoại */
+        .chatbot-container {
+            width: 100%;
+            max-width: 450px;
+            height: 90vh;
+            min-height: 600px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+            background-color: #f9f9f9; /* Màu nền khu vực chat */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. Header */
+        .chat-header {
+            background-color: #ffffff;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .chat-header .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #555;
+            margin-right: 10px;
+        }
+        .chat-header .bot-info {
+            flex-grow: 1;
+        }
+        .chat-header .bot-name {
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+        .chat-header .bot-status {
+            color: #28a745; /* Green color for active */
+            font-size: 12px;
+            margin: 0;
+        }
+        .chat-header .bot-status::before {
+            content: '●';
+            color: #28a745;
+            margin-right: 5px;
+            font-size: 10px;
+        }
+
+        /* 3. Vùng Chat */
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-wrapper {
+            display: flex;
+            margin-bottom: 15px;
+            max-width: 90%;
+        }
+
+        .chat-bubble {
+            padding: 12px 18px;
+            border-radius: 20px;
+            word-wrap: break-word;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Tin nhắn của Bot (type_send = 0) */
+        .bot-message {
+            align-self: flex-start;
+        }
+        .bot-message .chat-bubble {
+            background-color: #ffffff;
+            color: #333;
+            border-top-left-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        .bot-message .avatar {
+            width: 32px;
+            height: 32px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #555;
+            margin-right: 10px;
+            flex-shrink: 0; /* Ngăn avatar bị co lại */
+        }
+
+
+        /* Tin nhắn của User (type_send = 1) */
+        .user-message {
+            align-self: flex-end;
+        }
+        .user-message .chat-bubble {
+            background-color: #3b82f6; /* Blue */
+            color: #ffffff;
+            border-top-right-radius: 5px;
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+
+        /* 4. Vùng Nhập liệu / Lựa chọn */
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        #option-buttons .btn {
+            /* Style nút giống ảnh demo (bo tròn, màu sáng) */
+            border-radius: 25px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            color: #333;
+            text-align: left;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            /* Hiệu ứng khi hover/focus */
+            transition: all 0.2s;
+        }
+        #option-buttons .btn:hover,
+        #option-buttons .btn:focus {
+            background-color: #f0f0f0;
+            border-color: #ccc;
+            box-shadow: none;
+            outline: none;
+        }
+
+        /* Nút lựa chọn (event = select) - Nút màu xanh */
+        #option-buttons .btn-select {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+            text-align: center;
+        }
+        #option-buttons .btn-select:hover,
+        #option-buttons .btn-select:focus {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        /* Highlight cho nút chọn nhiều */
+        #option-buttons .btn.active {
+            background-color: #28a745; /* Màu xanh lá cho nút đã chọn */
+            color: #ffffff;
+            border-color: #28a745;
+        }
+
+        #message-status {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            padding: 10px 0;
+        }
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #aaa;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        /* (MỚI) CSS CHO THẺ SẢN PHẨM */
+        .product-card-wrapper {
+            display: flex;
+            margin-bottom: 15px;
+            max-width: 90%;
+            align-self: flex-start; /* Giống bot message */
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .product-card .product-header {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-card .product-tag {
+            display: inline-block;
+            background-color: #f0f0f0;
+            color: #555;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .product-card .product-tag.primary {
+            background-color: #e0eafc;
+            color: #3b82f6;
+        }
+
+        .product-card .product-body {
+            padding: 15px;
+        }
+
+        .product-card .product-image-placeholder {
+            width: 100%;
+            height: 180px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .product-card .product-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+
+        .product-card .product-description {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-line; /* Giữ nguyên xuống dòng */
+        }
+
+        .product-card .product-actions {
+            display: flex;
+            padding: 0 15px 15px 15px;
+            gap: 10px; /* Khoảng cách giữa các nút */
+        }
+
+        .product-card .product-actions .btn {
+            flex-grow: 1; /* Hai nút bằng nhau */
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px;
+        }
+        .product-card .product-actions .btn-secondary {
+            background-color: #e9e9e9;
+            color: #555;
+            border: none;
+        }
+        .product-card .product-actions .btn-primary {
+            background-color: #555;
+            color: #ffffff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Chatbot Container (Mô phỏng màn hình điện thoại) -->
+<div class="chatbot-container panel panel-default" style="margin-bottom: 0;">
+
+    <!-- Header -->
+    <div class="chat-header">
+        <!-- Icon mũi tên trái -->
+        <span class="glyphicon glyphicon-arrow-left text-muted" style="font-size: 18px; cursor: pointer;"></span>
+
+        <div style="display: flex; align-items: center; flex-grow: 1; margin-left: 15px;">
+            <div class="avatar">
+                <span class="glyphicon glyphicon-user"></span> <!-- Icon bot (tạm) -->
+            </div>
+            <div class="bot-info">
+                <p class="bot-name">Packbot</p>
+                <p class="bot-status">Always active</p>
+            </div>
+        </div>
+
+        <!-- Icon ba chấm -->
+        <span class="glyphicon glyphicon-option-vertical text-muted" style="font-size: 18px; cursor: pointer;"></span>
+    </div>
+
+    <!-- Vùng Chat -->
+    <div id="chat-messages" class="chat-messages">
+        <!-- Tin nhắn sẽ được thêm vào đây bằng jQuery -->
+    </div>
+
+    <!-- Vùng Nhập liệu / Lựa chọn -->
+    <div class="chat-input-area">
+        <!-- Nơi hiển thị các nút lựa chọn -->
+        <div id="option-buttons"></div>
+
+        <!-- Modal thông báo lỗi (Thay thế cho alert()) -->
+        <div id="error-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" style="color:#d9534f;">Lỗi</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="error-message"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Trạng thái (đang tải, đang gõ...) -->
+        <div id="message-status" style="display: none;">
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- CÀI ĐẶT API VÀ BIẾN TOÀN CỤC ---
+    const INITIAL_API_URL = "http://192.168.1.199:8881/api/script/list_chat?_locale=vi";
+
+    // Tạo c_session ngẫu nhiên cho phiên làm việc.
+    // Bạn có thể thay thế bằng logic lấy c_session từ localStorage nếu cần.
+    var giatri_c_session_cua_ban = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    // giatri_c_session_cua_ban = 'le213w3u55ewiyahwpjf49';
+    // localStorage.setItem('c_session', giatri_c_session_cua_ban);
+
+    console.log("Phiên làm việc (vsession):", giatri_c_session_cua_ban);
+
+    // Sử dụng jQuery selectors
+    const $chatMessages = $('#chat-messages');
+    const $optionButtons = $('#option-buttons');
+    const $messageStatus = $('#message-status');
+
+
+    /**
+     * Hàm chính để gọi API, trả về một Promise.
+     * Hàm này sẽ tự động thêm header 'vsession'.
+     */
+    function callApi(url) {
+        console.log("Đang gọi API:", url);
+        $messageStatus.show(); // Hiển thị "..."
+        $optionButtons.empty(); // Xóa các nút cũ
+
+        return $.ajax({
+            url: url,
+            method: 'GET',
+            headers: {
+                'vsession': giatri_c_session_cua_ban
+            },
+            dataType: 'json'
+        });
+        // .promise() là không cần thiết vì $.ajax đã trả về một "deferred" object
+    }
+
+    /**
+     * Thêm một tin nhắn vào giao diện chat.
+     * type: 0 = bot, 1 = user
+     */
+    function addMessage(text, type_send = 0) {
+        console.log('--- addMessage ---', text);
+        console.log('Thêm tin nhắn:', text, 'Type:', type_send);
+        const senderClass = (type_send == 1) ? 'user-message' : 'bot-message';
+
+        // Xử lý xuống dòng (thay \r\n bằng <br>)
+        const formattedText = (text || "").replace(/\r\n/g, '<br>');
+
+        let avatarHtml = '';
+        if (senderClass === 'bot-message') {
+            // Thêm avatar cho bot
+            avatarHtml = '<div class="avatar"><span class="glyphicon glyphicon-user"></span></div>';
+        }
+
+        const $messageWrapper = $('<div>')
+            .addClass('message-wrapper ' + senderClass)
+            .html(avatarHtml + '<div class="chat-bubble">' + formattedText + '</div>');
+
+        $chatMessages.append($messageWrapper);
+
+        // Tự động cuộn xuống tin nhắn mới nhất
+        $chatMessages.scrollTop($chatMessages[0].scrollHeight);
+    }
+
+    /**
+     * Hiển thị thông báo thân thiện (thay thế cho alert())
+     */
+    function showCustomAlert(message) {
+        $('#error-message').text(message);
+        $('#error-modal').modal('show');
+    }
+
+    /**
+     * (MỚI) Hàm trả về dữ liệu giả lập cho phản hồi API ban đầu.
+     */
+    function getMockInitialResponse() {
+        console.warn("Đang sử dụng dữ liệu giả lập (MOCK DATA) do lỗi kết nối API thực.");
+        return {
+            "result": true,
+            "next": "http://example.com/api/next_step_1",
+            "data": [
+                {
+                    "message": "Packbot hiện đang ở chế độ TEST (MOCK DATA) do lỗi kết nối máy chủ API gốc. Bạn có thể tiếp tục kiểm tra luồng front-end.",
+                    "type_send": 0,
+                    "event": "select",
+                    "is_multiple": 0,
+                    "options": [
+                        { "content": "Kiểm tra tính năng chọn đơn", "next": "http://example.com/api/single_select_flow" },
+                        { "content": "Kiểm tra tính năng chọn nhiều (Filter)", "next": "http://example.com/api/multi_select_flow" },
+                        { "content": "Kiểm tra hiển thị Sản phẩm", "next": "http://example.com/api/show_product" }
+                    ]
+                }
+            ]
+        };
+    }
+
+    /**
+     * Xử lý chính: Nhận kết quả API và quyết định hành động tiếp theo
+     */
+    async function processApiResponse(response) {
+        $messageStatus.hide(); // Ẩn "..."
+
+        if (!response || !response.result) {
+            addMessage("Lỗi: Không nhận được phản hồi hợp lệ từ máy chủ.", 0);
+            return;
+        }
+
+        // Dữ liệu API có thể là một mảng (list_chat) hoặc một đối tượng (active_script)
+        let turnData;
+        if (Array.isArray(response.data)) {
+            // Nếu là mảng (list_chat), lấy tin nhắn cuối cùng để xử lý
+            turnData = response.data[response.data.length - 1];
+
+            // Hiển thị toàn bộ lịch sử chat (nếu có)
+            $chatMessages.empty(); // Xóa chat cũ trước khi render lịch sử
+
+            for (let i = response.data.length - 1; i >= 0; i--) {
+                const turn = response.data[i];
+                if(turn.event_app === 'result_products_filter' && turn.products) {
+                    displayProducts([turn.products]);
+                }
+                else {
+                    addMessage(turn.message, turn.type_send);
+                }
+            }
+
+        } else {
+            // Nếu là đối tượng (active_script)
+            turnData = response.data;
+            // Chỉ hiển thị tin nhắn mới
+            if (turnData.message) {
+                addMessage(turnData.message, turnData.type_send); // Tin nhắn từ bot luôn là type 0
+            }
+        }
+
+        if (!turnData) {
+            console.error("Không tìm thấy dữ liệu lượt chat (turnData).");
+            return;
+        }
+
+        var eventApp = turnData.event_app ?? turnData.event;
+        const options = turnData.options ?? [];
+        var nextUrl = response.next; // Lấy 'next' từ gốc của response
+        if (nextUrl === false && response.data.length > 0 && response.data[0].next != false) {
+            console.log('nextUrl2', nextUrl, response.data[0].next);
+            nextUrl = response.data[0].next;
+        }
+        if (nextUrl === false && turnData.next != false) {
+            console.log('nextUrl3', nextUrl, turnData.next);
+            nextUrl = turnData.next;
+        }
+        console.log(response.next, nextUrl);
+
+        // NEW: đọc cờ chọn nhiều
+        const isMultiple = Number(turnData.is_multiple) === 1;
+
+        // --- LOGIC PHÂN LUỒNG CHÍNH ---
+        // 1. Dừng để người dùng lựa chọn
+        if ((eventApp === 'select' || eventApp === 'products_filter') && options.length > 0) {
+            if (options && options.length > 0) {
+                // Truyền thêm nextUrl + isMultiple vào
+                displayOptions(options, eventApp, nextUrl, isMultiple);
+            } else {
+                console.log("Trạng thái chờ (select/filter) nhưng không có options.");
+            }
+        }
+        // (MỚI) 1.5. Auto next nếu là products_filter nhưng không có options
+        else if (eventApp === 'products_filter' && options.length === 0 && nextUrl && nextUrl !== false) {
+            console.log("Tự động gọi tiếp (products_filter không options), URL:", nextUrl);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            try {
+                const nextResponse = await callApi(nextUrl);
+                processApiResponse(nextResponse); // Đệ quy
+            } catch (err) {
+                handleApiError(err);
+            }
+        }
+
+        // (MỚI) 1. Xử lý hiển thị sản phẩm
+        else if (eventApp === 'result_products_filter') {
+            displayProducts([turnData.products]);
+
+            // Sau khi hiển thị sản phẩm, hiển thị các nút "Làm lại khảo sát"
+            if (options && options.length > 0) {
+                // Dùng style 'select' (nút xanh) cho các nút này
+                displayOptions(options, 'select', null, false);
+            }
+
+            if (nextUrl && nextUrl !== false) {
+                console.log("Tự động gọi tiếp sau khi hiển thị sản phẩm, URL:", nextUrl);
+                // Đợi 1 giây để giả lập bot đang trả lời
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                try {
+                    const nextResponse = await callApi(nextUrl);
+                    processApiResponse(nextResponse); // Đệ quy
+                } catch (err) {
+                    handleApiError(err);
+                }
+            }
+        }
+
+            // 2. Tự động gọi tiếp
+        //  ⭐ Nếu đang ở bước products_filter + is_multiple = 1 thì KHÔNG auto next
+        else if (nextUrl && nextUrl !== false && !(eventApp === 'products_filter' && isMultiple)) {
+            console.log("Tự động gọi tiếp (event: " + eventApp + "), URL:", nextUrl);
+            // Đợi 1 giây để giả lập bot đang trả lời
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            try {
+                const nextResponse = await callApi(nextUrl);
+                processApiResponse(nextResponse); // Đệ quy
+            } catch (err) {
+                handleApiError(err);
+            }
+        }
+        // 2. Tự động gọi tiếp
+        // else if (nextUrl && nextUrl !== false) {
+        //     console.log("Tự động gọi tiếp (event: " + eventApp + "), URL:", nextUrl);
+        //     // Đợi 1 giây để giả lập bot đang trả lời
+        //     await new Promise(resolve => setTimeout(resolve, 1000));
+        //
+        //     try {
+        //         const nextResponse = await callApi(nextUrl);
+        //         processApiResponse(nextResponse); // Đệ quy
+        //     } catch (err) {
+        //         handleApiError(err);
+        //     }
+        // }
+
+        // 3. Kết thúc luồng (next = false)
+        else {
+            console.log("Kết thúc luồng, không có 'next' hoặc 'options'.");
+        }
+    }
+
+    /**
+     * (MỚI) Thêm thẻ (card) sản phẩm vào giao diện chat
+     */
+    function displayProducts(products) {
+        if (!products || products.length === 0) {
+            return;
+        }
+
+        products.forEach(product => {
+            // Tạo Tags
+            let tagsHtml = '';
+            if (product.tags && product.tags.length > 0) {
+                product.tags.forEach((tag, index) => {
+                    // Tag đầu tiên sẽ có style 'primary'
+                    const tagClass = (index === 0) ? 'product-tag primary' : 'product-tag';
+                    tagsHtml += `<span class="${tagClass}">${tag}</span>`;
+                });
+            }
+
+            // Tạo HTML cho thẻ sản phẩm
+            const Img = product.image || '';
+
+            const $productCard = $(`
+                    <div class="product-card-wrapper">
+                        <div class="product-card">
+                            <div class="product-header">
+                                ${tagsHtml}
+                            </div>
+                            <div class="product-body">
+                                <div class="product-image-placeholder">
+                                    ${product.image ? '<img src="' + Img + '" alt="Product Image" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">' : '<span class="glyphicon glyphicon-picture"></span>'}
+                                </div>
+                                <p class="product-name">${product.name || 'Tên sản phẩm'}</p>
+                                <p class="product-description">${product.content || 'Mô tả sản phẩm...'}</p>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-secondary">Trải nghiệm</button>
+                                <button class="btn btn-primary">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                `);
+
+            // Thêm thẻ sản phẩm vào vùng chat
+            $chatMessages.append($productCard);
+        });
+
+        // Cuộn xuống
+        $chatMessages.scrollTop($chatMessages[0].scrollHeight);
+    }
+
+    /**
+     * Hiển thị các nút lựa chọn và xử lý logic
+     */
+    function displayOptions(options, eventApp, nextUrl = null, isMultiple = false) {
+        $optionButtons.empty(); // Xóa các nút cũ
+
+        // Mảng lưu các giá trị (valueForSend) đã chọn khi chọn nhiều
+        const selectedValues = [];
+
+        options.forEach(option => {
+            // Xác định style của nút
+            let buttonClass = 'btn btn-block ';
+
+            if (eventApp === 'select') {
+                buttonClass += 'btn-select'; // Nút màu xanh, căn giữa (dùng cho select hoặc nút "Làm lại khảo sát")
+            } else {
+                buttonClass += 'btn-default'; // Nút màu trắng, căn trái (dùng cho products_filter)
+            }
+
+            const $button = $('<button>')
+                .addClass(buttonClass)
+                .text(option.content ? option.content : option.name);
+
+            // Giá trị sẽ gửi lên server (lấy từ value, id, key, name, content - ưu tiên value)
+            const valueForSend =
+                option.value ??
+                option.id ??
+                option.key ??
+                option.name ??
+                option.content;
+
+            // Gán sự kiện click
+            $button.on('click', async function () {
+
+                // ✅ CASE 1: products_filter + is_multiple = 1 → toggle chọn/bỏ chọn, KHÔNG call API
+                if (eventApp === 'products_filter' && isMultiple) {
+                    const idx = selectedValues.indexOf(valueForSend);
+                    if (idx === -1) {
+                        selectedValues.push(valueForSend);
+                        $(this).addClass('active'); // Thêm class active để đổi màu (đã thêm CSS)
+                    } else {
+                        selectedValues.splice(idx, 1);
+                        $(this).removeClass('active');
+                    }
+                    console.log('selectedValues:', selectedValues);
+                    return; // Không đi xuống gọi API nữa
+                }
+
+                // ✅ CASE 2: Hành vi đơn chọn (select / products_filter đơn chọn)
+                // 1. Kiểm tra và gọi API 'next'
+                if (option.next) {
+                    try {
+                        // Tùy chọn: Hiện tin nhắn user
+                        // if (eventApp === 'select') {
+                        //     addMessage(option.content || option.name, 1);
+                        // }
+                        const response = await callApi(option.next);
+                        processApiResponse(response);
+                    } catch (err) {
+                        handleApiError(err);
+                    }
+                } else {
+                    console.warn("Nút này không có URL 'next'.", option);
+                }
+            });
+
+            $optionButtons.append($button);
+        });
+        console.log('cc', nextUrl);
+        // ✅ CASE 3: products_filter + is_multiple = 1 → thêm nút "Gửi lựa chọn" dùng nextUrl bên ngoài
+        if (eventApp === 'products_filter' && isMultiple && nextUrl) {
+            const $submit = $('<button>')
+                .addClass('btn btn-success btn-block') // Dùng btn-success (xanh lá) để nổi bật hơn
+                .text('Áp dụng bộ lọc') // bạn có thể đổi text tùy ý
+                .css({
+                    'margin-top': '10px',
+                    'font-weight': 'bold',
+                    'border-radius': '25px', // Bo tròn như các nút khác
+                })
+                .on('click', async function () {
+                    if (selectedValues.length === 0) {
+                        // Thay thế alert() bằng modal
+                        showCustomAlert('Vui lòng chọn ít nhất một lựa chọn.');
+                        return;
+                    }
+
+                    try {
+                        let url = nextUrl;
+                        // Xây dựng chuỗi tham số: id[]=value1&id[]=value2...
+                        const queryParam = selectedValues.map(value =>
+                            'id[]=' + encodeURIComponent(value)
+                        ).join('&');
+
+                        // Ghép vào URL
+                        if (url.indexOf('?') === -1) {
+                            url += '?' + queryParam;
+                        } else {
+                            url += '&' + queryParam;
+                        }
+
+                        console.log('Gọi nextUrl với selectedValues (dạng id[]):', url);
+
+                        const response = await callApi(url);
+                        processApiResponse(response);
+                    } catch (err) {
+                        handleApiError(err);
+                    }
+                });
+            console.log('$submit', $submit);
+            $optionButtons.append($submit);
+        }
+    }
+
+    /**
+     * Xử lý khi API bị lỗi
+     */
+    function handleApiError(error) { // 'error' here is the jqXHR object
+        $messageStatus.hide();
+
+        // Log chi tiết hơn để debug
+        console.error("--- LỖI AJAX ---");
+        console.error("Status:", error.status); // e.g., 0, 404, 500
+        console.error("Status Text:", error.statusText); // e.g., "error", "Not Found"
+        console.error("Response Text:", error.responseText); // Thường là 'undefined' nếu lỗi CORS
+        console.error("Full Error Object:", error);
+
+        let userMessage = "Rất tiếc, đã có lỗi xảy ra khi kết nối đến máy chủ. Vui lòng thử lại sau.";
+
+        // Kiểm tra lỗi CORS/mạng
+        // 'error.status === 0' hoặc 'error.statusText === "error"' là dấu hiệu của lỗi CORS hoặc không kết nối được mạng
+        if (error.status === 0 || error.statusText === 'error') {
+            userMessage = "Lỗi mạng hoặc CORS. Không thể kết nối đến máy chủ. Vui lòng kiểm tra xem máy chủ API (http://192.168.1.199:8881) có đang chạy và đã **CẤU HÌNH CORS** (Access-Control-Allow-Origin) cho phép trình duyệt này truy cập chưa.";
+            console.warn("Gợi ý: Đây rất có thể là lỗi CORS. Máy chủ API của bạn cần gửi header 'Access-Control-Allow-Origin: *' (hoặc 'Access-Control-Allow-Origin: <your_browser_origin>').");
+            // KHÔNG addMessage ở đây nữa vì sẽ dùng mock data để hiển thị.
+        } else if (error.status === 404) {
+            userMessage = "Lỗi 404: Không tìm thấy đường dẫn API.";
+            addMessage(userMessage, 0); // Vẫn hiển thị lỗi 404/500
+        } else if (error.status === 500) {
+            userMessage = "Lỗi 500: Máy chủ API gặp sự cố nội bộ.";
+            addMessage(userMessage, 0); // Vẫn hiển thị lỗi 404/500
+        }
+
+        // Trả về error object để caller quyết định có dùng mock data hay không
+        return error;
+    }
+
+    /**
+     * --- KHỞI CHẠY ỨNG DỤNG ---
+     */
+    $(document).ready(async function() {
+        // Bước 1: Gọi API list_chat ban đầu khi tải trang
+        try {
+            const initialResponse = await callApi(INITIAL_API_URL);
+            processApiResponse(initialResponse);
+        } catch (err) {
+            const error = handleApiError(err);
+
+            // Nếu là lỗi CORS hoặc lỗi mạng, sử dụng dữ liệu giả lập (Mock Data)
+            if (error.status === 0 || error.statusText === 'error') {
+                const mockResponse = getMockInitialResponse();
+                processApiResponse(mockResponse);
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

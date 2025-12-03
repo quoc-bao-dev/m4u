@@ -103,7 +103,8 @@
     "newsfeed": "ฟีดข่าว",
     "newsEvents": "ข่าว & กิจกรรม",
     "account": "บัญชี",
-    "copyright": "© 2025 — ลิขสิทธิ์ Mask4U สงวนลิขสิทธิ์"
+    "copyright": "© 2025 — ลิขสิทธิ์ Mask4U สงวนลิขสิทธิ์",
+    "headOffice": "สำนักงานหลัก"
   },
   "developing": {
     "comingSoon": "เร็ว ๆ นี้!",
@@ -606,6 +607,7 @@
     "reviewTips": "เคล็ดลับการรีวิว",
     "placeholder": "คุณชอบอะไรเกี่ยวกับสินค้านี้?",
     "submitReview": "ส่งรีวิว",
+    "submitting": "กำลังดำเนินการ...",
     "uploadSuccessfully": "อัปโหลดสำเร็จ",
     "hasVideoReview": "มีวิดีโอรีวิว",
     "reviewImage": "รูปรีวิว {number}"
@@ -883,5 +885,13 @@
       "noContent": "ไม่มีเนื้อหารีวิว",
       "noAddress": "ยังไม่อัปเดตที่อยู่"
     }
+  },
+  "chatBot": {
+    "greeting": "สวัสดีครับ ผมคือ Packbot",
+    "startSurvey": "เริ่มแบบสำรวจ",
+    "restartSurvey": "ทำแบบสำรวจอีกครั้ง",
+    "registerTrial": "ลงทะเบียนทดลองใช้",
+    "buyNow": "ซื้อเลย",
+    "active": "กำลังใช้งาน"
   }
 }

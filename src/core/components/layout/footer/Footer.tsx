@@ -60,6 +60,7 @@ const Footer = ({ className }: FooterProps) => {
                   </div>
                 </div>
               </div>
+              <p className='text-xs text-gray-100 mt-2'>{t('headOffice')}: {info?.contact_address_head_office}</p>
             </div>
 
             {/* Right: Sitemap + social */}

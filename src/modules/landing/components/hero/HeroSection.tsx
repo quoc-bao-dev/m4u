@@ -47,6 +47,16 @@ const HeroSection = () => {
   const isBackground =
     (currentBanner as any)?.is_background === 1 ||
     (currentBanner as any)?.is_background === '1'
+  
+  // auto advance slide every 5s
+  useEffect(() => {
+    if (normalized.length <= 1) return
+    const id = setInterval(() => {
+      setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))
+    }, 6000)
+    return () => clearInterval(id)
+  }, [normalized.length])
+
   return (
     <>
       <div className="relative h-[calc(var(--vh-initial,1vh)*100)] flex flex-col overflow-hidden">

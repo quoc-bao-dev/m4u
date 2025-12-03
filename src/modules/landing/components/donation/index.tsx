@@ -305,7 +305,8 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
             <Skeleton className="w-40 h-6" />
           ) : (
             renderCountUp(
-              Number((isHero ? content?.money_charity : data?.subtitle) ?? 0)
+              // Number((isHero ? content?.money_charity : data?.subtitle) ?? 0)
+              Number(content?.money_charity ?? 0)
             )
           )}
           <p className="text-sm lg:text-base text-greyscale-700">
@@ -344,7 +345,7 @@ const Donation = ({ isHero = false, className }: DonationProps) => {
           )}
 
           <div className="flex flex-col items-center gap-1 lg:gap-3">
-            {renderCountUp(Number(data?.subtitle ?? 0))}
+            {renderCountUp(Number(content?.money_charity ?? 0))}
             <p className="text-sm lg:text-base text-greyscale-700">
               {t('donated')}
             </p>

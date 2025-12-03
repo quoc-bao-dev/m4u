@@ -108,9 +108,6 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <AppProvider>
         <MainLayout>{children}</MainLayout>
-        {/* <Suspense fallback={null}>
-          <LanguageSelectorWrapper />
-        </Suspense> */}
 
         {/* Set cookie NEXT_LOCALE theo locale hiện tại */}
         <LocaleCookieSetter locale={locale} />

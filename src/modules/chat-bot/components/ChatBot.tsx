@@ -1,0 +1,447 @@
+import { useDevice } from '@/core/hooks/useDevice'
+import axiosInstance from '@/core/http/axiosInstance'
+import { ChatHistoryResponse, useChatSession } from '@/services/chat-bot'
+import { useLocale, useTranslations } from 'next-intl'
+import { memo, useEffect, useRef, useState } from 'react'
+import { useHandleScript } from '../hooks'
+import { chatStore } from '../store/chatStore'
+import ChatContent from './ChatContent'
+import GreetingBubble from './GreetingBubble'
+import GreetingScreen from './GreetingScreen'
+
+const IMAGE_PACKBOT = '/chat-bot/pack-bot.gif'
+const LOOP_TIME = 6000
+const PENDING_TIME = 3000
+const DELAY_TIME = 700
+const CHATBOT_OPENED_KEY = 'chatbot_opened'
+const CHATBOT_AUTO_OPEN_DISABLED_KEY = 'chatbot_auto_open_disabled'
+
+const delay = (ms: number = PENDING_TIME) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
+
+function ChatBot() {
+  const locale = useLocale()
+  const { isMobile } = useDevice()
+  const t = useTranslations('chatBot')
+  const greeting = t('greeting')
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [showChatContent, setShowChatContent] = useState(false)
+  const [hasStartedBefore, setHasStartedBefore] = useState(false)
+  const [isDrawerAnimating, setIsDrawerAnimating] = useState(false)
+  const [hiddenMessageGreeting, setHiddenMessageGreeting] = useState(true)
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const chatBoxRef = useRef<HTMLDivElement>(null)
+  const drawerRef = useRef<HTMLDivElement>(null)
+  const firstScriptLoadedRef = useRef(false)
+
+  // usePackbotIntro
+
+  // Check chatbot state on first load
+  useEffect(() => {
+    const storedStarted = localStorage.getItem(CHATBOT_OPENED_KEY)
+    const storedAutoDisabled = localStorage.getItem(
+      CHATBOT_AUTO_OPEN_DISABLED_KEY
+    )
+
+    const started = !!storedStarted
+    const autoOpenEnabled = !storedAutoDisabled
+
+    setHasStartedBefore(started)
+
+    // Chỉ tự mở popup nếu:
+    // - Chưa bắt đầu khảo sát (chưa có CHATBOT_OPENED_KEY)
+    // - Người dùng chưa từng bấm close trước đó (chưa disable auto open)
+    if (!started && autoOpenEnabled) {
+      setTimeout(() => {
+        if (isMobile) {
+          // Trên mobile: bắt đầu với drawer ở vị trí ẩn, sau đó animate lên
+          // Bước 1: Set drawer ở trạng thái ẩn và mở drawer
+          setIsDrawerAnimating(true)
+          setIsChatOpen(true)
+          // Bước 2: Sau khi DOM đã render, trigger animation slide up
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setIsDrawerAnimating(false)
+            })
+          })
+        } else {
+          setIsChatOpen(true)
+        }
+      }, DELAY_TIME)
+    }
+
+    setShowChatContent(started)
+  }, [isMobile])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHiddenMessageGreeting(false)
+    }, DELAY_TIME)
+  }, [])
+
+  const { setIsChatBotTyping, updateMessageById, setMessages } = chatStore()
+  const { data: chatSession } = useChatSession()
+  const { handleScript, fetchMessage } = useHandleScript()
+
+  const fetchMessages = async (url: string) => {
+    const response = await axiosInstance.get<ChatHistoryResponse>(url, {
+      params: {
+        vsession: chatSession?.vsession,
+        locale: locale,
+        isweb: 1,
+      },
+    })
+    return response.data
+  }
+
+  // Reset first script flag when session changes
+  useEffect(() => {
+    firstScriptLoadedRef.current = false
+  }, [chatSession?.vsession])
+
+  // Listen to system language (locale) changes and log list_chat data
+  useEffect(() => {
+    const fetchOnLocaleChange = async () => {
+      if (!chatSession?.vsession) return
+
+      try {
+        const res = await fetchMessages('/script/list_chat')
+
+        // Cập nhật lại message và options từ res
+        if (res.result && res.data) {
+          res.data.reverse().forEach((item) => {
+            const updates: {
+              message?: string
+              options?: Array<{
+                id: number
+                name: string
+                content: string | null
+              }>
+            } = {}
+
+            // Cập nhật message
+            if (item.message) {
+              updates.message = item.message
+            }
+
+            // Cập nhật options nếu có
+            if (item.options && item.options.length > 0) {
+              updates.options = item.options.map((option) => ({
+                id: option.id,
+                name: option.name,
+                content: option.content,
+              }))
+            }
+
+            // Chỉ update nếu có dữ liệu cần cập nhật
+            if (updates.message || updates.options) {
+              updateMessageById(item.id, updates)
+            }
+          })
+        }
+      } catch (error) {
+        console.error(
+          'Error fetching /script/list_chat on locale change:',
+          error
+        )
+      }
+    }
+
+    fetchOnLocaleChange()
+  }, [locale, chatSession?.vsession, updateMessageById])
+
+  // first load message - chỉ gọi khi tab ChatContent đang active
+  useEffect(() => {
+    const handler = async () => {
+      if (!chatSession?.vsession) return
+
+      // Xác định khi nào màn ChatContent thực sự active
+      const isChatContentActive = hasStartedBefore
+        ? isChatOpen // đã từng bắt đầu rồi, mở chat là vào thẳng màn chat
+        : isChatOpen && showChatContent // lần đầu phải bấm Start để vào màn chat
+
+      if (!isChatContentActive) return
+      if (firstScriptLoadedRef.current) return
+
+      firstScriptLoadedRef.current = true
+
+      const firstRes = await fetchMessages('/script/list_chat')
+      if (firstRes.result) {
+        //  chua co lich su
+
+        if (firstRes.data.length === 1) {
+          setIsChatBotTyping(true)
+          await delay()
+          const firstMessageRes = {
+            ...firstRes,
+            data: firstRes.data[0],
+            next: firstRes.data[0].next,
+          }
+          handleScript(firstMessageRes)
+        } else {
+          // co lịch sử rồi - gán toàn bộ vào store với active = false
+          const data = firstRes.data.reverse()
+          setMessages(data)
+
+          const lastMessage = data[data.length - 1]
+          if (
+            lastMessage.next &&
+            typeof lastMessage.next === 'string' &&
+            lastMessage.event === 'text'
+          ) {
+            const nextResponse = await fetchMessage(lastMessage.next)
+            handleScript(nextResponse)
+          }
+        }
+      }
+    }
+
+    handler()
+  }, [chatSession?.vsession, isChatOpen, showChatContent, hasStartedBefore])
+
+  const handleCloseChat = () => {
+    if (isMobile) {
+      setIsDrawerAnimating(true)
+      setTimeout(() => {
+        setIsChatOpen(false)
+        setShowChatContent(false)
+        setIsDrawerAnimating(false)
+      }, 300) // Match animation duration
+    } else {
+      setIsChatOpen(false)
+      setShowChatContent(false)
+    }
+    // Người dùng đã chủ động tắt popup -> không tự mở lại nữa
+    localStorage.setItem(CHATBOT_AUTO_OPEN_DISABLED_KEY, 'true')
+  }
+
+  const handleToggleChat = () => {
+    if (isMobile) {
+      if (!isChatOpen) {
+        // Mở drawer với animation slide up
+        setIsDrawerAnimating(true)
+        setIsChatOpen(true)
+        // Đảm bảo DOM đã render trước khi trigger animation
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setIsDrawerAnimating(false)
+          })
+        })
+      } else {
+        handleCloseChat()
+      }
+    } else {
+      setIsChatOpen((prev) => !prev)
+    }
+  }
+
+  const handleStartSurvey = () => {
+    setShowChatContent(true)
+    setHasStartedBefore(true)
+
+    localStorage.setItem(CHATBOT_OPENED_KEY, 'true')
+  }
+
+  // Mobile drawer version
+  if (isMobile) {
+    return (
+      <>
+        {/* ====== Floating Button (Mobile) ====== */}
+        {!isChatOpen && (
+          <div className="fixed bottom-[150px] right-4 z-50 md:hidden">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={handleToggleChat}
+                className="size-[80px] rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0 scale-90"
+              >
+                <div className="size-[70px] rounded-full relative bg-[#FACEE3]">
+                  <div className="absolute inset-0 rounded-full flex items-center justify-center ml-1 mb-1">
+                    <img
+                      src={IMAGE_PACKBOT}
+                      className="h-[75px] w-[65px] scale-105"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </button>
+
+              <GreetingBubble
+                greeting={greeting}
+                loopTime={LOOP_TIME}
+                hidden={isChatOpen || hiddenMessageGreeting}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* ====== Drawer Overlay ====== */}
+        {isChatOpen && (
+          <>
+            {/* Backdrop */}
+            <div
+              className={`fixed inset-0 bg-black/30 z-[60] transition-opacity duration-300 ${
+                isDrawerAnimating ? 'opacity-0' : 'opacity-100'
+              }`}
+              onClick={handleCloseChat}
+            />
+
+            {/* Drawer */}
+            <div
+              ref={drawerRef}
+              className={`fixed bottom-0 left-0 right-0 z-[70] transition-transform duration-300 ease-out ${
+                isDrawerAnimating ? 'translate-y-full' : 'translate-y-0'
+              }`}
+            >
+              <div className=" bg-white rounded-t-[24px] h-[90svh] max-h-[600px]- flex flex-col overflow-hidden shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+                {/* Drag Handle */}
+                <div className="relative z-50 flex justify-center pt-3 pb-2">
+                  <div
+                    className={`w-[94px] h-[5px] rounded-full  ${
+                      showChatContent ? 'bg-[#E5E5E5]' : 'bg-[#737373]'
+                    }`}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-h-0 relative">
+                  {!hasStartedBefore ? (
+                    <div className="relative h-full">
+                      {/* Greeting screen */}
+                      <div
+                        className={`absolute inset-0 transition-all duration-500 ${
+                          showChatContent
+                            ? 'opacity-0 scale-95 pointer-events-none'
+                            : 'opacity-100 scale-100'
+                        }`}
+                      >
+                        <GreetingScreen
+                          onStart={handleStartSurvey}
+                          onClose={handleCloseChat}
+                          isMobile={true}
+                        />
+                      </div>
+
+                      {/* Chat content screen */}
+                      <div
+                        className={`absolute inset-0 flex flex-col transition-all duration-500 ${
+                          showChatContent
+                            ? 'opacity-100 scale-100'
+                            : 'opacity-0 scale-95 pointer-events-none'
+                        }`}
+                      >
+                        <ChatContent
+                          scrollContainerRef={scrollContainerRef}
+                          onClose={handleCloseChat}
+                          isActive={showChatContent}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex flex-col">
+                      <ChatContent
+                        scrollContainerRef={scrollContainerRef}
+                        onClose={handleCloseChat}
+                        isActive
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </>
+    )
+  }
+
+  // Desktop version
+  return (
+    <div className="fixed bottom-[60px] right-6 z-50 hidden md:block">
+      <div className="relative">
+        {/* ====== bubble ====== */}
+        <button
+          type="button"
+          onClick={handleToggleChat}
+          className="scale-75 size-[109px] rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0"
+        >
+          <div className="size-[89px] rounded-full relative bg-[#FACEE3] ">
+            <div className="absolute inset-0 rounded-full flex items-center justify-center ml-1 mb-1">
+              <img
+                src={IMAGE_PACKBOT}
+                className="h-[96px] w-[81px-] scale-105"
+                alt=""
+              />
+            </div>
+          </div>
+        </button>
+
+        {/* ====== message ====== */}
+        <GreetingBubble
+          greeting={greeting}
+          loopTime={LOOP_TIME}
+          hidden={isChatOpen || hiddenMessageGreeting}
+        />
+
+        {/* ====== chat box ====== */}
+        {isChatOpen && (
+          <div className="absolute bottom-[105%] right-0">
+            <div className="relative">
+              <div
+                ref={chatBoxRef}
+                className="bg-[#FAFAFA] rounded-[16px] w-[400px] h-[554px] flex flex-col relative overflow-hidden"
+              >
+                {/* ===== chat section ===== */}
+                {!hasStartedBefore ? (
+                  <div className="relative h-full">
+                    {/* Greeting screen */}
+                    <div
+                      className={`absolute inset-0 transition-all duration-500 ${
+                        showChatContent
+                          ? 'opacity-0 scale-95 pointer-events-none'
+                          : 'opacity-100 scale-100'
+                      }`}
+                    >
+                      <GreetingScreen
+                        onStart={handleStartSurvey}
+                        onClose={handleCloseChat}
+                      />
+                    </div>
+
+                    {/* Chat content screen */}
+                    <div
+                      className={`absolute inset-0 flex flex-col transition-all duration-500 ${
+                        showChatContent
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-0 scale-95 pointer-events-none'
+                      }`}
+                    >
+                      <ChatContent
+                        scrollContainerRef={scrollContainerRef}
+                        onClose={handleCloseChat}
+                        isActive={showChatContent}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  // If user has started before, show only chat content (no GreetingScreen)
+                  <div className="w-full h-full flex flex-col">
+                    <ChatContent
+                      scrollContainerRef={scrollContainerRef}
+                      onClose={handleCloseChat}
+                      isActive
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="absolute -z-10 -bottom-3 right-10 w-0 h-0 border-l-[14px] border-r-[14px] border-t-[16px] border-l-transparent border-r-transparent border-t-[#FAFAFA] drop-shadow-[0px_3px_14.1px_#0000000F]" />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default memo(ChatBot)

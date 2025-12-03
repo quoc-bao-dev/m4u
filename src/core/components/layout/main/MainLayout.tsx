@@ -5,6 +5,8 @@ import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
 import Concave from './Concave'
+import ChatBot from '@/modules/chat-bot/components/ChatBot'
+import Bubble from './Bubble'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -95,7 +97,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       </footer>
 
       {/* Cart Icon - Fixed position */}
-      <CartIcon />
+      <Bubble />
     </div>
   )
 }

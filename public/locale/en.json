@@ -103,7 +103,8 @@
     "newsfeed": "Newsfeed",
     "newsEvents": "News & Events",
     "account": "Account",
-    "copyright": "© 2025 — Copyright Mask4U. All rights reserved."
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
+    "headOffice": "Head Office"
   },
   "developing": {
     "comingSoon": "Coming Soon!",
@@ -598,6 +599,7 @@
     "reviewTips": "Review tips",
     "placeholder": "What did you love about this product?",
     "submitReview": "Submit review",
+    "submitting": "Submitting...",
     "uploadSuccessfully": "Upload successfully",
     "hasVideoReview": "Has video review",
     "reviewImage": "Review image {number}"
@@ -875,5 +877,13 @@
       "noContent": "No review content available.",
       "noAddress": "Address not updated"
     }
+  },
+  "chatBot": {
+    "greeting": "Hello, I'm Packbot",
+    "startSurvey": "Start survey",
+    "restartSurvey": "Restart survey",
+    "registerTrial": "Register for trial",
+    "buyNow": "Buy now",
+    "active": "Active"
   }
 }

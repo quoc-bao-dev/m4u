@@ -1,4 +1,5 @@
 export * from './useInView'
+export * from './useNearViewport'
 export * from './useDevice'
 export * from './useLoading'
 export * from './useQueryWithLoading'

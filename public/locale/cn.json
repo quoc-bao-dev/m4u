@@ -103,7 +103,8 @@
     "newsfeed": "动态",
     "newsEvents": "新闻与活动",
     "account": "账户",
-    "copyright": "© 2025 — 版权 Mask4U。保留所有权利。"
+    "copyright": "© 2025 — 版权 Mask4U。保留所有权利。",
+    "headOffice": "总部"
   },
   "developing": {
     "comingSoon": "敬请期待！",
@@ -598,6 +599,7 @@
     "reviewTips": "评测小贴士",
     "placeholder": "你最喜欢这款产品的什么？",
     "submitReview": "提交评测",
+    "submitting": "提交中...",
     "uploadSuccessfully": "上传成功",
     "hasVideoReview": "含视频评测",
     "reviewImage": "评测图片 {number}"
@@ -875,5 +877,13 @@
       "noContent": "暂无评价内容。",
       "noAddress": "地址未更新"
     }
+  },
+  "chatBot": {
+    "greeting": "你好，我是Packbot",
+    "startSurvey": "开始调查",
+    "restartSurvey": "重新开始问卷",
+    "registerTrial": "注册试用",
+    "buyNow": "立即购买",
+    "active": "在线"
   }
 }
