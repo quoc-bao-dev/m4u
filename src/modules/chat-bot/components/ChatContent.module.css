@@ -4,6 +4,9 @@
   /* For Firefox */
   scrollbar-width: thin;
   scrollbar-color: #ffc2df #fdf2f8; /* thumb, track */
+
+  /* Ngăn không cho scroll bên trong "lan" ra ngoài (desktop) */
+  overscroll-behavior: contain;
 }
 
 .scrollContainer::-webkit-scrollbar {

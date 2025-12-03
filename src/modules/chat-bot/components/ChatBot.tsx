@@ -10,6 +10,7 @@ import GreetingBubble from './GreetingBubble'
 import GreetingScreen from './GreetingScreen'
 
 const IMAGE_PACKBOT = '/chat-bot/pack-bot.gif'
+// const IMAGE_PACKBOT = '/chat-bot/greeting.png'
 const LOOP_TIME = 6000
 const PENDING_TIME = 3000
 const DELAY_TIME = 700
@@ -169,6 +170,25 @@ function ChatBot() {
     fetchOnLocaleChange()
   }, [locale, chatSession?.vsession, updateMessageById])
 
+  // Lock body scroll on mobile when chat is open to prevent background scrolling
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+
+    const body = document.body
+    const previousOverflow = body.style.overflow
+
+    // Chỉ khóa scroll trên mobile, desktop vẫn cho phép scroll nền
+    if (isMobile && isChatOpen) {
+      body.style.overflow = 'hidden'
+    } else {
+      body.style.overflow = previousOverflow || ''
+    }
+
+    return () => {
+      body.style.overflow = previousOverflow || ''
+    }
+  }, [isChatOpen, isMobile])
+
   // first load message - chỉ gọi khi tab ChatContent đang active
   useEffect(() => {
     const handler = async () => {
@@ -273,13 +293,13 @@ function ChatBot() {
               <button
                 type="button"
                 onClick={handleToggleChat}
-                className="size-[80px] rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0 scale-90"
+                className="size-[109px]  rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0"
               >
-                <div className="size-[70px] rounded-full relative bg-[#FACEE3]">
+                <div className="size-[89px]  rounded-full relative bg-[#FACEE3]">
                   <div className="absolute inset-0 rounded-full flex items-center justify-center ml-1 mb-1">
                     <img
                       src={IMAGE_PACKBOT}
-                      className="h-[75px] w-[65px] scale-105"
+                      className="h-[96px] scale-105"
                       alt=""
                     />
                   </div>
@@ -383,7 +403,7 @@ function ChatBot() {
         <button
           type="button"
           onClick={handleToggleChat}
-          className="scale-75 size-[109px] rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0"
+          className="size-[109px] rounded-full bg-pink-50 flex items-center justify-center shadow-2xl cursor-pointer border-0"
         >
           <div className="size-[89px] rounded-full relative bg-[#FACEE3] ">
             <div className="absolute inset-0 rounded-full flex items-center justify-center ml-1 mb-1">
@@ -405,8 +425,8 @@ function ChatBot() {
 
         {/* ====== chat box ====== */}
         {isChatOpen && (
-          <div className="absolute bottom-[105%] right-0">
-            <div className="relative">
+          <div className="absolute bottom-[110%] right-0">
+            <div className="relative drop-shadow-lg/6">
               <div
                 ref={chatBoxRef}
                 className="bg-[#FAFAFA] rounded-[16px] w-[400px] h-[554px] flex flex-col relative overflow-hidden"
@@ -454,7 +474,7 @@ function ChatBot() {
                   </div>
                 )}
               </div>
-              <div className="absolute -z-10 -bottom-3 right-10 w-0 h-0 border-l-[14px] border-r-[14px] border-t-[16px] border-l-transparent border-r-transparent border-t-[#FAFAFA] drop-shadow-[0px_3px_14.1px_#0000000F]" />
+              <div className="absolute -z-10 -bottom-3 right-10 w-0 h-0 border-l-[14px] border-r-[14px] border-t-[16px] border-l-transparent border-r-transparent border-t-[#FAFAFA]" />
             </div>
           </div>
         )}
