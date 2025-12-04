@@ -1,6 +1,7 @@
 import { tokenManager } from '@/core/http/axiosInstance'
 import { useRouter } from '@/locale'
 import { useAuth } from '@/modules/auth'
+import { chatStore } from '@/modules/chat-bot/store/chatStore'
 import { authApi } from '@/services/auth/api'
 import {
   LoginRequest,
@@ -49,13 +50,27 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
-
+  const { clearMessages } = chatStore()
   return useMutation({
     mutationFn: async (token: string) => {
       const response = await authApi.logout(token)
       return response.data
     },
     onSuccess: async () => {
+      // Clear chat messages
+      clearMessages()
+
+      // Remove chat session from localStorage
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem('chat-session')
+      }
+
+      // Invalidate chat-session query to get new vsession
+      await queryClient.invalidateQueries({ queryKey: ['chat-session'] })
+
+      // Refetch new session immediately
+      await queryClient.refetchQueries({ queryKey: ['chat-session'] })
+
       queryClient.invalidateQueries({ queryKey: ['product-list'] })
       router.push('/')
     },
