@@ -8,14 +8,19 @@ import {
   SignUpRequest,
 } from '@/services/auth/type'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useChatSession } from '../chat-bot'
 
 export const useLogin = () => {
   const { setUser } = useAuth()
   const queryClient = useQueryClient()
+  const { data: chatSession } = useChatSession()
 
   return useMutation({
     mutationFn: async (data: LoginRequest) => {
-      const response = await authApi.login(data)
+      const response = await authApi.login({
+        ...data,
+        vsession: chatSession?.vsession,
+      })
       return response.data
     },
     onSuccess: async (response: LoginResponse) => {
@@ -44,6 +49,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
+
   return useMutation({
     mutationFn: async (token: string) => {
       const response = await authApi.logout(token)

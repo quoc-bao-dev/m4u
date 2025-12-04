@@ -465,7 +465,7 @@ function ChatBot() {
             <div className="relative drop-shadow-lg/6">
               <div
                 ref={chatBoxRef}
-                className="bg-[#FAFAFA] rounded-[16px] w-[400px] h-[554px] flex flex-col relative overflow-hidden"
+                className="bg-[#FAFAFA] rounded-[16px] w-[400px] h-[554px] max-h-[70svh] flex flex-col relative overflow-hidden"
               >
                 {/* ===== chat section ===== */}
                 {!hasStartedBefore ? (
