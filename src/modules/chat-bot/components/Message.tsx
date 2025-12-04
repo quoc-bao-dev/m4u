@@ -178,7 +178,7 @@ const Message = ({
                   <button
                     type="button"
                     onClick={handleRegisterTrial}
-                    className="cursor-pointer w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
+                    className=" flex-1  cursor-pointer w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
                   >
                     {t('registerTrial')}
                   </button>
