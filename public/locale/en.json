@@ -880,7 +880,7 @@
   },
   "chatBot": {
     "greeting": "Hello, I'm Packbot",
-    "greetingIntro": "I'm Packbot AI.",
+    "greetingIntro": "I'm Packbot.",
     "greetingSuggest": "I'll suggest the right sheet mask for you.",
     "startSurvey": "Start survey",
     "restartSurvey": "Restart survey",

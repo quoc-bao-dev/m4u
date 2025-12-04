@@ -877,7 +877,7 @@
   },
   "chatBot": {
     "greeting": "안녕하세요, 팩봇입니다",
-    "greetingIntro": "안녕하세요, 저는 Packbot AI입니다.",
+    "greetingIntro": "안녕하세요, 저는 Packbot입니다.",
     "greetingSuggest": "당신께 잘 맞는 마스크팩을 추천해 드릴게요.",
     "startSurvey": "설문 시작",
     "restartSurvey": "설문 다시 시작",
