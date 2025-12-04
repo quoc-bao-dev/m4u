@@ -879,7 +879,7 @@
   },
   "chatBot": {
     "greeting": "Packbot xin chào",
-    "greetingIntro": "Tôi là Packbot AI.",
+    "greetingIntro": "Tôi là Packbot.",
     "greetingSuggest": "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn.",
     "startSurvey": "Bắt đầu khảo sát",
     "restartSurvey": "Làm lại khảo sát",

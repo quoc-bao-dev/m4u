@@ -880,7 +880,7 @@
   },
   "chatBot": {
     "greeting": "你好，我是Packbot",
-    "greetingIntro": "你好，我是 Packbot AI。",
+    "greetingIntro": "你好，我是 Packbot。",
     "greetingSuggest": "我会为你推荐适合你的面膜。",
     "startSurvey": "开始调查",
     "restartSurvey": "重新开始问卷",

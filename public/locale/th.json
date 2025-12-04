@@ -888,7 +888,7 @@
   },
   "chatBot": {
     "greeting": "สวัสดีครับ ผมคือ Packbot",
-    "greetingIntro": "ผมคือ Packbot AI",
+    "greetingIntro": "ผมคือ Packbot",
     "greetingSuggest": "ผมจะช่วยแนะนำแผ่นมาสก์ที่เหมาะกับคุณ",
     "startSurvey": "เริ่มแบบสำรวจ",
     "restartSurvey": "ทำแบบสำรวจอีกครั้ง",
