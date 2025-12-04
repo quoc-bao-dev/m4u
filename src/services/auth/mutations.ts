@@ -49,6 +49,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
+
   return useMutation({
     mutationFn: async (token: string) => {
       const response = await authApi.logout(token)
