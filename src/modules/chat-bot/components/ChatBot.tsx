@@ -46,6 +46,7 @@ function ChatBot() {
   const greetingMessages = [t('greetingIntro'), t('greetingSuggest')]
   const [greetingIndex, setGreetingIndex] = useState(0)
   const greeting = greetingMessages[greetingIndex]
+  const [isHydrated, setIsHydrated] = useState(false)
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [showChatContent, setShowChatContent] = useState(false)
   const [hasStartedBefore, setHasStartedBefore] = useState(false)
@@ -62,6 +63,14 @@ function ChatBot() {
 
   // Check chatbot state on first load
   useEffect(() => {
+    // Wait for zustand persist to rehydrate before showing anything
+    const unsubscribeHydrate = chatbotCloseStore.persist.onFinishHydration(() =>
+      setIsHydrated(true)
+    )
+    if (chatbotCloseStore.persist.hasHydrated?.()) {
+      setIsHydrated(true)
+    }
+
     const storedStarted = localStorage.getItem(CHATBOT_OPENED_KEY)
     const storedAutoDisabled = localStorage.getItem(
       CHATBOT_AUTO_OPEN_DISABLED_KEY
@@ -95,6 +104,10 @@ function ChatBot() {
     }
 
     setShowChatContent(started)
+
+    return () => {
+      unsubscribeHydrate?.()
+    }
   }, [isMobile])
 
   useEffect(() => {
@@ -357,7 +370,7 @@ function ChatBot() {
   // }
 
   // Don't render if closed today
-  if (!shouldShow) {
+  if (!isHydrated || !shouldShow) {
     return null
   }
 
