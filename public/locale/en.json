@@ -890,6 +890,7 @@
     "active": "Active",
     "featureInDevelopment": "This feature is under development. Please check back later.",
     "selectOneAnswer": "(Please select 1 answer)",
+    "selectMultipleAnswers": "(Please select one or multiple answers)",
     "confirm": "Confirm"
   }
 }

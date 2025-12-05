@@ -584,7 +584,7 @@ const MultiSelectTab = ({
             verticalAlign: 'middle',
           }}
         >
-          (Hãy chọn 1 hoặc nhiều đáp án)
+          {t('selectMultipleAnswers')}
         </p>
         <div className="flex items-end flex-col gap-2">
           {/* ==== options ==== */}

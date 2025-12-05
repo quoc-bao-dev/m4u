@@ -889,6 +889,7 @@
     "active": "Đang hoạt động",
     "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau.",
     "selectOneAnswer": "(Hãy chọn 1 đáp án)",
+    "selectMultipleAnswers": "(Hãy chọn 1 hoặc nhiều đáp án)",
     "confirm": "Xác nhận"
   }
 }

@@ -890,6 +890,7 @@
     "active": "在线",
     "featureInDevelopment": "该功能正在开发中，请稍后再试。",
     "selectOneAnswer": "(请选择1个答案)",
+    "selectMultipleAnswers": "(请选择一个或多个答案)",
     "confirm": "确认"
   }
 }
