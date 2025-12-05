@@ -9,7 +9,7 @@ import { Link } from '@/locale'
 import { PauseIcon, PlayIcon, StarIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Ref, useCallback, useEffect, useRef, useState } from 'react'
+import { memo, Ref, useCallback, useEffect, useRef, useState } from 'react'
 import apiReviewHub from '@/services/review-hub/api'
 
 interface TopReviewerCardProps {
@@ -646,4 +646,4 @@ const TopReviewerCard = ({
   )
 }
 
-export default TopReviewerCard
+export default memo(TopReviewerCard)
