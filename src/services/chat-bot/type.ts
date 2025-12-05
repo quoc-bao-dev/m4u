@@ -83,6 +83,7 @@ export type ChatHistoryResponse = {
   next_page_url: string | null
   prev_page_url: string | null
   next: boolean
+  show_end_script: boolean | 1
 }
 export type ChatMessageOption = {
   id: number
@@ -113,6 +114,7 @@ export type ChatMessageResponse = {
   data: ChatMessageItem
   next: string | null | boolean
   end_to_reset?: 0 | 1
+  show_end_script?: boolean | 1
 }
 
 // Info script (Packbot introduction)

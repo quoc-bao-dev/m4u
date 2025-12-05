@@ -386,6 +386,7 @@ const TopReviewerCard = ({
                         el.setAttribute('x5-playsinline', 'true')
                         el.setAttribute('x5-video-player-type', 'h5')
                         el.setAttribute('x-webkit-airplay', 'allow')
+                        el.setAttribute('preload', 'none')
                         // Restrict fullscreen and remote playback via attributes as a best-effort
                         el.setAttribute(
                           'controlslist',
@@ -395,13 +396,15 @@ const TopReviewerCard = ({
                       } catch {}
                     }
                   }}
-                  src={kol.video_review}
+                  src={kol.video_review_render ?? kol.video_review}
                   autoPlay={false}
                   muted
                   loop
                   playsInline
                   controls={false}
                   controlsList="nofullscreen noremoteplayback nodownload noplaybackrate"
+                  preload="none"
+                  poster={kol.small_image_video_review}
                   disablePictureInPicture
                   width={1000}
                   height={1000}

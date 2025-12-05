@@ -63,6 +63,7 @@ export const useLogout = () => {
       // Remove chat session from localStorage
       if (typeof window !== 'undefined') {
         window.localStorage.removeItem('chat-session')
+        window.localStorage.removeItem('chatbot_closed_date')
       }
 
       // Invalidate chat-session query to get new vsession

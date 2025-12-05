@@ -17,6 +17,8 @@ interface TopReviewerProps {
 }
 
 const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
+  console.log({ data })
+
   const { isMobile } = useDevice()
   const videoRefs = useRef<HTMLVideoElement[]>([])
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
@@ -46,7 +48,7 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
         try {
           target.pause()
           setPlayingIndex(null)
-        } catch { }
+        } catch {}
         return
       }
 
@@ -55,14 +57,14 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
         if (video && i !== index) {
           try {
             video.pause()
-          } catch { }
+          } catch {}
         }
       })
 
       try {
         target.play()
         setPlayingIndex(index)
-      } catch { }
+      } catch {}
     },
     [playingIndex]
   )
@@ -80,13 +82,13 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
       if (video && i !== 0) {
         try {
           video.pause()
-        } catch { }
+        } catch {}
       }
     })
     try {
       first.play()
       setPlayingIndex(0)
-    } catch { }
+    } catch {}
   }, [reviews.length, isIPhone])
 
   // Init reviews and pagination from props data
@@ -115,7 +117,9 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
       })
       const payload = response?.data?.data
       const nextReviews = payload?.review?.data || payload?.data || []
-      const nextLastPage = Number(payload?.review?.last_page || payload?.last_page || lastPage)
+      const nextLastPage = Number(
+        payload?.review?.last_page || payload?.last_page || lastPage
+      )
       setReviews((prev) => [...prev, ...nextReviews])
       setCurrentPage(nextPage)
       setLastPage(nextLastPage)
@@ -160,16 +164,18 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
   const tProduct = useTranslations('product')
 
   return (
-    <div className='bg-white lg:rounded-3xl w-full'>
-      <div className="relative px-3 p-6 lg:p-8 2xl:p-12 flex flex-col lg:flex-row gap-4 lg:gap-8 lg:rounded-3xl w-full overflow-hidden"
+    <div className="bg-white lg:rounded-3xl w-full">
+      <div
+        className="relative px-3 p-6 lg:p-8 2xl:p-12 flex flex-col lg:flex-row gap-4 lg:gap-8 lg:rounded-3xl w-full overflow-hidden"
         style={{
-          backgroundColor: withAlpha(data?.background_color || '#fff', 0.2)
-        }}>
+          backgroundColor: withAlpha(data?.background_color || '#fff', 0.2),
+        }}
+      >
         <MedalIcon
           weight="fill"
           className="hidden lg:block size-[350px] z-10 absolute top-0 right-0 translate-x-[40%] -translate-y-1/3"
           style={{
-            color: withAlpha(data?.background_color || '#fff', 0.4)
+            color: withAlpha(data?.background_color || '#fff', 0.4),
           }}
         />
         <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[110%] tracking-tight">
@@ -179,10 +185,17 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
           {isLoading ? (
             <Skeleton className="size-full aspect-square lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
           ) : (
-            <div className='size-full aspect-square lg:size-[380px] 2xl:size-[480px] rounded-3xl flex items-center justify-center bg-white/90 hover:bg-[var(--hover-bg-color)] transition-colors duration-300'
-              style={{
-                '--hover-bg-color': withAlpha(data?.background_color || '#F59E0B', 0.2)
-              } as React.CSSProperties}>
+            <div
+              className="size-full aspect-square lg:size-[380px] 2xl:size-[480px] rounded-3xl flex items-center justify-center bg-white/90 hover:bg-[var(--hover-bg-color)] transition-colors duration-300"
+              style={
+                {
+                  '--hover-bg-color': withAlpha(
+                    data?.background_color || '#F59E0B',
+                    0.2
+                  ),
+                } as React.CSSProperties
+              }
+            >
               <Image
                 src={data?.image || IMAGES.topProduct}
                 alt="top-reviewer"
@@ -198,9 +211,12 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
             href={`/review-hub/${data?.slug}`}
             className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer"
             style={
-              ({
-                ['--topreview-color' as any]: withAlpha(data?.background_color || '#F59E0B', 1),
-              }) as React.CSSProperties
+              {
+                ['--topreview-color' as any]: withAlpha(
+                  data?.background_color || '#F59E0B',
+                  1
+                ),
+              } as React.CSSProperties
             }
           >
             <h2 className="hidden lg:block text-gradient-blue-black transition-colors duration-300 font-semibold xl:text-4xl 2xl:text-[40px] leading-[110%] tracking-tight">
@@ -232,7 +248,9 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                     maxWidth={isMobile ? 116 : 136}
                   />
                   <p className="text-sm lg:text-2xl 2xl:text-[28px] leading-[80%] text-greyscale-500">
-                    <span className="text-greyscale-900 font-medium">{data?.average_star} </span>
+                    <span className="text-greyscale-900 font-medium">
+                      {data?.average_star}{' '}
+                    </span>
                     ({data?.quantity_reviews} {tProduct('reviews')})
                   </p>
                 </div>
@@ -243,19 +261,23 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
           <div className="relative">
             {reviews?.length > 4 && (
               <>
-                <div className="absolute z-[1] top-0 right-0 w-20 h-full bg-gradient-to-l from-white to-transparent pointer-events-none" ></div>
+                <div className="absolute z-[1] top-0 right-0 w-20 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
                 <div
                   className="absolute z-[2] top-0 right-0 w-20 h-full pointer-events-none"
                   style={{
-                    background: `linear-gradient(to left, ${withAlpha(data?.background_color || '#FEF3C7', 0.2)}, transparent)`
+                    background: `linear-gradient(to left, ${withAlpha(
+                      data?.background_color || '#FEF3C7',
+                      0.2
+                    )}, transparent)`,
                   }}
                 ></div>
               </>
             )}
             <div
               ref={scrollContainerRef}
-              className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
-                }`}
+              className={`flex gap-3 lg:gap-4 overflow-x-scroll scroll-hidden flex-1 min-w-0 ${
+                isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+              }`}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={endDrag}
@@ -265,7 +287,10 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
               {isLoading ? (
                 <>
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <Skeleton key={index} className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]" />
+                    <Skeleton
+                      key={index}
+                      className="size-[100px] lg:size-[160px] xl:size-[200px] 2xl:size-[250px] min-w-[100px] lg:min-w-[160px] xl:min-w-[200px] 2xl:min-w-[250px] object-cover rounded-lg lg:rounded-3xl flex-shrink-0 bg-[#DCE5E5]"
+                    />
                   ))}
                 </>
               ) : (
@@ -283,11 +308,25 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                         />
                         {kol.evaluate.toFixed(1)}
                       </div>
-                      <div className={`${isIPhone() ? (playingIndex === index ? 'opacity-0' : 'opacity-100') : 'opacity-0 group-hover:opacity-100'} transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg lg:rounded-3xl`}>
+                      <div
+                        className={`${
+                          isIPhone()
+                            ? playingIndex === index
+                              ? 'opacity-0'
+                              : 'opacity-100'
+                            : 'opacity-0 group-hover:opacity-100'
+                        } transition-all duration-300 absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg lg:rounded-3xl`}
+                      >
                         {playingIndex === index ? (
-                          <PauseIcon weight="fill" className="size-8 xl:size-10 text-white" />
+                          <PauseIcon
+                            weight="fill"
+                            className="size-8 xl:size-10 text-white"
+                          />
                         ) : (
-                          <PlayIcon weight="fill" className="size-8 xl:size-10 text-white" />
+                          <PlayIcon
+                            weight="fill"
+                            className="size-8 xl:size-10 text-white"
+                          />
                         )}
                       </div>
                       <video
@@ -303,12 +342,19 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
                               el.setAttribute('x5-video-player-type', 'h5')
                               el.setAttribute('x-webkit-airplay', 'allow')
                               // Restrict fullscreen and remote playback via attributes as a best-effort
-                              el.setAttribute('controlslist', 'nofullscreen noremoteplayback nodownload noplaybackrate')
+                              el.setAttribute(
+                                'controlslist',
+                                'nofullscreen noremoteplayback nodownload noplaybackrate'
+                              )
                               el.setAttribute('disablepictureinpicture', 'true')
+                              // Prevent preloading - only load when play is clicked
+                              el.setAttribute('preload', 'none')
                             } catch {}
                           }
                         }}
-                        src={kol.video_review}
+                        src={kol.video_review_render ?? kol.video_review}
+                        poster={kol.small_image_video_review}
+                        preload="none"
                         autoPlay={false}
                         muted
                         loop
@@ -332,7 +378,6 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
         </div>
       </div>
     </div>
-
   )
 }
 
