@@ -116,21 +116,36 @@ function ChatBot() {
     }, DELAY_TIME)
   }, [])
 
-  // Luân phiên nội dung greeting:
-  // - Lần đầu: "Tôi là Packbot AI."
-  // - Lần sau: "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn."
-  // - Sau đó lặp lại
+  // Luân phiên nội dung greeting 2 vòng rồi dừng:
+  // - Vòng 1: "Tôi là Packbot AI." -> "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn."
+  // - Vòng 2: "Tôi là Packbot AI." -> "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn."
+  // - Sau đó dừng lại ở "Tôi là Packbot AI."
   useEffect(() => {
     if (hiddenMessageGreeting) return
 
+    // Flow: 1 -> 2 -> 1 -> 2 -> stop at 1
+    const greetingFlow = [0, 1, 0, 1, 0]
+    let step = 0
+
     const intervalId = window.setInterval(() => {
-      setGreetingIndex((prev) => (prev + 1) % greetingMessages.length)
+      step += 1
+
+      if (step >= greetingFlow.length) {
+        window.clearInterval(intervalId)
+        return
+      }
+
+      setGreetingIndex(greetingFlow[step])
+
+      if (step === greetingFlow.length - 1) {
+        window.clearInterval(intervalId)
+      }
     }, LOOP_TIME)
 
     return () => {
       window.clearInterval(intervalId)
     }
-  }, [hiddenMessageGreeting, greetingMessages.length])
+  }, [hiddenMessageGreeting])
 
   const { setIsChatBotTyping, updateMessageById, setMessages } = chatStore()
   const { data: chatSession } = useChatSession()

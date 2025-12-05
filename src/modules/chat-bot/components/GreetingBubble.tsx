@@ -4,6 +4,7 @@ type GreetingBubbleProps = {
   greeting: string
   loopTime?: number
   hidden?: boolean
+  autoRestart?: boolean
 }
 
 const DEFAULT_LOOP_TIME = 6000
@@ -12,6 +13,7 @@ const GreetingBubble = ({
   greeting,
   loopTime = DEFAULT_LOOP_TIME,
   hidden,
+  autoRestart = false,
 }: GreetingBubbleProps) => {
   const [displayText, setDisplayText] = useState('')
 
@@ -32,9 +34,11 @@ const GreetingBubble = ({
           if (typingTimer) {
             window.clearInterval(typingTimer)
           }
-          loopTimer = window.setTimeout(() => {
-            startTyping()
-          }, loopTime)
+          if (autoRestart) {
+            loopTimer = window.setTimeout(() => {
+              startTyping()
+            }, loopTime)
+          }
         }
       }, 80)
     }
@@ -49,7 +53,7 @@ const GreetingBubble = ({
         window.clearTimeout(loopTimer)
       }
     }
-  }, [greeting, loopTime, hidden])
+  }, [greeting, loopTime, hidden, autoRestart])
 
   if (hidden) return null
 
