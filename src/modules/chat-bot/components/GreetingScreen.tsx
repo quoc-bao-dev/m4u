@@ -102,8 +102,8 @@ const GreetingScreen = ({
           ) : (
             <p
               className={`${
-                isMobile ? 'text-xs' : 'text-sm'
-              } text-center whitespace-break-spaces w-[297px]`}
+                isMobile ? 'text-lg' : 'text-sm'
+              } text-center whitespace-break-spaces w-[360px]  md:w-[297px]`}
             >
               {packbotIntro?.data.content}
             </p>
