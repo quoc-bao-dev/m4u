@@ -43,7 +43,8 @@
     "liveStream": {
       "membersOnline": "Members online",
       "singleMoms": "Reviewer",
-      "participatingInGroup": "participating in experience group"
+      "participatingInGroup": "participating in experience group",
+      "videoReview": "Video Review"
     }
   },
   "donation": {
@@ -887,6 +888,8 @@
     "registerTrial": "Register for trial",
     "buyNow": "Buy now",
     "active": "Active",
-    "featureInDevelopment": "This feature is under development. Please check back later."
+    "featureInDevelopment": "This feature is under development. Please check back later.",
+    "selectOneAnswer": "(Please select 1 answer)",
+    "confirm": "Confirm"
   }
 }
