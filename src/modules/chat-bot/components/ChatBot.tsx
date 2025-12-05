@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { memo, useEffect, useRef, useState } from 'react'
 import { useHandleScript } from '../hooks'
 import { chatStore } from '../store/chatStore'
+import { chatbotCloseStore } from '../store/chatbotCloseStore'
 import ChatContent from './ChatContent'
 import GreetingBubble from './GreetingBubble'
 import GreetingScreen from './GreetingScreen'
@@ -20,7 +21,25 @@ const CHATBOT_AUTO_OPEN_DISABLED_KEY = 'chatbot_auto_open_disabled'
 const delay = (ms: number = PENDING_TIME) =>
   new Promise((resolve) => setTimeout(resolve, ms))
 
+// Helper function to get today's date string (YYYY-MM-DD)
+const getTodayDateString = () => {
+  const today = new Date()
+  return today.toISOString().split('T')[0]
+}
+
 function ChatBot() {
+  // Get date from store
+  const date = chatbotCloseStore((state) => state.date)
+  const isShowClose = chatbotCloseStore((state) => state.isShowClose)
+
+  // Calculate shouldShow based on date
+  const shouldShow = (() => {
+    // if (date === null) return false
+    const today = getTodayDateString()
+
+    return date !== today
+  })()
+
   const locale = useLocale()
   const { isMobile } = useDevice()
   const t = useTranslations('chatBot')
@@ -112,6 +131,12 @@ function ChatBot() {
         isweb: 1,
       },
     })
+    if (
+      response.data.show_end_script === 1 ||
+      Boolean(response.data.show_end_script) === true
+    ) {
+      chatbotCloseStore.getState().setIsShowClose(true)
+    }
     return response.data
   }
 
@@ -270,8 +295,24 @@ function ChatBot() {
       setIsChatOpen(false)
       setShowChatContent(false)
     }
-    // Người dùng đã chủ động tắt popup -> không tự mở lại nữa
-    localStorage.setItem(CHATBOT_AUTO_OPEN_DISABLED_KEY, 'true')
+  }
+
+  // Hàm đóng chat và lưu vào store (chỉ dùng cho nút đóng X)
+  const handleCloseChatWithStorage = () => {
+    if (isMobile) {
+      setIsDrawerAnimating(true)
+      setTimeout(() => {
+        setIsChatOpen(false)
+        setShowChatContent(false)
+        setIsDrawerAnimating(false)
+      }, 300) // Match animation duration
+    } else {
+      setIsChatOpen(false)
+      setShowChatContent(false)
+    }
+    // Lưu ngày đóng vào store
+    const today = getTodayDateString()
+    chatbotCloseStore.getState().setDate(today)
   }
 
   const handleToggleChat = () => {
@@ -315,6 +356,11 @@ function ChatBot() {
   //   return maxBottom - scrollRatio * (maxBottom - minBottom)
   // }
 
+  // Don't render if closed today
+  if (!shouldShow) {
+    return null
+  }
+
   // Mobile drawer version
   if (isMobile) {
     return (
@@ -326,6 +372,40 @@ function ChatBot() {
             style={{ bottom: `20px` }}
           >
             <div className="relative">
+              {isShowClose && (
+                <button
+                  type="button"
+                  onClick={handleCloseChatWithStorage}
+                  className="p-1 rounded-full hover:bg-gray-100/50 border-0 cursor-pointer absolute top-[-4px] right-[-4px] z-10"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="4.59619"
+                      y="6.01029"
+                      width="2"
+                      height="15"
+                      rx="1"
+                      transform="rotate(-45 4.59619 6.01029)"
+                      fill="#525252"
+                    />
+                    <rect
+                      x="15.2026"
+                      y="4.5961"
+                      width="2"
+                      height="15"
+                      rx="1"
+                      transform="rotate(45 15.2026 4.5961)"
+                      fill="#525252"
+                    />
+                  </svg>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={handleToggleChat}
@@ -435,6 +515,41 @@ function ChatBot() {
   return (
     <div className="fixed bottom-[60px] right-6 z-50 hidden md:block">
       <div className="relative">
+        {/* Close button */}
+        {!isChatOpen && isShowClose && (
+          <button
+            type="button"
+            onClick={handleCloseChatWithStorage}
+            className="p-1 rounded-full hover:bg-gray-100/50 border-0 cursor-pointer absolute top-[-2px] right-[-4px] z-10"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="4.59619"
+                y="6.01029"
+                width="2"
+                height="15"
+                rx="1"
+                transform="rotate(-45 4.59619 6.01029)"
+                fill="#525252"
+              />
+              <rect
+                x="15.2026"
+                y="4.5961"
+                width="2"
+                height="15"
+                rx="1"
+                transform="rotate(45 15.2026 4.5961)"
+                fill="#525252"
+              />
+            </svg>
+          </button>
+        )}
         {/* ====== bubble ====== */}
         <button
           type="button"

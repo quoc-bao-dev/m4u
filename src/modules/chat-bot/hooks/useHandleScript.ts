@@ -2,6 +2,7 @@ import axiosInstance from '@/core/http/axiosInstance'
 import { ChatMessageResponse, useChatSession } from '@/services/chat-bot'
 import { useCallback, useRef } from 'react'
 import { chatStore } from '../store/chatStore'
+import { chatbotCloseStore } from '../store'
 
 const PENDING_TIME = 3000
 
@@ -20,6 +21,12 @@ export const useHandleScript = () => {
           isweb: 1,
         },
       })
+      if (
+        response.data.show_end_script === 1 ||
+        Boolean(response.data.show_end_script) === true
+      ) {
+        chatbotCloseStore.getState().setIsShowClose(true)
+      }
       return response.data
     },
     [chatSession?.vsession]
