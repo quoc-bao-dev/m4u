@@ -45,7 +45,8 @@
     "liveStream": {
       "membersOnline": "Thành viên online",
       "singleMoms": "Reviewer",
-      "participatingInGroup": "đang tham gia nhóm trải nghiệm"
+      "participatingInGroup": "đang tham gia nhóm trải nghiệm",
+      "videoReview": "Đánh giá Video"
     }
   },
   "donation": {
@@ -886,6 +887,8 @@
     "registerTrial": "Đăng ký dùng thử",
     "buyNow": "Mua ngay",
     "active": "Đang hoạt động",
-    "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau."
+    "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau.",
+    "selectOneAnswer": "(Hãy chọn 1 đáp án)",
+    "confirm": "Xác nhận"
   }
 }

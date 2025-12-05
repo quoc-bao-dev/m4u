@@ -43,7 +43,8 @@
     "liveStream": {
       "membersOnline": "온라인 회원",
       "singleMoms": "리뷰어",
-      "participatingInGroup": "체험 그룹에 참여 중"
+      "participatingInGroup": "체험 그룹에 참여 중",
+      "videoReview": "비디오 리뷰"
     }
   },
   "donation": {
@@ -884,6 +885,8 @@
     "registerTrial": "체험 신청",
     "buyNow": "지금 구매",
     "active": "활성",
-    "featureInDevelopment": "해당 기능은 개발 중입니다. 나중에 다시 이용해 주세요."
+    "featureInDevelopment": "해당 기능은 개발 중입니다. 나중에 다시 이용해 주세요.",
+    "selectOneAnswer": "(답변 1개를 선택하세요)",
+    "confirm": "확인"
   }
 }

@@ -47,7 +47,7 @@ const HeroSection = () => {
   const isBackground =
     (currentBanner as any)?.is_background === 1 ||
     (currentBanner as any)?.is_background === '1'
-  
+
   // auto advance slide every 5s
   useEffect(() => {
     if (normalized.length <= 1) return

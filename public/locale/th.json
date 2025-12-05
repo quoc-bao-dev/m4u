@@ -43,7 +43,8 @@
     "liveStream": {
       "membersOnline": "สมาชิกออนไลน์",
       "singleMoms": "ผู้รีวิว",
-      "participatingInGroup": "กำลังเข้าร่วมกลุ่มทดลองประสบการณ์"
+      "participatingInGroup": "กำลังเข้าร่วมกลุ่มทดลองประสบการณ์",
+      "videoReview": "รีวิววิดีโอ"
     }
   },
   "donation": {
@@ -895,6 +896,8 @@
     "registerTrial": "ลงทะเบียนทดลองใช้",
     "buyNow": "ซื้อเลย",
     "active": "กำลังใช้งาน",
-    "featureInDevelopment": "ฟีเจอร์นี้อยู่ระหว่างการพัฒนา โปรดกลับมาใหม่ภายหลัง"
+    "featureInDevelopment": "ฟีเจอร์นี้อยู่ระหว่างการพัฒนา โปรดกลับมาใหม่ภายหลัง",
+    "selectOneAnswer": "(กรุณาเลือก 1 คำตอบ)",
+    "confirm": "ยืนยัน"
   }
 }
