@@ -49,15 +49,13 @@ const AvatarStack = ({
             </div>
           ))}
         <div className="size-[40px] lg:size-[64px] rounded-full bg-gray-800 text-white flex items-center justify-center text-lg font-medium">
-          {displayCount >= 1000
-            ? `${Math.floor(displayCount / 1000)}K`
-            : '+' + displayCount}
+          {`1K+`}
         </div>
       </div>
 
       {/* Social Proof Text */}
       <p className="text-sm lg:text-[16px] font-medium text-gray-700">
-        +{displayCount}
+        +{1000}
         {t('trialHero.singleMomsJoined')}
       </p>
     </div>

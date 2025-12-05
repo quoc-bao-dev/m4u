@@ -46,6 +46,7 @@ export type LoginRequest = {
   phone: string
   password: string
   type_login: string
+  vsession?: string
 }
 
 export type SignUpRequest = {

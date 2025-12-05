@@ -1,12 +1,14 @@
+'use client'
+import { useToast } from '@/core/hooks'
+import { useAuth } from '@/modules/auth/stores/useAuth'
+import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
+import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
+import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { ChatMessageItem } from '@/services/chat-bot'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useHandleNext, useHandleScript } from '../hooks'
-import { useAuth } from '@/modules/auth/stores/useAuth'
-import { useCartStore } from '@/modules/trial-registration/stores/useCartStore'
-import { useCartIconStore } from '@/modules/trial-registration/stores/useCartIconStore'
-import useModalRegistration from '@/modules/trial-registration/stores/useModalRegistration'
 import { chatStore } from '../store/chatStore'
 
 const IMAGE_AVATAR = '/chat-bot/Avatar.png'
@@ -48,6 +50,7 @@ const Message = ({
   const t = useTranslations('chatBot')
   const locale = useLocale()
   const router = useRouter()
+  const { showInfo } = useToast()
   const { isAuthenticated } = useAuth()
   const addProductToCart = useCartStore((state) => state.addItem)
   const isItemInCart = useCartStore((state) => state.isItemInCart)
@@ -90,6 +93,10 @@ const Message = ({
   if (event_app === 'result_products_filter') {
     const handleRegisterTrial = () => {
       if (!products) return
+      // Đóng chat box sau khi chuyển hướng sang trang sản phẩm
+      if (onClose) {
+        onClose()
+      }
 
       if (!isAuthenticated) {
         openModalRegistration({
@@ -111,11 +118,10 @@ const Message = ({
       const targetLocale = locale || 'vi'
       const slug = products.slug || String(products.id)
       router.push(`/${targetLocale}/product/${slug}`)
+    }
 
-      // Đóng chat box sau khi chuyển hướng sang trang sản phẩm
-      if (onClose) {
-        onClose()
-      }
+    const handleBuyNow = () => {
+      showInfo(t('featureInDevelopment'))
     }
 
     return (
@@ -173,15 +179,9 @@ const Message = ({
                   <button
                     type="button"
                     onClick={handleRegisterTrial}
-                    className="cursor-pointer w-fit px-3 py-2 rounded-lg border border-[#F466AA] bg-white text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#F466AA] hover:text-white truncate"
-                  >
-                    {t('registerTrial')}
-                  </button>
-                  <button
-                    type="button"
                     className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
                   >
-                    {t('buyNow')}
+                    {t('registerTrial')}
                   </button>
                 </div>
               </div>
@@ -213,7 +213,7 @@ const Message = ({
   )
 }
 
-export default Message
+export default memo(Message)
 
 type RestartSurveyMessageProps = {
   message: string
@@ -228,16 +228,25 @@ const RestartSurveyMessage = ({
 }: RestartSurveyMessageProps) => {
   const t = useTranslations('chatBot')
   const { handleNext } = useHandleNext()
-  const { message: storeMessages, setMessageActive } = chatStore()
+  const {
+    message: storeMessages,
+    setMessageActive,
+    clearMessages,
+    setIsChatBotTyping,
+  } = chatStore()
+
+  const { delay } = useHandleScript()
 
   const currentMessage = storeMessages.find((item) => item.id === messageId)
   const isMessageActive = currentMessage?.active ?? true
 
-  const handleRestart = () => {
+  const handleRestart = async () => {
     if (!isMessageActive) return
-
     if (!next || typeof next !== 'string') return
     setMessageActive(messageId, false)
+    clearMessages()
+    setIsChatBotTyping(true)
+    await delay()
     handleNext(next)
   }
 
@@ -365,7 +374,7 @@ const SelectTextMessage = ({
               type="button"
               onClick={() => handleClick(option)}
               disabled={isDisabled}
-              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors ${
+              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors cursor-pointer ${
                 isSelected ? 'bg-[#F466AA] text-white' : 'bg-[#FFF0F7]'
               } ${
                 isDisabled
@@ -389,6 +398,7 @@ type SelectTabProps = {
 }
 
 const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
+  const t = useTranslations('chatBot')
   const { handleNext } = useHandleNext()
   const {
     message: storeMessages,
@@ -420,6 +430,19 @@ const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
     <div className="w-fit">
       <div className="bg-[#FFF0F7] rounded-[24px] p-4 w-fit">
         <p className="text-sm w-fit">{question}</p>
+        <p
+          className="text-[10px] text-[#737373]"
+          style={{
+            fontFamily: '"TikTok Sans", sans-serif',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            lineHeight: '24px',
+            letterSpacing: '0%',
+            verticalAlign: 'middle',
+          }}
+        >
+          {t('selectOneAnswer')}
+        </p>
         <div className="pt-2 flex flex-wrap gap-2 w-fit">
           {options.map((option) => {
             const isSelected = selectedOptionId === option.id
@@ -476,6 +499,7 @@ const MultiSelectTab = ({
   next,
   messageId,
 }: MultiSelectTabProps) => {
+  const t = useTranslations('chatBot')
   const { handleNext } = useHandleNext()
   const {
     message: storeMessages,
@@ -549,6 +573,19 @@ const MultiSelectTab = ({
     <div className="w-fit">
       <div className="bg-[#FFF0F7] rounded-[24px] p-4 w-fit">
         <p className="text-sm w-fit">{question}</p>
+        <p
+          className="text-[10px] text-[#737373] "
+          style={{
+            fontFamily: '"TikTok Sans", sans-serif',
+            fontWeight: 500,
+            fontStyle: 'italic',
+            lineHeight: '24px',
+            letterSpacing: '0%',
+            verticalAlign: 'middle',
+          }}
+        >
+          (Hãy chọn 1 hoặc nhiều đáp án)
+        </p>
         <div className="flex items-end flex-col gap-2">
           {/* ==== options ==== */}
           <div className="pt-2 flex flex-wrap gap-2">
@@ -596,12 +633,13 @@ const MultiSelectTab = ({
             type="button"
             onClick={handleSubmit}
             disabled={!hasSelection || !isMessageActive}
-            className={`flex items-center justify-center size-[32px] rounded-lg transition-colors flex-shrink-0 ${
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-colors flex-shrink-0 ${
               hasSelection && isMessageActive
                 ? 'bg-[#F466AA] text-white cursor-pointer'
                 : 'bg-[#A3A3A3] text-white cursor-not-allowed'
             }`}
           >
+            <p className="text-sm font-medium">{t('confirm')}</p>
             {iconSend}
           </button>
         </div>

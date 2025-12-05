@@ -11,7 +11,7 @@ interface MobileLiveStreamBarProps {
 
 const MobileLiveStreamBar = ({ isVisible }: MobileLiveStreamBarProps) => {
   const t = useTranslations('hero.liveStream')
-
+  return null
   return (
     <AnimatePresence>
       {isVisible && (

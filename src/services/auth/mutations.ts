@@ -1,6 +1,7 @@
 import { tokenManager } from '@/core/http/axiosInstance'
 import { useRouter } from '@/locale'
 import { useAuth } from '@/modules/auth'
+import { chatStore } from '@/modules/chat-bot/store/chatStore'
 import { authApi } from '@/services/auth/api'
 import {
   LoginRequest,
@@ -8,14 +9,19 @@ import {
   SignUpRequest,
 } from '@/services/auth/type'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useChatSession } from '../chat-bot'
 
 export const useLogin = () => {
   const { setUser } = useAuth()
   const queryClient = useQueryClient()
+  const { data: chatSession } = useChatSession()
 
   return useMutation({
     mutationFn: async (data: LoginRequest) => {
-      const response = await authApi.login(data)
+      const response = await authApi.login({
+        ...data,
+        vsession: chatSession?.vsession,
+      })
       return response.data
     },
     onSuccess: async (response: LoginResponse) => {
@@ -44,12 +50,28 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
+  const { clearMessages } = chatStore()
   return useMutation({
     mutationFn: async (token: string) => {
       const response = await authApi.logout(token)
       return response.data
     },
     onSuccess: async () => {
+      // Clear chat messages
+      clearMessages()
+
+      // Remove chat session from localStorage
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem('chat-session')
+        window.localStorage.removeItem('chatbot_closed_date')
+      }
+
+      // Invalidate chat-session query to get new vsession
+      await queryClient.invalidateQueries({ queryKey: ['chat-session'] })
+
+      // Refetch new session immediately
+      await queryClient.refetchQueries({ queryKey: ['chat-session'] })
+
       queryClient.invalidateQueries({ queryKey: ['product-list'] })
       router.push('/')
     },

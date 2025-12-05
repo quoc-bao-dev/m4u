@@ -43,7 +43,8 @@
     "liveStream": {
       "membersOnline": "Members online",
       "singleMoms": "Reviewer",
-      "participatingInGroup": "participating in experience group"
+      "participatingInGroup": "participating in experience",
+      "videoReview": "Video Review"
     }
   },
   "donation": {
@@ -880,10 +881,15 @@
   },
   "chatBot": {
     "greeting": "Hello, I'm Packbot",
+    "greetingIntro": "I'm Packbot.",
+    "greetingSuggest": "I'll suggest the right sheet mask for you.",
     "startSurvey": "Start survey",
     "restartSurvey": "Restart survey",
     "registerTrial": "Register for trial",
     "buyNow": "Buy now",
-    "active": "Active"
+    "active": "Active",
+    "featureInDevelopment": "This feature is under development. Please check back later.",
+    "selectOneAnswer": "(Please select 1 answer)",
+    "confirm": "Confirm"
   }
 }

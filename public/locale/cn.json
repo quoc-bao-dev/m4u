@@ -43,7 +43,8 @@
     "liveStream": {
       "membersOnline": "在线成员",
       "singleMoms": "评测者",
-      "participatingInGroup": "参与体验小组"
+      "participatingInGroup": "参与体验",
+      "videoReview": "视频评论"
     }
   },
   "donation": {
@@ -880,10 +881,15 @@
   },
   "chatBot": {
     "greeting": "你好，我是Packbot",
+    "greetingIntro": "你好，我是 Packbot。",
+    "greetingSuggest": "我会为你推荐适合你的面膜。",
     "startSurvey": "开始调查",
     "restartSurvey": "重新开始问卷",
     "registerTrial": "注册试用",
     "buyNow": "立即购买",
-    "active": "在线"
+    "active": "在线",
+    "featureInDevelopment": "该功能正在开发中，请稍后再试。",
+    "selectOneAnswer": "(请选择1个答案)",
+    "confirm": "确认"
   }
 }

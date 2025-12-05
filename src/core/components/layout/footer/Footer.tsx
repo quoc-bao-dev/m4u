@@ -60,7 +60,9 @@ const Footer = ({ className }: FooterProps) => {
                   </div>
                 </div>
               </div>
-              <p className='text-xs text-gray-100 mt-2'>{t('headOffice')}: {info?.contact_address_head_office}</p>
+              <p className="text-xs text-gray-100 mt-2">
+                {t('headOffice')}: {info?.contact_address_head_office}
+              </p>
             </div>
 
             {/* Right: Sitemap + social */}
@@ -157,12 +159,49 @@ const Footer = ({ className }: FooterProps) => {
                     />
                   </svg>
                 </a>
+
+                <a
+                  href={info?.link_contact_tiktok}
+                  aria-label="Facebook"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_21583_3078)">
+                      <path
+                        d="M16.4608 4.00883C15.4105 3.30649 14.6531 2.18226 14.4164 0.872401C14.3655 0.58946 14.3372 0.297991 14.3372 0H10.9858L10.9804 13.7798C10.9242 15.3229 9.68611 16.5616 8.16884 16.5616C7.69698 16.5616 7.253 16.4407 6.86182 16.2295C5.96505 15.7454 5.3514 14.7811 5.3514 13.6715C5.3514 12.0777 6.61538 10.7808 8.16835 10.7808C8.45831 10.7808 8.73653 10.83 8.9996 10.9143V7.40412C8.72724 7.36599 8.45048 7.34241 8.16835 7.34241C4.76708 7.34241 2 10.1814 2 13.6715C2 15.8126 3.04248 17.7074 4.63359 18.8532C5.63549 19.5751 6.85449 20 8.16884 20C11.5701 20 14.3372 17.1611 14.3372 13.6715V6.68372C15.6515 7.65144 17.2622 8.22184 19 8.22184V4.7834C18.0641 4.7834 17.1923 4.49796 16.4608 4.00883Z"
+                        fill="white"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_21583_3078">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </a>
+                <a
+                  href={info?.link_contact_shoppe}
+                  aria-label="Facebook"
+                  className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+                >
+                  <img
+                    src="/image/icon/shopee.png"
+                    alt=""
+                    className="size-[20px]"
+                  />
+                </a>
               </div>
             </div>
           </Grid>
 
           {/* Bottom: copyright */}
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div className="flex items-center justify-between pt-2 text-xs text-gray-100 opacity-80">
               <p>{t('copyright')}</p>
               <div className="hidden md:flex items-center gap-4" />
@@ -214,6 +253,43 @@ const Footer = ({ className }: FooterProps) => {
                     fill="currentColor"
                   />
                 </svg>
+              </a>
+
+              <a
+                href={info?.link_contact_tiktok}
+                aria-label="Facebook"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_21583_3078)">
+                    <path
+                      d="M16.4608 4.00883C15.4105 3.30649 14.6531 2.18226 14.4164 0.872401C14.3655 0.58946 14.3372 0.297991 14.3372 0H10.9858L10.9804 13.7798C10.9242 15.3229 9.68611 16.5616 8.16884 16.5616C7.69698 16.5616 7.253 16.4407 6.86182 16.2295C5.96505 15.7454 5.3514 14.7811 5.3514 13.6715C5.3514 12.0777 6.61538 10.7808 8.16835 10.7808C8.45831 10.7808 8.73653 10.83 8.9996 10.9143V7.40412C8.72724 7.36599 8.45048 7.34241 8.16835 7.34241C4.76708 7.34241 2 10.1814 2 13.6715C2 15.8126 3.04248 17.7074 4.63359 18.8532C5.63549 19.5751 6.85449 20 8.16884 20C11.5701 20 14.3372 17.1611 14.3372 13.6715V6.68372C15.6515 7.65144 17.2622 8.22184 19 8.22184V4.7834C18.0641 4.7834 17.1923 4.49796 16.4608 4.00883Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_21583_3078">
+                      <rect width="20" height="20" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+              <a
+                href={info?.link_contact_shoppe}
+                aria-label="Facebook"
+                className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer z-50 relative"
+              >
+                <img
+                  src="/image/icon/shopee.png"
+                  alt=""
+                  className="size-[20px]"
+                />
               </a>
             </div>
           </div>

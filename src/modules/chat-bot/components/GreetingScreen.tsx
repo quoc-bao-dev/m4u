@@ -1,6 +1,7 @@
 import { usePackbotIntro } from '@/services/chat-bot'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type GreetingScreenProps = {
   onStart: () => void
@@ -18,7 +19,7 @@ const GreetingScreen = ({
   const [isVisible, setIsVisible] = useState(false)
   const t = useTranslations('chatBot')
 
-  const { data: packbotIntro } = usePackbotIntro()
+  const { data: packbotIntro, isLoading } = usePackbotIntro()
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -86,13 +87,27 @@ const GreetingScreen = ({
         />
 
         <div className="flex gap-2 items-start">
-          <p
-            className={`${
-              isMobile ? 'text-xs' : 'text-sm'
-            } text-center whitespace-break-spaces w-[297px]`}
-          >
-            {packbotIntro?.data.content}
-          </p>
+          {isLoading ? (
+            <div className="flex flex-col gap-2 w-[297px]">
+              <Skeleton
+                className={`${isMobile ? 'h-3' : 'h-4'} w-full rounded`}
+              />
+              <Skeleton
+                className={`${isMobile ? 'h-3' : 'h-4'} w-5/6 mx-auto rounded`}
+              />
+              <Skeleton
+                className={`${isMobile ? 'h-3' : 'h-4'} w-4/5 mx-auto rounded`}
+              />
+            </div>
+          ) : (
+            <p
+              className={`${
+                isMobile ? 'text-xs' : 'text-sm'
+              } text-center whitespace-break-spaces w-[297px]`}
+            >
+              {packbotIntro?.data.content}
+            </p>
+          )}
         </div>
 
         <div className="mx-auto">

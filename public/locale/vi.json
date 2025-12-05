@@ -45,7 +45,8 @@
     "liveStream": {
       "membersOnline": "Thành viên online",
       "singleMoms": "Reviewer",
-      "participatingInGroup": "đang tham gia nhóm trải nghiệm"
+      "participatingInGroup": "đang tham gia trải nghiệm",
+      "videoReview": "Đánh giá Video"
     }
   },
   "donation": {
@@ -879,10 +880,15 @@
   },
   "chatBot": {
     "greeting": "Packbot xin chào",
+    "greetingIntro": "Tôi là Packbot.",
+    "greetingSuggest": "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn.",
     "startSurvey": "Bắt đầu khảo sát",
     "restartSurvey": "Làm lại khảo sát",
     "registerTrial": "Đăng ký dùng thử",
     "buyNow": "Mua ngay",
-    "active": "Đang hoạt động"
+    "active": "Đang hoạt động",
+    "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau.",
+    "selectOneAnswer": "(Hãy chọn 1 đáp án)",
+    "confirm": "Xác nhận"
   }
 }

@@ -9,7 +9,7 @@ import { Link } from '@/locale'
 import { PauseIcon, PlayIcon, StarIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Ref, useCallback, useEffect, useRef, useState } from 'react'
+import { memo, Ref, useCallback, useEffect, useRef, useState } from 'react'
 import apiReviewHub from '@/services/review-hub/api'
 
 interface TopReviewerCardProps {
@@ -47,7 +47,12 @@ const TopReviewerCard = ({
   const scrollStartLeftRef = useRef<number>(0)
   const [isDraggingState, setIsDraggingState] = useState<boolean>(false)
   const videoRefs = useRef<HTMLVideoElement[]>([])
+  const preloadVideoRefs = useRef<HTMLVideoElement[]>([])
+  const pendingPlayIndexRef = useRef<number | null>(null)
   const [playingIndex, setPlayingIndex] = useState<number | null>(null)
+  const [loadedVideos, setLoadedVideos] = useState<Set<number>>(new Set())
+  const [preloadedVideos, setPreloadedVideos] = useState<Set<number>>(new Set())
+  const [pendingPlayIndex, setPendingPlayIndex] = useState<number | null>(null)
   const [reviews, setReviews] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
@@ -57,6 +62,12 @@ const TopReviewerCard = ({
   const isIPhone = useCallback(() => {
     // return true
     return /iPhone|iPod|iPad/.test(navigator.userAgent)
+  }, [])
+
+  // Helper to set pending play index (sync state and ref)
+  const setPendingPlayIndexSync = useCallback((index: number | null) => {
+    pendingPlayIndexRef.current = index
+    setPendingPlayIndex(index)
   }, [])
 
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -79,22 +90,67 @@ const TopReviewerCard = ({
     setIsDraggingState(false)
   }, [])
 
+  // Preload video on hover (but don't display video element, keep showing thumbnail)
+  const handleHoverVideo = useCallback(
+    (index: number) => {
+      // Preload video on hover (but don't display video element, keep showing thumbnail)
+      if (!preloadedVideos.has(index) && !loadedVideos.has(index)) {
+        setPreloadedVideos((prev) => new Set(prev).add(index))
+      }
+    },
+    [preloadedVideos, loadedVideos]
+  )
+
   // Video controls (similar to TopReviewer)
   const handlePlayVideo = useCallback(
     (index: number) => {
-      const target = videoRefs.current[index]
-      if (!target) return
-
-      // Toggle pause if clicking the currently playing video
-      if (!target.paused && playingIndex === index) {
-        try {
-          target.pause()
-          setPlayingIndex(null)
-        } catch {}
-        return
+      // If clicking the currently playing video, pause (toggle off)
+      if (playingIndex === index) {
+        const target = videoRefs.current[index]
+        if (target && !target.paused) {
+          try {
+            target.pause()
+            setPlayingIndex(null)
+            setPendingPlayIndexSync(null)
+          } catch {}
+          return
+        }
       }
 
-      // Pause others
+      // Mark video as loaded immediately when user clicks play
+      // This will trigger re-render to show video element
+      const wasLoaded = loadedVideos.has(index)
+      if (!wasLoaded) {
+        setLoadedVideos((prev) => new Set(prev).add(index))
+        // Mark this video as pending play - will auto-play when mounted
+        setPendingPlayIndexSync(index)
+      } else {
+        // Video already loaded, play immediately
+        const target = videoRefs.current[index]
+        if (target) {
+          // Pause all other videos (both displayed and preloaded)
+          videoRefs.current.forEach((video, i) => {
+            if (video && i !== index) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
+          preloadVideoRefs.current.forEach((video, i) => {
+            if (video && i !== index) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
+          try {
+            target.play()
+            setPlayingIndex(index)
+          } catch {}
+        }
+      }
+
+      // Pause all other videos (both displayed and preloaded)
       videoRefs.current.forEach((video, i) => {
         if (video && i !== index) {
           try {
@@ -102,13 +158,15 @@ const TopReviewerCard = ({
           } catch {}
         }
       })
-
-      try {
-        target.play()
-        setPlayingIndex(index)
-      } catch {}
+      preloadVideoRefs.current.forEach((video, i) => {
+        if (video && i !== index) {
+          try {
+            video.pause()
+          } catch {}
+        }
+      })
     },
-    [playingIndex]
+    [playingIndex, loadedVideos]
   )
 
   // Hover play/pause per video tile (disabled for iPhone mode)
@@ -133,29 +191,79 @@ const TopReviewerCard = ({
   //   } catch { }
   // }, [isIPhone])
 
+  // Auto-play pending video when it's loaded
+  useEffect(() => {
+    if (pendingPlayIndex === null) return
+    if (!loadedVideos.has(pendingPlayIndex)) return
+    if (isIPhone()) return
+
+    // Wait for video element to be rendered, then play
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const target = videoRefs.current[pendingPlayIndex]
+        if (target) {
+          // Pause all other videos (both displayed and preloaded)
+          videoRefs.current.forEach((video, i) => {
+            if (video && i !== pendingPlayIndex) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
+          preloadVideoRefs.current.forEach((video, i) => {
+            if (video && i !== pendingPlayIndex) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
+          try {
+            target.play()
+            setPlayingIndex(pendingPlayIndex)
+            setPendingPlayIndexSync(null)
+          } catch {}
+        }
+      }, 50)
+    })
+  }, [pendingPlayIndex, loadedVideos, isIPhone, setPendingPlayIndexSync])
+
   // Autoplay/pause based on viewport visibility
   useEffect(() => {
     if (!reviews || reviews.length === 0) return
     const firstVideoIndex = 0
-    const first = videoRefs.current[firstVideoIndex]
-    if (!first) return
 
     // Disable autoplay on iPhone
     if (isIPhone()) return
 
     if (isInView) {
-      // Pause others just in case
-      videoRefs.current.forEach((video, i) => {
-        if (video && i !== firstVideoIndex) {
+      // Wait for video element to be rendered, then play
+      // Use requestAnimationFrame to ensure DOM is updated
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const first = videoRefs.current[firstVideoIndex]
+          if (!first) return
+
+          // Pause others just in case (both displayed and preloaded)
+          videoRefs.current.forEach((video, i) => {
+            if (video && i !== firstVideoIndex) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
+          preloadVideoRefs.current.forEach((video, i) => {
+            if (video && i !== firstVideoIndex) {
+              try {
+                video.pause()
+              } catch {}
+            }
+          })
           try {
-            video.pause()
+            first.play()
+            setPlayingIndex(firstVideoIndex)
           } catch {}
-        }
+        }, 50)
       })
-      try {
-        first.play()
-        setPlayingIndex(firstVideoIndex)
-      } catch {}
     } else {
       // Pause all when out of view
       videoRefs.current.forEach((video) => {
@@ -167,7 +275,7 @@ const TopReviewerCard = ({
       })
       setPlayingIndex(null)
     }
-  }, [reviews, isInView, isIPhone])
+  }, [reviews, isInView, isIPhone, loadedVideos])
 
   // Init reviews and pagination from data prop
   useEffect(() => {
@@ -180,7 +288,20 @@ const TopReviewerCard = ({
       setCurrentPage(1)
       setLastPage(1)
     }
-  }, [data])
+    // Reset loaded videos when reviews change
+    setLoadedVideos(new Set())
+    setPreloadedVideos(new Set())
+    setPlayingIndex(null)
+    setPendingPlayIndexSync(null)
+  }, [data, setPendingPlayIndexSync])
+
+  // Load first video immediately when reviews are available
+  useEffect(() => {
+    if (reviews && reviews.length > 0) {
+      // Load first video immediately
+      setLoadedVideos((prev) => new Set(prev).add(0))
+    }
+  }, [reviews.length])
 
   const loadMore = useCallback(async () => {
     if (!data?.id) return
@@ -341,6 +462,7 @@ const TopReviewerCard = ({
                   e.stopPropagation()
                   handlePlayVideo(index)
                 }}
+                onMouseEnter={() => handleHoverVideo(index)}
                 // onMouseEnter={() => handleHoverStart(index)}
                 // onMouseLeave={() => handleHoverEnd(index)}
               >
@@ -374,39 +496,144 @@ const TopReviewerCard = ({
                     />
                   )}
                 </div>
-                <video
-                  ref={(el) => {
-                    if (el) {
-                      videoRefs.current[index] = el
-                      // Force inline playback across legacy browsers
-                      try {
-                        el.setAttribute('playsinline', 'true')
-                        ;(el as any).playsInline = true
-                        el.setAttribute('webkit-playsinline', 'true')
-                        el.setAttribute('x5-playsinline', 'true')
-                        el.setAttribute('x5-video-player-type', 'h5')
-                        el.setAttribute('x-webkit-airplay', 'allow')
-                        // Restrict fullscreen and remote playback via attributes as a best-effort
-                        el.setAttribute(
-                          'controlslist',
-                          'nofullscreen noremoteplayback nodownload noplaybackrate'
-                        )
-                        el.setAttribute('disablepictureinpicture', 'true')
-                      } catch {}
-                    }
-                  }}
-                  src={kol.video_review}
-                  autoPlay={false}
-                  muted
-                  loop
-                  playsInline
-                  controls={false}
-                  controlsList="nofullscreen noremoteplayback nodownload noplaybackrate"
-                  disablePictureInPicture
-                  width={1000}
-                  height={1000}
-                  className="size-[100px] 2xl:size-[140px] min-w-[100px] 2xl:min-w-[140px] object-cover rounded-xl flex-shrink-0 bg-[#DCE5E5]"
-                />
+                {/* Hidden video element for preloading on hover */}
+                {preloadedVideos.has(index) && !loadedVideos.has(index) && (
+                  <video
+                    ref={(el) => {
+                      if (el) {
+                        preloadVideoRefs.current[index] = el
+                        try {
+                          el.setAttribute('playsinline', 'true')
+                          ;(el as any).playsInline = true
+                          el.setAttribute('preload', 'auto')
+                          el.setAttribute('muted', 'true')
+                        } catch {}
+                      }
+                    }}
+                    src={kol.video_review_render ?? kol.video_review}
+                    preload="auto"
+                    muted
+                    className="hidden"
+                    style={{ display: 'none' }}
+                  />
+                )}
+                {loadedVideos.has(index) ? (
+                  <video
+                    ref={(el) => {
+                      if (el) {
+                        videoRefs.current[index] = el
+                        // Force inline playback across legacy browsers
+                        try {
+                          el.setAttribute('playsinline', 'true')
+                          ;(el as any).playsInline = true
+                          el.setAttribute('webkit-playsinline', 'true')
+                          el.setAttribute('x5-playsinline', 'true')
+                          el.setAttribute('x5-video-player-type', 'h5')
+                          el.setAttribute('x-webkit-airplay', 'allow')
+                          // If video was preloaded, use metadata to speed up play
+                          el.setAttribute(
+                            'preload',
+                            preloadedVideos.has(index) ? 'metadata' : 'none'
+                          )
+                          // Restrict fullscreen and remote playback via attributes as a best-effort
+                          el.setAttribute(
+                            'controlslist',
+                            'nofullscreen noremoteplayback nodownload noplaybackrate'
+                          )
+                          el.setAttribute('disablepictureinpicture', 'true')
+                        } catch {}
+
+                        // Auto-play immediately if this video is pending play
+                        if (
+                          pendingPlayIndexRef.current === index &&
+                          !isIPhone()
+                        ) {
+                          // Pause all other videos (both displayed and preloaded)
+                          videoRefs.current.forEach((video, i) => {
+                            if (video && i !== index) {
+                              try {
+                                video.pause()
+                              } catch {}
+                            }
+                          })
+                          preloadVideoRefs.current.forEach((video, i) => {
+                            if (video && i !== index) {
+                              try {
+                                video.pause()
+                              } catch {}
+                            }
+                          })
+
+                          // Function to play video
+                          const playVideo = () => {
+                            // Pause all other videos again before playing (safety check)
+                            videoRefs.current.forEach((video, i) => {
+                              if (video && i !== index) {
+                                try {
+                                  video.pause()
+                                } catch {}
+                              }
+                            })
+                            preloadVideoRefs.current.forEach((video, i) => {
+                              if (video && i !== index) {
+                                try {
+                                  video.pause()
+                                } catch {}
+                              }
+                            })
+                            try {
+                              el.play()
+                              setPlayingIndex(index)
+                              setPendingPlayIndexSync(null)
+                            } catch {}
+                          }
+
+                          // Try to play immediately
+                          if (el.readyState >= 2) {
+                            // Video has loaded enough data to play
+                            playVideo()
+                          } else {
+                            // Wait for video to be ready
+                            const onCanPlay = () => {
+                              playVideo()
+                              el.removeEventListener('canplay', onCanPlay)
+                            }
+                            el.addEventListener('canplay', onCanPlay)
+
+                            // Also try after a short delay as fallback
+                            setTimeout(() => {
+                              if (pendingPlayIndexRef.current === index) {
+                                playVideo()
+                                el.removeEventListener('canplay', onCanPlay)
+                              }
+                            }, 100)
+                          }
+                        }
+                      }
+                    }}
+                    src={kol.video_review_render ?? kol.video_review}
+                    poster={kol.small_image_video_review}
+                    autoPlay={false}
+                    muted
+                    loop
+                    playsInline
+                    controls={false}
+                    controlsList="nofullscreen noremoteplayback nodownload noplaybackrate"
+                    preload={preloadedVideos.has(index) ? 'metadata' : 'none'}
+                    disablePictureInPicture
+                    width={1000}
+                    height={1000}
+                    className="size-[100px] 2xl:size-[140px] min-w-[100px] 2xl:min-w-[140px] object-cover rounded-xl flex-shrink-0 bg-[#DCE5E5]"
+                  />
+                ) : (
+                  <Image
+                    src={kol.small_image_video_review || IMAGES.topProduct}
+                    alt="video-thumbnail"
+                    width={1000}
+                    height={1000}
+                    className="size-[100px] 2xl:size-[140px] min-w-[100px] 2xl:min-w-[140px] object-cover rounded-xl flex-shrink-0 bg-[#DCE5E5]"
+                  />
+                )}
               </div>
             ))}
             {isLoadingMore && (
@@ -419,4 +646,4 @@ const TopReviewerCard = ({
   )
 }
 
-export default TopReviewerCard
+export default memo(TopReviewerCard)
