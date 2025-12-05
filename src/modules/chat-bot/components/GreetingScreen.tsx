@@ -9,7 +9,7 @@ type GreetingScreenProps = {
   isMobile?: boolean
 }
 
-const IMAGE_GREETING = '/chat-bot/greeting.png'
+const IMAGE_GREETING = '/chat-bot/pack-bot.gif'
 
 const GreetingScreen = ({
   onStart,
