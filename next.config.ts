@@ -6,33 +6,38 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.ts')
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: false,
-  eslint: {
-    // Ignore ESLint errors during production builds
-    ignoreDuringBuilds: true,
-  },
+  // eslint: {
+  //   // Ignore ESLint errors during production builds
+  //   ignoreDuringBuilds: true,
+  // },
   typescript: {
     // Allow production builds to successfully complete even if there are type errors
     ignoreBuildErrors: true,
   },
   experimental: {
     optimizePackageImports: ['@phosphor-icons/react'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
   images: {
-    domains: [
-      'm4u-admin.fmrp.vn',
-      '192.168.1.199',
-      'admin.maskforyou.vn',
-      'accounts.maskforyou.vn',
-      'admin.maskforyou.vn',
-      'services.maskforyou.vn',
+    remotePatterns: [
+      { protocol: "https", hostname: "m4u-admin.fmrp.vn" },
+      { protocol: "http", hostname: "192.168.1.199" },
+      { protocol: "https", hostname: "admin.maskforyou.vn" },
+      { protocol: "https", hostname: "accounts.maskforyou.vn" },
+      { protocol: "https", hostname: "services.maskforyou.vn" },
+      // 'm4u-admin.fmrp.vn',
+      // '192.168.1.199',
+      // 'admin.maskforyou.vn',
+      // 'accounts.maskforyou.vn',
+      // 'admin.maskforyou.vn',
+      // 'services.maskforyou.vn',
     ],
   },
   webpack(config) {

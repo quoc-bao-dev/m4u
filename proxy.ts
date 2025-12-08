@@ -16,7 +16,7 @@ const intlMiddleware = createMiddleware({
   alternateLinks: false,
 })
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Handle root path explicitly for better iPhone compatibility
   if (request.nextUrl.pathname === '/') {
     const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
