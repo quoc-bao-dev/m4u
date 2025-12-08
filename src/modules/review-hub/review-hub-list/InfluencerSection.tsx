@@ -12,7 +12,7 @@ const Influencer = () => {
       {/* Left: Image */}
       <div className="relative w-full md:w-1/2 aspect-[845/600] overflow-hidden rounded-3xl">
         <Image
-          src="/image/influencer/image-04.png?v=1"
+          src="/image/influencer/image-05.png"
           alt="influencer"
           fill
           className="object-cover"
