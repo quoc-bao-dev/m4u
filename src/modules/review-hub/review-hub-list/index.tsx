@@ -27,9 +27,9 @@ const ReviewHub = () => {
         <NodataReviewhub />
       ) : (
         <div className='w-full flex flex-col gap-6 xl:gap-12'>
-          {/* <TopReviewer isLoading={isLoading} data={data?.[0]} /> */}
+          <TopReviewer isLoading={isLoading} data={data?.[0]} />
           <div className="px-3 lg:px-0 w-full flex flex-col gap-6 xl:gap-12">
-            {/* <RankingList products={data?.slice(1) ?? []} isLoading={isLoading} /> */}
+            <RankingList products={data?.slice(1) ?? []} isLoading={isLoading} />
             <Influencer />
           </div>
         </div>
