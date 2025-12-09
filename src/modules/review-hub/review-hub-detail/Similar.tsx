@@ -2,6 +2,7 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import Rating from '@/core/components/common/Rating'
 import { useDevice } from '@/core/hooks'
+import { useForMobileApp } from '@/core/hooks/useForMobileApp'
 import { withAlpha } from '@/core/utils'
 import { Link } from '@/locale'
 import { StarIcon } from '@phosphor-icons/react'
@@ -44,6 +45,7 @@ const Similar = ({
   const { isMobile, isTablet } = useDevice()
   const tProduct = useTranslations('product')
   const firstVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
+  const forMobileApp = useForMobileApp()
 
   if (isError || (!isLoading && data?.length === 0)) {
     return null
@@ -64,7 +66,9 @@ const Similar = ({
           data?.map((product: any) => (
             <Link
               key={product.id}
-              href={`/review-hub/${product.slug}`}
+              href={`/review-hub${forMobileApp ? '/for-mobile-app' : ''}/${
+                product.slug
+              }`}
               className="group flex flex-col lg:flex-row gap-3 lg:gap-5 w-full"
             >
               <div className="bg-white rounded-3xl w-full aspect-square xl:aspect-auto lg:h-[324px] xl:h-[475px] 2xl:h-[610px] group-hover:shadow-[0px_8px_24px_0px_#00000014] transition-all duration-300">
