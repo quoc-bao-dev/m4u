@@ -26,12 +26,20 @@ type InfoKolModalProps = {
   slug?: string
 }
 
-const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }) => {
+const InfoKolModal: React.FC<InfoKolModalProps> = ({
+  isOpen,
+  onClose,
+  id,
+  slug,
+}) => {
   const tProduct = useTranslations('product')
   const tNodataReviewhub = useTranslations('nodataReviewhub')
   const { t } = useTranslation()
   const { isDesktop, isMobile } = useDevice()
-  const { isLoading, data: productReview } = useGetProductReview(id || 0, isOpen)
+  const { isLoading, data: productReview } = useGetProductReview(
+    id || 0,
+    isOpen
+  )
   const queryClient = useQueryClient()
   type MediaItem = { type: 'video' | 'image'; src: string }
 
@@ -82,7 +90,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
       resizeObserver.observe(targetEl)
     } else {
       if (typeof window !== 'undefined') {
-        ; (window as any).addEventListener('resize', updateHeight)
+        ;(window as any).addEventListener('resize', updateHeight)
       }
     }
 
@@ -91,7 +99,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
         resizeObserver.disconnect()
       } else {
         if (typeof window !== 'undefined') {
-          ; (window as any).removeEventListener('resize', updateHeight)
+          ;(window as any).removeEventListener('resize', updateHeight)
         }
       }
     }
@@ -104,7 +112,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
     const play = async () => {
       try {
         await mainVideoRef.current?.play()
-      } catch { }
+      } catch {}
     }
     play()
   }, [activeItem, isOpen])
@@ -148,7 +156,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
       position={isDesktop ? 'center' : 'bottom'}
       isOpen={isOpen}
       onClose={onClose}
-      className="max-w-4xl xl:max-w-5xl bg-white p-3 lg:p-5 max-h-[80vh] overflow-y-auto scroll-hidden xl:max-h-none xl:p-10"
+      className="max-w-4xl xl:max-w-5xl bg-white p-3 lg:p-5 max-h-[90vh] overflow-y-auto scroll-hidden xl:max-h-none xl:p-10"
     >
       <div className="flex flex-col-reverse lg:grid grid-cols-9 gap-4 lg:gap-6 xl:gap-10 h-full">
         <div className="col-span-5 flex gap-3 lg:gap-4">
@@ -156,54 +164,65 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
             className="flex flex-col gap-3 flex-shrink-0 overflow-auto scroll-hidden"
             style={{ maxHeight: mainVideoHeight || undefined }}
           >
-            {isLoading ? (
-              Array.from({ length: 5 }).map((_, idx) => (
-                <Skeleton key={idx} className="flex-shrink-0 size-[64px] lg:size-[120px] rounded-lg lg:rounded-2xl" />
-              ))
-            ) : (
-              mediaSources.map((item, idx) => (
-                <div key={`${item.src}-${idx}`} className={`rounded-lg lg:rounded-2xl border ${activeIndex === idx ? ' border-pink-500' : 'border-transparent'}`}>
-                  {item.type === 'video' ? (
-                    <video
-                      src={item.src}
-                      muted
-                      loop
-                      playsInline
-                      width={1000}
-                      height={1000}
-                      onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
-                        setActiveIndex(idx)
-                        if (!isMobile) {
-                          e.currentTarget.scrollIntoView({
-                            block: 'center',
-                            inline: 'nearest',
-                            behavior: 'smooth',
-                          })
-                        }
-                      }}
-                      className={`size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer`}
-                    />
-                  ) : (
-                    <Image
-                      src={item.src}
-                      alt={`media-${idx}`}
-                      width={1000}
-                      height={1000}
-                      onClick={(e) => {
-                        setActiveIndex(idx)
-                        if (!isMobile) {
-                          ; (e.currentTarget as HTMLImageElement).scrollIntoView({
-                            block: 'center',
-                            inline: 'nearest',
-                            behavior: 'smooth',
-                          })
-                        }
-                      }}
-                      className="size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer"
-                    />
-                  )}
-                </div>
-              )))}
+            {isLoading
+              ? Array.from({ length: 5 }).map((_, idx) => (
+                  <Skeleton
+                    key={idx}
+                    className="flex-shrink-0 size-[64px] lg:size-[120px] rounded-lg lg:rounded-2xl"
+                  />
+                ))
+              : mediaSources.map((item, idx) => (
+                  <div
+                    key={`${item.src}-${idx}`}
+                    className={`rounded-lg lg:rounded-2xl border ${
+                      activeIndex === idx
+                        ? ' border-pink-500'
+                        : 'border-transparent'
+                    }`}
+                  >
+                    {item.type === 'video' ? (
+                      <video
+                        src={item.src}
+                        muted
+                        loop
+                        playsInline
+                        width={1000}
+                        height={1000}
+                        onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
+                          setActiveIndex(idx)
+                          if (!isMobile) {
+                            e.currentTarget.scrollIntoView({
+                              block: 'center',
+                              inline: 'nearest',
+                              behavior: 'smooth',
+                            })
+                          }
+                        }}
+                        className={`size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer`}
+                      />
+                    ) : (
+                      <Image
+                        src={item.src}
+                        alt={`media-${idx}`}
+                        width={1000}
+                        height={1000}
+                        onClick={(e) => {
+                          setActiveIndex(idx)
+                          if (!isMobile) {
+                            ;(
+                              e.currentTarget as HTMLImageElement
+                            ).scrollIntoView({
+                              block: 'center',
+                              inline: 'nearest',
+                              behavior: 'smooth',
+                            })
+                          }
+                        }}
+                        className="size-[64px] lg:size-[120px] object-cover rounded-lg lg:rounded-2xl cursor-pointer"
+                      />
+                    )}
+                  </div>
+                ))}
           </div>
           <div className="relative w-full" ref={containerRef}>
             {isLoading ? (
@@ -212,7 +231,10 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
               <>
                 {activeItem?.type === 'video' && (
                   <div className="absolute top-3 left-3 size-9 rounded-full bg-black/50 flex items-center justify-center">
-                    <CaretRightIcon weight="fill" className="size-5 text-white" />
+                    <CaretRightIcon
+                      weight="fill"
+                      className="size-5 text-white"
+                    />
                   </div>
                 )}
                 {activeItem?.type === 'video' ? (
@@ -225,7 +247,9 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
                     width={1000}
                     height={1000}
                     onLoadedMetadata={() =>
-                      setMainVideoHeight(containerRef.current?.clientHeight || 0)
+                      setMainVideoHeight(
+                        containerRef.current?.clientHeight || 0
+                      )
                     }
                     className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]"
                   />
@@ -235,7 +259,11 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
                     alt="main-media"
                     width={1000}
                     height={1000}
-                    onLoad={() => setMainVideoHeight(containerRef.current?.clientHeight || 0)}
+                    onLoad={() =>
+                      setMainVideoHeight(
+                        containerRef.current?.clientHeight || 0
+                      )
+                    }
                     className="w-full object-cover rounded-2xl xl:rounded-3xl aspect-[375/666]"
                   />
                 )}
@@ -255,7 +283,7 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
                 src={productReview?.client?.avatar}
                 userName={productReview?.client?.fullname}
                 size={isMobile ? 40 : 52}
-                className='flex-shrink-0'
+                className="flex-shrink-0"
               />
             )}
 
@@ -291,7 +319,9 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
                     className="size-5 text-greyscale-400"
                   />
                   <p className="text-sm font-medium text-greyscale-400">
-                    {moment(productReview?.date_review || '').format('DD/MM/YYYY')}
+                    {moment(productReview?.date_review || '').format(
+                      'DD/MM/YYYY'
+                    )}
                   </p>
                 </div>
                 <div className="flex gap-2 items-center">
@@ -310,10 +340,15 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
             {isLoading ? (
               <Skeleton className="w-full h-32 rounded-lg" />
             ) : (
-              <div className="p-2 rounded-lg flex gap-3 items-center"
+              <div
+                className="p-2 rounded-lg flex gap-3 items-center"
                 style={{
-                  backgroundColor: withAlpha(productReview?.background_color || '#FE6BBA', 0.2)
-                }}>
+                  backgroundColor: withAlpha(
+                    productReview?.background_color || '#FE6BBA',
+                    0.2
+                  ),
+                }}
+              >
                 <div className="w-[91px] lg:w-[106px] aspect-[106/112] rounded-lg bg-white flex justify-center items-center">
                   <Image
                     src={productReview?.image || IMAGES.deal1}
@@ -371,14 +406,15 @@ const InfoKolModal: React.FC<InfoKolModalProps> = ({ isOpen, onClose, id, slug }
               <div className="relative pt-5 lg:pt-9 pl-8 lg:pl-9 flex-1 overflow-y-auto scroll-hidden">
                 <QuoteIcon className="size-7 lg:size-9 text-neutral-200 absolute top-0 left-0" />
                 <p className="text-sm lg:text-base font-normal text-greyscale-800">
-                  {productReview?.content_evaluate || tNodataReviewhub('noData')}
+                  {productReview?.content_evaluate ||
+                    tNodataReviewhub('noData')}
                 </p>
               </div>
             )}
           </div>
         </div>
       </div>
-    </Modal >
+    </Modal>
   )
 }
 

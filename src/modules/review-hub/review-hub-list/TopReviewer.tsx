@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import apiReviewHub from '@/services/review-hub/api'
+import { useForMobileApp } from '@/core/hooks/useForMobileApp'
 
 interface TopReviewerProps {
   isLoading: boolean
@@ -17,8 +18,6 @@ interface TopReviewerProps {
 }
 
 const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
-  console.log({ data })
-
   const { isMobile } = useDevice()
   const videoRefs = useRef<HTMLVideoElement[]>([])
   const preloadVideoRefs = useRef<HTMLVideoElement[]>([])
@@ -36,6 +35,8 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+
+  const forMobileApp = useForMobileApp()
 
   // Detect iPhone to disable autoplay
   const isIPhone = useCallback(() => {
@@ -302,7 +303,12 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
         <h2 className="lg:hidden text-center text-gradient-blue-black font-semibold text-lg leading-[110%] tracking-tight">
           {t('endorsedByTopReviewers')}
         </h2>
-        <Link href={`/review-hub/${data?.slug}`} className="flex-shrink-0">
+        <Link
+          href={`/review-hub${forMobileApp ? '/for-mobile-app' : ''}/${
+            data?.slug
+          }`}
+          className="flex-shrink-0"
+        >
           {isLoading ? (
             <Skeleton className="size-full aspect-square lg:size-[380px] 2xl:size-[480px] object-cover rounded-3xl" />
           ) : (
@@ -329,7 +335,9 @@ const TopReviewer = ({ isLoading, data }: TopReviewerProps) => {
         </Link>
         <div className="flex flex-col justify-end gap-4 2xl:gap-8 w-full min-w-0 z-10">
           <Link
-            href={`/review-hub/${data?.slug}`}
+            href={`/review-hub${forMobileApp ? '/for-mobile-app' : ''}/${
+              data?.slug
+            }`}
             className="flex flex-col gap-4 2xl:gap-8 group cursor-pointer"
             style={
               {

@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { MagnifyingGlassIcon } from '@phosphor-icons/react'
 import { useTranslations } from 'next-intl'
 import TopReviewerCard from './components/TopReviewerCard'
+import { useForMobileApp } from '@/core/hooks/useForMobileApp'
 
 interface RankingListProps {
   products?: any
@@ -159,7 +160,10 @@ const RankingList = ({ products, isLoading }: RankingListProps) => {
         {isLoading ? (
           <>
             {Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton key={index} className="size-full h-[250px] rounded-3xl" />
+              <Skeleton
+                key={index}
+                className="size-full h-[250px] rounded-3xl"
+              />
             ))}
           </>
         ) : (
@@ -173,7 +177,6 @@ const RankingList = ({ products, isLoading }: RankingListProps) => {
             />
           ))
         )}
-
       </div>
     </div>
   )

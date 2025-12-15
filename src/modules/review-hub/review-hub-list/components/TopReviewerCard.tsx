@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { memo, Ref, useCallback, useEffect, useRef, useState } from 'react'
 import apiReviewHub from '@/services/review-hub/api'
+import { useForMobileApp } from '@/core/hooks/useForMobileApp'
 
 interface TopReviewerCardProps {
   productName?: string
@@ -57,6 +58,8 @@ const TopReviewerCard = ({
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [lastPage, setLastPage] = useState<number>(1)
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+
+  const forMobileApp = useForMobileApp()
 
   // Detect iPhone to disable autoplay
   const isIPhone = useCallback(() => {
@@ -341,7 +344,7 @@ const TopReviewerCard = ({
   return (
     <Link
       ref={cardRef as Ref<HTMLAnchorElement>}
-      href={`/review-hub/${data?.slug}`}
+      href={`/review-hub${forMobileApp ? '/for-mobile-app' : ''}/${data?.slug}`}
       className={`bg-white p-0 py-0 border border-greyscale-200 rounded-3xl relative flex gap-3 xl:gap-5 w-full border-b overflow-hidden  ${className} group cursor-pointer transition-all duration-300 will-change-transform hover:shadow-[0px_8px_24px_0px_#00000014] hover:border-greyscale-300`}
     >
       <div
