@@ -363,7 +363,7 @@ export default function Page() {
             {/* ===== STORIES SECTION ===== */}
             <div className="relative overflow-x-hidden lg:overflow-x-visible overflow-y-visible">
                 {/* background */}
-                <div className="h-full absolute top-0 left-0 w-full rounded-b-4xl overflow-hidden"
+                <div className="h-full bg-white absolute top-0 left-0 w-full rounded-b-4xl overflow-hidden"
 
                 >
                     <Image src={IMAGE_BACKGROUND} alt="Background" width={1000} height={1000} className="w-full h-full object-cover" />
