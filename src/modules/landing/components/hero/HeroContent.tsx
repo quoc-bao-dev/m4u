@@ -14,12 +14,14 @@ const HeroContent = ({
   isBackground,
   banners,
   currentIndex,
+  hiddenButton,
 }: {
   titleHtmlOverride?: string
   contentHtmlOverride?: string
   isBackground: boolean
   banners: { image?: string; alt?: string; title?: string; content?: string }[]
   currentIndex: number
+  hiddenButton: boolean
 }) => {
   const { isLoading, data: homePage } = useGetHomePage()
   const data = homePage?.section1
@@ -75,17 +77,20 @@ const HeroContent = ({
               </div>
             </div>
             {/* CTA Button */}
-            <div className="hidden md:block w-fit">
-              <Link href={'/trial-registration'} className='w-fit'>
-                <RegisterCTA className="mt-4" label={data?.title_button} />
-              </Link>
-            </div>
-
-            <div className="block md:hidden">
-              <Link href={'/trial-registration'}>
-                <RegisterCTA className="mt-4" label={data?.title_button} />
-              </Link>
-            </div>
+            {!hiddenButton && (
+              <div className="hidden md:block w-fit">
+                <Link href={'/trial-registration'} className='w-fit'>
+                  <RegisterCTA className="mt-4" label={data?.title_button} />
+                </Link>
+              </div>
+            )}
+            {!hiddenButton && (
+              <div className="block md:hidden">
+                <Link href={'/trial-registration'}>
+                  <RegisterCTA className="mt-4" label={data?.title_button} />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

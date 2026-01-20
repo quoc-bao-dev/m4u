@@ -47,6 +47,34 @@
       "videoReview": "视频评论"
     }
   },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "产品试用",
+        "description": "报名试用 - 最高奖励 80%"
+      },
+      "share": {
+        "title": "分享产品",
+        "description": "分享产品 - 获取 30% Haru 币"
+      },
+      "review": {
+        "title": "评测赚奖励",
+        "description": "分享评测即可获得奖励"
+      },
+      "refer": {
+        "title": "邀请好友",
+        "description": "邀请即可立得 5% Haru 币"
+      },
+      "challenge": {
+        "title": "参与挑战",
+        "description": "挑战成功，Haru 币将发放到 Haru 钱包"
+      },
+      "community": {
+        "title": "真实挑战分享社区",
+        "description": "这里大家分享真实挑战成果：评测、图片、视频等"
+      }
+    }
+  },
   "donation": {
     "donated": "已捐赠！",
     "month": "月",
@@ -299,7 +327,11 @@
       "loading": "加载中..."
     },
     "filter": {
-      "tabs": { "all": "全部", "event": "活动", "challenge": "挑战" },
+      "tabs": {
+        "all": "全部",
+        "event": "活动",
+        "challenge": "挑战"
+      },
       "filters": {
         "all": "全部",
         "upcoming": "即将开始",
@@ -547,14 +579,26 @@
           "label": "出生日期",
           "placeholder": "选择您的出生日期"
         },
-        "address": { "label": "地址", "placeholder": "请输入您的地址" },
+        "address": {
+          "label": "地址",
+          "placeholder": "请输入您的地址"
+        },
         "gender": {
           "label": "性别",
-          "options": { "female": "女", "male": "男", "other": "其他" }
+          "options": {
+            "female": "女",
+            "male": "男",
+            "other": "其他"
+          }
         }
       },
-      "productSection": { "label": "试用产品" },
-      "submit": { "processing": "正在处理...", "continue": "继续" },
+      "productSection": {
+        "label": "试用产品"
+      },
+      "submit": {
+        "processing": "正在处理...",
+        "continue": "继续"
+      },
       "validation": {
         "fullNameMin": "请输入有效的姓名",
         "phoneInvalid": "电话号码无效",
@@ -890,6 +934,7 @@
     "active": "在线",
     "featureInDevelopment": "该功能正在开发中，请稍后再试。",
     "selectOneAnswer": "(请选择1个答案)",
+    "selectMultipleAnswers": "(请选择一个或多个答案)",
     "confirm": "确认"
   }
 }

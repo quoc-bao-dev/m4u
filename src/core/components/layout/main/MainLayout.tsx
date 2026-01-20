@@ -1,12 +1,11 @@
 'use client'
 
-import CartIcon from '@/modules/trial-registration/components/cart/CartIcon'
+import { useForMobileApp } from '@/core/hooks/useForMobileApp'
 import { PropsWithChildren, useLayoutEffect, useState } from 'react'
 import { Footer } from '../footer'
 import { Header } from '../header'
-import Concave from './Concave'
-import ChatBot from '@/modules/chat-bot/components/ChatBot'
 import Bubble from './Bubble'
+import Concave from './Concave'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -59,32 +58,36 @@ const MainLayout = ({ children }: PropsWithChildren) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollY, isHeaderVisible, isInitialLoad])
 
+  const forMobileApp = useForMobileApp()
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}
-      <div
-        className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
-          SCROLL_CONFIG.headerTransitionClass
-        } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
-      >
+      {!forMobileApp && (
         <div
-          className={`absolute inset-0 ${
-            SCROLL_CONFIG.backgroundOverlayClass
-          } transition-opacity duration-200 ease-in-out ${
-            isScrolled ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-        <div className="relative z-50">
-          <Header />
-        </div>
-        <div
-          className={`w-full transition-opacity duration-200 ease-in-out ${
-            isScrolled ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
+            SCROLL_CONFIG.headerTransitionClass
+          } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
         >
-          <Concave />
+          <div
+            className={`absolute inset-0 ${
+              SCROLL_CONFIG.backgroundOverlayClass
+            } transition-opacity duration-200 ease-in-out ${
+              isScrolled ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <div className="relative z-50">
+            <Header />
+          </div>
+          <div
+            className={`w-full transition-opacity duration-200 ease-in-out ${
+              isScrolled ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Concave />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Content with overlap capability */}
       <main className="relative z-20 bg-gray-50 -bg-white min-h-screen rounded-b-4xl">
@@ -92,12 +95,14 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       </main>
 
       {/* Sticky footer with content overlap */}
-      <footer className="sticky bottom-0 left-0 right-0 z-10 -mt-[100px]">
-        <Footer />
-      </footer>
+      {!forMobileApp && (
+        <footer className="sticky bottom-0 left-0 right-0 z-10 -mt-[100px]">
+          <Footer />
+        </footer>
+      )}
 
       {/* Cart Icon - Fixed position */}
-      <Bubble />
+      {!forMobileApp && <Bubble />}
     </div>
   )
 }

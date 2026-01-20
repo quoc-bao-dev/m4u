@@ -47,6 +47,34 @@
       "videoReview": "Video Review"
     }
   },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "Product trials",
+        "description": "Register for trials - Earn up to 80% rewards"
+      },
+      "share": {
+        "title": "Share products",
+        "description": "Share products - Earn 30% Haru coins"
+      },
+      "review": {
+        "title": "Review to earn",
+        "description": "Share reviews and get rewarded"
+      },
+      "refer": {
+        "title": "Refer friends",
+        "description": "Refer friends and get 5% Haru coins instantly"
+      },
+      "challenge": {
+        "title": "Join challenges",
+        "description": "Complete challenges to receive Haru coins in your Haru Wallet"
+      },
+      "community": {
+        "title": "Real challenge community",
+        "description": "Where everyone shares real challenge results: reviews, photos, videos after participating"
+      }
+    }
+  },
   "donation": {
     "donated": "Donated!",
     "month": "month",
@@ -299,7 +327,11 @@
       "loading": "Loading..."
     },
     "filter": {
-      "tabs": { "all": "All", "event": "Event", "challenge": "Challenge" },
+      "tabs": {
+        "all": "All",
+        "event": "Event",
+        "challenge": "Challenge"
+      },
       "filters": {
         "all": "All",
         "upcoming": "Upcoming",
@@ -547,14 +579,26 @@
           "label": "Date of Birth",
           "placeholder": "Select your date of birth"
         },
-        "address": { "label": "Address", "placeholder": "Enter your address" },
+        "address": {
+          "label": "Address",
+          "placeholder": "Enter your address"
+        },
         "gender": {
           "label": "Gender",
-          "options": { "female": "Female", "male": "Male", "other": "Other" }
+          "options": {
+            "female": "Female",
+            "male": "Male",
+            "other": "Other"
+          }
         }
       },
-      "productSection": { "label": "Product for Trial" },
-      "submit": { "processing": "Processing...", "continue": "Continue" },
+      "productSection": {
+        "label": "Product for Trial"
+      },
+      "submit": {
+        "processing": "Processing...",
+        "continue": "Continue"
+      },
       "validation": {
         "fullNameMin": "Please enter a valid full name",
         "phoneInvalid": "Invalid phone number",
@@ -890,6 +934,7 @@
     "active": "Active",
     "featureInDevelopment": "This feature is under development. Please check back later.",
     "selectOneAnswer": "(Please select 1 answer)",
+    "selectMultipleAnswers": "(Please select one or multiple answers)",
     "confirm": "Confirm"
   }
 }

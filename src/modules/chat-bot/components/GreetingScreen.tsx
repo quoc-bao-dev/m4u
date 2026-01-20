@@ -9,7 +9,8 @@ type GreetingScreenProps = {
   isMobile?: boolean
 }
 
-const IMAGE_GREETING = '/chat-bot/greeting.png'
+// const IMAGE_GREETING = '/chat-bot/pack-bot.gif'
+const IMAGE_GREETING = '/chat-bot/MascotAnimation.gif'
 
 const GreetingScreen = ({
   onStart,
@@ -82,8 +83,8 @@ const GreetingScreen = ({
           src={IMAGE_GREETING}
           alt=""
           className={`${
-            isMobile ? 'w-[227px]' : 'w-[227px]'
-          } mx-auto min-h-[267px]`}
+            isMobile ? 'w-[227px]-' : 'w-[227px]-'
+          } mx-auto h-[267px]`}
         />
 
         <div className="flex gap-2 items-start">
@@ -102,8 +103,8 @@ const GreetingScreen = ({
           ) : (
             <p
               className={`${
-                isMobile ? 'text-xs' : 'text-sm'
-              } text-center whitespace-break-spaces w-[297px]`}
+                isMobile ? 'text-lg' : 'text-sm'
+              } text-center whitespace-break-spaces w-[360px]  md:w-[297px]`}
             >
               {packbotIntro?.data.content}
             </p>

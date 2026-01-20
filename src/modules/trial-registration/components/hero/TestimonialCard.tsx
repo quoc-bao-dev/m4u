@@ -113,18 +113,18 @@ const TestimonialCard = ({ reviews }: TestimonialCardProps) => {
         }}
       >
         <p
-          className="text-desc text-black mb-6 leading-relaxed"
-          style={{ minHeight: textMinHeight }}
+          className="text-base lg:text-[20px] xl:text-[24px] text-black mb-6 leading-relaxed"
+          // style={{ minHeight: textMinHeight }}
         >
           {currentReview?.content}
         </p>
 
         {/* Reviewer Info */}
         <div className="mb-8">
-          <h3 className="text-desc font-semibold text-purple-600 mb-1">
+          <h3 className="text-base lg:text-[20px] xl:text-[24px] font-semibold text-purple-600 mb-1">
             {currentReview?.reviewerName}
           </h3>
-          <p className="text-[16px] text-gray-600">{currentReview?.address}</p>
+          {/* <p className="text-[16px] text-gray-600">{currentReview?.address}</p> */}
         </div>
       </div>
 

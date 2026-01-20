@@ -32,4 +32,6 @@ export interface GetInfoResponse {
   link_contact_facebook: string
   address_our_location: string
   link_contact_instagram: string
+  link_contact_tiktok: string
+  link_contact_shoppe: string
 }
