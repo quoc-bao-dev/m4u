@@ -22,7 +22,7 @@ const IMAGE_DECOR = '/image/landing/image-decor.png'
 const IMAGE_HERO_BANNER = '/image/landing/hero-banner.png'
 
 
-const IMAGE_BACKGROUND = '/image/landing/background.png'
+const IMAGE_BACKGROUND = '/image/landing/background-v2.png'
 
 // Tỷ lệ chiều cao màn hình (0 - 1) để kích hoạt story (ví dụ: 0.3 = 30% từ trên xuống)
 const ACTIVE_STORY_TRIGGER = 0.75;
