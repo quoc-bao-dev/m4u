@@ -1,15 +1,13 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import VideoWrapper from "@/components/VideoWrapper";
 import { Container } from "@/core/components";
-import Button from "@/core/components/ui/button";
-import Image from "next/image";
-import { useTranslation } from "@/locale/hooks";
 import { useDevice } from "@/core/hooks/useDevice";
+import { useTranslation } from "@/locale/hooks";
 import { useGetPackbotWebToAppBanner } from "@/services/packbot-web-to-app-banner";
+import Image, { type StaticImageData } from "next/image";
 
 const IMAGE_HERO = '/image/landing/hero-image-2.png'
 const IMAGE_APP_STORE = '/image/landing/app-sotre.png'
@@ -21,14 +19,13 @@ const IMAGE_DECOR = '/image/landing/image-decor.png'
 
 const IMAGE_HERO_BANNER = '/image/landing/hero-banner.png'
 
-
 const IMAGE_BACKGROUND = '/image/landing/background-v2.png'
 
 // Tỷ lệ chiều cao màn hình (0 - 1) để kích hoạt story (ví dụ: 0.3 = 30% từ trên xuống)
 const ACTIVE_STORY_TRIGGER = 0.75;
 
 type StoryElm = {
-    image: string;
+    image: StaticImageData;
     className?: string;
     initial: Partial<Record<'top' | 'left' | 'right' | 'bottom', string>>;
     animate: Partial<Record<'top' | 'left' | 'right' | 'bottom', string>>;
@@ -70,7 +67,7 @@ function StoryPhone({
             <div className="h-full w-full absolute inset-0 z-10 pointer-events-none overflow-x-visible overflow-y-visible">
                 {elm?.map((element, index) => (
                     <motion.div
-                        key={index + element.image}
+                        key={element.image.src ?? index}
                         className={`absolute ${element.className ?? ""}`}
                         initial={{ opacity: 0, ...element.initial }}
                         animate={shouldAnimate ? { opacity: 1, ...element.animate } : { opacity: 0, ...element.initial }}
@@ -79,8 +76,6 @@ function StoryPhone({
                         <Image
                             src={element.image}
                             alt={`Story element ${index + 1}`}
-                            width={1000}
-                            height={1000}
                             className="w-full h-auto object-contain"
                         />
                     </motion.div>
@@ -90,6 +85,20 @@ function StoryPhone({
     );
 }
 
+import story1Elm1 from "../../../../public/image/landing/story-1-elm-1.png";
+import story1Elm2 from "../../../../public/image/landing/story-1-elm-2.png";
+import story2Elm1 from "../../../../public/image/landing/story-2-elm-1.png";
+import story2Elm2 from "../../../../public/image/landing/story-2-elm-2.png";
+import story3Elm1 from "../../../../public/image/landing/story-3-elm-1.png";
+import story3Elm2 from "../../../../public/image/landing/story-3-elm-2.png";
+import story3Elm3 from "../../../../public/image/landing/story-3-elm-3.png";
+import story4Elm1 from "../../../../public/image/landing/story-4-elm-1.png";
+import story4Elm2 from "../../../../public/image/landing/story-4-elm-2.png";
+import story5Elm1 from "../../../../public/image/landing/story-5-elm-1.png";
+import story5Elm2 from "../../../../public/image/landing/story-5-elm-2.png";
+import story6Elm1 from "../../../../public/image/landing/story-6-elm-1.png";
+import story6Elm2 from "../../../../public/image/landing/story-6-elm-2.png";
+
 const STORY_CONFIG: StoryConfig[] = [
     {
         id: 1,
@@ -97,7 +106,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.trial.description',
         elm: [
             {
-                image: '/image/landing/story-1-elm-1.png',
+                image: story1Elm1,
                 className: 'w-[92.44%] ',
                 initial: {
                     top: '0%',
@@ -109,7 +118,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-1-elm-2.png',
+                image: story1Elm2,
                 className: 'w-[120.64%] ',
                 initial: {
                     bottom: '-5.27%',
@@ -128,7 +137,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.share.description',
         elm: [
             {
-                image: '/image/landing/story-2-elm-1.png',
+                image: story2Elm1,
                 className: 'w-[122.09%] ',
                 initial: {
                     top: '26.64%',
@@ -140,7 +149,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-2-elm-2.png',
+                image: story2Elm2,
                 className: 'w-[120.64%] ',
                 initial: {
                     bottom: '27.87%',
@@ -159,7 +168,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.review.description',
         elm: [
             {
-                image: '/image/landing/story-3-elm-1.png',
+                image: story3Elm1,
                 className: 'w-[128.78%] ',
                 initial: {
                     top: '0%',
@@ -171,7 +180,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-3-elm-2.png',
+                image: story3Elm2,
                 className: 'w-[26.28%] ',
                 initial: {
                     top: '50.61%',
@@ -183,7 +192,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-3-elm-3.png',
+                image: story3Elm3,
                 className: 'w-[128.78%] ',
                 initial: {
                     left: '-63.95%',
@@ -203,7 +212,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.refer.description',
         elm: [
             {
-                image: '/image/landing/story-4-elm-1.png',
+                image: story4Elm1,
                 className: 'w-[127.33%] ',
                 initial: {
                     top: '0%',
@@ -215,7 +224,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-4-elm-2.png',
+                image: story4Elm2,
                 className: 'w-[73.84%] ',
                 initial: {
                     bottom: '-5.55%',
@@ -234,7 +243,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.challenge.description',
         elm: [
             {
-                image: '/image/landing/story-5-elm-1.png',
+                image: story5Elm1,
                 className: 'w-[129.65%] ',
                 initial: {
                     top: '18.45%',
@@ -246,7 +255,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-5-elm-2.png',
+                image: story5Elm2,
                 className: 'w-[122.97%] ',
                 initial: {
                     bottom: '16.92%',
@@ -265,7 +274,7 @@ const STORY_CONFIG: StoryConfig[] = [
         descriptionKey: 'introduceApp.stories.community.description',
         elm: [
             {
-                image: '/image/landing/story-6-elm-1.png',
+                image: story6Elm1,
                 className: 'w-[113.37%] ',
                 initial: {
                     top: '0%',
@@ -277,7 +286,7 @@ const STORY_CONFIG: StoryConfig[] = [
                 }
             },
             {
-                image: '/image/landing/story-6-elm-2.png',
+                image: story6Elm2,
                 className: 'w-[108.43%] ',
                 initial: {
                     bottom: '17.48%',
@@ -354,17 +363,21 @@ export default function Page() {
     return (
         <main>
             {/* ===== HERO SECTION ===== */}
-            <div className="relative">
-                <div className="lg:h-screen min-h-screen">
-                    <Image src={heroBannerSrc} alt="Hero Banner" width={1000} height={1000} className="w-full h-full object-cover min-h-screen" />
-                </div>
+            <div className="relative w-full min-h-screen lg:h-screen">
+                <Image
+                    src={heroBannerSrc}
+                    alt="Hero Banner"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover"
+                />
             </div>
 
             {/* ===== STORIES SECTION ===== */}
             <div className="relative overflow-x-hidden lg:overflow-x-visible overflow-y-visible">
                 {/* background */}
                 <div className="h-full bg-white absolute top-0 left-0 w-full rounded-b-4xl overflow-hidden"
-
                 >
                     <Image src={IMAGE_BACKGROUND} alt="Background" width={1000} height={1000} className="w-full h-full object-cover" />
                 </div>
