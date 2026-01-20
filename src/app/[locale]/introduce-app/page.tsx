@@ -21,6 +21,13 @@ const IMAGE_HERO_BANNER = '/image/landing/hero-banner.png'
 
 const IMAGE_BACKGROUND = '/image/landing/background-v2.png'
 
+const IMAGE_BG = {
+    bg1: '/image/landing/background-1.png',
+    bg2: '/image/landing/background-2.png',
+    bg3: '/image/landing/background-3.png',
+    bg4: '/image/landing/background-4.png',
+}
+
 // Tỷ lệ chiều cao màn hình (0 - 1) để kích hoạt story (ví dụ: 0.3 = 30% từ trên xuống)
 const ACTIVE_STORY_TRIGGER = 0.75;
 
@@ -379,7 +386,12 @@ export default function Page() {
                 {/* background */}
                 <div className="h-full bg-white absolute top-0 left-0 w-full rounded-b-4xl overflow-hidden"
                 >
-                    <Image src={IMAGE_BACKGROUND} alt="Background" width={1000} height={1000} className="w-full h-full object-cover" />
+                    <Image src={IMAGE_BG.bg1} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
+
+
                 </div>
                 <Container className="overflow-x-visible overflow-y-visible">
                     <div className="relative grid grid-cols-1 lg:grid-cols-2 overflow-x-visible overflow-y-visible">
