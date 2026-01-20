@@ -49,6 +49,34 @@
       "videoReview": "Video đánh giá"
     }
   },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "Dùng thử sản phẩm",
+        "description": "Đăng ký dùng thử - Thưởng tối đa 80%"
+      },
+      "share": {
+        "title": "Chia sẻ sản phẩm",
+        "description": "Chia sẻ sản phẩm - Nhận 30% Haru xu"
+      },
+      "review": {
+        "title": "Đánh giá nhận thưởng",
+        "description": "Chia sẻ Review và nhận thưởng"
+      },
+      "refer": {
+        "title": "Giới thiệu bạn bè",
+        "description": "Giới thiệu nhận ngay 5% Haru xu"
+      },
+      "challenge": {
+        "title": "Tham gia thử thách",
+        "description": "Tham gia thử thách thành công, bạn sẽ được cộng Haru xu vào Ví Haru"
+      },
+      "community": {
+        "title": "Cộng đồng chia sẻ thử thách thật",
+        "description": "Đây là nơi mọi người chia sẻ kết quả thử thách thật: review, hình ảnh, video sau khi tham gia"
+      }
+    }
+  },
   "donation": {
     "donated": "Đã được quyên góp!",
     "month": "tháng",
@@ -301,7 +329,11 @@
       "loading": "Đang tải..."
     },
     "filter": {
-      "tabs": { "all": "Tất cả", "event": "Sự kiện", "challenge": "Thử thách" },
+      "tabs": {
+        "all": "Tất cả",
+        "event": "Sự kiện",
+        "challenge": "Thử thách"
+      },
       "filters": {
         "all": "Tất cả",
         "upcoming": "Sắp diễn ra",
@@ -537,7 +569,10 @@
       "headerTitle": "Đăng ký dùng thử sản phẩm",
       "headerSubtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn.",
       "fields": {
-        "fullName": { "label": "Họ và tên", "placeholder": "Nhập họ và tên" },
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên"
+        },
         "phoneNumber": {
           "label": "Số điện thoại",
           "placeholder": "Nhập số điện thoại"
@@ -546,14 +581,26 @@
           "label": "Ngày sinh",
           "placeholder": "Chọn ngày sinh"
         },
-        "address": { "label": "Địa chỉ", "placeholder": "Nhập địa chỉ" },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ"
+        },
         "gender": {
           "label": "Giới tính",
-          "options": { "female": "Nữ", "male": "Nam", "other": "Khác" }
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
         }
       },
-      "productSection": { "label": "Sản phẩm dùng thử" },
-      "submit": { "processing": "Đang xử lý...", "continue": "Tiếp tục" },
+      "productSection": {
+        "label": "Sản phẩm dùng thử"
+      },
+      "submit": {
+        "processing": "Đang xử lý...",
+        "continue": "Tiếp tục"
+      },
       "validation": {
         "fullNameMin": "Vui lòng nhập họ tên hợp lệ",
         "phoneInvalid": "Số điện thoại không hợp lệ",
