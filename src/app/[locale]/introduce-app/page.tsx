@@ -48,9 +48,11 @@ type StoryConfig = {
 function StoryPhone({
     elm,
     className,
+    preload = false,
 }: {
     elm?: StoryElm[];
     className?: string;
+    preload?: boolean;
 }) {
     const { isMobile } = useDevice();
     const ref = useRef<HTMLDivElement | null>(null);
@@ -68,6 +70,9 @@ function StoryPhone({
                 alt="Phone Frame"
                 width={1000}
                 height={1000}
+                priority={preload}
+                fetchPriority={preload ? "high" : "auto"}
+                sizes="(min-width: 1536px) 344px, (min-width: 1024px) 277px, 157px"
                 className="w-auto lg:h-[600px] 2xl:h-[721px] object-contain"
             />
 
@@ -83,6 +88,10 @@ function StoryPhone({
                         <Image
                             src={element.image}
                             alt={`Story element ${index + 1}`}
+                            placeholder="blur"
+                            priority={preload && index < 2}
+                            fetchPriority={preload && index < 2 ? "high" : "auto"}
+                            sizes="(min-width: 1536px) 344px, (min-width: 1024px) 277px, 157px"
                             className="w-full h-auto object-contain"
                         />
                     </motion.div>
@@ -376,6 +385,8 @@ export default function Page() {
                     alt="Hero Banner"
                     fill
                     priority
+                    placeholder="blur"
+                    fetchPriority="high"
                     sizes="100vw"
                     className="object-cover"
                 />
@@ -386,10 +397,10 @@ export default function Page() {
                 {/* background */}
                 <div className="h-full bg-white absolute top-0 left-0 w-full rounded-b-4xl overflow-hidden"
                 >
-                    <Image src={IMAGE_BG.bg1} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
-                    <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
-                    <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
-                    <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg1} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
 
 
                 </div>
@@ -425,7 +436,11 @@ export default function Page() {
                                         </p>
                                         {/* mobile: show phone + elm here, animate on in-view */}
                                         <div className="mt-3 lg:hidden">
-                                            <StoryPhone elm={story.elm as StoryElm[] | undefined} className="mx-auto" />
+                                            <StoryPhone
+                                                elm={story.elm as StoryElm[] | undefined}
+                                                className="mx-auto"
+                                                preload={index === 0}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -434,7 +449,10 @@ export default function Page() {
 
                         {/* image */}
                         <div className="hidden lg:flex h-screen sticky top-0 items-center justify-center overflow-x-visible overflow-y-visible">
-                            <StoryPhone elm={(stories.find(story => story.id === activeStoryId)?.elm as StoryElm[] | undefined)} />
+                            <StoryPhone
+                                elm={(stories.find(story => story.id === activeStoryId)?.elm as StoryElm[] | undefined)}
+                                preload={activeStoryId === (stories[0]?.id ?? 1)}
+                            />
                         </div>
                     </div>
                 </Container>
