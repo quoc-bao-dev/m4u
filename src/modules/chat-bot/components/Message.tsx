@@ -189,7 +189,7 @@ const Message = ({
                   <button
                     type="button"
                     onClick={handleBuyNow}
-                    className="cursor-pointer flex-1 px-2.5 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
+                    className="cursor-pointer flex-1 px-2.5 py-2 rounded-lg border border-[#F466AA] bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
                   >
                     {t('buyNow')}
                   </button>
