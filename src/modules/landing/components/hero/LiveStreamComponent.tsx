@@ -37,7 +37,7 @@ const LiveStreamComponent = () => {
 
   return (
     <Link href="/review-hub">
-      <div className="bg-[#FFF0F8] py-2 xl:py-4 2xl:py-8- cursor-pointer">
+      <div className="bg-[#FFF0F8] py-2 xl:py-2 2xl:py-8- cursor-pointer">
         <Container>
           <div className="flex flex-row items-center justify-between gap-2 md:gap-6">
             {/* Live Stream Badge */}
