@@ -121,7 +121,10 @@ const Message = ({
     }
 
     const handleBuyNow = () => {
-      showInfo(t('featureInDevelopment'))
+      window.open(
+        'https://m4u.onelink.me/C4Tg/bm2r4msg?pid=referral_own_media&af_sub1=HF3T8W&campaign=referral',
+        '_blank'
+      )
     }
 
     return (
@@ -179,9 +182,16 @@ const Message = ({
                   <button
                     type="button"
                     onClick={handleRegisterTrial}
-                    className="cursor-pointer flex-1 px-4 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
+                    className="cursor-pointer flex-1 px-2.5 py-2 rounded-lg bg-white border border-[#F466AA] text-[#F466AA] text-sm font-medium transition-colors hover:bg-[#FFF0F7]"
                   >
                     {t('registerTrial')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    className="cursor-pointer flex-1 px-2.5 py-2 rounded-lg bg-[#F466AA] text-white text-sm font-medium transition-colors hover:bg-[#DB5B9A]"
+                  >
+                    {t('buyNow')}
                   </button>
                 </div>
               </div>
@@ -259,11 +269,10 @@ const RestartSurveyMessage = ({
           type="button"
           onClick={handleRestart}
           disabled={!isMessageActive}
-          className={`bg-white py-2 px-4 rounded-full text-sm text-[#525252] font-medium text-center flex items-center gap-2 w-fit transition-colors ${
-            isMessageActive
-              ? 'cursor-pointer hover:bg-[#F2F2F2]'
-              : 'cursor-not-allowed opacity-70'
-          }`}
+          className={`bg-white py-2 px-4 rounded-full text-sm text-[#525252] font-medium text-center flex items-center gap-2 w-fit transition-colors ${isMessageActive
+            ? 'cursor-pointer hover:bg-[#F2F2F2]'
+            : 'cursor-not-allowed opacity-70'
+            }`}
         >
           <svg
             width="16"
@@ -374,13 +383,11 @@ const SelectTextMessage = ({
               type="button"
               onClick={() => handleClick(option)}
               disabled={isDisabled}
-              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors cursor-pointer ${
-                isSelected ? 'bg-[#F466AA] text-white' : 'bg-[#FFF0F7]'
-              } ${
-                isDisabled
+              className={`text-left text-sm w-fit rounded-[24px] px-4 py-2 transition-colors cursor-pointer ${isSelected ? 'bg-[#F466AA] text-white' : 'bg-[#FFF0F7]'
+                } ${isDisabled
                   ? 'opacity-70 cursor-not-allowed'
                   : 'hover:bg-[#F466AA] hover:text-white'
-              }`}
+                }`}
             >
               {option.content ?? option.name}
             </button>
@@ -457,15 +464,13 @@ const SelectTab = ({ question, options, messageId }: SelectTabProps) => {
                 type="button"
                 onClick={onOptionClick(option.next, option.id)}
                 disabled={isDisabled}
-                className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${
-                  isActive
-                    ? 'bg-[#F466AA] text-white'
-                    : 'bg-white text-[#525252]'
-                } ${
-                  isDisabled
+                className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${isActive
+                  ? 'bg-[#F466AA] text-white'
+                  : 'bg-white text-[#525252]'
+                  } ${isDisabled
                     ? 'opacity-90- cursor-not-allowed'
                     : 'cursor-pointer'
-                }`}
+                  }`}
               >
                 {iconSrc && (
                   <img
@@ -602,15 +607,13 @@ const MultiSelectTab = ({
                   type="button"
                   onClick={onOptionClick(option.id)}
                   disabled={!isMessageActive}
-                  className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${
-                    isSelected
-                      ? 'bg-[#F466AA] text-white'
-                      : 'bg-white text-[#525252]'
-                  } ${
-                    !isMessageActive
+                  className={`flex gap-2 px-[12px] py-[6px] items-center rounded-[16px] transition-colors ${isSelected
+                    ? 'bg-[#F466AA] text-white'
+                    : 'bg-white text-[#525252]'
+                    } ${!isMessageActive
                       ? 'opacity-90- cursor-not-allowed'
                       : 'cursor-pointer'
-                  }`}
+                    }`}
                 >
                   {iconSrc && (
                     <img
@@ -633,11 +636,10 @@ const MultiSelectTab = ({
             type="button"
             onClick={handleSubmit}
             disabled={!hasSelection || !isMessageActive}
-            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-colors flex-shrink-0 ${
-              hasSelection && isMessageActive
-                ? 'bg-[#F466AA] text-white cursor-pointer'
-                : 'bg-[#A3A3A3] text-white cursor-not-allowed'
-            }`}
+            className={`flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-colors flex-shrink-0 ${hasSelection && isMessageActive
+              ? 'bg-[#F466AA] text-white cursor-pointer'
+              : 'bg-[#A3A3A3] text-white cursor-not-allowed'
+              }`}
           >
             <p className="text-sm font-medium">{t('confirm')}</p>
             {iconSend}
