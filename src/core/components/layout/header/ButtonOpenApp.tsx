@@ -1,9 +1,8 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 const ButtonOpenApp = () => {
-    const locale = useLocale()
     const t = useTranslations('common')
 
     return (
