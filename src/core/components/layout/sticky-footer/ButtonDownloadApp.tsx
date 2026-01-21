@@ -8,9 +8,9 @@ const ButtonDownloadApp = () => {
     const t = useTranslations('common')
 
     return (
-        <Link
-            href="#"
-            locale={locale}
+        <a
+            href="https://onelink.to/emfbbe?&dev=macos&ref="
+            target="_blank"
             className="flex lg:hidden items-center gap-1 bg-[#E249AF] text-white px-3 py-2 text-sm font-semibold rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
         >
             <div>
@@ -22,7 +22,7 @@ const ButtonDownloadApp = () => {
                 </svg>
             </div>
             <p>{t('downloadApp')}</p>
-        </Link>
+        </a>
     )
 }
 
