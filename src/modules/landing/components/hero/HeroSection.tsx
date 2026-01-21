@@ -84,7 +84,7 @@ const HeroSection = () => {
                         }
                         alt="Hero Background"
                         fill
-                        className="object-cover w-full h-full"
+                        className="object-cover w-full h-full object-top"
                         priority
                       />
                     </motion.div>
