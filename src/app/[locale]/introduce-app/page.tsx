@@ -389,8 +389,7 @@ export default function Page() {
                     <Image
                         src={heroBannerSrc}
                         alt="Hero Banner"
-                        width={1000}
-                        height={1000}
+                        fill
                         priority
                         fetchPriority="high"
                         className="object-cover h-full w-full min-h-screen"
