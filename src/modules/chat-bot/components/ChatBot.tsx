@@ -386,12 +386,12 @@ function ChatBot() {
   //   return maxBottom - scrollRatio * (maxBottom - minBottom)
   // }
 
-  const pathname = usePathname()
-  const isIntroduceApp = pathname.includes('introduce-app')
+  // const pathname = usePathname()
+  // const isIntroduceApp = pathname.includes('introduce-app')
 
-  if (isIntroduceApp) {
-    return null
-  }
+  // if (isIntroduceApp) {
+  //   return null
+  // }
 
   const footerHeight = useFooterHieghtStore().height
 
