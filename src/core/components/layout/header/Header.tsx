@@ -29,8 +29,8 @@ const Header = () => {
           <LogoLoading isLoading={isLoading} size="md" href="/" />
         </div>
         <div className="flex items-center gap-2">
-          {isAuthenticated && <NotifyButton />}
           <ButtonOpenApp />
+          {isAuthenticated && <NotifyButton />}
           <LanguageSwitcher />
         </div>
       </div>

@@ -8,7 +8,7 @@ const ButtonDownloadApp = () => {
 
     return (
         <Link
-            href="/introduce-app"
+            href="#"
             locale={locale}
             className="flex lg:hidden items-center gap-1 bg-[#E249AF] text-white px-3 py-2 text-sm font-semibold rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
         >
