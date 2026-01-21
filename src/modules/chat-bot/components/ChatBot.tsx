@@ -9,6 +9,7 @@ import { chatbotCloseStore } from '../store/chatbotCloseStore'
 import ChatContent from './ChatContent'
 import GreetingBubble from './GreetingBubble'
 import GreetingScreen from './GreetingScreen'
+import { useFooterHieghtStore } from '@/modules/introduce-app/store/useFooterHieght'
 
 const IMAGE_PACKBOT = '/chat-bot/pack-bot.gif'
 // const IMAGE_PACKBOT = '/chat-bot/greeting.png'
@@ -384,6 +385,8 @@ function ChatBot() {
   //   return maxBottom - scrollRatio * (maxBottom - minBottom)
   // }
 
+  const footerHeight = useFooterHieghtStore().height
+
   // Don't render if closed today
   if (!isHydrated || !shouldShow) {
     return null
@@ -397,7 +400,7 @@ function ChatBot() {
         {!isChatOpen && (
           <div
             className="fixed right-4 z-50 md:hidden transition-all duration-300 ease-out"
-            style={{ bottom: `20px` }}
+            style={{ bottom: `calc(${!!footerHeight ? (10 + footerHeight) : 20}px)` }}
           >
             <div className="relative">
               {isShowClose && (
@@ -464,26 +467,23 @@ function ChatBot() {
           <>
             {/* Backdrop */}
             <div
-              className={`fixed inset-0 bg-black/30 z-[60] transition-opacity duration-300 ${
-                isDrawerAnimating ? 'opacity-0' : 'opacity-100'
-              }`}
+              className={`fixed inset-0 bg-black/30 z-[999] transition-opacity duration-300 ${isDrawerAnimating ? 'opacity-0' : 'opacity-100'
+                }`}
               onClick={handleCloseChat}
             />
 
             {/* Drawer */}
             <div
               ref={drawerRef}
-              className={`fixed bottom-0 left-0 right-0 z-[70] transition-transform duration-300 ease-out ${
-                isDrawerAnimating ? 'translate-y-full' : 'translate-y-0'
-              }`}
+              className={`fixed bottom-0 left-0 right-0 z-[9999] transition-transform duration-300 ease-out ${isDrawerAnimating ? 'translate-y-full' : 'translate-y-0'
+                }`}
             >
               <div className=" bg-white rounded-t-[24px] h-[90svh] max-h-[600px]- flex flex-col overflow-hidden shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
                 {/* Drag Handle */}
                 <div className="relative z-50 flex justify-center pt-3 pb-2">
                   <div
-                    className={`w-[94px] h-[5px] rounded-full  ${
-                      showChatContent ? 'bg-[#E5E5E5]' : 'bg-[#737373]'
-                    }`}
+                    className={`w-[94px] h-[5px] rounded-full  ${showChatContent ? 'bg-[#E5E5E5]' : 'bg-[#737373]'
+                      }`}
                   />
                 </div>
 
@@ -493,11 +493,10 @@ function ChatBot() {
                     <div className="relative h-full">
                       {/* Greeting screen */}
                       <div
-                        className={`absolute inset-0 transition-all duration-500 ${
-                          showChatContent
-                            ? 'opacity-0 scale-95 pointer-events-none'
-                            : 'opacity-100 scale-100'
-                        }`}
+                        className={`absolute inset-0 transition-all duration-500 ${showChatContent
+                          ? 'opacity-0 scale-95 pointer-events-none'
+                          : 'opacity-100 scale-100'
+                          }`}
                       >
                         <GreetingScreen
                           onStart={handleStartSurvey}
@@ -508,11 +507,10 @@ function ChatBot() {
 
                       {/* Chat content screen */}
                       <div
-                        className={`absolute inset-0 flex flex-col transition-all duration-500 ${
-                          showChatContent
-                            ? 'opacity-100 scale-100'
-                            : 'opacity-0 scale-95 pointer-events-none'
-                        }`}
+                        className={`absolute inset-0 flex flex-col transition-all duration-500 ${showChatContent
+                          ? 'opacity-100 scale-100'
+                          : 'opacity-0 scale-95 pointer-events-none'
+                          }`}
                       >
                         <ChatContent
                           scrollContainerRef={scrollContainerRef}
@@ -615,11 +613,10 @@ function ChatBot() {
                   <div className="relative h-full">
                     {/* Greeting screen */}
                     <div
-                      className={`absolute inset-0 transition-all duration-500 ${
-                        showChatContent
-                          ? 'opacity-0 scale-95 pointer-events-none'
-                          : 'opacity-100 scale-100'
-                      }`}
+                      className={`absolute inset-0 transition-all duration-500 ${showChatContent
+                        ? 'opacity-0 scale-95 pointer-events-none'
+                        : 'opacity-100 scale-100'
+                        }`}
                     >
                       <GreetingScreen
                         onStart={handleStartSurvey}
@@ -629,11 +626,10 @@ function ChatBot() {
 
                     {/* Chat content screen */}
                     <div
-                      className={`absolute inset-0 flex flex-col transition-all duration-500 ${
-                        showChatContent
-                          ? 'opacity-100 scale-100'
-                          : 'opacity-0 scale-95 pointer-events-none'
-                      }`}
+                      className={`absolute inset-0 flex flex-col transition-all duration-500 ${showChatContent
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-95 pointer-events-none'
+                        }`}
                     >
                       <ChatContent
                         scrollContainerRef={scrollContainerRef}

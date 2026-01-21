@@ -385,10 +385,9 @@ export default function Page() {
                     alt="Hero Banner"
                     fill
                     priority
-                    placeholder="blur"
                     fetchPriority="high"
                     sizes="100vw"
-                    className="object-cover"
+                    className="object-cover h-full"
                 />
             </div>
 
@@ -401,8 +400,14 @@ export default function Page() {
                     <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
                     <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
                     <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
-
-
+                    <Image src={IMAGE_BG.bg1} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg1} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg2} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg3} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
+                    <Image src={IMAGE_BG.bg4} alt="Background" width={1000} height={1000} loading="lazy" fetchPriority="low" sizes="150vw" className="w-[150%] object-cover" />
                 </div>
                 <Container className="overflow-x-visible overflow-y-visible">
                     <div className="relative grid grid-cols-1 lg:grid-cols-2 overflow-x-visible overflow-y-visible">

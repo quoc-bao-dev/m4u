@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useCartIconStore } from '../../stores/useCartIconStore'
 import { useCartStore } from '../../stores/useCartStore'
 import { useAuth } from '@/modules/auth'
+import { useFooterHieghtStore } from '@/modules/introduce-app/store/useFooterHieght'
 
 interface CartIconProps {
   className?: string
@@ -100,10 +101,11 @@ const CartIcon: React.FC<CartIconProps> = ({ className, onOpenChange }) => {
     closeCart()
   }
 
+  const footerHeight = useFooterHieghtStore().height
   if (!isAuthenticated) return null
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 rounded-full shadow-[-6px_6px_20px_0px_#0000000D,8px_-8px_20px_0px_#00000005]">
+    <div className={`fixed right-6 z-50 rounded-full shadow-[-6px_6px_20px_0px_#0000000D,8px_-8px_20px_0px_#00000005]`} style={{ bottom: `calc(${footerHeight ? 10 + footerHeight : 24}px)` }}>
       <DropdownMenu open={isOpen} onOpenChange={handleOpenChange} modal={false}>
         <DropdownMenuTrigger asChild>
           <button

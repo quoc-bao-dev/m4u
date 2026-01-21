@@ -1,6 +1,7 @@
 /* tải font Krona One và viết class font cho nó */
 @import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Krona+One:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -13,9 +14,10 @@
   --font-mono: var(--font-geist-mono);
   --font-primary: 'TikTok Sans', ui-sans-serif, system-ui, sans-serif;
   --font-krona: 'Krona One', ui-sans-serif, system-ui, sans-serif;
+  --font-baloo: "Baloo 2", sans-serif;
 
   --camaron: #FF8092;
-  
+
   --color-greyscale-50: #F6F7F9;
   --color-greyscale-100: #f3f4f6;
   --color-greyscale-200: #E5E7EB;
@@ -58,7 +60,7 @@
   --color-yellow-600: #FACA4A;
 
   --color-red-600: #F47690;
-  
+
   --text-6xl: 4rem;
 
   --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
@@ -95,12 +97,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   @keyframes orbit {
-  0% {
-    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
     }
-  100% {
-    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
     }
   }
 }
@@ -214,6 +218,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -243,28 +248,28 @@ body {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
-  
+
   .safe-area-top {
     padding-top: env(safe-area-inset-top);
   }
-  
+
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
-  
+
   .safe-area-left {
     padding-left: env(safe-area-inset-left);
   }
-  
+
   .safe-area-right {
     padding-right: env(safe-area-inset-right);
   }
-  
+
   .safe-area-x {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
-  
+
   .safe-area-y {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
@@ -277,10 +282,12 @@ body {
     opacity: 0;
     transform: translateY(-6px);
   }
+
   50% {
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(6px);
@@ -296,13 +303,15 @@ body {
     transform: rotate(45deg);
     border-radius: 2px;
   }
+
   .chevron-light {
     border-color: rgb(156 163 175 / 0.5);
   }
+
   .animate-scroll-chevron {
     animation: scroll-chevron 1.6s ease-in-out infinite;
   }
-  
+
   /* Text Gradient Utilities */
   .text-gradient-blue-black {
     background: linear-gradient(to right, #000087, #000000);
@@ -320,7 +329,8 @@ body {
     --border-inset-hover: 0px;
 
     position: relative;
-    border: none; /* Đảm bảo không có border mặc định */
+    border: none;
+    /* Đảm bảo không có border mặc định */
     overflow: hidden;
     border-radius: var(--border-radius);
     z-index: 0;
@@ -332,26 +342,25 @@ body {
       inset: 0px;
       border-radius: inherit;
       padding: var(--border-width);
-      background: conic-gradient(
-        from var(--border-angle),
-        #0254c5 0%,
-        transparent 25%,
-        rgba(3, 110, 234, 0.2) 50%,
-        transparent 75%,
-        #0254c5 100%
-      );
-      
+      background: conic-gradient(from var(--border-angle),
+          #0254c5 0%,
+          transparent 25%,
+          rgba(3, 110, 234, 0.2) 50%,
+          transparent 75%,
+          #0254c5 100%);
+
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask: linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       mask-composite: exclude;
-      -webkit-mask-composite: xor; /* hoặc destination-out */
+      -webkit-mask-composite: xor;
+      /* hoặc destination-out */
       z-index: -1;
       /* // animation: moveGradient 2s linear infinite; */
       animation: borderMove 2s linear infinite;
     }
   }
-  
+
   /* Property declaration for border gradient angle animation */
   @property --border-angle {
     syntax: "<angle>";
@@ -364,6 +373,7 @@ body {
     0% {
       --border-angle: 0deg;
     }
+
     100% {
       --border-angle: 360deg;
     }
@@ -392,15 +402,13 @@ body {
       inset: 0px;
       border-radius: inherit;
       padding: var(--border-width);
-      background: conic-gradient(
-        from var(--border-angle),
-        var(--accent-color) 0%,
-        transparent 25%,
-        color-mix(in srgb, var(--accent-color) 20%, transparent) 50%,
-        transparent 75%,
-        var(--accent-color) 100%
-      );
-      
+      background: conic-gradient(from var(--border-angle),
+          var(--accent-color) 0%,
+          transparent 25%,
+          color-mix(in srgb, var(--accent-color) 20%, transparent) 50%,
+          transparent 75%,
+          var(--accent-color) 100%);
+
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask: linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
