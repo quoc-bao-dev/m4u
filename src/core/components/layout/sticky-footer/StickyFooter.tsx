@@ -36,7 +36,7 @@ const StickyFooter = () => {
     }, [setHeight])
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-999" ref={buttonRef} style={{
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-999" ref={buttonRef} style={{
             boxShadow: '0 -8px 32px 0 rgba(0,0,0,0.12), 0 -2px 8px 0 rgba(215,38,161,0.10)'
         }} >
             <div className="absolute inset-0 backdrop-blur-md"></div>
