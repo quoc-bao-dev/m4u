@@ -1,6 +1,5 @@
 'use client'
 
-import { Link } from '@/locale/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
 const ButtonDownloadApp = () => {
@@ -9,7 +8,7 @@ const ButtonDownloadApp = () => {
 
     return (
         <a
-            href="https://onelink.to/emfbbe?&dev=macos&ref="
+            href="https://m4u.onelink.me/C4Tg/bm2r4msg?pid=referral_own_media&af_sub1=HF3T8W&campaign=referral"
             target="_blank"
             className="flex lg:hidden items-center gap-1 bg-[#E249AF] text-white px-3 py-2 text-sm font-semibold rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
         >
