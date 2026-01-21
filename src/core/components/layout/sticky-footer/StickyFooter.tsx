@@ -4,10 +4,11 @@ import { useLayoutEffect, useRef } from "react"
 import { Container } from "../../common"
 import ButtonDownloadApp from "./ButtonDownloadApp"
 import { useFooterHieghtStore } from "@/modules/introduce-app/store/useFooterHieght"
+import { useTranslations } from 'next-intl'
 
 const IMAGE_FOOTER_STICKY = '/image/landing/footer-sticky.svg'
 const StickyFooter = () => {
-
+    const t = useTranslations('common')
     const buttonRef = useRef<HTMLDivElement>(null)
     const { setHeight } = useFooterHieghtStore()
 
@@ -50,7 +51,7 @@ const StickyFooter = () => {
                         <p
                             className="font-baloo font-black text-[14px] text-[#D726A1] leading-[132%] tracking-[0] uppercase"
                         >
-                            TRẢI NGHIỆM - chia sẻ & <br /> nhận thưởng
+                            {t('stickyFooterText1')} <br /> {t('stickyFooterText2')}
                         </p>
                     </div>
                     <div className="w-full h-full flex items-center justify-end">

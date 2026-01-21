@@ -1,10 +1,11 @@
 'use client'
 
 import { Link } from '@/locale/navigation'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 const ButtonDownloadApp = () => {
     const locale = useLocale()
+    const t = useTranslations('common')
 
     return (
         <Link
@@ -20,7 +21,7 @@ const ButtonDownloadApp = () => {
                     />
                 </svg>
             </div>
-            <p>Tải app ngay</p>
+            <p>{t('downloadApp')}</p>
         </Link>
     )
 }

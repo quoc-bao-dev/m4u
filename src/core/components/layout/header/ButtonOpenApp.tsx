@@ -1,10 +1,11 @@
 'use client'
 
 import { Link } from '@/locale/navigation'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 const ButtonOpenApp = () => {
     const locale = useLocale()
+    const t = useTranslations('common')
 
     return (
         <Link
@@ -20,7 +21,7 @@ const ButtonOpenApp = () => {
                     />
                 </svg>
             </div>
-            <p>Mở ứng dụng</p>
+            <p>{t('openApp')}</p>
         </Link>
     )
 }
