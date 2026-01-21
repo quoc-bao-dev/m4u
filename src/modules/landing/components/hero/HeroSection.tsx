@@ -31,12 +31,13 @@ const HeroSection = () => {
       typeof b === 'string'
         ? { image: b }
         : {
-            image: b?.image ?? b?.url,
-            image_mobile: b?.image_mobile,
-            title: b?.title,
-            content: b?.content,
-            is_background: b?.is_background,
-          }
+          image: b?.image ?? b?.url,
+          image_mobile: b?.image_mobile,
+          title: b?.title,
+          content: b?.content,
+          is_background: b?.is_background,
+          hidden_button: b?.hidden_button,
+        }
     )
   }, [section1?.banner])
 
@@ -78,7 +79,7 @@ const HeroSection = () => {
                         src={
                           isMobile
                             ? (currentBanner as any)?.image_mobile ||
-                              (currentBanner as any).image
+                            (currentBanner as any).image
                             : (currentBanner as any).image
                         }
                         alt="Hero Background"
@@ -106,6 +107,7 @@ const HeroSection = () => {
                 isBackground={isBackground}
                 banners={normalized}
                 currentIndex={dotIndex}
+                hiddenButton={(currentBanner as any)?.hidden_button == 1}
               />
               <div className="absolute z-20 bottom-3 lg:bottom-6 right-6 md:right-8 lg:right-12 xl:right-20 flex gap-4 items-center">
                 <button
