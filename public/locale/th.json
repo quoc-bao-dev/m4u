@@ -47,6 +47,34 @@
       "videoReview": "รีวิววิดีโอ"
     }
   },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "ทดลองสินค้า",
+        "description": "สมัครทดลอง - รับรางวัลสูงสุด 80%"
+      },
+      "share": {
+        "title": "แชร์สินค้า",
+        "description": "แชร์สินค้า - รับ 30% Haru coin"
+      },
+      "review": {
+        "title": "รีวิวรับรางวัล",
+        "description": "แชร์รีวิวแล้วรับรางวัล"
+      },
+      "refer": {
+        "title": "แนะนำเพื่อน",
+        "description": "แนะนำเพื่อน รับ Haru coin 5% ทันที"
+      },
+      "challenge": {
+        "title": "ร่วมท้าทาย",
+        "description": "ทำภารกิจสำเร็จ รับ Haru coin เข้ากระเป๋า Haru"
+      },
+      "community": {
+        "title": "คอมมูนิตี้แชร์ผลท้าทายจริง",
+        "description": "พื้นที่แชร์ผลลัพธ์จริงของชาเลนจ์: รีวิว รูป วิดีโอหลังเข้าร่วม"
+      }
+    }
+  },
   "donation": {
     "donated": "บริจาคแล้ว!",
     "month": "เดือน",
@@ -272,7 +300,6 @@
       "totalPrizes": "รางวัลรวม",
       "totalPrizePool": "มูลค่ารางวัลรวม",
       "totalProducts": "จำนวนสินค้า",
-
       "comingSoon": "เร็ว ๆ นี้",
       "registrationDate": "วันที่ลงทะเบียน",
       "endDate": "วันที่สิ้นสุด",
@@ -552,13 +579,22 @@
           "label": "วันเดือนปีเกิด",
           "placeholder": "เลือกวันเดือนปีเกิดของคุณ"
         },
-        "address": { "label": "ที่อยู่", "placeholder": "ป้อนที่อยู่ของคุณ" },
+        "address": {
+          "label": "ที่อยู่",
+          "placeholder": "ป้อนที่อยู่ของคุณ"
+        },
         "gender": {
           "label": "เพศ",
-          "options": { "female": "หญิง", "male": "ชาย", "other": "อื่น ๆ" }
+          "options": {
+            "female": "หญิง",
+            "male": "ชาย",
+            "other": "อื่น ๆ"
+          }
         }
       },
-      "productSection": { "label": "สินค้าสำหรับทดลอง" },
+      "productSection": {
+        "label": "สินค้าสำหรับทดลอง"
+      },
       "submit": {
         "processing": "กำลังดำเนินการ...",
         "continue": "ดำเนินการต่อ"

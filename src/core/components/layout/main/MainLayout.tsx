@@ -6,6 +6,7 @@ import { Footer } from '../footer'
 import { Header } from '../header'
 import Bubble from './Bubble'
 import Concave from './Concave'
+import StickyFooter from '../sticky-footer/StickyFooter'
 
 // Config object for scroll behavior
 const SCROLL_CONFIG = {
@@ -65,24 +66,20 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       {/* Header */}
       {!forMobileApp && (
         <div
-          className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${
-            SCROLL_CONFIG.headerTransitionClass
-          } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
+          className={`fixed top-0 left-0 right-0 z-50 bg-transparent ${SCROLL_CONFIG.headerTransitionClass
+            } ${isHeaderVisible ? 'translate-y-0' : '-translate-y-[190%]'}`}
         >
           <div
-            className={`absolute inset-0 ${
-              SCROLL_CONFIG.backgroundOverlayClass
-            } transition-opacity duration-200 ease-in-out ${
-              isScrolled ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 ${SCROLL_CONFIG.backgroundOverlayClass
+              } transition-opacity duration-200 ease-in-out ${isScrolled ? 'opacity-100' : 'opacity-0'
+              }`}
           />
           <div className="relative z-50">
             <Header />
           </div>
           <div
-            className={`w-full transition-opacity duration-200 ease-in-out ${
-              isScrolled ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`w-full transition-opacity duration-200 ease-in-out ${isScrolled ? 'opacity-100' : 'opacity-0'
+              }`}
           >
             <Concave />
           </div>
@@ -93,6 +90,9 @@ const MainLayout = ({ children }: PropsWithChildren) => {
       <main className="relative z-20 bg-gray-50 -bg-white min-h-screen rounded-b-4xl">
         {children}
       </main>
+
+      {/* Sticky footer */}
+      <StickyFooter />
 
       {/* Sticky footer with content overlap */}
       {!forMobileApp && (

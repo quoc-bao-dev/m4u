@@ -8,6 +8,7 @@ import { memo, useEffect } from 'react'
 import { LogoLoading } from '../../brand'
 import { Container } from '../../common'
 import LanguageSwitcher from './LanguageSwitcher'
+import ButtonOpenApp from './ButtonOpenApp'
 
 const Header = () => {
   const { isLoading, startLoading, stopLoading } = useLoading()
@@ -29,6 +30,7 @@ const Header = () => {
         </div>
         <div className="flex items-center gap-2">
           {isAuthenticated && <NotifyButton />}
+          <ButtonOpenApp />
           <LanguageSwitcher />
         </div>
       </div>
