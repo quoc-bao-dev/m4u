@@ -10,7 +10,7 @@ const ButtonOpenApp = () => {
         <Link
             href="/introduce-app"
             locale={locale}
-            className="hidden lg:flex items-center gap-2 bg-[#FE6BBA] text-white px-4 py-2 rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
+            className="hidden md:flex items-center gap-2 bg-[#FE6BBA] text-white px-4 py-2 rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
         >
             <div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
