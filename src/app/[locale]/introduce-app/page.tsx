@@ -383,11 +383,11 @@ export default function Page() {
                 <Image
                     src={heroBannerSrc}
                     alt="Hero Banner"
-                    fill
+                    width={1000}
+                    height={1000}
                     priority
                     fetchPriority="high"
-                    sizes="100vw"
-                    className="object-cover h-full"
+                    className="object-cover h-full w-full min-h-screen"
                 />
             </div>
 

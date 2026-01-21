@@ -8,9 +8,9 @@ const ButtonOpenApp = () => {
     const t = useTranslations('common')
 
     return (
-        <Link
-            href="/introduce-app"
-            locale={locale}
+        <a
+            href="https://onelink.to/emfbbe?&dev=macos&ref="
+            target="_blank"
             className="hidden md:flex items-center gap-2 bg-[#FE6BBA] text-white px-4 py-2 rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
         >
             <div>
@@ -22,7 +22,7 @@ const ButtonOpenApp = () => {
                 </svg>
             </div>
             <p>{t('openApp')}</p>
-        </Link>
+        </a>
     )
 }
 
