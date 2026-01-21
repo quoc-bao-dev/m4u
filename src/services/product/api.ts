@@ -15,7 +15,7 @@ export const productApi = {
     _local?: string
     tag_product_filter?: string[]
   }) =>
-    axiosInstance.get<ProductListResponse>('products/getList', {
+    axiosInstance.get<ProductListResponse>('products/getList?is_use=1', {
       baseURL: envConfig.adminUrl,
       params: { _local, tag_product_filter },
     }),
