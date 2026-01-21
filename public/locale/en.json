@@ -9,6 +9,10 @@
     "product": "product",
     "share": "Share:",
     "loadMore": "Load more",
+    "openApp": "Open app",
+    "downloadApp": "Download app now",
+    "stickyFooterText1": "EXPERIENCE - share &",
+    "stickyFooterText2": "get rewards",
     "birthdayInput": {
       "year": "Year",
       "month": "Month",
