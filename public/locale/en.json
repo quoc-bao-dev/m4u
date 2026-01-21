@@ -505,6 +505,9 @@
       "support": {
         "help-centre": "Help centre",
         "feedback-submission": "Feedback Submission"
+      },
+      "about": {
+        "about-app": "About M4U App"
       }
     },
     "auth": {

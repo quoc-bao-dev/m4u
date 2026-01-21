@@ -505,6 +505,9 @@
       "support": {
         "help-centre": "帮助中心",
         "feedback-submission": "提交反馈"
+      },
+      "about": {
+        "about-app": "关于 M4U 应用"
       }
     },
     "auth": {

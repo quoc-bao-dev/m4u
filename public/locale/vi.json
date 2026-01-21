@@ -507,6 +507,9 @@
       "support": {
         "help-centre": "Trung tâm hỗ trợ",
         "feedback-submission": "Góp ý"
+      },
+      "about": {
+        "about-app": "Về ứng dụng M4U"
       }
     },
     "auth": {
