@@ -250,7 +250,7 @@ const PolicySidebarMobileDropdown = ({ items, activeKey, onSelect }: SidebarProp
 }
 
 const PolicyPage = () => {
-    const [activeKey, setActiveKey] = useState<PolicyKey>('refund')
+    const [activeKey, setActiveKey] = useState<PolicyKey>('point')
 
     const t = useTranslations('PolicyPage')
 
