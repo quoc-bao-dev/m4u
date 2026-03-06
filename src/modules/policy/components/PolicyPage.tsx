@@ -282,7 +282,7 @@ const PolicyPage = () => {
 
                 {/* ========== MAIN CONTENT ========== */}
                 <div className="pt-[20px] md:pt-[50px]">
-                    <div className="grid grid-cols-1 md:grid-cols-[360px_1fr] gap-[20px] md:gap-[80px]">
+                    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-[20px] md:gap-[80px]">
                         {/* ========== SDIEBAR ========== */}
                         {isLoading ? <SidebarSkeleton /> : (
                             <div>
