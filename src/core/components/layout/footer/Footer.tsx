@@ -95,6 +95,9 @@ const Footer = ({ className }: FooterProps) => {
                         >
                           {t('newsfeed')}
                         </Link>
+                        <Link href="/policy" className="hover:underline cursor-pointer">
+                          {t('policy')}
+                        </Link>
                       </nav>
                       <nav className="flex flex-col gap-2">
                         <Link
@@ -108,12 +111,6 @@ const Footer = ({ className }: FooterProps) => {
                           className="hover:underline cursor-pointer"
                         >
                           {t('account')}
-                        </Link>
-                      </nav>
-
-                      <nav className="flex flex-col gap-2">
-                        <Link href="/policy" className="hover:underline cursor-pointer">
-                          {t('policy')}
                         </Link>
                       </nav>
                     </div>
