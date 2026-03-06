@@ -10,6 +10,10 @@
     "product": "sản phẩm",
     "share": "Chia sẻ:",
     "loadMore": "Xem thêm",
+    "openApp": "Mở ứng dụng",
+    "downloadApp": "Tải app ngay",
+    "stickyFooterText1": "TRẢI NGHIỆM - chia sẻ &",
+    "stickyFooterText2": "nhận thưởng",
     "loading": "Đang tải...",
     "birthdayInput": {
       "year": "Năm",
@@ -134,6 +138,7 @@
     "newsfeed": "Review hub",
     "newsEvents": "Quyên góp & Từ thiện",
     "account": "Sự kiện",
+    "policy": "Chính sách",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
     "headOffice": "Trụ sở chính"
   },
@@ -503,6 +508,9 @@
       "support": {
         "help-centre": "Trung tâm hỗ trợ",
         "feedback-submission": "Góp ý"
+      },
+      "about": {
+        "about-app": "Về ứng dụng M4U"
       }
     },
     "auth": {
@@ -938,5 +946,8 @@
     "selectOneAnswer": "(Hãy chọn 1 đáp án)",
     "selectMultipleAnswers": "(Hãy chọn 1 hoặc nhiều đáp án)",
     "confirm": "Xác nhận"
+  },
+  "PolicyPage": {
+    "title": "Chính sách sử dụng App M4U"
   }
 }

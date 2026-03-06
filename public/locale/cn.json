@@ -9,6 +9,10 @@
     "product": "产品",
     "share": "分享：",
     "loadMore": "加载更多",
+    "openApp": "打开应用",
+    "downloadApp": "立即下载应用",
+    "stickyFooterText1": "体验 - 分享 &",
+    "stickyFooterText2": "获得奖励",
     "birthdayInput": {
       "year": "年",
       "month": "月",
@@ -132,6 +136,7 @@
     "newsfeed": "动态",
     "newsEvents": "新闻与活动",
     "account": "账户",
+    "policy": "政策",
     "copyright": "© 2025 — 版权 Mask4U。保留所有权利。",
     "headOffice": "总部"
   },
@@ -501,6 +506,9 @@
       "support": {
         "help-centre": "帮助中心",
         "feedback-submission": "提交反馈"
+      },
+      "about": {
+        "about-app": "关于 M4U 应用"
       }
     },
     "auth": {
@@ -936,5 +944,8 @@
     "selectOneAnswer": "(请选择1个答案)",
     "selectMultipleAnswers": "(请选择一个或多个答案)",
     "confirm": "确认"
+  },
+  "PolicyPage": {
+    "title": "M4U 使用政策"
   }
 }

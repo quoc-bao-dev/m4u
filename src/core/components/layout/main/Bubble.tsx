@@ -9,6 +9,11 @@ const Bubble = () => {
 
   const includePath = ['/trial-registration', '/product']
   const isIncludePath = includePath.some((path) => pathname.includes(path))
+  const isIntroduceApp = pathname.includes('introduce-app')
+
+  if (isIntroduceApp) {
+    return null
+  }
 
   return <div>{isIncludePath ? <CartIcon /> : <ChatBot />}</div>
 }

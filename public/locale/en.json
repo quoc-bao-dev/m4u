@@ -9,6 +9,10 @@
     "product": "product",
     "share": "Share:",
     "loadMore": "Load more",
+    "openApp": "Open app",
+    "downloadApp": "Download app now",
+    "stickyFooterText1": "EXPERIENCE - share &",
+    "stickyFooterText2": "get rewards",
     "birthdayInput": {
       "year": "Year",
       "month": "Month",
@@ -132,6 +136,7 @@
     "newsfeed": "Newsfeed",
     "newsEvents": "News & Events",
     "account": "Account",
+    "policy": "Policy",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
     "headOffice": "Head Office"
   },
@@ -501,6 +506,9 @@
       "support": {
         "help-centre": "Help centre",
         "feedback-submission": "Feedback Submission"
+      },
+      "about": {
+        "about-app": "About M4U App"
       }
     },
     "auth": {
@@ -936,5 +944,8 @@
     "selectOneAnswer": "(Please select 1 answer)",
     "selectMultipleAnswers": "(Please select one or multiple answers)",
     "confirm": "Confirm"
+  },
+  "PolicyPage": {
+    "title": "M4U Usage Policy"
   }
 }

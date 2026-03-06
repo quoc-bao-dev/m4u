@@ -1,16 +1,16 @@
 'use client'
 
-import { Link } from '@/locale/navigation'
-import { useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 const ButtonDownloadApp = () => {
-    const locale = useLocale()
+    const t = useTranslations('common')
 
     return (
-        <Link
-            href="/introduce-app"
-            locale={locale}
-            className="flex lg:hidden items-center gap-1 bg-[#E249AF] text-white px-3 py-2 text-sm font-semibold rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
+        <a
+            href="https://m4u.onelink.me/C4Tg/bm2r4msg?pid=referral_own_media&af_sub1=HF3T8W&campaign=referral"
+            target="_blank"
+            className="flex lg:hidden items-center gap-1 bg-[#E249AF] text-white px-2 py-2 text-sm font-semibold rounded-full hover:bg-pink-500 transition-all duration-300 cursor-pointer"
+            onClick={e => e.stopPropagation()}
         >
             <div>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,8 +20,8 @@ const ButtonDownloadApp = () => {
                     />
                 </svg>
             </div>
-            <p>Tải app ngay</p>
-        </Link>
+            <p>{t('downloadApp')}</p>
+        </a>
     )
 }
 

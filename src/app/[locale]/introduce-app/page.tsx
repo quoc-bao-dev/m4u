@@ -380,15 +380,21 @@ export default function Page() {
         <main>
             {/* ===== HERO SECTION ===== */}
             <div className="relative w-full min-h-screen lg:h-screen">
-                <Image
-                    src={heroBannerSrc}
-                    alt="Hero Banner"
-                    fill
-                    priority
-                    fetchPriority="high"
-                    sizes="100vw"
-                    className="object-cover h-full"
-                />
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="h-full w-full"
+                >
+                    <Image
+                        src={heroBannerSrc}
+                        alt="Hero Banner"
+                        fill
+                        priority
+                        fetchPriority="high"
+                        className="object-cover h-full w-full min-h-screen"
+                    />
+                </motion.div>
             </div>
 
             {/* ===== STORIES SECTION ===== */}

@@ -2,7 +2,7 @@
 
 import { IMAGES } from '@/core/constants/IMAGES'
 import { Link, useNavigate } from '@/locale'
-import { Language, useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
+import { useLanguageSwitch } from '@/locale/hooks/useLanguageSwitch'
 import { useAuth, useLoginModal } from '@/modules/auth'
 import {
   CalendarPlusIcon,
@@ -16,11 +16,11 @@ import {
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useCallback } from 'react'
+import LanguageSwitcher from '../header/LanguageSwitcher'
 import AuthenticatedMenu, {
   AccountButton,
   LogoutButton,
 } from './authenticated-menu'
-import LanguageSwitcher from '../header/LanguageSwitcher'
 
 // Data mapping for Product & Community section
 const productCommunityItems = [
@@ -57,6 +57,13 @@ const settingsItems = {
       id: 'language',
       label: 'menu.settings.general.language',
       icon: 'TranslateIcon',
+    },
+  ],
+  about: [
+    {
+      id: 'introduce-app',
+      label: 'menu.settings.about.about-app',
+      href: '/introduce-app',
     },
   ],
   support: [
@@ -180,13 +187,11 @@ const MenuContent = ({
                   nav('/trial-registration')
                 }
               }}
-              className={`${
-                isMobile ? 'flex-1' : 'min-w-[184px]'
-              } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                option.id === 'yes'
+              className={`${isMobile ? 'flex-1' : 'min-w-[184px]'
+                } px-4 py-2 rounded-full text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap ${option.id === 'yes'
                   ? 'bg-pink-600 text-white'
                   : 'bg-white border border-pink-600 text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
             >
               {t(option.label)}
             </button>
@@ -197,9 +202,8 @@ const MenuContent = ({
   }, [])
   return (
     <div
-      className={`${
-        isMobile ? 'flex flex-col h-full min-h-0 overflow-hidden' : ''
-      }`}
+      className={`${isMobile ? 'flex flex-col h-full min-h-0 overflow-hidden' : ''
+        }`}
     >
       {/* Reviewer Question Section */}
       <div className="py-2 pb-6 md:py-6 px-4 flex flex-col gap-3 relative overflow-hidden">
@@ -222,9 +226,8 @@ const MenuContent = ({
 
       {/* Content Sections */}
       <div
-        className={`flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3 ${
-          isMobile ? 'flex-1 min-h-0 overflow-y-auto' : ''
-        }`}
+        className={`flex flex-col gap-4 py-6 px-4 bg-white z-10 relative rounded-t-2xl -mt-3 ${isMobile ? 'flex-1 min-h-0 overflow-y-auto' : ''
+          }`}
       >
         {/* Render authenticated menu top section */}
         {isAuthenticated && <AuthenticatedMenu.Top user={user} />}
@@ -263,7 +266,7 @@ const MenuContent = ({
             {t('menu.section.settings')}
           </h3>
 
-          <div className="px-3 flex flex-col gap-3">
+          <div className="px-3 flex flex-col gap-2">
             <h4 className="text-sm font-medium text-greyscale-500">
               {t('menu.section.general')}
             </h4>
@@ -335,6 +338,32 @@ const MenuContent = ({
             </div>
             {/* Render account button only when authenticated */}
             {isAuthenticated && <AccountButton />}
+            {settingsItems.about.map((item) => {
+              return (
+                <Link key={item.id} href={item.href} onClick={onClose}>
+                  <div className="flex items-center gap-3 cursor-pointer group">
+                    <div className="size-8 rounded-lg flex items-center justify-center border border-greyscale-200">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="text-[#3B82F6] group-hover:text-blue-500"
+                      >
+                        <path
+                          d="M15.5 1H7.5C6.83696 1 6.20107 1.26339 5.73223 1.73223C5.26339 2.20107 5 2.83696 5 3.5V20.5C5 21.163 5.26339 21.7989 5.73223 22.2678C6.20107 22.7366 6.83696 23 7.5 23H15.5C16.163 23 16.7989 22.7366 17.2678 22.2678C17.7366 21.7989 18 21.163 18 20.5V3.5C18 2.83696 17.7366 2.20107 17.2678 1.73223C16.7989 1.26339 16.163 1 15.5 1ZM11.5 22C10.67 22 10 21.33 10 20.5C10 19.67 10.67 19 11.5 19C12.33 19 13 19.67 13 20.5C13 21.33 12.33 22 11.5 22ZM16 18H7V4H16V18Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-normal text-greyscale-700 group-hover:text-blue-500">
+                      {t(item.label)}
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
 
           <div className="px-3 flex flex-col gap-3">

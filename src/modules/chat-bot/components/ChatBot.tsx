@@ -10,6 +10,7 @@ import ChatContent from './ChatContent'
 import GreetingBubble from './GreetingBubble'
 import GreetingScreen from './GreetingScreen'
 import { useFooterHieghtStore } from '@/modules/introduce-app/store/useFooterHieght'
+import { usePathname } from 'next/navigation'
 
 const IMAGE_PACKBOT = '/chat-bot/pack-bot.gif'
 // const IMAGE_PACKBOT = '/chat-bot/greeting.png'
@@ -383,6 +384,13 @@ function ChatBot() {
   //   const maxBottom = 150
   //   const scrollRatio = Math.min(scrollY / maxScroll, 1)
   //   return maxBottom - scrollRatio * (maxBottom - minBottom)
+  // }
+
+  // const pathname = usePathname()
+  // const isIntroduceApp = pathname.includes('introduce-app')
+
+  // if (isIntroduceApp) {
+  //   return null
   // }
 
   const footerHeight = useFooterHieghtStore().height

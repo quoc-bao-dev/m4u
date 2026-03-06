@@ -9,6 +9,10 @@
     "product": "제품",
     "share": "공유:",
     "loadMore": "더 보기",
+    "openApp": "앱 열기",
+    "downloadApp": "지금 앱 다운로드",
+    "stickyFooterText1": "경험 - 공유 &",
+    "stickyFooterText2": "보상 받기",
     "birthdayInput": {
       "year": "년",
       "month": "월",
@@ -132,6 +136,7 @@
     "newsfeed": "뉴스피드",
     "newsEvents": "뉴스 & 이벤트",
     "account": "계정",
+    "policy": "정책",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
     "headOffice": "본사"
   },
@@ -501,6 +506,9 @@
       "support": {
         "help-centre": "도움말 센터",
         "feedback-submission": "피드백 제출"
+      },
+      "about": {
+        "about-app": "M4U 앱 소개"
       }
     },
     "auth": {
@@ -936,5 +944,8 @@
     "selectOneAnswer": "(답변 1개를 선택하세요)",
     "selectMultipleAnswers": "(하나 이상의 답변을 선택하세요)",
     "confirm": "확인"
+  },
+  "PolicyPage": {
+    "title": "M4U 사용 정책"
   }
 }
