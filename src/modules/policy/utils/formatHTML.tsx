@@ -11,25 +11,25 @@ export const formatHtml = (htmlContent: string) => {
       }
       /* Khoảng cách cho các thẻ heading */
       .m4u-html-container h2 {
-        margin: 24px 0 12px 0;
+        margin: 24px 0 8px 0;
         font-size: 1.2rem;
         color: #000;
       }
       .m4u-html-container h3 {
-        margin: 18px 0 8px 0;
+        margin: 8px 0 8px 0;
         color: #222;
       }
       /* Reset list mặc định */
       .m4u-html-container ul {
         list-style: none;
         padding-left: 0;
-        margin: 12px 0;
+        margin: 8px 0 16px 0;
       }
       /* Style cho thẻ li với bullet tròn xanh 4x4px */
       .m4u-html-container li {
         position: relative;
         padding-left: 18px; /* Khoảng cách từ text đến bullet */
-        margin-bottom: 6px;
+        margin-bottom: 3px;
         display: block;
       }
       .m4u-html-container li::before {
