@@ -136,6 +136,7 @@
     "newsfeed": "Newsfeed",
     "newsEvents": "News & Events",
     "account": "Account",
+    "policy": "Policy",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
     "headOffice": "Head Office"
   },
@@ -943,5 +944,8 @@
     "selectOneAnswer": "(Please select 1 answer)",
     "selectMultipleAnswers": "(Please select one or multiple answers)",
     "confirm": "Confirm"
+  },
+  "PolicyPage": {
+    "title": "M4U Usage Policy"
   }
 }

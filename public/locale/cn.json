@@ -136,6 +136,7 @@
     "newsfeed": "动态",
     "newsEvents": "新闻与活动",
     "account": "账户",
+    "policy": "政策",
     "copyright": "© 2025 — 版权 Mask4U。保留所有权利。",
     "headOffice": "总部"
   },
@@ -943,5 +944,8 @@
     "selectOneAnswer": "(请选择1个答案)",
     "selectMultipleAnswers": "(请选择一个或多个答案)",
     "confirm": "确认"
+  },
+  "PolicyPage": {
+    "title": "M4U 使用政策"
   }
 }

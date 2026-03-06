@@ -136,6 +136,7 @@
     "newsfeed": "ฟีดข่าว",
     "newsEvents": "ข่าว & กิจกรรม",
     "account": "บัญชี",
+    "policy": "นโยบาย",
     "copyright": "© 2025 — ลิขสิทธิ์ Mask4U สงวนลิขสิทธิ์",
     "headOffice": "สำนักงานหลัก"
   },
@@ -943,5 +944,8 @@
     "selectOneAnswer": "(กรุณาเลือก 1 คำตอบ)",
     "selectMultipleAnswers": "(กรุณาเลือก 1 คำตอบหรือมากกว่า)",
     "confirm": "ยืนยัน"
+  },
+  "PolicyPage": {
+    "title": "นโยบายการใช้งานของ M4U"
   }
 }

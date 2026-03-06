@@ -138,6 +138,7 @@
     "newsfeed": "Review hub",
     "newsEvents": "Quyên góp & Từ thiện",
     "account": "Sự kiện",
+    "policy": "Chính sách",
     "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
     "headOffice": "Trụ sở chính"
   },
@@ -945,5 +946,8 @@
     "selectOneAnswer": "(Hãy chọn 1 đáp án)",
     "selectMultipleAnswers": "(Hãy chọn 1 hoặc nhiều đáp án)",
     "confirm": "Xác nhận"
+  },
+  "PolicyPage": {
+    "title": "Chính sách sử dụng App M4U"
   }
 }
