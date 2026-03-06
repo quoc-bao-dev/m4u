@@ -266,44 +266,63 @@ const PolicyPage = () => {
     const content = activeItem?.content
 
 
+    const scrollRef = useRef<HTMLDivElement | null>(null)
+
+
+    const scrollToActiveKey = () => {
+        const scrollElement = scrollRef.current
+        if (scrollElement) {
+            scrollElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'center' })
+        }
+    }
+
+
     return (
-        <div className="py-20 relative">
-            <div className="absolute top-0 left-0 right-0">
-                <Image src={IMAGE_BACKGROUND} alt="Background" width={1000} height={1000} className="w-full h-full object-cover" />
+        <>
+            <div className="py-20 relative">
+                <div className="absolute top-0 left-0 right-0">
+                    <Image src={IMAGE_BACKGROUND} alt="Background" width={1000} height={1000} className="w-full h-full object-cover" />
+                </div>
+                <Container className="max-w-[1390px] mx-auto relative z-100">
+
+                    {/* ========== HEORO BANNER ========== */}
+                    <div className="w-full aspect-[350/211]  md:aspect-[1390/480] rounded-2xl overflow-hidden relative">
+                        <Image src={IMAGE_HERO} alt="Hero" width={1000} height={1000} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40">
+                            <h1 className="pt-[100px] md:pt-[212px] w-[253px] md:w-auto mx-auto text-center text-[24px] md:text-[76px] font-bold text-white">{t('title')}</h1>
+                        </div>
+                        <div ref={scrollRef} className="" />
+                    </div>
+                    {/* ========== MAIN CONTENT ========== */}
+                    <div className="pt-[20px] md:pt-[50px]">
+                        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-[20px] md:gap-[80px] relative">
+                            {/* ========== SDIEBAR ========== */}
+                            {isLoading ? <SidebarSkeleton /> : (
+                                <div >
+                                    <div className="sticky top-20">
+                                        <PolicySidebarDesktop items={navItems ?? []} activeKey={activeKey} onSelect={(key) => {
+                                            setActiveKey(key)
+                                            scrollToActiveKey();
+                                        }} />
+                                    </div>
+                                    <PolicySidebarMobileDropdown items={navItems ?? []} activeKey={activeKey} onSelect={setActiveKey} />
+                                </div>
+                            )}
+
+                            {/* ========== CONTENT ========== */}
+                            {isLoading ? <ContentSkeleton /> : (
+                                <div className="" >
+                                    <h1 className="font-bold text-[20px] md:text-[24px] leading-[1.3] text-[#111827] mb-[20px]">
+                                        {title}
+                                    </h1>
+                                    <div dangerouslySetInnerHTML={{ __html: formatHtml(content ?? '') }} />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </Container>
             </div>
-            <Container className="max-w-[1390px] mx-auto relative z-100">
-                {/* ========== HEORO BANNER ========== */}
-                <div className="w-full aspect-[350/211]  md:aspect-[1390/480] rounded-2xl overflow-hidden relative">
-                    <Image src={IMAGE_HERO} alt="Hero" width={1000} height={1000} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-black/40">
-                        <h1 className="pt-[100px] md:pt-[212px] w-[253px] md:w-auto mx-auto text-center text-[24px] md:text-[76px] font-bold text-white">{t('title')}</h1>
-                    </div>
-                </div>
-
-                {/* ========== MAIN CONTENT ========== */}
-                <div className="pt-[20px] md:pt-[50px]">
-                    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-[20px] md:gap-[80px]">
-                        {/* ========== SDIEBAR ========== */}
-                        {isLoading ? <SidebarSkeleton /> : (
-                            <div>
-                                <PolicySidebarDesktop items={navItems ?? []} activeKey={activeKey} onSelect={setActiveKey} />
-                                <PolicySidebarMobileDropdown items={navItems ?? []} activeKey={activeKey} onSelect={setActiveKey} />
-                            </div>
-                        )}
-
-                        {/* ========== CONTENT ========== */}
-                        {isLoading ? <ContentSkeleton /> : (
-                            <div className="">
-                                <h1 className="font-bold text-[20px] md:text-[24px] leading-[1.3] text-[#111827] mb-[20px]">
-                                    {title}
-                                </h1>
-                                <div dangerouslySetInnerHTML={{ __html: formatHtml(content ?? '') }} />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </Container>
-        </div>
+        </>
     )
 }
 
