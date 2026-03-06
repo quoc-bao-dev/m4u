@@ -1,0 +1,30 @@
+/* Custom scrollbar for chat content */
+
+.scrollContainer {
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #ffc2df #fdf2f8; /* thumb, track */
+
+  /* Ngăn không cho scroll bên trong "lan" ra ngoài (desktop) */
+  overscroll-behavior: contain;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: #fdf2f8; /* light pink track */
+  border-radius: 9999px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background: #ffc2df; /* light pink thumb */
+  border-radius: 9999px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+  background: #ffc2df; /* slightly darker on hover */
+}
+
+

@@ -1,0 +1,951 @@
+{
+  "common": {
+    "home": "홈",
+    "about": "소개",
+    "contact": "연락처",
+    "language": "언어",
+    "welcome": "우리 애플리케이션에 오신 것을 환영합니다",
+    "reviewer": "리뷰어",
+    "product": "제품",
+    "share": "공유:",
+    "loadMore": "더 보기",
+    "openApp": "앱 열기",
+    "downloadApp": "지금 앱 다운로드",
+    "stickyFooterText1": "경험 - 공유 &",
+    "stickyFooterText2": "보상 받기",
+    "birthdayInput": {
+      "year": "년",
+      "month": "월",
+      "day": "일",
+      "selectYear": "연도 선택",
+      "selectMonth": "월 선택",
+      "selectDate": "생년월일 선택",
+      "months": {
+        "1": "1월",
+        "2": "2월",
+        "3": "3월",
+        "4": "4월",
+        "5": "5월",
+        "6": "6월",
+        "7": "7월",
+        "8": "8월",
+        "9": "9월",
+        "10": "10월",
+        "11": "11월",
+        "12": "12월"
+      }
+    }
+  },
+  "navigation": {
+    "home": "홈",
+    "products": "제품",
+    "services": "서비스",
+    "contact": "연락처"
+  },
+  "hero": {
+    "viewNow": "지금 보기",
+    "liveStream": {
+      "membersOnline": "온라인 회원",
+      "singleMoms": "리뷰어",
+      "participatingInGroup": "체험 참여 중",
+      "videoReview": "비디오 리뷰"
+    }
+  },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "제품 체험",
+        "description": "체험 신청 - 최대 80% 보상"
+      },
+      "share": {
+        "title": "제품 공유",
+        "description": "제품을 공유하고 Haru 코인 30% 적립"
+      },
+      "review": {
+        "title": "리뷰하고 보상받기",
+        "description": "리뷰를 공유하고 보상을 받으세요"
+      },
+      "refer": {
+        "title": "친구 추천",
+        "description": "추천하면 즉시 Haru 코인 5% 지급"
+      },
+      "challenge": {
+        "title": "챌린지 참여",
+        "description": "챌린지를 성공하면 Haru 지갑에 Haru 코인이 적립됩니다"
+      },
+      "community": {
+        "title": "실제 챌린지 공유 커뮤니티",
+        "description": "참여 후 리뷰·사진·영상 등 실제 챌린지 결과를 공유하는 공간"
+      }
+    }
+  },
+  "donation": {
+    "donated": "기부 완료!",
+    "month": "개월",
+    "day": "일",
+    "hour": "시간",
+    "individuals": "명",
+    "justDonated": "이(가) 우리 커뮤니티에 기부했습니다!",
+    "financialPublicNote": "*재무제표는 매월 공개됩니다."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "기부 & 자선",
+      "description": "M4U와 함께 제품과 커뮤니티 기여를 통해 한부모 가정을 지원하세요."
+    },
+    "giveToday": {
+      "titleLead": "오늘 기부하고,",
+      "titleEnd": "내일을 바꾸세요",
+      "subtitle": "한부모 가정을 위한 필수품과 기술을 지원하는 M4U 기금에 참여하세요."
+    },
+    "eventCampaign": {
+      "titleLead": "당신의 빛이,",
+      "titleEnd": "그녀의 성장",
+      "desc": "각 제품은 한부모 가정을 돕는 자선 캠페인에 5%가 기부됩니다 — 생필품과 기술 프로그램을 지원합니다. 당신의 체험 & 리뷰는 두 번의 도움입니다."
+    },
+    "modalSection": {
+      "titleLead": "우리의 자선 기금 모델:",
+      "titleEnd": "목적을 위한 아름다움",
+      "desc": "수익의 일부와 커뮤니티의 기부는 베트남의 한부모 가정을 지원하는 M4U 커뮤니티 기금으로 직접 전달됩니다.",
+      "fundingSources": "재원 출처",
+      "charityFund": "자선 기금",
+      "discountOnProduct": "% 각 제품 할인",
+      "commission": "% 추천인/리뷰어/판매자 수수료",
+      "directDonations": "커뮤니티의\n직접 기부",
+      "government": "정부",
+      "organizations": "기관",
+      "individuals": "개인"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "진행 중",
+        "coming": "곧 진행"
+      },
+      "fundName": "M4U 자선 기금",
+      "totalProducts": "총 제품",
+      "totalFundsConverted": "총 기금 환산"
+    },
+    "productCard": {
+      "contribution": "기부"
+    }
+  },
+  "footer": {
+    "sitemap": "사이트맵",
+    "home": "홈",
+    "joinTrial": "체험 신청",
+    "newsfeed": "뉴스피드",
+    "newsEvents": "뉴스 & 이벤트",
+    "account": "계정",
+    "policy": "정책",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
+    "headOffice": "본사"
+  },
+  "developing": {
+    "comingSoon": "곧 출시 예정!",
+    "underDevelopment": "이 페이지는 개발 중입니다. 나중에 다시 확인해 주세요!",
+    "backToHome": "홈으로 돌아가기"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "리뷰 작성하고 즉시 혜택 받기",
+    "singleMomsJoined": " 명의 리뷰어가 참여했습니다",
+    "joinTitle": "참여",
+    "experienceTitle": "체험"
+  },
+  "topProduct": {
+    "top3Products": "상위 3개 제품",
+    "mostCared": "가장 많이 관심받는",
+    "reviews": "리뷰",
+    "productName": "판테토인 딥 모이스처 마스크",
+    "registerCount": "등록 수"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "혜택 & 약관",
+    "benefits": "혜택",
+    "terms": "약관",
+    "memberBenefits": "리뷰어 회원 혜택",
+    "benefit1": "가장 인기 있는 뷰티 제품을 무료로 체험하세요.",
+    "benefit2": "추천 링크를 통한 매력적인 수익을 얻으세요.",
+    "benefit3": "새로운 제품과 한정 제품을 우선적으로 체험하세요.",
+    "benefit4": "전문가의 리뷰 품질 향상을 위한 지원과 가이드를 받으세요.",
+    "benefit5": "커뮤니티와 연결되어 경험을 공유하고 서로 배우세요.",
+    "placeholder1": "샘플 콘텐츠: 데이터가 있을 때 실제 콘텐츠로 교체할 수 있습니다.",
+    "placeholder2": "샘플 콘텐츠: 활동 참여 시 회원이 추가 혜택을 받습니다."
+  },
+  "filter": {
+    "title": "필터",
+    "without": "포함하지 않음",
+    "usage": "용도",
+    "skinType": "피부 타입",
+    "ingredients": "성분",
+    "price": "가격",
+    "brand": "브랜드",
+    "artificialFragrance": "인공 향료",
+    "alcohol": "알코올",
+    "sulphates": "설페이트",
+    "animalDerived": "동물 유래",
+    "silicone": "실리콘",
+    "deepMoisturizing": "깊은 보습",
+    "oilControl": "유분 조절 & 균형",
+    "acneTreatment": "여드름 치료 & 진정",
+    "antiAging": "안티에이징 & 회복",
+    "whitening": "미백 & 브라이트닝",
+    "drySkin": "건성 피부",
+    "oilySkin": "지성 피부",
+    "sensitiveSkin": "민감성 피부",
+    "combinationSkin": "복합성 피부",
+    "normalSkin": "정상 피부",
+    "acneSkin": "여드름성 피부",
+    "clearAll": "모두 지우기",
+    "apply": "적용",
+    "aloeVera": "알로에 베라",
+    "collagen": "콜라겐",
+    "hyaluronicAcid": "히알루론산",
+    "teaTree": "티트리",
+    "gotuKola": "센타엘라",
+    "reviews": "리뷰"
+  },
+  "reviewCTA": {
+    "title": "더 이상 기다릴 이유가 있나요?",
+    "become": "지금 바로",
+    "reviewerNow": "리뷰어가 되세요!",
+    "registerTrial": "체험 신청",
+    "participation": "참여"
+  },
+  "reviewHub": {
+    "title": "리뷰 허브",
+    "description": "최고의 리뷰어와 추천 제품을 만나보세요",
+    "endorsedByTopReviewers": "탑 리뷰어 추천",
+    "filters": {
+      "freeFrom": "무첨가",
+      "parabens": "파라벤",
+      "sulfates": "설페이트",
+      "phthalates": "프탈레이트",
+      "fragrance": "향료",
+      "alcohol": "알코올",
+      "benefits": "효능",
+      "hydrating": "보습",
+      "antiAging": "안티에이징",
+      "brightening": "브라이트닝",
+      "acneFighting": "여드름 개선",
+      "soothing": "진정",
+      "skinType": "피부 타입",
+      "oily": "지성",
+      "dry": "건성",
+      "combination": "복합성",
+      "sensitive": "민감성",
+      "normal": "정상",
+      "keyIngredients": "주요 성분",
+      "retinol": "레티놀",
+      "vitaminC": "비타민 C",
+      "hyaluronicAcid": "히알루론산",
+      "niacinamide": "니아신아마이드",
+      "salicylicAcid": "살리실산",
+      "rating": "평점",
+      "fiveStars": "5점",
+      "fourStarsUp": "4점 이상",
+      "threeStarsUp": "3점 이상",
+      "twoStarsUp": "2점 이상"
+    },
+    "searchPlaceholder": "검색 ...",
+    "influencer": {
+      "titleLead": "뷰티에 대한 열정을",
+      "titleEnd": "수입으로!",
+      "subtitle": "무료로 제품을 사용해 보고 리뷰로 수익을 창출하세요.",
+      "cta": "지금 바로 체험 신청"
+    },
+    "kols": {
+      "sortBy": "정렬 기준",
+      "mostViewed": "가장 많이 본",
+      "filterBy": "필터:",
+      "options": {
+        "latest": "최신",
+        "oldest": "오래된",
+        "mostViewed": "가장 많이 본",
+        "highestRated": "평점 높은 순",
+        "mostLiked": "좋아요 많은 순"
+      },
+      "period": {
+        "all": "전체",
+        "today": "오늘",
+        "week": "이번 주",
+        "month": "이번 달",
+        "year": "올해",
+        "allTime": "전체 기간"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "마스크-어-톤",
+      "titleEnd": "챌린지",
+      "ribbonTop": "시트 마스크 3개 리뷰",
+      "ribbonBottom": "아이폰 16 당첨 기회",
+      "dateLabel": "2025년 10월 01일",
+      "headline": "당첨자 발표 예정",
+      "joinNow": "지금 참여하기"
+    },
+    "card": {
+      "fundName": "M4U 자선 기금",
+      "mobileDesc": "마스크를 좋아하나요? 추천 마스크 3개를 무료로 체험하고 솔직한 리뷰를 공유하세요 ...",
+      "totalProducts": "총 제품",
+      "totalPrizePool": "총 상금 풀",
+      "totalFundsConverted": "총 기금 환산"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "이벤트 규정",
+        "eligibility": "참여 자격",
+        "newUserTask": "신규 사용자 미션"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "기여 상세",
+      "sponsor": "스폰서",
+      "product": "제품",
+      "totalPrizes": "총 상금 수",
+      "totalPrizePool": "총 상금 풀",
+      "totalProducts": "총 제품",
+      "comingSoon": "곧 진행",
+      "registrationDate": "등록일",
+      "endDate": "종료일",
+      "joinNow": "지금 참여하기",
+      "buttons": {
+        "joinNow": "지금 참여하기",
+        "registerNotification": "곧 공개",
+        "eventEnded": "종료"
+      },
+      "titles": {
+        "eventHappening": "이벤트 진행 중",
+        "eventComing": "이벤트 곧 시작",
+        "eventEnded": "이벤트 종료"
+      }
+    },
+    "badge": {
+      "status": {
+        "happening": "진행 중",
+        "coming": "곧 진행",
+        "ended": "종료됨"
+      }
+    },
+    "relative": {
+      "title": "관련 이벤트",
+      "loading": "로딩 중..."
+    },
+    "filter": {
+      "tabs": {
+        "all": "전체",
+        "event": "이벤트",
+        "challenge": "챌린지"
+      },
+      "filters": {
+        "all": "전체",
+        "upcoming": "예정",
+        "ongoing": "진행 중",
+        "ended": "종료"
+      },
+      "filterBy": "필터:",
+      "searchPlaceholder": "검색..."
+    },
+    "questions": {
+      "titleLead": "자주 묻는 질문 ",
+      "titleTail": "& 답변",
+      "perksTitle": "리뷰어 회원 혜택",
+      "intro": "가입하면 다양한 혜택을 누릴 수 있습니다:",
+      "bullets": {
+        "freeTrials": {
+          "label": "무료 제품 체험:",
+          "desc": "가장 인기 있는 뷰티 제품을 무료로 사용해 보세요."
+        },
+        "earnings": {
+          "label": "매력적인 수익:",
+          "desc": "추천 링크를 통한 유효 주문마다 커미션을 받습니다."
+        },
+        "earlyAccess": {
+          "label": "얼리 액세스:",
+          "desc": "주요 브랜드의 신제품과 한정판을 가장 먼저 체험하세요."
+        },
+        "support": {
+          "label": "지원 및 가이드:",
+          "desc": "단계별 가이드와 전문가 팁으로 리뷰 퀄리티와 신뢰도를 높이세요."
+        },
+        "community": {
+          "label": "커뮤니티:",
+          "desc": "뷰티 러버들과 교류하고 경험을 공유하며 함께 배워요."
+        }
+      },
+      "placeholder1Title": "리뷰어 회원 혜택",
+      "placeholder1": "샘플 콘텐츠: 데이터가 있을 때 실제 내용으로 교체할 수 있습니다.",
+      "placeholder2Title": "리뷰어 회원 혜택",
+      "placeholder2": "샘플 콘텐츠: 활동 참여 시 회원이 추가 혜택을 받습니다."
+    }
+  },
+  "product": {
+    "register": "체험 신청",
+    "writeYourReview": "리뷰 작성",
+    "registerBtn": "지금 등록",
+    "participation": "참여",
+    "reviews": "리뷰",
+    "slotsLeft": "단 {count} 자리만 남음",
+    "users": "사용자",
+    "enrolledTrial": "제품 체험 프로그램에 등록됨",
+    "views": "조회수",
+    "filterBy": "필터:",
+    "selectFilter": "필터 선택",
+    "viewAll": "모두 보기",
+    "exploreSimilarProducts": "유사한 제품 탐색",
+    "honestReviews": "솔직한 리뷰",
+    "fromRealUsers": "실제 사용자로부터",
+    "noReviews": "이 제품에 대한 리뷰가 없습니다.",
+    "viewReview": "리뷰 보기"
+  },
+  "review": {
+    "rating": {
+      "excellent": "우수함"
+    }
+  },
+  "cart": {
+    "title": "체험 장바구니 ({count}개 항목)",
+    "empty": "장바구니가 비어있습니다",
+    "clearAll": "모두 삭제",
+    "viewDetails": "자세히 보기",
+    "addedToCart": "장바구니에 추가됨",
+    "alreadyInCart": "이미 장바구니에 있음"
+  },
+  "rating": {
+    "excellent": "최고",
+    "good": "좋음",
+    "average": "보통",
+    "bad": "나쁨",
+    "veryBad": "매우 나쁨"
+  },
+  "timer": {
+    "days": "일",
+    "hours": "시간",
+    "minutes": "분",
+    "seconds": "초"
+  },
+  "auth": {
+    "logoutSuccess": "로그아웃 성공!",
+    "loginSuccess": "로그인 성공!",
+    "signIn": "로그인",
+    "signingIn": "로그인 중...",
+    "welcomeBack": "오신 것을 환영합니다! 로그인 정보를 입력하세요.",
+    "phoneNumber": "전화번호",
+    "enterPhoneNumber": "전화번호를 입력하세요",
+    "password": "비밀번호",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "rememberAccount": "계정 기억하기",
+    "phoneRequired": "전화번호는 필수입니다",
+    "passwordRequired": "비밀번호는 필수입니다",
+    "confirmLogoutTitle": "로그아웃 확인",
+    "confirmLogoutDesc": "계정에서 로그아웃하시겠습니까?",
+    "cancel": "취소",
+    "logout": "로그아웃",
+    "forgot": {
+      "enterPhoneFirst": "비밀번호 재설정 전에 전화번호를 입력하세요",
+      "phone": {
+        "title": "비밀번호 찾기",
+        "desc": "인증 코드를 받을 전화번호를 입력하세요",
+        "submit": "OTP 전송",
+        "validation": {
+          "phoneRequired": "전화번호는 필수입니다"
+        }
+      },
+      "otp": {
+        "title": "인증 코드 입력",
+        "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",
+        "sending": "전송 중...",
+        "sendSuccess": "OTP가 전화번호로 전송되었습니다",
+        "sendFailed": "OTP를 전송할 수 없습니다. 다시 시도하세요.",
+        "inputError": "OTP 코드를 모두 입력하세요",
+        "confirm": "확인",
+        "checking": "확인 중...",
+        "invalid": "유효하지 않은 OTP 코드",
+        "verifyError": "OTP 인증에 실패했습니다. 다시 시도하세요."
+      },
+      "reset": {
+        "title": "비밀번호 변경",
+        "desc": "새 비밀번호를 입력하세요",
+        "newPassword": "새 비밀번호",
+        "confirmPassword": "비밀번호 확인",
+        "submitting": "처리 중...",
+        "submit": "변경 확인",
+        "success": "비밀번호 변경 및 로그인 성공",
+        "saveFailed": "비밀번호 변경 실패",
+        "loginFailed": "재로그인 실패",
+        "passwordsNotMatch": "비밀번호가 일치하지 않습니다",
+        "validation": {
+          "passwordRequired": "새 비밀번호는 필수입니다",
+          "confirmPasswordRequired": "비밀번호 확인은 필수입니다"
+        }
+      }
+    }
+  },
+  "menu": {
+    "reviewerQuestion": "M4U 리뷰어이신가요?",
+    "reviewerOptions": {
+      "yes": "네, 회원입니다",
+      "no": "아직 아니에요, 가입할래요"
+    },
+    "section": {
+      "productCommunity": "제품 & 커뮤니티",
+      "settings": "설정",
+      "general": "일반",
+      "support": "지원"
+    },
+    "productCommunity": {
+      "trial-samples": "체험 샘플",
+      "donation-charity": "기부 & 자선",
+      "review-hub": "리뷰 허브",
+      "event": "이벤트"
+    },
+    "settings": {
+      "general": {
+        "language": "언어"
+      },
+      "support": {
+        "help-centre": "도움말 센터",
+        "feedback-submission": "피드백 제출"
+      },
+      "about": {
+        "about-app": "M4U 앱 소개"
+      }
+    },
+    "auth": {
+      "loadingUser": "사용자 정보를 불러오는 중...",
+      "unknown": "알 수 없음",
+      "unknownUser": "사용자",
+      "joinedSince": "가입일 {date}",
+      "membership": {
+        "gold": "골드 멤버십"
+      },
+      "stats": {
+        "referrals": "추천",
+        "active": "활성",
+        "accountBalance": "계정 잔액",
+        "points": "포인트",
+        "commissionRevenue": "커미션 수익",
+        "reviews": "리뷰"
+      },
+      "activity": {
+        "title": "나의 활동",
+        "trialHistory": "체험 신청 내역",
+        "myReviews": "내 리뷰",
+        "referralList": "추천 목록",
+        "referralCode": "추천 코드",
+        "notification": "알림"
+      },
+      "account": {
+        "preferences": "계정 설정"
+      },
+      "logout": "로그아웃"
+    }
+  },
+  "notification": {
+    "title": "알림",
+    "viewAll": "모두 보기",
+    "viewDetail": "자세히 보기",
+    "nodata": {
+      "title": "알림이 아직 없습니다",
+      "desc": "새로운 업데이트가 있으면 여기에 표시됩니다."
+    },
+    "tabs": {
+      "all": "전체",
+      "reviews": "리뷰",
+      "products": "제품"
+    },
+    "actions": {
+      "markReadAll": "모두 읽음 처리",
+      "marking": "처리 중..."
+    },
+    "pagination": {
+      "prev": "이전",
+      "next": "다음",
+      "pageXofY": "페이지 {current} / {total}"
+    },
+    "relative": {
+      "now": "방금 전",
+      "minutes": "{count}분 전",
+      "hours": "{count}시간 전",
+      "days": "{count}일 전"
+    }
+  },
+  "trial": {
+    "form": {
+      "headerTitle": "제품 샘플 신청",
+      "headerSubtitle": "정보를 남겨주시면 연락드리겠습니다.",
+      "fields": {
+        "fullName": {
+          "label": "성명",
+          "placeholder": "성명을 입력하세요"
+        },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
+        "address": {
+          "label": "주소",
+          "placeholder": "주소를 입력하세요"
+        },
+        "gender": {
+          "label": "성별",
+          "options": {
+            "female": "여성",
+            "male": "남성",
+            "other": "기타"
+          }
+        }
+      },
+      "productSection": {
+        "label": "체험 제품"
+      },
+      "submit": {
+        "processing": "처리 중...",
+        "continue": "계속"
+      },
+      "validation": {
+        "fullNameMin": "올바른 성명을 입력하세요",
+        "phoneInvalid": "유효하지 않은 전화번호입니다",
+        "genderRequired": "성별을 선택하세요",
+        "dobRequired": "생년월일을 선택하세요",
+        "addressMin": "올바른 주소를 입력하세요"
+      },
+      "api": {
+        "registerFailed": "신청 실패",
+        "registerError": "신청 중 오류가 발생했습니다"
+      }
+    },
+    "otp": {
+      "title": "인증 코드 입력",
+      "desc": "전화번호 {phone}로 전송된 {length}자리 OTP를 입력하세요",
+      "processing": "처리 중...",
+      "confirm": "확인",
+      "errors": {
+        "verifyFailed": "OTP 인증에 실패했습니다",
+        "verifyError": "OTP 인증 중 오류가 발생했습니다"
+      }
+    },
+    "success": {
+      "title": "신청이 완료되었습니다!",
+      "message": "신청이 접수되었습니다. 체험 제품은 며칠 내에 귀하의 주소로 발송됩니다."
+    }
+  },
+  "submitReview": {
+    "back": "뒤로",
+    "title": "리뷰하고 수익을 창출할 준비가 되셨나요?",
+    "shareReview": "솔직한 리뷰를 공유하세요",
+    "addVideo": "비디오 추가 (필수)",
+    "addPhotos": "사진 추가 (선택사항)",
+    "dropFiles": "파일을 여기에 드롭하거나 클릭하여 업로드하세요",
+    "rating": "평점",
+    "productQuality": "제품 품질",
+    "overallExperience": "전체 경험",
+    "absorbability": "흡수력",
+    "moisturization": "보습",
+    "skinBrightening": "피부 밝기",
+    "excellent": "우수함",
+    "tellUsWhatYouThink": "생각을 알려주세요",
+    "reviewTips": "리뷰 팁",
+    "placeholder": "이 제품의 어떤 점을 좋아하셨나요?",
+    "submitReview": "리뷰 제출",
+    "submitting": "처리 중...",
+    "uploadSuccessfully": "업로드 성공",
+    "hasVideoReview": "비디오 리뷰 있음",
+    "reviewImage": "리뷰 이미지 {number}"
+  },
+  "dateRangePicker": {
+    "from": "시작",
+    "to": "종료",
+    "cancel": "취소",
+    "apply": "적용"
+  },
+  "myReviews": {
+    "header": {
+      "title": "내 리뷰",
+      "searchPlaceholder": "제품, 리뷰, 날짜 등 검색"
+    },
+    "history": {
+      "header": {
+        "title": "체험 신청 내역",
+        "searchPlaceholder": "제품, 리뷰, 날짜 등 검색"
+      },
+      "table": {
+        "headers": {
+          "orderId": "주문 번호",
+          "productInfo": "제품 정보",
+          "review": "리뷰",
+          "reward": "보상",
+          "dateTime": "날짜/시간",
+          "timeCreated": "생성 시간",
+          "orderStatus": "주문 상태",
+          "action": "동작"
+        },
+        "statuses": {
+          "completed": "완료",
+          "pending": "대기 중",
+          "cancelled": "취소됨",
+          "processing": "처리 중"
+        },
+        "actions": {
+          "review": "리뷰",
+          "edit": "편집",
+          "viewDetails": "자세히 보기",
+          "viewReason": "이유 보기",
+          "rewriteReview": "리뷰 다시 작성"
+        },
+        "error": {
+          "loadFailed": "리뷰 내역을 불러오는 중 오류가 발생했습니다",
+          "tryLater": "나중에 다시 시도해 주세요"
+        },
+        "empty": {
+          "title": "리뷰 내역이 없습니다",
+          "desc": "리뷰를 완료하면 이곳에 내역이 표시됩니다."
+        },
+        "mobile": {
+          "moreProducts": "+{count}개 제품",
+          "daysLeftToSubmit": "리뷰 제출까지 {count}일 남음"
+        }
+      },
+      "reasonModal": {
+        "title": "반려 사유",
+        "empty": "제공된 사유가 없습니다.",
+        "close": "닫기"
+      }
+    }
+  },
+  "nodataReviewhub": {
+    "title": "뷰티 여정을 시작하세요!",
+    "description": "첫 번째 제품을 등록하면 여기에 제품 체험 내역이 표시됩니다. 시작하기 쉽습니다—무료 제품을 받고, 커미션을 벌고, 독점 바우처를 받으세요.",
+    "registerButton": "무료 체험 등록",
+    "noData": "아직 데이터가 없습니다"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "이름은 최소 2글자 이상이어야 합니다",
+        "phoneInvalid": "유효한 전화번호를 입력해주세요",
+        "genderRequired": "성별을 선택해주세요",
+        "dobRequired": "생년월일은 필수입니다",
+        "addressMin": "주소는 최소 5글자 이상이어야 합니다",
+        "oldPasswordRequired": "현재 비밀번호는 필수입니다",
+        "newPasswordMin": "새 비밀번호는 최소 8글자 이상이어야 합니다",
+        "confirmPasswordRequired": "새 비밀번호를 확인해주세요",
+        "passwordsDoNotMatch": "비밀번호가 일치하지 않습니다"
+      },
+      "fields": {
+        "fullName": {
+          "label": "이름",
+          "placeholder": "이름을 입력하세요"
+        },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "gender": {
+          "label": "성별",
+          "options": {
+            "female": "여성",
+            "male": "남성",
+            "other": "기타"
+          }
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
+        "address": {
+          "label": "주소",
+          "placeholder": "주소를 입력하세요"
+        },
+        "oldPassword": {
+          "label": "기존 비밀번호",
+          "placeholder": "현재 비밀번호를 입력하세요"
+        },
+        "newPassword": {
+          "label": "새 비밀번호",
+          "placeholder": "새 비밀번호를 입력하세요"
+        },
+        "confirmPassword": {
+          "label": "새 비밀번호 확인",
+          "placeholder": "새 비밀번호를 확인하세요"
+        }
+      },
+      "buttons": {
+        "saveChanges": "변경사항 저장",
+        "updatePhoto": "사진 업데이트"
+      },
+      "sections": {
+        "general": "일반",
+        "security": "보안",
+        "accountPreferences": "계정 설정"
+      },
+      "helpers": {
+        "passwordRequirement": "비밀번호는 최소 8글자 이상이어야 합니다",
+        "photoRequirement": "허용된 형식: *.jpeg, *.jpg, *.png, *.gif\n최대 크기: 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "avatarCropper": {
+      "title": "프로필 사진 업데이트",
+      "description": "프로필에서 가장 아름답게 보이도록 아바타 이미지를 사용자 정의하고 정렬하세요.",
+      "zoom": "줌",
+      "cancel": "취소",
+      "save": "저장",
+      "saving": "저장 중..."
+    },
+    "accountPreferences": "계정 설정",
+    "form": {
+      "general": {
+        "title": "일반 정보",
+        "updatePhoto": "사진 업데이트",
+        "uploadNote": "허용된 형식: *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "최대 크기: 3.1 MB"
+      },
+      "security": {
+        "title": "비밀번호 업데이트"
+      },
+      "fields": {
+        "fullName": {
+          "label": "성명",
+          "placeholder": "성명을 입력하세요"
+        },
+        "phoneNumber": {
+          "label": "전화번호",
+          "placeholder": "전화번호를 입력하세요"
+        },
+        "gender": {
+          "label": "성별",
+          "options": {
+            "female": "여성",
+            "male": "남성",
+            "other": "기타"
+          }
+        },
+        "dateOfBirth": {
+          "label": "생년월일",
+          "placeholder": "생년월일을 선택하세요"
+        },
+        "address": {
+          "label": "주소",
+          "placeholder": "주소를 입력하세요"
+        },
+        "oldPassword": {
+          "label": "기존 비밀번호",
+          "placeholder": "기존 비밀번호를 입력하세요"
+        },
+        "newPassword": {
+          "label": "새 비밀번호",
+          "placeholder": "새 비밀번호를 입력하세요",
+          "helperText": "비밀번호는 최소 8자 이상이어야 합니다"
+        },
+        "confirmPassword": {
+          "label": "새 비밀번호 확인",
+          "placeholder": "새 비밀번호를 확인하세요",
+          "helperTextMatch": "비밀번호가 일치합니다"
+        }
+      },
+      "submit": {
+        "saveChanges": "변경사항 저장",
+        "saving": "저장 중..."
+      },
+      "success": {
+        "updateAccount": "계정이 성공적으로 업데이트되었습니다",
+        "updatePassword": "비밀번호가 성공적으로 업데이트되었습니다",
+        "updateAvatar": "프로필 사진이 성공적으로 업데이트되었습니다"
+      },
+      "errors": {
+        "noToken": "인증 토큰을 찾을 수 없습니다. 다시 로그인해 주세요.",
+        "updateFailed": "계정 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "updatePasswordFailed": "비밀번호 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "updateAvatarFailed": "프로필 사진 업데이트에 실패했습니다. 다시 시도해 주세요.",
+        "invalidFileType": "유효하지 않은 파일 형식입니다. 유효한 이미지 파일(JPEG, JPG, PNG, GIF)을 선택해 주세요.",
+        "fileTooLarge": "파일 크기가 너무 큽니다. 3.1 MB보다 작은 파일을 선택해 주세요."
+      },
+      "validation": {
+        "fullNameMin": "성명은 최소 2자 이상이어야 합니다",
+        "phoneInvalid": "전화번호는 8-15자 사이여야 합니다",
+        "genderRequired": "성별은 필수입니다",
+        "dobRequired": "생년월일은 필수입니다",
+        "addressMin": "주소는 최소 5자 이상이어야 합니다",
+        "oldPasswordRequired": "기존 비밀번호는 필수입니다",
+        "newPasswordRequired": "새 비밀번호는 필수입니다",
+        "newPasswordMin": "새 비밀번호는 최소 8자 이상이어야 합니다",
+        "confirmPasswordRequired": "비밀번호 확인은 필수입니다",
+        "passwordsNotMatch": "비밀번호가 일치하지 않습니다"
+      }
+    }
+  },
+  "Referral": {
+    "title": "추천 프로그램",
+    "copy": "복사",
+    "copied": "복사됨",
+    "referrals": "추천 수",
+    "commissionRevenue": "커미션 수익",
+    "friends": "친구",
+    "noData": {
+      "title": "아직 데이터가 없습니다",
+      "desc": "추천한 사용자의 목록은 여기에 표시됩니다. 추천 코드를 공유하여 시작해보세요."
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "추가 피드백",
+      "textareaPlaceholder": "추가로 말씀하고 싶은 것이 있으시면 여기에 입력해주세요...",
+      "maxImagesReached": "최대 3개 이미지에 도달했습니다",
+      "privacyPolicy": "개인정보 보호정책을 읽고 동의합니다.",
+      "submitFeedback": "피드백 제출",
+      "reasons": {
+        "interface": "인터페이스",
+        "loadingSpeed": "로딩 속도",
+        "functionalManipulation": "기능 조작",
+        "customService": "고객 서비스",
+        "other": "기타"
+      }
+    },
+    "modal": {
+      "thankYou": "정말 감사합니다!",
+      "message": "모든 피드백을 신중하게 검토하고 귀하와 같은 사용자를 위해 제품을 계속 개선하겠습니다."
+    },
+    "select": {
+      "awesome": "훌륭함 - 매우 유용하고 잘 작동합니다!",
+      "satisfied": "만족 - 안정적인 작동, 사용하기 쉬움",
+      "okay": "괜찮음 - 사용 가능하지만 매우 부드럽지는 않음",
+      "needsImprovement": "개선 필요 - 작동이 부드럽지 않음",
+      "notGood": "좋지 않음 - 여전히 최적화할 것이 많음"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "고객",
+      "content": "리뷰를 불러오는 중...",
+      "address": "업데이트 중"
+    },
+    "defaults": {
+      "anonymous": "익명",
+      "noContent": "리뷰 내용이 없습니다.",
+      "noAddress": "주소가 업데이트되지 않음"
+    }
+  },
+  "chatBot": {
+    "greeting": "안녕하세요, 팩봇입니다",
+    "greetingIntro": "안녕하세요, 저는 Packbot입니다.",
+    "greetingSuggest": "당신께 잘 맞는 마스크팩을 추천해 드릴게요.",
+    "startSurvey": "설문 시작",
+    "restartSurvey": "설문 다시 시작",
+    "registerTrial": "체험 신청",
+    "buyNow": "지금 구매",
+    "active": "활성",
+    "featureInDevelopment": "해당 기능은 개발 중입니다. 나중에 다시 이용해 주세요.",
+    "selectOneAnswer": "(답변 1개를 선택하세요)",
+    "selectMultipleAnswers": "(하나 이상의 답변을 선택하세요)",
+    "confirm": "확인"
+  },
+  "PolicyPage": {
+    "title": "M4U 사용 정책"
+  }
+}

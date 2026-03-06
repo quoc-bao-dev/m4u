@@ -1,125 +1,166 @@
 'use client'
-
-import { Header } from '@/core/components'
 import { Container, Section } from '@/core/components/common/group'
-import Image from 'next/image'
-import { useCallback } from 'react'
-import { LiveStreamBadge } from '../badge'
-import { RegisterCTA } from '../cta'
+import { useEffect, useMemo, useState } from 'react'
+import { ArrowLeftIcon, ArrowRightIcon } from '@phosphor-icons/react'
+import { useGetHomePage } from '@/services/home/queries'
 import HeroBackground from './HeroBackground'
+import HeroContent from './HeroContent'
+import LiveStreamComponent from './LiveStreamComponent'
+import LiveStreamShow from './LiveStreamShow'
+import Image from 'next/image'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useDevice } from '@/core/hooks'
 
 const HeroSection = () => {
-  const LiveStreamComponent = useCallback(
-    () => (
-      <div className="bg-[#FFF0F8] py-6 lg:py-8">
-        <Container>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            {/* Live Stream Badge */}
-            <LiveStreamBadge />
+  const { isMobile } = useDevice()
+  //lấy chiều cao của viewport
+  useEffect(() => {
+    const inner = window.innerHeight
+    const visual =
+      (window.visualViewport && window.visualViewport.height) || inner
+    const initial = Math.min(inner, visual)
+    const root = document.documentElement
+    root.style.setProperty('--vh-initial', `${initial * 0.01}px`)
+  }, [])
 
-            {/* Members Section */}
-            <div className="flex items-center gap-4">
-              {/* Member Info */}
-              <div className="text-right">
-                <p className="text-gray-900 text-2xl font-medium">
-                  Thành viên online
-                </p>
-                <p className="text-xl">
-                  <span className="text-[#F5222D] font-semibold">
-                    69+ mẹ đơn thân
-                  </span>{' '}
-                  <span className="text-[#4B5563]">
-                    đang tham gia nhóm trải nghiệm
-                  </span>
-                </p>
-              </div>
+  const { data: homePage } = useGetHomePage()
+  const section1 = homePage?.section1
+  const normalized = useMemo(() => {
+    const list = Array.isArray(section1?.banner) ? section1?.banner : []
+    return list.map((b: any) =>
+      typeof b === 'string'
+        ? { image: b }
+        : {
+          image: b?.image ?? b?.url,
+          image_mobile: b?.image_mobile,
+          title: b?.title,
+          content: b?.content,
+          is_background: b?.is_background,
+          hidden_button: b?.hidden_button,
+        }
+    )
+  }, [section1?.banner])
 
-              {/* Avatar Stack */}
-              <div className="flex -space-x-2">
-                {/* Avatar placeholders - replace with actual user avatars */}
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-16 h-16 bg-gray-300 rounded-full border-4 border-white flex items-center justify-center text-gray-600 text-xs font-medium"
-                  >
-                    {i}
-                  </div>
-                ))}
-                <div className="w-16 h-16 bg-gray-400 rounded-full border-4 border-white flex items-center justify-center text-white text-sm font-medium">
-                  69
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div>
-    ),
-    []
-  )
+  // controls centralized here; child components are fully controlled by props now
+  const dotCount = normalized.length
+  const [dotIndex, setDotIndex] = useState(0)
+  const currentBanner = normalized?.[dotIndex] || {}
+  const isBackground =
+    (currentBanner as any)?.is_background === 1 ||
+    (currentBanner as any)?.is_background === '1'
 
-  const HeroContent = useCallback(
-    () => (
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-12 h-full">
-        {/* Left Content */}
-        <div className="lg:space-y-8 lg:h-full py-10 lg:py-0">
-          <div className="flex items-center h-full">
-            <div>
-              {/* Main Heading */}
-              <div className="space-y-4 ">
-                <h1 className="text-4xl sm:text-6xl lg:text-8xl xl:text-[88px] font-bold">
-                  <span className="text-gray-900">Giảm </span>
-                  <span className="text-[#FF8092]">50%</span>
-                  <span className="text-gray-900"> và</span>
-                  <br />
-                  <span className="text-gray-900">tặng voucher</span>
-                </h1>
-
-                <div className="text-base sm:text-xl lg:text-3xl xxl:text-[48px] text-gray-700 leading-relaxed">
-                  <p>khi review sản phẩm và</p>
-                  <p>đăng ký nhóm trải nghiệm</p>
-                </div>
-              </div>
-              {/* CTA Button */}
-              <RegisterCTA className="mt-4" label="Đăng ký trải nghiệm ngay" />
-            </div>
-          </div>
-        </div>
-
-        {/* Right Content - Image */}
-        <div className="relative h-full">
-          <div className="relative h-[500px] lg:h-full w-full lg:-right-20">
-            <Image
-              src="/image/hero-baner/image-01.png"
-              alt="Hero Banner"
-              fill
-              className="object-contain h-full"
-              priority
-            />
-          </div>
-        </div>
-      </div>
-    ),
-    []
-  )
+  // auto advance slide every 5s
+  useEffect(() => {
+    if (normalized.length <= 1) return
+    const id = setInterval(() => {
+      setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))
+    }, 6000)
+    return () => clearInterval(id)
+  }, [normalized.length])
 
   return (
-    <div className="relative lg:h-screen flex flex-col">
-      <div className="absolute top-0 left-0 right-0 z-30">
-        <Header />
+    <>
+      <div className="relative h-[calc(var(--vh-initial,1vh)*100)] flex flex-col overflow-hidden">
+        <div className="flex-1 min-h-0">
+          <Section
+            background={
+              <>
+                {isBackground && (currentBanner as any)?.image ? (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`bg-${dotIndex}`}
+                      className="absolute inset-0"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    >
+                      <Image
+                        src={
+                          isMobile
+                            ? (currentBanner as any)?.image_mobile ||
+                            (currentBanner as any).image
+                            : (currentBanner as any).image
+                        }
+                        alt="Hero Background"
+                        fill
+                        className="object-cover w-full h-full object-top lg:object-center"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                ) : (
+                  <HeroBackground />
+                )}
+              </>
+            }
+            className="h-full"
+          >
+            <Container className="h-full">
+              <HeroContent
+                titleHtmlOverride={
+                  isBackground ? (currentBanner as any)?.title : undefined
+                }
+                contentHtmlOverride={
+                  isBackground ? (currentBanner as any)?.content : undefined
+                }
+                isBackground={isBackground}
+                banners={normalized}
+                currentIndex={dotIndex}
+                hiddenButton={(currentBanner as any)?.hidden_button == 1}
+              />
+              <div className="absolute z-20 bottom-3 lg:bottom-6 right-6 md:right-8 lg:right-12 xl:right-20 flex gap-4 items-center">
+                <button
+                  onClick={() =>
+                    setDotIndex(
+                      (p) =>
+                        (p - 1 + normalized.length) %
+                        Math.max(normalized.length, 1)
+                    )
+                  }
+                  className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                >
+                  <ArrowLeftIcon
+                    weight="bold"
+                    className="text-white size-7 group-hover:scale-110 transition-all duration-300"
+                  />
+                </button>
+                <button
+                  onClick={() =>
+                    setDotIndex((p) => (p + 1) % Math.max(normalized.length, 1))
+                  }
+                  className="p-2 lg:p-3 2xl:p-4 rounded-full border border-white hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                >
+                  <ArrowRightIcon
+                    weight="bold"
+                    className="text-white size-7 group-hover:scale-110 transition-all duration-300"
+                  />
+                </button>
+              </div>
+              <div className="absolute inset-x-0 left-1/2 bottom-6 hidden xl:flex items-center justify-between px-3">
+                <div className="flex items-center gap-2">
+                  {Array.from({ length: dotCount }).map((_, i) => (
+                    <button
+                      key={i}
+                      aria-label={`Go to slide ${i + 1}`}
+                      onClick={() => setDotIndex(i)}
+                      className={
+                        'h-3 w-3 2xl:h-[18px] 2xl:w-[18px] rounded-full transition-all duration-300 ' +
+                        (dotIndex === i ? 'bg-[#FE6BBA] !w-10' : 'bg-white')
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+            </Container>
+          </Section>
+        </div>
+        <div className="relative z-10 ">
+          <LiveStreamComponent />
+        </div>
       </div>
-      <div className="flex-1 ">
-        <Section background={<HeroBackground />} className="h-full">
-          <div className="block lg:hidden pt-24"></div>
-          <Container className="h-full">
-            <HeroContent />
-          </Container>
-          {/* Live Stream Section */}
-        </Section>
-      </div>
-      <div>
-        <LiveStreamComponent />
-      </div>
-    </div>
+      <LiveStreamShow />
+    </>
   )
 }
 

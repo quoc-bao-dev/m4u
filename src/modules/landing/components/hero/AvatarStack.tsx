@@ -1,0 +1,155 @@
+'use client'
+
+import React, { memo, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import type { Reviewer } from '@/services/home/type'
+import UserAvatar from '@/core/components/common/UserAvatar'
+import { useDevice } from '@/core/hooks'
+
+const LiveAvatar: React.FC<{
+  src: string | null
+  userName?: string
+  small?: boolean
+}> = ({ src, userName = '', small = false }) => {
+  const { isDesktop } = useDevice()
+  const avatarSize = useMemo(() => {
+    if (small) return 32
+    return isDesktop ? 56 : 32 // md: 56px (14 * 4), mobile: 32px (8 * 4)
+  }, [small, isDesktop])
+  return (
+    <div
+      className={`${small ? 'w-8' : 'w-8 md:w-14'} flex flex-col items-center`}
+    >
+      <div
+        className={`relative transform-gpu ${
+          small ? 'size-8 ' : 'size-8 md:size-14'
+        }`}
+        style={{ willChange: 'transform' }}
+      >
+        {/* Rotating gradient ring */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 rounded-full transform-gpu"
+          style={{
+            background: 'conic-gradient(#ff2d55, #ff375f, #ff2d55)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, ease: 'easeOut', duration: 2 }}
+        />
+        {/* Create ring thickness via mask so center is hollow */}
+        <div
+          aria-hidden
+          className="absolute inset-0 rounded-full"
+          style={{
+            backgroundColor: 'black',
+            mask: 'radial-gradient(farthest-side, transparent calc(100% - 4px), black 0)',
+            WebkitMask:
+              'radial-gradient(farthest-side, transparent calc(100% - 4px), black 0)',
+          }}
+        />
+        {/* Pulsing halo - use shadow glow + transform-only to avoid flicker */}
+        <motion.div
+          aria-hidden
+          className="absolute -inset-1 rounded-full pointer-events-none transform-gpu"
+          // style={{
+          //   boxShadow: '0 0 0 3px rgba(239,68,68,0.7)',
+          //   willChange: 'transform, opacity',
+          //   backfaceVisibility: 'hidden',
+          // }}
+          // animate={{
+          //   opacity: [0.6, 0, 0, 0.6],
+          //   scale: [0.8, 1.05, 0.8, 0.8],
+          // }}
+          // transition={{
+          //   repeat: Infinity,
+          //   duration: 1.6,
+          //   ease: 'easeInOut',
+          //   times: [0, 0.5, 0.51, 1],
+          // }}
+        />
+        {/* Avatar content with white stroke above ring */}
+        <div
+          className="absolute inset-0 rounded-full border-2 md:border-3 border-red-500 overflow-hidden transform-gpu"
+          style={{ willChange: 'transform' }}
+        >
+          {src ? (
+            <motion.img
+              src={src}
+              className="size-full object-cover"
+              alt={userName}
+              style={{
+                willChange: 'transform, opacity',
+                backfaceVisibility: 'hidden',
+              }}
+              initial={{ scale: 1 }}
+              // animate={{ scale: [1, 1.06, 1] }}
+              // transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+            />
+          ) : (
+            <div className="size-full">
+              <UserAvatar
+                src={null}
+                userName={userName}
+                size={avatarSize}
+                className="size-full"
+              />
+            </div>
+          )}
+          {/* Inner red ring */}
+          {/* <div className="pointer-events-none absolute -inset-1 rounded-full border-4 border-red-500 z-50" /> */}
+        </div>
+      </div>
+      {!small && (
+        <span className="hidden lg:block mt-1 px-1 xl:px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] leading-none font-semibold uppercase tracking-wider">
+          new{' '}
+        </span>
+      )}
+    </div>
+  )
+}
+
+interface AvatarStackProps {
+  small?: boolean
+  avatars?: Reviewer[]
+  remainingCount?: number
+}
+
+const AvatarStack = ({
+  small = false,
+  avatars = [],
+  remainingCount = 0,
+}: AvatarStackProps) => {
+  return (
+    <div className="flex -space-x-1 md:-space-x-2">
+      {/* Hiển thị avatars từ dữ liệu */}
+      {avatars.map((reviewer, index) => (
+        <LiveAvatar
+          key={`${reviewer.fullname}-${index}`}
+          src={reviewer.avatar}
+          userName={reviewer.fullname}
+          small={small}
+        />
+      ))}
+      {/* Hiển thị số lượng còn lại nếu có */}
+      {remainingCount > 0 && (
+        <div
+          className={`${
+            small ? 'size-8' : 'size-8 md:size-14'
+          } bg-gray-900 rounded-full border-2 md:border-4 border-gray-900 flex items-center justify-center text-white text-sm font-medium`}
+        >
+          <p
+            className={`${
+              small ? 'text-xs md:text-sm' : 'text-sm md:text-base'
+            } font-medium`}
+          >
+            1K+
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default memo(AvatarStack)

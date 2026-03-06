@@ -1,15 +1,953 @@
 {
+  "loading": "Đang tải...",
   "common": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "contact": "Liên hệ",
     "language": "Ngôn ngữ",
-    "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi"
+    "welcome": "Chào mừng bạn đến với ứng dụng của chúng tôi",
+    "reviewer": "reviewer",
+    "product": "sản phẩm",
+    "share": "Chia sẻ:",
+    "loadMore": "Xem thêm",
+    "openApp": "Mở ứng dụng",
+    "downloadApp": "Tải app ngay",
+    "stickyFooterText1": "TRẢI NGHIỆM - chia sẻ &",
+    "stickyFooterText2": "nhận thưởng",
+    "loading": "Đang tải...",
+    "birthdayInput": {
+      "year": "Năm",
+      "month": "Tháng",
+      "day": "Ngày",
+      "selectYear": "Chọn năm",
+      "selectMonth": "Chọn tháng",
+      "selectDate": "Chọn ngày sinh",
+      "months": {
+        "1": "Tháng 1",
+        "2": "Tháng 2",
+        "3": "Tháng 3",
+        "4": "Tháng 4",
+        "5": "Tháng 5",
+        "6": "Tháng 6",
+        "7": "Tháng 7",
+        "8": "Tháng 8",
+        "9": "Tháng 9",
+        "10": "Tháng 10",
+        "11": "Tháng 11",
+        "12": "Tháng 12"
+      }
+    }
   },
   "navigation": {
     "home": "Trang chủ",
     "products": "Sản phẩm",
     "services": "Dịch vụ",
     "contact": "Liên hệ"
+  },
+  "hero": {
+    "viewNow": "Xem ngay",
+    "liveStream": {
+      "membersOnline": "Thành viên online",
+      "singleMoms": "Reviewer",
+      "participatingInGroup": "đang tham gia trải nghiệm",
+      "videoReview": "Video đánh giá"
+    }
+  },
+  "introduceApp": {
+    "stories": {
+      "trial": {
+        "title": "Dùng thử sản phẩm",
+        "description": "Đăng ký dùng thử - Thưởng tối đa 80%"
+      },
+      "share": {
+        "title": "Chia sẻ sản phẩm",
+        "description": "Chia sẻ sản phẩm - Nhận 30% Haru xu"
+      },
+      "review": {
+        "title": "Đánh giá nhận thưởng",
+        "description": "Chia sẻ Review và nhận thưởng"
+      },
+      "refer": {
+        "title": "Giới thiệu bạn bè",
+        "description": "Giới thiệu nhận ngay 5% Haru xu"
+      },
+      "challenge": {
+        "title": "Tham gia thử thách",
+        "description": "Tham gia thử thách thành công, bạn sẽ được cộng Haru xu vào Ví Haru"
+      },
+      "community": {
+        "title": "Cộng đồng chia sẻ thử thách thật",
+        "description": "Đây là nơi mọi người chia sẻ kết quả thử thách thật: review, hình ảnh, video sau khi tham gia"
+      }
+    }
+  },
+  "donation": {
+    "donated": "Đã được quyên góp!",
+    "month": "tháng",
+    "day": "ngày",
+    "hour": "giờ",
+    "individuals": "người",
+    "justDonated": "vừa quyên góp cho cộng đồng!",
+    "financialPublicNote": "*Báo cáo tài chính được công khai hàng tháng."
+  },
+  "donationCharity": {
+    "meta": {
+      "title": "Quyên góp & Từ thiện",
+      "description": "Cùng M4U hỗ trợ mẹ đơn thân qua sản phẩm và đóng góp cộng đồng."
+    },
+    "giveToday": {
+      "titleLead": "Trao hôm nay,",
+      "titleEnd": "đổi ngày mai",
+      "subtitle": "Tham gia quỹ M4U hỗ trợ mẹ đơn thân với nhu yếu phẩm và kỹ năng."
+    },
+    "eventCampaign": {
+      "titleLead": "Your Glow,",
+      "titleEnd": "Her Growth",
+      "desc": "Mỗi sản phẩm đóng góp 5% cho các chiến dịch thiện nguyện nâng đỡ mẹ đơn thân—tài trợ nhu yếu phẩm và chương trình kỹ năng. Bạn dùng thử & review là đã giúp đỡ gấp đôi."
+    },
+    "modalSection": {
+      "titleLead": "Mô hình Quỹ từ thiện của chúng tôi:",
+      "titleEnd": "Vẻ đẹp vì cộng đồng",
+      "desc": "Một phần doanh thu và đóng góp từ cộng đồng được chuyển trực tiếp vào Quỹ M4U vì Cộng Đồng, dành cho các mẹ đơn thân tại Việt Nam.",
+      "fundingSources": "Nguồn tài trợ",
+      "charityFund": "Quỹ từ thiện",
+      "discountOnProduct": "% giảm giá trên mỗi\nsản phẩm bán ra",
+      "commission": "% hoa hồng từ Người giới thiệu/ Reviewer/ Seller",
+      "directDonations": "Quyên góp trực tiếp\ntừ cộng đồng",
+      "government": "Chính phủ",
+      "organizations": "Tổ chức",
+      "individuals": "Cá nhân"
+    },
+    "eventCard": {
+      "status": {
+        "happening": "Đang diễn ra",
+        "coming": "Sắp diễn ra"
+      },
+      "fundName": "Quỹ từ thiện M4U",
+      "totalProducts": "Tổng sản phẩm",
+      "totalFundsConverted": "Tổng quỹ quy đổi"
+    },
+    "productCard": {
+      "contribution": "đóng góp"
+    }
+  },
+  "footer": {
+    "sitemap": "Sitemap",
+    "home": "Trang chủ",
+    "joinTrial": "Tham gia dùng thử",
+    "newsfeed": "Review hub",
+    "newsEvents": "Quyên góp & Từ thiện",
+    "account": "Sự kiện",
+    "policy": "Chính sách",
+    "copyright": "© 2025 — Copyright Mask4U. All rights reserved.",
+    "headOffice": "Trụ sở chính"
+  },
+  "developing": {
+    "comingSoon": "Sắp ra mắt!",
+    "underDevelopment": "Trang này đang được phát triển, vui lòng quay lại sau!",
+    "backToHome": "Về trang chủ"
+  },
+  "trialHero": {
+    "writeReviewGetOffer": "viết review nhận ngay ưu đãi",
+    "singleMomsJoined": " reviewer đã tham gia",
+    "joinTitle": "Tham gia",
+    "experienceTitle": "trải nghiệm"
+  },
+  "topProduct": {
+    "top3Products": "Top 3 sản phẩm",
+    "mostCared": "được quan tâm nhiều nhất",
+    "reviews": "reviews",
+    "productName": "Panthetoin Deep Moisture Mask",
+    "registerCount": "Lượt đăng ký"
+  },
+  "termBenefit": {
+    "benefitsAndTerms": "Quyền lợi & Điều khoản",
+    "benefits": "Quyền lợi",
+    "terms": "Điều khoản",
+    "memberBenefits": "Quyền Lợi Thành Viên Reviewer",
+    "benefit1": "Trải nghiệm sản phẩm miễn phí các sản phẩm làm đẹp hot nhất.",
+    "benefit2": "Thu nhập hấp dẫn từ đường link giới thiệu của bạn.",
+    "benefit3": "Được ưu tiên trải nghiệm các sản phẩm mới và giới hạn.",
+    "benefit4": "Hỗ trợ và định hướng nâng cao chất lượng review từ chuyên gia.",
+    "benefit5": "Kết nối cộng đồng để chia sẻ kinh nghiệm và học hỏi lẫn nhau.",
+    "placeholder1": "Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ liệu.",
+    "placeholder2": "Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các hoạt động."
+  },
+  "filter": {
+    "title": "Bộ lọc",
+    "without": "Không chứa",
+    "usage": "Công dụng",
+    "skinType": "Loại da",
+    "ingredients": "Thành phần",
+    "price": "Giá",
+    "brand": "Thương hiệu",
+    "artificialFragrance": "Hương liệu nhân tạo",
+    "alcohol": "Cồn",
+    "sulphates": "Sulphates",
+    "animalDerived": "Gốc động vật",
+    "silicone": "Silicone",
+    "deepMoisturizing": "Dưỡng ẩm sâu",
+    "oilControl": "Kiểm dầu & cân bằng",
+    "acneTreatment": "Trị mụn & làm dịu da",
+    "antiAging": "Chống lão hóa & phục hồi",
+    "whitening": "Dưỡng trắng & làm sáng da",
+    "drySkin": "Da khô",
+    "oilySkin": "Da dầu",
+    "sensitiveSkin": "Da nhạy cảm",
+    "combinationSkin": "Da hỗn hợp",
+    "normalSkin": "Da thường",
+    "acneSkin": "Da mụn",
+    "clearAll": "Xóa tất cả",
+    "apply": "Áp dụng",
+    "aloeVera": "Nha đam",
+    "collagen": "Collagen",
+    "hyaluronicAcid": "Hyaluronic Acid",
+    "teaTree": "Tràm trà",
+    "gotuKola": "Rau má",
+    "reviews": "đánh giá"
+  },
+  "reviewCTA": {
+    "title": "Còn chần chờ gì nữa mà không",
+    "become": "trở thành",
+    "reviewerNow": "reviewer ngay?",
+    "registerTrial": "Đăng ký dùng thử",
+    "participation": "participation"
+  },
+  "reviewHub": {
+    "title": "Review Hub",
+    "description": "Khám phá reviewer hàng đầu và sản phẩm nổi bật",
+    "endorsedByTopReviewers": "Được các reviewer hàng đầu đề xuất",
+    "filters": {
+      "freeFrom": "Không chứa",
+      "parabens": "Parabens",
+      "sulfates": "Sulfates",
+      "phthalates": "Phthalates",
+      "fragrance": "Hương liệu",
+      "alcohol": "Cồn",
+      "benefits": "Công dụng",
+      "hydrating": "Dưỡng ẩm",
+      "antiAging": "Chống lão hóa",
+      "brightening": "Làm sáng",
+      "acneFighting": "Hỗ trợ trị mụn",
+      "soothing": "Làm dịu",
+      "skinType": "Loại da",
+      "oily": "Da dầu",
+      "dry": "Da khô",
+      "combination": "Da hỗn hợp",
+      "sensitive": "Da nhạy cảm",
+      "normal": "Da thường",
+      "keyIngredients": "Thành phần chính",
+      "retinol": "Retinol",
+      "vitaminC": "Vitamin C",
+      "hyaluronicAcid": "Hyaluronic Acid",
+      "niacinamide": "Niacinamide",
+      "salicylicAcid": "Salicylic Acid",
+      "rating": "Đánh giá",
+      "fiveStars": "5 sao",
+      "fourStarsUp": "4 sao trở lên",
+      "threeStarsUp": "3 sao trở lên",
+      "twoStarsUp": "2 sao trở lên"
+    },
+    "searchPlaceholder": "Tìm kiếm ...",
+    "influencer": {
+      "titleLead": "Biến đam mê làm đẹp",
+      "titleEnd": "thành thu nhập!",
+      "subtitle": "Đăng ký để dùng sản phẩm miễn phí và kiếm tiền từ review của bạn.",
+      "cta": "Đăng ký trải nghiệm ngay"
+    },
+    "kols": {
+      "sortBy": "Sắp xếp theo",
+      "mostViewed": "Xem nhiều nhất",
+      "filterBy": "Lọc theo:",
+      "options": {
+        "latest": "Mới nhất",
+        "oldest": "Cũ nhất",
+        "mostViewed": "Xem nhiều nhất",
+        "highestRated": "Đánh giá cao nhất",
+        "mostLiked": "Thích nhiều nhất"
+      },
+      "period": {
+        "all": "Tất cả",
+        "today": "Hôm nay",
+        "week": "Tuần này",
+        "month": "Tháng này",
+        "year": "Năm nay",
+        "allTime": "Mọi thời gian"
+      }
+    }
+  },
+  "event": {
+    "hero": {
+      "titleLead": "Mask-a-thon",
+      "titleEnd": "Challenge",
+      "ribbonTop": "Review bất kỳ 3 mặt nạ giấy",
+      "ribbonBottom": "cơ hội trúng iPhone 16",
+      "dateLabel": "01 Tháng 10 2025",
+      "headline": "SẼ CÔNG BỐ NGƯỜI CHIẾN THẮNG",
+      "joinNow": "THAM GIA NGAY"
+    },
+    "card": {
+      "fundName": "Quỹ từ thiện M4U",
+      "mobileDesc": "Thích mặt nạ? Review 3 sản phẩm mặt nạ nổi bật của chúng tôi MIỄN PHÍ và chia sẻ cảm nhận chân thực ...",
+      "totalProducts": "Tổng sản phẩm",
+      "totalPrizePool": "Tổng giải thưởng",
+      "totalFundsConverted": "Tổng quỹ quy đổi"
+    },
+    "detail": {
+      "tabs": {
+        "eventRules": "Thể lệ",
+        "eligibility": "Điều kiện",
+        "newUserTask": "Nhiệm vụ người mới"
+      }
+    },
+    "sidebar": {
+      "contributionDetails": "Chi tiết đóng góp",
+      "sponsor": "Nhà tài trợ",
+      "product": "Sản phẩm",
+      "totalPrizes": "Tổng giải thưởng",
+      "totalPrizePool": "Tổng quỹ giải thưởng",
+      "totalProducts": "Tổng sản phẩm",
+      ":comingSoon": "SẮP DIỄN RA",
+      "registrationDate": "Ngày đăng ký",
+      "endDate": "Ngày kết thúc",
+      "joinNow": "THAM GIA NGAY",
+      "buttons": {
+        "joinNow": "THAM GIA NGAY",
+        "registerNotification": "SẮP DIỄN RA",
+        "eventEnded": "ĐÃ KẾT THÚC"
+      },
+      "titles": {
+        "eventHappening": "SỰ KIỆN ĐANG DIỄN RA",
+        "eventComing": "SỰ KIỆN SẮP BẮT ĐẦU",
+        "eventEnded": "SỰ KIỆN ĐÃ KẾT THÚC"
+      }
+    },
+    "badge": {
+      "status": {
+        "happening": "Đang diễn ra",
+        "coming": "Sắp diễn ra",
+        "ended": "Đã kết thúc"
+      }
+    },
+    "relative": {
+      "title": "Sự kiện liên quan",
+      "loading": "Đang tải..."
+    },
+    "filter": {
+      "tabs": {
+        "all": "Tất cả",
+        "event": "Sự kiện",
+        "challenge": "Thử thách"
+      },
+      "filters": {
+        "all": "Tất cả",
+        "upcoming": "Sắp diễn ra",
+        "ongoing": "Đang diễn ra",
+        "ended": "Đã kết thúc"
+      },
+      "filterBy": "Lọc theo:",
+      "searchPlaceholder": "Tìm kiếm..."
+    },
+    "questions": {
+      "titleLead": "Câu hỏi thường gặp ",
+      "titleTail": "& Giải đáp",
+      "perksTitle": "Quyền lợi của reviewer",
+      "intro": "Khi tham gia, bạn sẽ nhận được những quyền lợi hấp dẫn:",
+      "bullets": {
+        "freeTrials": {
+          "label": "Dùng thử miễn phí:",
+          "desc": "Trải nghiệm các sản phẩm làm đẹp hot nhất hoàn toàn miễn phí."
+        },
+        "earnings": {
+          "label": "Thu nhập hấp dẫn:",
+          "desc": "Nhận hoa hồng cho mỗi đơn hàng hợp lệ qua link giới thiệu."
+        },
+        "earlyAccess": {
+          "label": "Trải nghiệm sớm:",
+          "desc": "Ưu tiên dùng thử sản phẩm mới và phiên bản giới hạn từ các thương hiệu."
+        },
+        "support": {
+          "label": "Hỗ trợ & hướng dẫn:",
+          "desc": "Nhận playbook từng bước và mẹo nâng cao chất lượng review, xây dựng uy tín."
+        },
+        "community": {
+          "label": "Cộng đồng:",
+          "desc": "Kết nối người yêu làm đẹp, chia sẻ trải nghiệm và học hỏi cùng nhau."
+        }
+      },
+      "placeholder1Title": "Quyền lợi của reviewer",
+      "placeholder1": "Nội dung minh hoạ: Bạn có thể thay thế bằng nội dung thật khi có dữ liệu.",
+      "placeholder2Title": "Quyền lợi của reviewer",
+      "placeholder2": "Nội dung minh hoạ: Thành viên nhận thêm quyền lợi khi tham gia các hoạt động."
+    }
+  },
+  "product": {
+    "register": "Đăng ký dùng thử",
+    "writeYourReview": "Viết đánh giá",
+    "registerBtn": "Đăng ký dùng thử",
+    "participation": "người tham gia",
+    "reviews": "đánh giá",
+    "slotsLeft": "Chỉ còn {count} suất",
+    "users": "người",
+    "enrolledTrial": "đã đăng ký chương trình dùng thử sản phẩm",
+    "views": "lượt xem",
+    "filterBy": "Sắp xếp:",
+    "selectFilter": "Chọn bộ lọc",
+    "viewAll": "Xem tất cả",
+    "exploreSimilarProducts": "Khám phá sản phẩm tương tự",
+    "honestReviews": "Đánh giá chân thực",
+    "fromRealUsers": "Từ người dùng thực",
+    "noReviews": "Không có đánh giá cho sản phẩm này.",
+    "viewReview": "Xem đánh giá"
+  },
+  "review": {
+    "rating": {
+      "excellent": "Xuất sắc"
+    }
+  },
+  "cart": {
+    "title": "Giỏ đăng ký thử ({count} sản phẩm)",
+    "empty": "Giỏ trống",
+    "clearAll": "Xóa tất cả",
+    "viewDetails": "Xem chi tiết",
+    "addedToCart": "Đã thêm vào giỏ hàng",
+    "alreadyInCart": "Đã có trong giỏ hàng"
+  },
+  "rating": {
+    "excellent": "Xuất sắc",
+    "good": "Tốt",
+    "average": "Trung bình",
+    "bad": "Kém",
+    "veryBad": "Rất kém"
+  },
+  "timer": {
+    "days": "ngày",
+    "hours": "giờ",
+    "minutes": "phút",
+    "seconds": "giây"
+  },
+  "auth": {
+    "logoutSuccess": "Đăng xuất thành công!",
+    "loginSuccess": "Đăng nhập thành công!",
+    "signIn": "Đăng nhập",
+    "signingIn": "Đang đăng nhập...",
+    "welcomeBack": "Chào mừng bạn đến với ứng dụng của chúng tôi! Nhập thông tin của bạn để đăng nhập.",
+    "phoneNumber": "Số điện thoại",
+    "enterPhoneNumber": "Nhập số điện thoại",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "rememberAccount": "Ghi nhớ tài khoản",
+    "phoneRequired": "Số điện thoại là bắt buộc",
+    "passwordRequired": "Mật khẩu là bắt buộc",
+    "confirmLogoutTitle": "Xác nhận đăng xuất",
+    "confirmLogoutDesc": "Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?",
+    "cancel": "Huỷ",
+    "logout": "Đăng xuất",
+    "forgot": {
+      "enterPhoneFirst": "Vui lòng nhập số điện thoại trước khi quên mật khẩu",
+      "phone": {
+        "title": "Quên Mật Khẩu",
+        "desc": "Vui lòng nhập số điện thoại để nhận mã xác thực",
+        "submit": "Gửi OTP",
+        "validation": {
+          "phoneRequired": "Số điện thoại là bắt buộc"
+        }
+      },
+      "otp": {
+        "title": "Nhập mã xác thực",
+        "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
+        "sending": "Đang gửi...",
+        "sendSuccess": "OTP đã được gửi đến số điện thoại của bạn",
+        "sendFailed": "Không thể gửi OTP. Vui lòng thử lại.",
+        "inputError": "Vui lòng nhập đầy đủ mã OTP",
+        "confirm": "Xác nhận",
+        "checking": "Đang kiểm tra...",
+        "invalid": "Mã OTP không hợp lệ",
+        "verifyError": "Xác thực OTP thất bại. Thử lại."
+      },
+      "reset": {
+        "title": "Đổi mật khẩu",
+        "desc": "Vui lòng nhập mật khẩu mới của bạn",
+        "newPassword": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu",
+        "submitting": "Đang xử lý...",
+        "submit": "Xác nhận thay đổi",
+        "success": "Đổi mật khẩu và đăng nhập thành công",
+        "saveFailed": "Đổi mật khẩu thất bại",
+        "loginFailed": "Đăng nhập lại thất bại",
+        "passwordsNotMatch": "Mật khẩu xác nhận không khớp",
+        "validation": {
+          "passwordRequired": "Mật khẩu mới là bắt buộc",
+          "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc"
+        }
+      }
+    }
+  },
+  "menu": {
+    "reviewerQuestion": "Bạn có phải reviewer của M4U không?",
+    "reviewerOptions": {
+      "yes": "Có, tôi là thành viên",
+      "no": "Chưa, đăng ký ngay"
+    },
+    "section": {
+      "productCommunity": "Sản phẩm & Cộng đồng",
+      "settings": "Cài đặt",
+      "general": "Chung",
+      "support": "Hỗ trợ"
+    },
+    "productCommunity": {
+      "trial-samples": "Dùng thử sản phẩm",
+      "donation-charity": "Quyên góp & Từ thiện",
+      "review-hub": "Review hub",
+      "event": "Sự kiện"
+    },
+    "settings": {
+      "general": {
+        "language": "Ngôn ngữ"
+      },
+      "support": {
+        "help-centre": "Trung tâm hỗ trợ",
+        "feedback-submission": "Góp ý"
+      },
+      "about": {
+        "about-app": "Về ứng dụng M4U"
+      }
+    },
+    "auth": {
+      "loadingUser": "Đang tải thông tin người dùng...",
+      "unknown": "Không xác định",
+      "unknownUser": "Người dùng",
+      "joinedSince": "Tham gia từ {date}",
+      "membership": {
+        "gold": "Hội viên Gold"
+      },
+      "stats": {
+        "referrals": "Giới thiệu",
+        "active": "Kích hoạt",
+        "accountBalance": "Số dư tài khoản",
+        "points": "Điểm",
+        "commissionRevenue": "Doanh thu hoa hồng",
+        "reviews": "Người đánh giá"
+      },
+      "activity": {
+        "title": "Hoạt động của tôi",
+        "trialHistory": "Lịch sử dùng thử",
+        "myReviews": "Đánh giá của tôi",
+        "referralList": "Danh sách giới thiệu",
+        "referralCode": "Mã giới thiệu",
+        "notification": "Thông báo"
+      },
+      "account": {
+        "preferences": "Tuỳ chỉnh tài khoản"
+      },
+      "logout": "Đăng xuất"
+    }
+  },
+  "notification": {
+    "title": "Thông báo",
+    "viewAll": "Xem tất cả",
+    "viewDetail": "Xem chi tiết",
+    "nodata": {
+      "title": "Chưa có thông báo",
+      "desc": "Thông báo của bạn sẽ hiển thị tại đây khi có cập nhật."
+    },
+    "tabs": {
+      "all": "Tất cả",
+      "reviews": "Đánh giá",
+      "products": "Sản phẩm"
+    },
+    "actions": {
+      "markReadAll": "Đánh dấu đã đọc tất cả",
+      "marking": "Đang đánh dấu..."
+    },
+    "pagination": {
+      "prev": "Trang trước",
+      "next": "Trang sau",
+      "pageXofY": "Trang {current} / {total}"
+    },
+    "relative": {
+      "now": "Vừa xong",
+      "minutes": "{count} phút trước",
+      "hours": "{count} giờ trước",
+      "days": "{count} ngày trước"
+    }
+  },
+  "trial": {
+    "form": {
+      "headerTitle": "Đăng ký dùng thử sản phẩm",
+      "headerSubtitle": "Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn.",
+      "fields": {
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên"
+        },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại"
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh"
+        },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ"
+        },
+        "gender": {
+          "label": "Giới tính",
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
+        }
+      },
+      "productSection": {
+        "label": "Sản phẩm dùng thử"
+      },
+      "submit": {
+        "processing": "Đang xử lý...",
+        "continue": "Tiếp tục"
+      },
+      "validation": {
+        "fullNameMin": "Vui lòng nhập họ tên hợp lệ",
+        "phoneInvalid": "Số điện thoại không hợp lệ",
+        "genderRequired": "Vui lòng chọn giới tính",
+        "dobRequired": "Vui lòng chọn ngày sinh",
+        "addressMin": "Vui lòng nhập địa chỉ hợp lệ"
+      },
+      "api": {
+        "registerFailed": "Đăng ký thất bại",
+        "registerError": "Có lỗi xảy ra khi đăng ký"
+      }
+    },
+    "otp": {
+      "title": "Nhập mã xác thực",
+      "desc": "Nhập mã OTP {length} chữ số vừa được gửi tới số {phone}",
+      "processing": "Đang xử lý...",
+      "confirm": "Xác nhận",
+      "errors": {
+        "verifyFailed": "Xác thực OTP thất bại",
+        "verifyError": "Có lỗi xảy ra khi xác thực OTP"
+      }
+    },
+    "success": {
+      "title": "Đăng ký thành công!",
+      "message": "Chúng tôi đã nhận được thông tin đăng ký của bạn. Sản phẩm dùng thử sẽ được gửi đến địa chỉ của bạn trong vài ngày tới."
+    }
+  },
+  "submitReview": {
+    "back": "Quay lại",
+    "title": "Sẵn sàng review và kiếm tiền?",
+    "shareReview": "Chia sẻ đánh giá của bạn",
+    "addVideo": "Thêm video của bạn (bắt buộc)",
+    "addPhotos": "Thêm ảnh của bạn (tùy chọn)",
+    "dropFiles": "Thả file vào đây, hoặc click để tải lên",
+    "rating": "Đánh giá",
+    "productQuality": "Chất lượng sản phẩm",
+    "overallExperience": "Trải nghiệm tổng thể",
+    "absorbability": "Khả năng thẩm thấu",
+    "moisturization": "Dưỡng ẩm",
+    "skinBrightening": "Làm sáng da",
+    "excellent": "Xuất sắc",
+    "tellUsWhatYouThink": "Hãy cho chúng tôi biết suy nghĩ của bạn",
+    "reviewTips": "Mẹo review",
+    "placeholder": "Bạn yêu thích điều gì về sản phẩm này?",
+    "submitReview": "Gửi đánh giá",
+    "submitting": "Đang tải lên...",
+    "uploadSuccessfully": "Tải lên thành công",
+    "hasVideoReview": "Đã có video review",
+    "reviewImage": "Ảnh đánh giá {number}"
+  },
+  "dateRangePicker": {
+    "from": "Từ ngày",
+    "to": "Đến ngày",
+    "cancel": "Hủy",
+    "apply": "Áp dụng"
+  },
+  "myReviews": {
+    "header": {
+      "title": "Đánh giá của tôi",
+      "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
+    },
+    "history": {
+      "header": {
+        "title": "Lịch sử đăng ký dùng thử",
+        "searchPlaceholder": "Tìm sản phẩm, đánh giá, ngày tháng, ..."
+      },
+      "table": {
+        "headers": {
+          "orderId": "Mã đơn",
+          "productInfo": "Thông tin sản phẩm",
+          "review": "Đánh giá",
+          "reward": "Phần thưởng",
+          "dateTime": "Ngày giờ",
+          "timeCreated": "Thời gian tạo",
+          "orderStatus": "Trạng thái",
+          "action": "Thao tác"
+        },
+        "statuses": {
+          "completed": "Hoàn thành",
+          "pending": "Đang chờ",
+          "cancelled": "Đã hủy",
+          "processing": "Đang xử lý"
+        },
+        "actions": {
+          "review": "Đánh giá",
+          "edit": "Chỉnh sửa",
+          "viewDetails": "Xem chi tiết",
+          "viewReason": "Xem lý do",
+          "rewriteReview": "Viết lại bài đánh giá"
+        },
+        "error": {
+          "loadFailed": "Lỗi khi tải lịch sử đánh giá",
+          "tryLater": "Vui lòng thử lại sau"
+        },
+        "empty": {
+          "title": "Chưa có lịch sử đánh giá",
+          "desc": "Khi bạn hoàn thành đánh giá, lịch sử sẽ hiển thị tại đây."
+        },
+        "mobile": {
+          "moreProducts": "+{count} sản phẩm",
+          "daysLeftToSubmit": "Còn {count} ngày để gửi đánh giá"
+        }
+      },
+      "reasonModal": {
+        "title": "Lý do bị từ chối",
+        "empty": "Không có lý do được cung cấp.",
+        "close": "Đóng"
+      }
+    }
+  },
+  "nodataReviewhub": {
+    "title": "Bắt đầu hành trình làm đẹp của bạn!",
+    "description": "Lịch sử đăng ký dùng thử sản phẩm của bạn sẽ xuất hiện ở đây khi bạn đăng ký sản phẩm đầu tiên. Thật dễ dàng để bắt đầu—đăng ký để nhận sản phẩm miễn phí, kiếm hoa hồng và nhận voucher độc quyền.",
+    "registerButton": "Đăng ký dùng thử miễn phí",
+    "noData": "Chưa có nội dung"
+  },
+  "user": {
+    "form": {
+      "validation": {
+        "fullNameMin": "Họ và tên phải có ít nhất 2 ký tự",
+        "phoneInvalid": "Vui lòng nhập số điện thoại hợp lệ",
+        "genderRequired": "Vui lòng chọn giới tính",
+        "dobRequired": "Ngày sinh là bắt buộc",
+        "addressMin": "Địa chỉ phải có ít nhất 5 ký tự",
+        "oldPasswordRequired": "Mật khẩu hiện tại là bắt buộc",
+        "newPasswordMin": "Mật khẩu mới phải có ít nhất 8 ký tự",
+        "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu mới",
+        "passwordsDoNotMatch": "Mật khẩu không khớp"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên của bạn"
+        },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại của bạn"
+        },
+        "gender": {
+          "label": "Giới tính",
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh của bạn"
+        },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ của bạn"
+        },
+        "oldPassword": {
+          "label": "Mật khẩu cũ",
+          "placeholder": "Nhập mật khẩu hiện tại"
+        },
+        "newPassword": {
+          "label": "Mật khẩu mới",
+          "placeholder": "Nhập mật khẩu mới"
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu mới",
+          "placeholder": "Xác nhận mật khẩu mới"
+        }
+      },
+      "buttons": {
+        "saveChanges": "Lưu thay đổi",
+        "updatePhoto": "Cập nhật ảnh"
+      },
+      "sections": {
+        "general": "Chung",
+        "security": "Bảo mật",
+        "accountPreferences": "Tùy chỉnh tài khoản"
+      },
+      "helpers": {
+        "passwordRequirement": "Mật khẩu phải có tối thiểu 8+ ký tự",
+        "photoRequirement": "Cho phép *.jpeg, *.jpg, *.png, *.gif\nKích thước tối đa 3.1 MB"
+      }
+    }
+  },
+  "personal": {
+    "avatarCropper": {
+      "title": "Cập nhật ảnh đại diện",
+      "description": "Tùy chỉnh và căn chỉnh ảnh đại diện để hiển thị đẹp nhất trên hồ sơ của bạn.",
+      "zoom": "Zoom",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saving": "Đang lưu..."
+    },
+    "accountPreferences": "Tùy chỉnh tài khoản",
+    "form": {
+      "general": {
+        "title": "Thông tin chung",
+        "updatePhoto": "Cập nhật ảnh",
+        "uploadNote": "Cho phép *.jpeg, *.jpg, *.png, *.gif",
+        "uploadSize": "Kích thước tối đa 3.1 MB"
+      },
+      "security": {
+        "title": "Cập nhật mật khẩu"
+      },
+      "fields": {
+        "fullName": {
+          "label": "Họ và tên",
+          "placeholder": "Nhập họ và tên của bạn"
+        },
+        "phoneNumber": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại của bạn"
+        },
+        "gender": {
+          "label": "Giới tính",
+          "options": {
+            "female": "Nữ",
+            "male": "Nam",
+            "other": "Khác"
+          }
+        },
+        "dateOfBirth": {
+          "label": "Ngày sinh",
+          "placeholder": "Chọn ngày sinh của bạn"
+        },
+        "address": {
+          "label": "Địa chỉ",
+          "placeholder": "Nhập địa chỉ của bạn"
+        },
+        "oldPassword": {
+          "label": "Mật khẩu cũ",
+          "placeholder": "Nhập mật khẩu cũ"
+        },
+        "newPassword": {
+          "label": "Mật khẩu mới",
+          "placeholder": "Nhập mật khẩu mới",
+          "helperText": "Mật khẩu phải có ít nhất 8+ ký tự"
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu mới",
+          "placeholder": "Xác nhận mật khẩu mới",
+          "helperTextMatch": "Mật khẩu khớp"
+        }
+      },
+      "submit": {
+        "saveChanges": "Lưu thay đổi",
+        "saving": "Đang lưu..."
+      },
+      "success": {
+        "updateAccount": "Cập nhật tài khoản thành công",
+        "updatePassword": "Cập nhật mật khẩu thành công",
+        "updateAvatar": "Cập nhật ảnh đại diện thành công"
+      },
+      "errors": {
+        "noToken": "Không tìm thấy token xác thực. Vui lòng đăng nhập lại.",
+        "updateFailed": "Cập nhật tài khoản thất bại. Vui lòng thử lại.",
+        "updatePasswordFailed": "Cập nhật mật khẩu thất bại. Vui lòng thử lại.",
+        "updateAvatarFailed": "Cập nhật ảnh đại diện thất bại. Vui lòng thử lại.",
+        "invalidFileType": "Định dạng file không hợp lệ. Vui lòng chọn file ảnh hợp lệ (JPEG, JPG, PNG, GIF).",
+        "fileTooLarge": "Kích thước file quá lớn. Vui lòng chọn file nhỏ hơn 3.1 MB."
+      },
+      "validation": {
+        "fullNameMin": "Họ và tên phải có ít nhất 2 ký tự",
+        "phoneInvalid": "Số điện thoại phải từ 8-15 ký tự",
+        "genderRequired": "Giới tính là bắt buộc",
+        "dobRequired": "Ngày sinh là bắt buộc",
+        "addressMin": "Địa chỉ phải có ít nhất 5 ký tự",
+        "oldPasswordRequired": "Mật khẩu cũ là bắt buộc",
+        "newPasswordRequired": "Mật khẩu mới là bắt buộc",
+        "newPasswordMin": "Mật khẩu mới phải có ít nhất 8 ký tự",
+        "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc",
+        "passwordsNotMatch": "Mật khẩu không khớp"
+      }
+    }
+  },
+  "Referral": {
+    "title": "Chương trình giới thiệu",
+    "copy": "Copy",
+    "copied": "Đã copy",
+    "referrals": "Số lượt giới thiệu",
+    "commissionRevenue": "Doanh thu hoa hồng",
+    "friends": "Bạn bè",
+    "noData": {
+      "title": "Chưa có dữ liệu",
+      "desc": "Danh sách người được bạn giới thiệu sẽ hiển thị tại đây khi có dữ liệu. Hãy chia sẻ mã giới thiệu để bắt đầu."
+    }
+  },
+  "feedback": {
+    "form": {
+      "additionalFeedback": "Phản hồi bổ sung",
+      "textareaPlaceholder": "Nếu bạn có thêm điều gì để chia sẻ, vui lòng nhập vào đây...",
+      "maxImagesReached": "Đã đạt tối đa 3 hình ảnh",
+      "privacyPolicy": "Tôi đã đọc và chấp nhận Chính sách Bảo mật.",
+      "submitFeedback": "Gửi phản hồi",
+      "reasons": {
+        "interface": "Giao diện",
+        "loadingSpeed": "Tốc độ tải",
+        "functionalManipulation": "Thao tác chức năng",
+        "customService": "Dịch vụ khách hàng",
+        "other": "Khác"
+      }
+    },
+    "modal": {
+      "thankYou": "Cảm ơn bạn rất nhiều!",
+      "message": "Chúng tôi sẽ đọc từng phản hồi một cách cẩn thận và tiếp tục cải thiện sản phẩm cho những người dùng như bạn."
+    },
+    "select": {
+      "awesome": "Tuyệt vời - Rất hữu ích, hoạt động tốt!",
+      "satisfied": "Hài lòng - Hoạt động ổn định, dễ sử dụng",
+      "okay": "Ổn - Có thể sử dụng nhưng không mượt mà",
+      "needsImprovement": "Cần cải thiện - Hoạt động không mượt mà",
+      "notGood": "Không tốt - Vẫn còn nhiều điều cần tối ưu"
+    }
+  },
+  "testimonial": {
+    "fallback": {
+      "reviewerName": "Khách hàng",
+      "content": "Đang tải đánh giá...",
+      "address": "Đang cập nhật"
+    },
+    "defaults": {
+      "anonymous": "Ẩn danh",
+      "noContent": "Chưa có nội dung đánh giá.",
+      "noAddress": "Chưa cập nhật địa chỉ"
+    }
+  },
+  "chatBot": {
+    "greeting": "Packbot xin chào",
+    "greetingIntro": "Tôi là Packbot.",
+    "greetingSuggest": "Tôi sẽ gợi ý loại mặt nạ phù hợp cho bạn.",
+    "startSurvey": "Bắt đầu khảo sát",
+    "restartSurvey": "Làm lại khảo sát",
+    "registerTrial": "Đăng ký dùng thử",
+    "buyNow": "Mua ngay",
+    "active": "Đang hoạt động",
+    "featureInDevelopment": "Tính năng đang được phát triển. Vui lòng quay lại sau.",
+    "selectOneAnswer": "(Hãy chọn 1 đáp án)",
+    "selectMultipleAnswers": "(Hãy chọn 1 hoặc nhiều đáp án)",
+    "confirm": "Xác nhận"
+  },
+  "PolicyPage": {
+    "title": "Chính sách sử dụng App M4U"
   }
 }

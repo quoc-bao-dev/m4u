@@ -1,26 +1,31 @@
-import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import { ReactNode } from 'react';
-import './globals.css';
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { ReactNode } from 'react'
+
+import { SafeView } from '@/core/components'
+import './globals.css'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
-});
+})
 
 export const metadata: Metadata = {
   title: 'M4U App',
   description: 'Multi-language application with next-intl',
-};
+  verification: {
+    google: '2DKJdzK0qJc_-QS5Uwp_L15Eh7zR2eYtJaLQ2VypI_8',
+  },
+}
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 // Root layout - chứa html và body
 export default function RootLayout({ children }: Props) {
@@ -28,9 +33,13 @@ export default function RootLayout({ children }: Props) {
     <html suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+        style={{
+          backgroundColor: 'rgb(255, 255, 255)',
+        }}
       >
-        {children}
+        <SafeView>{children}</SafeView>
       </body>
     </html>
-  );
+  )
 }

@@ -1,0 +1,22 @@
+/* Custom scrollbar styles */
+.notificationScroll {
+  scrollbar-width: thin;
+  scrollbar-color: #F2DFFF transparent;
+}
+
+.notificationScroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notificationScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notificationScroll::-webkit-scrollbar-thumb {
+  background-color: #F2DFFF;
+  border-radius: 3px;
+}
+
+.notificationScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #E8C7FF;
+}

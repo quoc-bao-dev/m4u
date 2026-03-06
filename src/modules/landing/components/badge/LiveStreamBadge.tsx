@@ -1,13 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 const LiveStreamBadge = () => {
+  const t = useTranslations('hero.liveStream')
   return (
     <div className="relative inline-block">
       {/* Hiệu ứng bum bum - lớp màu đỏ mờ lan rộng và biến mất */}
       <motion.div
-        className="absolute inset-0 rounded-2xl bg-red-500/60"
+        className="absolute inset-0 rounded-2xl bg-red-500/80"
         animate={{
           scaleX: [1, 1.2],
           scaleY: [1, 1.6],
@@ -26,14 +28,29 @@ const LiveStreamBadge = () => {
       />
 
       {/* Nội dung badge - kích thước cố định */}
-      <div className="relative z-10 flex items-center rounded-2xl overflow-hidden">
-        <div className="py-3 px-5 bg-red-500 text-white text-[18px]">LIVE</div>
-        <div className="py-3 px-5 bg-gray-900 text-white text-[18px] flex items-center gap-2">
+      <div className="relative z-10 flex items-center rounded-md md:rounded-xl overflow-hidden">
+        <div className="flex items-center gap-2 py-1 md:py-2 px-3 md:px-5 bg-red-500 text-white text-xs md:text-[18px] font-medium">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M30 4.5C30.7569 4.49976 31.4859 4.78561 32.0408 5.30025C32.5958 5.81488 32.9357 6.52027 32.9925 7.275L33 7.5V28.5C33.0002 29.2569 32.7144 29.9858 32.1998 30.5408C31.6851 31.0958 30.9797 31.4357 30.225 31.4925L30 31.5H6C5.24314 31.5002 4.51415 31.2144 3.95918 30.6998C3.40421 30.1851 3.06427 29.4797 3.0075 28.725L3 28.5V7.5C2.99976 6.74314 3.28561 6.01415 3.80025 5.45918C4.31488 4.90421 5.02027 4.56427 5.775 4.5075L6 4.5H30ZM30 7.5H6V28.5H30V7.5ZM15.51 11.457L16.287 11.802L16.794 12.042L17.3745 12.327L18.0195 12.654L18.7245 13.029L19.485 13.449L19.884 13.677L20.661 14.1345L21.372 14.5725L22.017 14.982L22.587 15.3615L23.307 15.8565L23.853 16.251L23.9955 16.356C24.227 16.5283 24.415 16.7522 24.5445 17.0101C24.6741 17.2679 24.7415 17.5525 24.7415 17.841C24.7415 18.1295 24.6741 18.4141 24.5445 18.6719C24.415 18.9298 24.227 19.1537 23.9955 19.326L23.511 19.6785L22.851 20.1405L22.317 20.499L21.7095 20.8935L21.03 21.318L20.2815 21.768L19.4805 22.2315L18.717 22.6545L18.0105 23.0295L17.3655 23.3595L16.7865 23.6415L15.8535 24.0735L15.5085 24.2235C15.2436 24.3376 14.9558 24.3883 14.6679 24.3714C14.3799 24.3546 14.0999 24.2707 13.8502 24.1265C13.6004 23.9822 13.3879 23.7816 13.2294 23.5406C13.0709 23.2996 12.971 23.025 12.9375 22.7385L12.8505 21.891L12.8025 21.33L12.7395 20.334L12.705 19.572L12.6825 18.7395L12.6765 18.2985L12.6735 17.841C12.6735 17.531 12.6765 17.231 12.6825 16.941L12.705 16.1085L12.7395 15.348L12.78 14.6625L12.825 14.061L12.9375 12.945C12.9708 12.6582 13.0706 12.3832 13.2291 12.1419C13.3875 11.9005 13.6002 11.6996 13.8501 11.555C14.1 11.4105 14.3802 11.3263 14.6684 11.3093C14.9566 11.2923 15.2448 11.3429 15.51 11.457ZM16.4265 15.2085L15.7725 14.8815L15.729 15.612L15.696 16.4385L15.6765 17.3535L15.6735 17.841L15.6765 18.3285L15.696 19.242L15.711 19.6665L15.75 20.4465L15.7725 20.799L16.4235 20.472L17.154 20.088L17.9565 19.647L18.3825 19.404L19.209 18.915L19.95 18.456L20.604 18.036L20.898 17.841L20.2875 17.436L19.5885 16.995C19.1908 16.7488 18.7892 16.5087 18.384 16.275L17.9595 16.0335L17.1585 15.5925L16.4265 15.2085Z"
+              fill="white"
+            />
+          </svg>{' '}
+          <p>{t('videoReview')}</p>
+        </div>
+        {/* <div className="py-1 md:py-2 px-3 md:px-5 bg-gray-900 text-white text-xs md:text-[18px] flex items-center gap-2">
           <p className="">69</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="26"
+            className="size-4 md:size-6"
             viewBox="0 0 34 26"
             fill="none"
           >
@@ -42,7 +59,7 @@ const LiveStreamBadge = () => {
               fill="white"
             />
           </svg>
-        </div>
+        </div> */}
       </div>
     </div>
   )
